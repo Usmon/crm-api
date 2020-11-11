@@ -1,0 +1,61 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespacedModel }};
+use {{ rootNamespace }}Http\Controllers\Controller;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
+final class {{ class }} extends Controller
+{
+    /**
+     * @return Response
+     */
+    public function index(): Response
+    {
+        //
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function store(Request $request): Response
+    {
+        //
+    }
+
+    /**
+     * @param {{ model }} ${{ modelVariable }}
+     *
+     * @return Response
+     */
+    public function show({{ model }} ${{ modelVariable }}): Response
+    {
+        //
+    }
+
+    /**
+     * @param Request $request
+     * @param {{ model }} ${{ modelVariable }}
+     *
+     * @return Response
+     */
+    public function update(Request $request, {{ model }} ${{ modelVariable }}): Response
+    {
+        //
+    }
+
+    /**
+     * @param {{ namespacedModel }} ${{ modelVariable }}
+     *
+     * @return Response
+     */
+    public function destroy({{ model }} ${{ modelVariable }}): Response
+    {
+        //
+    }
+}

@@ -1,0 +1,58 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespacedModel }};
+
+final class {{ class }}
+{
+    /**
+     * @param {{ model }} ${{ modelVariable }}
+     *
+     * @return void
+     */
+    public function creating({{ model }} ${{ modelVariable }}): void
+    {
+        //
+    }
+
+    /**
+     * @param {{ model }} ${{ modelVariable }}
+     *
+     * @return void
+     */
+    public function updating({{ model }} ${{ modelVariable }}): void
+    {
+        //
+    }
+
+    /**
+     * @param {{ model }} ${{ modelVariable }}
+     *
+     * @return void
+     */
+    public function deleting({{ model }} ${{ modelVariable }}): void
+    {
+        //
+    }
+
+    /**
+     * @param {{ model }} ${{ modelVariable }}
+     *
+     * @return void
+     */
+    public function restoring({{ model }} ${{ modelVariable }}): void
+    {
+        //
+    }
+
+    /**
+     * @param {{ model }} ${{ modelVariable }}
+     *
+     * @return void
+     */
+    public function forceDeleting({{ model }} ${{ modelVariable }}): void
+    {
+        //
+    }
+}

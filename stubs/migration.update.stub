@@ -1,0 +1,33 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+final class {{ class }} extends Migration
+{
+    /**
+     * @var string
+     */
+    protected $table = '{{ table }}';
+
+    /**
+     * @return void
+     */
+    public function up(): void
+    {
+        Schema::table($this->table, function (Blueprint $table) {
+            //
+        });
+    }
+
+    /**
+     * @return void
+     */
+    public function down(): void
+    {
+        Schema::table($this->table, function (Blueprint $table) {
+            //
+        });
+    }
+}

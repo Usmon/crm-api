@@ -1,0 +1,87 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespacedUserModel }};
+use {{ namespacedModel }};
+use Illuminate\Auth\Access\HandlesAuthorization;
+
+final class {{ class }}
+{
+    use HandlesAuthorization;
+
+    /**
+     * @param {{ user }} $user
+     *
+     * @return mixed
+     */
+    public function viewAny({{ user }} $user)
+    {
+        //
+    }
+
+    /**
+     * @param {{ user }} $user
+     * @param {{ model }} ${{ modelVariable }}
+     *
+     * @return mixed
+     */
+    public function view({{ user }} $user, {{ model }} ${{ modelVariable }})
+    {
+        //
+    }
+
+    /**
+     * @param {{ user }} $user
+     *
+     * @return mixed
+     */
+    public function create({{ user }} $user)
+    {
+        //
+    }
+
+    /**
+     * @param {{ user }} $user
+     * @param {{ model }} ${{ modelVariable }}
+     *
+     * @return mixed
+     */
+    public function update({{ user }} $user, {{ model }} ${{ modelVariable }})
+    {
+        //
+    }
+
+    /**
+     * @param {{ user }} $user
+     * @param {{ model }} ${{ modelVariable }}
+     *
+     * @return mixed
+     */
+    public function delete({{ user }} $user, {{ model }} ${{ modelVariable }})
+    {
+        //
+    }
+
+    /**
+     * @param {{ user }} $user
+     * @param {{ model }} ${{ modelVariable }}
+     *
+     * @return mixed
+     */
+    public function restore({{ user }} $user, {{ model }} ${{ modelVariable }})
+    {
+        //
+    }
+
+    /**
+     * @param {{ user }} $user
+     * @param {{ model }} ${{ modelVariable }}
+     *
+     * @return mixed
+     */
+    public function forceDelete({{ user }} $user, {{ model }} ${{ modelVariable }})
+    {
+        //
+    }
+}
