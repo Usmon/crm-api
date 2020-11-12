@@ -25,7 +25,7 @@ final class Handler extends Exceptions
     public function render($request, Throwable $e)
     {
         if ($e instanceof ValidationException) {
-            return Json::sendResponseWith422([
+            return Json::sendJsonWith422([
                 'errors' => $e->errors(),
             ]);
         }
