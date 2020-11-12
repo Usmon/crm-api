@@ -3,7 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Support\Carbon;
+
 use Illuminate\Database\Eloquent\Model;
+
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -17,6 +20,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
+ *
+ * @property-read User $user
  *
  * @mixin Model
  */
@@ -51,4 +56,22 @@ final class Token extends Model
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
     ];
+
+    /**
+     * @var array
+     */
+    public const DEFAULT_DEVICE = [
+        'ip' => null,
+        'os' => null,
+        'type' => null,
+        'name' => null,
+    ];
+
+    /**
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

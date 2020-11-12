@@ -90,31 +90,6 @@ final class PermissionSeeder extends Seeder
                 'description' => 'Permission for user delete.',
             ],
             [
-                'name' => 'Token view',
-                'slug' => Str::slug('Token view'),
-                'description' => 'Permission for token view.',
-            ],
-            [
-                'name' => 'Token create',
-                'slug' => Str::slug('Token create'),
-                'description' => 'Permission for token create.',
-            ],
-            [
-                'name' => 'Token read',
-                'slug' => Str::slug('Token read'),
-                'description' => 'Permission for token read.',
-            ],
-            [
-                'name' => 'Token update',
-                'slug' => Str::slug('Token update'),
-                'description' => 'Permission for token update.',
-            ],
-            [
-                'name' => 'Token delete',
-                'slug' => Str::slug('Token delete'),
-                'description' => 'Permission for token delete.',
-            ],
-            [
                 'name' => 'Role view',
                 'slug' => Str::slug('Role view'),
                 'description' => 'Permission for role view.',
@@ -138,81 +113,6 @@ final class PermissionSeeder extends Seeder
                 'name' => 'Role delete',
                 'slug' => Str::slug('Role delete'),
                 'description' => 'Permission for role delete.',
-            ],
-            [
-                'name' => 'Permission view',
-                'slug' => Str::slug('Permission view'),
-                'description' => 'Permission for permission view.',
-            ],
-            [
-                'name' => 'Permission create',
-                'slug' => Str::slug('Permission create'),
-                'description' => 'Permission for permission create.',
-            ],
-            [
-                'name' => 'Permission read',
-                'slug' => Str::slug('Permission read'),
-                'description' => 'Permission for permission read.',
-            ],
-            [
-                'name' => 'Permission update',
-                'slug' => Str::slug('Permission update'),
-                'description' => 'Permission for permission update.',
-            ],
-            [
-                'name' => 'Permission delete',
-                'slug' => Str::slug('Permission delete'),
-                'description' => 'Permission for permission delete.',
-            ],
-            [
-                'name' => 'User role view',
-                'slug' => Str::slug('User role view'),
-                'description' => 'Permission for user role view.',
-            ],
-            [
-                'name' => 'User role create',
-                'slug' => Str::slug('User role create'),
-                'description' => 'Permission for user role create.',
-            ],
-            [
-                'name' => 'User role read',
-                'slug' => Str::slug('User role read'),
-                'description' => 'Permission for user role read.',
-            ],
-            [
-                'name' => 'User role update',
-                'slug' => Str::slug('User role update'),
-                'description' => 'Permission for user role update.',
-            ],
-            [
-                'name' => 'User role delete',
-                'slug' => Str::slug('User role delete'),
-                'description' => 'Permission for user role delete.',
-            ],
-            [
-                'name' => 'Role permission view',
-                'slug' => Str::slug('Role permission view'),
-                'description' => 'Permission for user role view.',
-            ],
-            [
-                'name' => 'Role permission create',
-                'slug' => Str::slug('Role permission create'),
-                'description' => 'Permission for user role create.',
-            ],
-            [
-                'name' => 'Role permission read',
-                'slug' => Str::slug('Role permission read'),
-                'description' => 'Permission for user role read.',
-            ],
-            [
-                'name' => 'Role permission update',
-                'slug' => Str::slug('Role permission update'),
-                'description' => 'Permission for user role update.',
-            ],
-            [
-                'name' => 'Role permission delete',
-                'slug' => Str::slug('Role permission delete'),
-                'description' => 'Permission for user role delete.',
             ],
         ]);
     }

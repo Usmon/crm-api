@@ -3,7 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Support\Carbon;
+
 use App\Models\Foundation\Auth;
+
+use Illuminate\Database\Eloquent\Collection;
+
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -20,6 +27,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
+ *
+ * @property-read Collection|Role[] $roles
+ * @property-read Collection|Token[] $tokens
  *
  * @mixin User
  */
@@ -68,4 +78,30 @@ final class User extends Auth
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
     ];
+
+    /**
+     * @var array
+     */
+    public const DEFAULT_PROFILE = [
+        'first_name'=> null,
+        'middle_name' => null,
+        'last_name' => null,
+        'photo' => null,
+    ];
+
+    /**
+     * @return BelongsToMany
+     */
+    public function roles(): BelongsToMany
+    {
+        return $this->belongsToMany(Role::class, 'user_role');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function tokens(): HasMany
+    {
+        return $this->hasMany(Token::class);
+    }
 }

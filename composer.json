@@ -5,13 +5,14 @@
     "description": "The private project.",
     "require": {
         "php": "^7.3",
+        "ext-pdo": "*",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.5",
+        "jenssegers/agent": "^2.6",
         "laravel/framework": "^8.14",
-        "laravel/tinker": "^2.5",
-        "ext-pdo": "*"
+        "laravel/tinker": "^2.5"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

@@ -17,8 +17,6 @@ final class CreateRolePermissionTable extends Migration
     public function up(): void
     {
         Schema::create($this->table, function (Blueprint $table) {
-            $table->bigIncrements('id');
-
             $table->unsignedBigInteger('role_id');
             $table->unsignedBigInteger('permission_id');
 

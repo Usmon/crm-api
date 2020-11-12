@@ -8,7 +8,6 @@ use App\Http\Middleware\TrimStrings;
 use App\Http\Middleware\TrustProxies;
 
 use Illuminate\Auth\Middleware\Authorize;
-use Illuminate\Routing\Middleware\ThrottleRequests;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 
 use Illuminate\Foundation\Http\Kernel as Http;
@@ -38,7 +37,6 @@ final class Kernel extends Http
     protected $middlewareGroups = [
         'api' => [
             'bindings',
-            'throttle:api',
         ],
     ];
 
@@ -50,6 +48,5 @@ final class Kernel extends Http
         'can' => Authorize::class,
         'guest' => Guest::class,
         'bindings' => SubstituteBindings::class,
-        'throttle' => ThrottleRequests::class,
     ];
 }
