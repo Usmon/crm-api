@@ -2,10 +2,10 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\Auth;
+use App\Http\Middleware\Guest;
 use App\Http\Middleware\TrimStrings;
 use App\Http\Middleware\TrustProxies;
-use App\Http\Middleware\Authenticate;
-use App\Http\Middleware\RedirectIfAuthenticated;
 
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Routing\Middleware\ThrottleRequests;
@@ -46,9 +46,9 @@ final class Kernel extends Http
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => Authenticate::class,
+        'auth' => Auth::class,
         'can' => Authorize::class,
-        'guest' => RedirectIfAuthenticated::class,
+        'guest' => Guest::class,
         'bindings' => SubstituteBindings::class,
         'throttle' => ThrottleRequests::class,
     ];

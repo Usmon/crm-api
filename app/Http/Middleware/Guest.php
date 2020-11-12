@@ -7,22 +7,21 @@ use Closure;
 use App\Helper\Json;
 
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Auth\Factory;
 
-use Illuminate\Contracts\Auth\Factory as Auth;
-
-final class Authenticate
+final class Guest
 {
     /**
-     * @var Auth
+     * @var Factory
      */
     protected $auth;
 
     /**
-     * @param Auth $auth
+     * @param Factory $auth
      *
      * @return void
      */
-    public function __construct(Auth $auth)
+    public function __construct(Factory $auth)
     {
         $this->auth = $auth;
     }
@@ -39,9 +38,9 @@ final class Authenticate
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
-            if ($this->auth->guard($guard)->guest()) {
-                return Json::sendJsonWith401([
-                    'message' => 'You are not authorized.',
+            if ($this->auth->guard($guard)->check()) {
+                return Json::sendJsonWith400([
+                    'message' => 'You are already authorized.',
                 ]);
             }
         }

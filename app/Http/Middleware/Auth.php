@@ -7,24 +7,23 @@ use Closure;
 use App\Helper\Json;
 
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Auth\Factory;
 
-use Illuminate\Contracts\Auth\Factory as Auth;
-
-final class RedirectIfAuthenticated
+final class Auth
 {
     /**
-     * @var Auth
+     * @var Factory
      */
-    protected $auth;
+    protected $factory;
 
     /**
-     * @param Auth $auth
+     * @param Factory $factory
      *
      * @return void
      */
-    public function __construct(Auth $auth)
+    public function __construct(Factory $factory)
     {
-        $this->auth = $auth;
+        $this->factory = $factory;
     }
 
     /**
@@ -39,9 +38,9 @@ final class RedirectIfAuthenticated
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
-            if ($this->auth->guard($guard)->check()) {
-                return Json::sendJsonWith400([
-                    'message' => 'You are already authorized.',
+            if ($this->factory->guard($guard)->guest()) {
+                return Json::sendJsonWith401([
+                    'message' => 'You are not authorized.',
                 ]);
             }
         }
