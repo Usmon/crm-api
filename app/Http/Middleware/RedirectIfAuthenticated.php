@@ -4,8 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 
+use App\Helper\Json;
+
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
 
 use Illuminate\Contracts\Auth\Factory as Auth;
 
@@ -39,10 +40,9 @@ final class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if ($this->auth->guard($guard)->check()) {
-                return Response::json([
-                    'success' => false,
-                    'message' => 'Bad request.',
-                ], 400);
+                return Json::sendJsonWith400([
+                    'message' => 'You are already authorized.',
+                ]);
             }
         }
 

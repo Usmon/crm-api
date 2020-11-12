@@ -4,8 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 
+use App\Helper\Json;
+
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
 
 use Illuminate\Contracts\Auth\Factory as Auth;
 
@@ -39,10 +40,9 @@ final class Authenticate
 
         foreach ($guards as $guard) {
             if ($this->auth->guard($guard)->guest()) {
-                return Response::json([
-                    'success' => false,
-                    'message' => 'Unauthorized.',
-                ], 401);
+                return Json::sendJsonWith401([
+                    'message' => 'You are not authorized.',
+                ]);
             }
         }
 
