@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Support\Carbon;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,6 +23,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Carbon|null $deleted_at
  *
  * @property-read User $user
+ *
+ * @method static Builder|self findByValue(string $value)
  *
  * @mixin Model
  */
@@ -73,5 +76,16 @@ final class Token extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * @param Builder $query
+     * @param string $value
+     *
+     * @return Builder
+     */
+    public function scopeFindByValue(Builder $query, string $value): Builder
+    {
+        return $query->where('value', '=', $value);
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Support\Carbon;
 
 use App\Models\Foundation\Auth;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -31,7 +32,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property-read Collection|Role[] $roles
  * @property-read Collection|Token[] $tokens
  *
- * @mixin User
+ * @method static Builder|self findByLogin(string $login)
+ *
+ * @mixin Auth
  */
 final class User extends Auth
 {
@@ -103,5 +106,16 @@ final class User extends Auth
     public function tokens(): HasMany
     {
         return $this->hasMany(Token::class);
+    }
+
+    /**
+     * @param Builder $query
+     * @param string $login
+     *
+     * @return Builder
+     */
+    public function scopeFindByLogin(Builder $query, string $login): Builder
+    {
+        return $query->where('login', '=', $login);
     }
 }

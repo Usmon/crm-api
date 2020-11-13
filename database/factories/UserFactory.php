@@ -27,7 +27,7 @@ final class UserFactory extends Factory
                 'first_name' => $this->faker->firstName,
                 'middle_name' => $this->faker->domainName,
                 'last_name' => $this->faker->lastName,
-                'photo' => 'users/' . $this->faker->image('public/storage/users', 300, 300, null, false, true, null),
+                'photo' => null,
             ],
         ];
     }
