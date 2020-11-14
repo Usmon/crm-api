@@ -19,11 +19,6 @@ use Jenssegers\Agent\Agent;
 final class Login extends Controller
 {
     /**
-     * @var Agent
-     */
-    protected $agent;
-
-    /**
      * @var LoginService
      */
     protected $service;
@@ -35,8 +30,6 @@ final class Login extends Controller
      */
     public function __construct(LoginService $service)
     {
-        $this->agent = new Agent;
-
         $this->service = $service;
 
         $this->middleware('guest:api');
@@ -55,13 +48,15 @@ final class Login extends Controller
             return Json::sendJsonWith422([
                 'errors' => [
                     'login' => [
-                        'These credentials do not match our records.'
+                        'The provided login was not found.'
                     ],
                 ],
             ]);
         }
 
-        if (! Hash::check($request->json('password'), $user->password)) {
+        $check = Hash::check($request->json('password'), $user->password);
+
+        if (! $check) {
             return Json::sendJsonWith422([
                 'errors' => [
                     'password' => [
@@ -71,22 +66,13 @@ final class Login extends Controller
             ]);
         }
 
-        $this->agent->setUserAgent($request->headers->get('User-Agent'));
-
-        $device = [
-            'ip' => $request->getClientIp(),
-            'os' => $this->agent->platform(),
-            'type' => $this->agent->deviceType(),
-            'name' => $this->agent->browser() ?? $this->agent->device(),
-        ];
-
-        $token = $this->service->createTokenForUser($user, $device);
+        $token = $this->service->createTokenForUser($user, $this->createDevice($request));
 
         if (! $token) {
             return Json::sendJsonWith422([
                 'errors' => [
-                    'login' => [
-                        'Failed to create token, please try again later.',
+                    'token' => [
+                        'Failed to create a token, please try again later.',
                     ],
                 ],
             ]);
@@ -95,5 +81,24 @@ final class Login extends Controller
         return Json::sendJsonWith200([
             'token' => $token,
         ]);
+    }
+
+    /**
+     * @param LoginRequest $request
+     *
+     * @return array
+     */
+    protected function createDevice(LoginRequest $request): array
+    {
+        $agent = new Agent;
+
+        $agent->setUserAgent($request->userAgent());
+
+        return [
+            'ip' => $request->ip(),
+            'os' => $agent->platform(),
+            'type' => $agent->deviceType(),
+            'name' => $agent->browser() ?? $agent->device(),
+        ];
     }
 }

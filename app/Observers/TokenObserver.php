@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Token;
+
 use Illuminate\Support\Carbon;
 
 final class TokenObserver

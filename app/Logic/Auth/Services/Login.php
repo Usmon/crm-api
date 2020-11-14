@@ -3,6 +3,7 @@
 namespace App\Logic\Auth\Services;
 
 use App\Models\User;
+
 use App\Logic\Auth\Contracts\Login as LoginContract;
 
 final class Login

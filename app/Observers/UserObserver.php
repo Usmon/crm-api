@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\User;
+
 use Illuminate\Support\Carbon;
 
 final class UserObserver

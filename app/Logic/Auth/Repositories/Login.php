@@ -3,7 +3,9 @@
 namespace App\Logic\Auth\Repositories;
 
 use App\Models\User;
+
 use Illuminate\Support\Str;
+
 use App\Logic\Auth\Contracts\Login as LoginContract;
 
 final class Login implements LoginContract

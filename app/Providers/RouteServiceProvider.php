@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Route;
+
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 final class RouteServiceProvider extends ServiceProvider

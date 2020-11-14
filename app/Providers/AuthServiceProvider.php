@@ -7,6 +7,7 @@ use App\Models\Token;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Carbon;
+
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;

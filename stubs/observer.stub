@@ -45,14 +45,4 @@ final class {{ class }}
     {
         //
     }
-
-    /**
-     * @param {{ model }} ${{ modelVariable }}
-     *
-     * @return void
-     */
-    public function forceDeleting({{ model }} ${{ modelVariable }}): void
-    {
-        //
-    }
 }

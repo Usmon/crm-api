@@ -3,7 +3,9 @@
 namespace App\Observers;
 
 use App\Models\Role;
+
 use Illuminate\Support\Str;
+
 use Illuminate\Support\Carbon;
 
 final class RoleObserver

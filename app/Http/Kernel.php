@@ -3,16 +3,23 @@
 namespace App\Http;
 
 use App\Http\Middleware\Auth;
+
 use App\Http\Middleware\Guest;
+
 use App\Http\Middleware\TrimStrings;
+
 use App\Http\Middleware\TrustProxies;
 
 use Illuminate\Auth\Middleware\Authorize;
+
 use Illuminate\Routing\Middleware\SubstituteBindings;
 
 use Illuminate\Foundation\Http\Kernel as Http;
+
 use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
+
 use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
+
 use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance;
 
 use Fruitcake\Cors\HandleCors;

@@ -3,11 +3,15 @@
 namespace App\Providers;
 
 use App\Logic\Auth\Contracts\Login as AuthLoginContract;
+
 use App\Logic\Auth\Contracts\Logout as AuthLogoutContract;
+
 use App\Logic\Auth\Contracts\Register as AuthRegisterContract;
 
 use App\Logic\Auth\Repositories\Login as AuthLoginRepository;
+
 use App\Logic\Auth\Repositories\Logout as AuthLogoutRepository;
+
 use App\Logic\Auth\Repositories\Register as AuthRegisterRepository;
 
 use Illuminate\Support\ServiceProvider;

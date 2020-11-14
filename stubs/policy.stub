@@ -73,15 +73,4 @@ final class {{ class }}
     {
         //
     }
-
-    /**
-     * @param {{ user }} $user
-     * @param {{ model }} ${{ modelVariable }}
-     *
-     * @return mixed
-     */
-    public function forceDelete({{ user }} $user, {{ model }} ${{ modelVariable }})
-    {
-        //
-    }
 }
