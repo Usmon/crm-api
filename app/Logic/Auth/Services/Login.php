@@ -28,9 +28,9 @@ final class Login
      *
      * @return User|null
      */
-    public function getUserByLogin(string $login): ?User
+    public function getUser(string $login): ?User
     {
-        return $this->repository->getUserByLogin($login);
+        return $this->repository->getUser($login);
     }
 
     /**
@@ -40,8 +40,8 @@ final class Login
      *
      * @return string|null
      */
-    public function createTokenForUser(User $user, array $device): ?string
+    public function createToken(User $user, array $device): ?string
     {
-        return $this->repository->createTokenForUser($user, $device);
+        return $this->repository->createToken($user, $device);
     }
 }
