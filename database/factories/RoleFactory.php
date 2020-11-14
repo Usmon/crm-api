@@ -3,7 +3,9 @@
 namespace Database\Factories;
 
 use App\Models\Role;
+
 use Illuminate\Support\Str;
+
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 final class RoleFactory extends Factory
@@ -20,7 +22,9 @@ final class RoleFactory extends Factory
     {
         return [
             'name' => 'Test',
+
             'slug' => Str::slug('Test'),
+
             'description' => 'Test role description.',
         ];
     }

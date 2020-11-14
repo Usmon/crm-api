@@ -8,6 +8,7 @@ trait Authorizable
 {
     /**
      * @param iterable|string $abilities
+     *
      * @param array|mixed $arguments
      *
      * @return bool
@@ -19,6 +20,7 @@ trait Authorizable
 
     /**
      * @param iterable|string $abilities
+     *
      * @param array|mixed $arguments
      *
      * @return bool
@@ -30,6 +32,7 @@ trait Authorizable
 
     /**
      * @param iterable|string $abilities
+     *
      * @param array|mixed $arguments
      *
      * @return bool
@@ -41,6 +44,7 @@ trait Authorizable
 
     /**
      * @param iterable|string $abilities
+     *
      * @param array|mixed $arguments
      *
      * @return bool

@@ -28,6 +28,7 @@ final class Login implements LoginContract
 
     /**
      * @param User $user
+     *
      * @param array $device
      *
      * @return string|null
@@ -36,6 +37,7 @@ final class Login implements LoginContract
     {
         $token = $user->tokens()->create([
             'value' => hash('sha256', $user->id . $user->login . $user->email . Str::random(40)),
+
             'device' => $device,
         ]);
 

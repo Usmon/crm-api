@@ -20,18 +20,29 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * App\Models\User
  *
  * @property int $id
+ *
  * @property string $login
+ *
  * @property string $email
+ *
  * @property string $password
+ *
  * @property array $profile
+ *
  * @property string|null $reset_token
+ *
  * @property string|null $verify_token
+ *
  * @property string|null $remember_token
+ *
  * @property Carbon|null $created_at
+ *
  * @property Carbon|null $updated_at
+ *
  * @property Carbon|null $deleted_at
  *
  * @property-read Collection|Role[] $roles
+ *
  * @property-read Collection|Token[] $tokens
  *
  * @method static Builder|self findByLogin(string $login)
@@ -52,8 +63,11 @@ final class User extends Auth
      */
     protected $fillable = [
         'login',
+
         'email',
+
         'password',
+
         'profile',
     ];
 
@@ -62,8 +76,11 @@ final class User extends Auth
      */
     protected $hidden = [
         'password',
+
         'reset_token',
+
         'verify_token',
+
         'remember_token',
     ];
 
@@ -72,15 +89,25 @@ final class User extends Auth
      */
     protected $casts = [
         'id' => 'integer',
+
         'login' => 'string',
+
         'email' => 'string',
+
         'password' => 'string',
+
         'profile' => 'array',
+
         'reset_token' => 'string',
+
         'verify_token' => 'string',
+
         'remember_token' => 'string',
+
         'created_at' => 'datetime',
+
         'updated_at' => 'datetime',
+
         'deleted_at' => 'datetime',
     ];
 
@@ -89,8 +116,11 @@ final class User extends Auth
      */
     public const DEFAULT_PROFILE = [
         'first_name'=> null,
+
         'middle_name' => null,
+
         'last_name' => null,
+
         'photo' => null,
     ];
 
@@ -112,6 +142,7 @@ final class User extends Auth
 
     /**
      * @param Builder $query
+     *
      * @param string $login
      *
      * @return Builder

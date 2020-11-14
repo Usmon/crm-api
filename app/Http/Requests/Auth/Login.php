@@ -21,11 +21,15 @@ final class Login extends FormRequest
     {
         return [
             'login' => [
-                'required', 'string',
+                'required',
+
+                'string',
             ],
 
             'password' => [
-                'required', 'string',
+                'required',
+
+                'string',
             ],
         ];
     }

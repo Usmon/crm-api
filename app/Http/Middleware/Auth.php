@@ -29,7 +29,9 @@ final class Auth
 
     /**
      * @param Request $request
+     *
      * @param Closure $next
+     *
      * @param string|null ...$guards
      *
      * @return mixed

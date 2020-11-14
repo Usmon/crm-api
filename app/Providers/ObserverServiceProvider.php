@@ -28,8 +28,11 @@ final class ObserverServiceProvider extends ServiceProvider
     public function boot(): void
     {
         User::observe(UserObserver::class);
+
         Role::observe(RoleObserver::class);
+
         Token::observe(TokenObserver::class);
+
         Permission::observe(PermissionObserver::class);
     }
 }

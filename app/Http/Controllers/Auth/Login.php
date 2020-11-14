@@ -96,8 +96,11 @@ final class Login extends Controller
 
         return [
             'ip' => $request->ip(),
+
             'os' => $agent->platform(),
+
             'type' => $agent->deviceType(),
+
             'name' => $agent->browser() ?? $agent->device(),
         ];
     }

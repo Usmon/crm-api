@@ -3,7 +3,9 @@
 namespace Database\Factories;
 
 use App\Models\Permission;
+
 use Illuminate\Support\Str;
+
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 final class PermissionFactory extends Factory
@@ -20,7 +22,9 @@ final class PermissionFactory extends Factory
     {
         return [
             'name' => 'Test',
+
             'slug' => Str::slug('Test'),
+
             'description' => 'Test permission description.',
         ];
     }

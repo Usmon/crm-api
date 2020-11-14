@@ -31,10 +31,15 @@ final class Kernel extends Http
      */
     protected $middleware = [
         TrustProxies::class,
+
         HandleCors::class,
+
         PreventRequestsDuringMaintenance::class,
+
         ValidatePostSize::class,
+
         TrimStrings::class,
+
         ConvertEmptyStringsToNull::class,
     ];
 
@@ -52,8 +57,11 @@ final class Kernel extends Http
      */
     protected $routeMiddleware = [
         'auth' => Auth::class,
+
         'can' => Authorize::class,
+
         'guest' => Guest::class,
+
         'bindings' => SubstituteBindings::class,
     ];
 }

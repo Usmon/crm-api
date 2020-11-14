@@ -16,12 +16,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * App\Models\Token
  *
  * @property int $id
+ *
  * @property string $value
+ *
  * @property array $device
+ *
  * @property int $user_id
+ *
  * @property Carbon|null $used_at
+ *
  * @property Carbon|null $created_at
+ *
  * @property Carbon|null $updated_at
+ *
  * @property Carbon|null $deleted_at
  *
  * @property-read User $user
@@ -44,8 +51,11 @@ final class Token extends Model
      */
     protected $fillable = [
         'value',
+
         'device',
+
         'user_id',
+
         'used_at',
     ];
 
@@ -54,11 +64,17 @@ final class Token extends Model
      */
     protected $casts = [
         'id' => 'integer',
+
         'value' => 'string',
+
         'device' => 'array',
+
         'used_at' => 'datetime',
+
         'created_at' => 'datetime',
+
         'updated_at' => 'datetime',
+
         'deleted_at' => 'datetime',
     ];
 
@@ -67,8 +83,11 @@ final class Token extends Model
      */
     public const DEFAULT_DEVICE = [
         'ip' => null,
+
         'os' => null,
+
         'type' => null,
+
         'name' => null,
     ];
 
@@ -82,6 +101,7 @@ final class Token extends Model
 
     /**
      * @param Builder $query
+     *
      * @param string $value
      *
      * @return Builder

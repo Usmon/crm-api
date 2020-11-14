@@ -16,6 +16,7 @@ final class App extends Controller
         return Json::sendJsonWith200([
             'app' => [
                 'name' => config('app.name'),
+
                 'version' => config('app.version'),
             ],
         ]);

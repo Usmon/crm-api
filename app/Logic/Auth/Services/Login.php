@@ -35,6 +35,7 @@ final class Login
 
     /**
      * @param User $user
+     *
      * @param array $device
      *
      * @return string|null

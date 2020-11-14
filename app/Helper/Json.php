@@ -70,7 +70,9 @@ final class Json
 
     /**
      * @param array $data
+     *
      * @param int $status
+     *
      * @param bool $success
      *
      * @return JsonResponse
@@ -79,6 +81,7 @@ final class Json
     {
         $response = [
             'success' => $success,
+
             'data' => $data ?? [],
         ];
 

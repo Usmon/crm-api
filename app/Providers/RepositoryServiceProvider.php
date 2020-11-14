@@ -24,7 +24,9 @@ final class RepositoryServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(AuthLoginContract::class, AuthLoginRepository::class);
+
         $this->app->bind(AuthLogoutContract::class, AuthLogoutRepository::class);
+
         $this->app->bind(AuthRegisterContract::class, AuthRegisterRepository::class);
     }
 }

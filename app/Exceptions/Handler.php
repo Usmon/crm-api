@@ -18,6 +18,7 @@ final class Handler extends Exceptions
 {
     /**
      * @param Request $request
+     *
      * @param Throwable $e
      *
      * @return Response

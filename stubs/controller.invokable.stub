@@ -3,7 +3,9 @@
 namespace {{ namespace }};
 
 use Illuminate\Http\Request;
+
 use Illuminate\Http\Response;
+
 use {{ rootNamespace }}Http\Controllers\Controller;
 
 final class {{ class }} extends Controller

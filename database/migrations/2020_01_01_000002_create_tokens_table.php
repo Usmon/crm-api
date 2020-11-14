@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Schema;
+
 use Illuminate\Database\Schema\Blueprint;
+
 use Illuminate\Database\Migrations\Migration;
 
 final class CreateTokensTable extends Migration
@@ -26,8 +28,11 @@ final class CreateTokensTable extends Migration
             $table->unsignedBigInteger('user_id');
 
             $table->timestamp('used_at')->nullable();
+
             $table->timestamp('created_at')->nullable();
+
             $table->timestamp('updated_at')->nullable();
+
             $table->timestamp('deleted_at')->nullable();
         });
 
