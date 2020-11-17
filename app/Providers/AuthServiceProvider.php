@@ -47,9 +47,19 @@ final class AuthServiceProvider extends ServiceProvider
                 return null;
             }
 
-            $token->device['ip'] = $request->ip();
+            $token->fill([
+                'device' => [
+                    'ip' => $request->ip(),
 
-            $token->used_at = Carbon::now();
+                    'os' => $token->device['os'],
+
+                    'type' => $token->device['type'],
+
+                    'name' => $token->device['name'],
+                ],
+
+                'used_at' => Carbon::now(),
+            ]);
 
             $token->save();
 
