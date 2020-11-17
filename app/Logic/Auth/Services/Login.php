@@ -4,44 +4,61 @@ namespace App\Logic\Auth\Services;
 
 use App\Models\User;
 
-use App\Logic\Auth\Contracts\Login as LoginContract;
+use App\Logic\Auth\Requests\Login as LoginRequest;
+
+use Illuminate\Support\Facades\Hash;
+
+use Jenssegers\Agent\Agent;
 
 final class Login
 {
     /**
-     * @var LoginContract
-     */
-    protected $repository;
-
-    /**
-     * @param LoginContract $repository
-     *
-     * @return void
-     */
-    public function __construct(LoginContract $repository)
-    {
-        $this->repository = $repository;
-    }
-
-    /**
-     * @param string $login
-     *
-     * @return User|null
-     */
-    public function getUser(string $login): ?User
-    {
-        return $this->repository->getUser($login);
-    }
-
-    /**
      * @param User $user
      *
-     * @param array $device
+     * @param string $password
      *
-     * @return string|null
+     * @return bool
      */
-    public function createToken(User $user, array $device): ?string
+    public function checkPassword(User $user, string $password): bool
     {
-        return $this->repository->createToken($user, $device);
+        return Hash::check($password, $user->password);
+    }
+
+    /**
+     * @param LoginRequest $request
+     *
+     * @return array
+     */
+    public function createDevice(LoginRequest $request): array
+    {
+        $agent = new Agent;
+
+        $agent->setUserAgent($request->userAgent());
+
+        return [
+            'ip' => $request->ip(),
+
+            'os' => $agent->platform(),
+
+            'type' => $agent->deviceType(),
+
+            'name' => $agent->browser() ?? $agent->device(),
+        ];
+    }
+
+    /**
+     * @param LoginRequest $request
+     *
+     * @return array
+     */
+    public function createCredentials(LoginRequest $request): array
+    {
+        return [
+            'login' => $request->json('login'),
+
+            'email' => $request->json('email'),
+
+            'password' => $request->json('password'),
+        ];
     }
 }

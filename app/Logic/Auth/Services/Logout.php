@@ -2,40 +2,29 @@
 
 namespace App\Logic\Auth\Services;
 
-use Exception;
-
 use App\Models\User;
 
-use App\Logic\Auth\Contracts\Logout as LogoutContract;
+use App\Logic\Auth\Requests\Logout as LogoutRequest;
 
 final class Logout
 {
     /**
-     * @var LogoutContract
-     */
-    protected $repository;
-
-    /**
-     * @param LogoutContract $repository
+     * @param LogoutRequest $request
      *
-     * @return void
+     * @return User|null
      */
-    public function __construct(LogoutContract $repository)
+    public function getUser(LogoutRequest $request): ?User
     {
-        $this->repository = $repository;
+        return $request->user() ?? null;
     }
 
     /**
-     * @param User $user
+     * @param LogoutRequest $request
      *
-     * @param string $token
-     *
-     * @return bool
-     *
-     * @throws Exception
+     * @return string|null
      */
-    public function deleteUserToken(User $user, string $token): bool
+    public function getBearerToken(LogoutRequest $request): ?string
     {
-        return $this->repository->deleteUserToken($user, $token);
+        return $request->bearerToken() ?? null;
     }
 }

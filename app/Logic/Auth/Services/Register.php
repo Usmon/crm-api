@@ -2,34 +2,25 @@
 
 namespace App\Logic\Auth\Services;
 
-use App\Models\User;
+use App\Logic\Auth\Requests\Register as RegisterRequest;
 
-use App\Logic\Auth\Contracts\Register as RegisterContract;
+use Illuminate\Support\Facades\Hash;
 
 final class Register
 {
     /**
-     * @var
-     */
-    protected $repository;
-
-    /**
-     * @param RegisterContract $repository
+     * @param RegisterRequest $request
      *
-     * @return void
+     * @return array
      */
-    public function __construct(RegisterContract $repository)
+    public function createCredentials(RegisterRequest $request): array
     {
-        $this->repository = $repository;
-    }
+        return [
+            'login' => $request->json('login'),
 
-    /**
-     * @param array $data
-     *
-     * @return User|null
-     */
-    public function createUser(array $data): ?User
-    {
-        return $this->repository->createUser($data);
+            'email' => $request->json('email'),
+
+            'password' => Hash::make($request->json('password')),
+        ];
     }
 }
