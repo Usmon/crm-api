@@ -15,16 +15,16 @@ final class Guest
     /**
      * @var Factory
      */
-    protected $auth;
+    protected $factory;
 
     /**
-     * @param Factory $auth
+     * @param Factory $factory
      *
      * @return void
      */
-    public function __construct(Factory $auth)
+    public function __construct(Factory $factory)
     {
-        $this->auth = $auth;
+        $this->factory = $factory;
     }
 
     /**
@@ -41,7 +41,7 @@ final class Guest
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
-            if ($this->auth->guard($guard)->check()) {
+            if ($this->factory->guard($guard)->check()) {
                 return Json::sendJsonWith423([
                     'message' => 'You are already authorized.',
                 ]);
