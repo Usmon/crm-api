@@ -47,7 +47,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property-read Collection|Token[] $tokens
  *
- * @method static Builder|self findByLogin(string $login)
+ * @method static Builder|self findBy(string $key, string $value = null)
  *
  * @mixin Auth
  */
@@ -146,12 +146,14 @@ final class User extends Auth
     /**
      * @param Builder $query
      *
-     * @param string $login
+     * @param string $key
+     *
+     * @param string|null $value
      *
      * @return Builder
      */
-    public function scopeFindByLogin(Builder $query, string $login): Builder
+    public function scopeFindBy(Builder $query, string $key, string $value = null): Builder
     {
-        return $query->where('login', '=', $login);
+        return $query->where($key, '=', $value);
     }
 }

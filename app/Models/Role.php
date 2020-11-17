@@ -6,6 +6,8 @@ use Illuminate\Support\Carbon;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Database\Eloquent\Builder;
+
 use Illuminate\Database\Eloquent\Collection;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -34,6 +36,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property-read Collection|User[] $users
  *
  * @property-read Collection|Permission[] $permissions
+ *
+ * @method static Builder|self findBy(string $key, string $value = null)
  *
  * @mixin Model
  */
@@ -91,5 +95,19 @@ final class Role extends Model
     public function permissions(): BelongsToMany
     {
         return $this->belongsToMany(Permission::class, 'role_permission')->withTimestamps();
+    }
+
+    /**
+     * @param Builder $query
+     *
+     * @param string $key
+     *
+     * @param string|null $value
+     *
+     * @return Builder
+     */
+    public function scopeFindBy(Builder $query, string $key, string $value = null): Builder
+    {
+        return $query->where($key, '=', $value);
     }
 }

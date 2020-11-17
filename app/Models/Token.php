@@ -35,7 +35,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property-read User $user
  *
- * @method static Builder|self findByValue(string $value)
+ * @method static Builder|self findBy(string $key, string $value = null)
  *
  * @mixin Model
  */
@@ -105,12 +105,14 @@ final class Token extends Model
     /**
      * @param Builder $query
      *
-     * @param string $value
+     * @param string $key
+     *
+     * @param string|null $value
      *
      * @return Builder
      */
-    public function scopeFindByValue(Builder $query, string $value): Builder
+    public function scopeFindBy(Builder $query, string $key, string $value = null): Builder
     {
-        return $query->where('value', '=', $value);
+        return $query->where($key, '=', $value);
     }
 }
