@@ -35,6 +35,8 @@ final class CreatePermissionsTable extends Migration
         });
 
         Schema::table($this->table, function (Blueprint $table) {
+            $table->index('name');
+
             $table->unique('slug');
         });
     }
