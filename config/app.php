@@ -154,8 +154,6 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         App\Providers\ObserverServiceProvider::class,
-
-        App\Providers\RepositoryServiceProvider::class,
     ],
 
     /*
