@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-use App\Helper\Json;
+use App\Helpers\Json;
 
 use Illuminate\Http\Request;
 

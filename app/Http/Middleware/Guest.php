@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-use App\Helper\Json;
+use App\Helpers\Json;
 
 use Illuminate\Http\Request;
 
@@ -42,7 +42,7 @@ final class Guest
 
         foreach ($guards as $guard) {
             if ($this->auth->guard($guard)->check()) {
-                return Json::sendJsonWith400([
+                return Json::sendJsonWith423([
                     'message' => 'You are already authorized.',
                 ]);
             }
