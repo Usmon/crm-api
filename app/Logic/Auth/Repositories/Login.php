@@ -4,26 +4,22 @@ namespace App\Logic\Auth\Repositories;
 
 use App\Models\User;
 
+use App\Models\Token;
+
 use Illuminate\Support\Str;
 
-use App\Logic\Auth\Contracts\Login as LoginContract;
-
-final class Login implements LoginContract
+final class Login
 {
     /**
-     * @param string $login
+     * @param string $key
+     *
+     * @param string|null $value
      *
      * @return User|null
      */
-    public function getUserByLogin(string $login): ?User
+    public function getUser(string $key, string $value = null): ?User
     {
-        $user = User::findByLogin($login)->first();
-
-        if ($user) {
-            return $user;
-        }
-
-        return null;
+        return User::findBy($key, $value)->first() ?? null;
     }
 
     /**
@@ -31,20 +27,20 @@ final class Login implements LoginContract
      *
      * @param array $device
      *
-     * @return string|null
+     * @return Token|null
      */
-    public function createTokenForUser(User $user, array $device): ?string
+    public function createToken(User $user, array $device = []): ?Token
     {
-        $token = $user->tokens()->create([
+        $token = new Token([
             'value' => hash('sha256', $user->id . $user->login . $user->email . Str::random(40)),
 
             'device' => $device,
+
+            'user_id' => $user->id,
         ]);
 
-        if ($token) {
-            return $token->value;
-        }
+        $token->save();
 
-        return null;
+        return $token ?? null;
     }
 }

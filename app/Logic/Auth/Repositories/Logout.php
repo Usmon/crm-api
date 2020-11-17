@@ -8,28 +8,24 @@ use App\Models\User;
 
 use App\Models\Token;
 
-use App\Logic\Auth\Contracts\Logout as LogoutContract;
-
-final class Logout implements LogoutContract
+final class Logout
 {
     /**
      * @param User $user
      *
-     * @param string $token
+     * @param string|null $token
      *
      * @return bool
-     *
-     * @throws Exception
      */
-    public function deleteUserToken(User $user, string $token): bool
+    public function deleteToken(User $user, string $token = null): bool
     {
-        $token = Token::findByValue($token)->first();
+        $token = Token::findBy($token)->first();
 
         if (! $token) {
             return false;
         }
 
-        if ($token->trashed()) {
+        if ($token->deleted_at) {
             return false;
         }
 
@@ -37,6 +33,12 @@ final class Logout implements LogoutContract
             return false;
         }
 
-        return (bool) $token->delete();
+        try {
+            $token->delete();
+        } catch (Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 }
