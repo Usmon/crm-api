@@ -49,18 +49,16 @@ final class Register extends Controller
      */
     public function __invoke(RegisterRequest $request): JsonResponse
     {
-        $user = $this->repository->createUser($this->service->createCredentials($request));
-
-        if (! $user) {
+        if (! $this->repository->createUser($this->service->createCredentials($request))) {
             return Json::sendJsonWith409([
-                'message' => 'Failed to register user, please try again later.',
+                'message' => 'Registration failed, please try again later.',
             ]);
         }
 
         // todo: send verify token notification.
 
         return Json::sendJsonWith200([
-            'message' => 'The user successfully registered.',
+            'message' => 'You have successfully registered.',
         ]);
     }
 }

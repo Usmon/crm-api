@@ -49,17 +49,9 @@ final class Login extends Controller
      */
     public function __invoke(LoginRequest $request): JsonResponse
     {
-        $credentials = $this->service->createCredentials($request);
+        $user = $this->repository->getUser('login', $request->json('login')) ?? $this->repository->getUser('email', $request->json('email'));
 
-        $user = $this->repository->getUser('login', $credentials['login']) ?? $this->repository->getUser('email', $credentials['email']);
-
-        if (! $user) {
-            return Json::sendJsonWith404([
-                'message' => 'The user with these credentials was not found.',
-            ]);
-        }
-
-        if (! $this->service->checkPassword($user, $credentials['password'])) {
+        if (! $this->service->checkPassword($user, $request->json('password'))) {
             return Json::sendJsonWith422([
                 'message' => [
                     'password' => [
@@ -73,7 +65,7 @@ final class Login extends Controller
 
         if (! $token) {
             return Json::sendJsonWith409([
-                'message' => 'Failed to create token, please try again later.',
+                'message' => 'Failed to create session, please try again later.',
             ]);
         }
 

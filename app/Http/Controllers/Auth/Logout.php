@@ -49,30 +49,14 @@ final class Logout extends Controller
      */
     public function __invoke(LogoutRequest $request): JsonResponse
     {
-        $user = $this->service->getUser($request);
-
-        if (! $user) {
-            return Json::sendJsonWith401([
-                'message' => 'You are not authorized.',
-            ]);
-        }
-
-        $token = $this->service->getBearerToken($request);
-
-        if (! $token) {
-            return Json::sendJsonWith401([
-                'message' => 'You are not authorized.',
-            ]);
-        }
-
-        if (! $this->repository->deleteToken($user, $token)) {
+        if (! $this->repository->deleteToken($this->service->getUser($request), $this->service->getBearerToken($request))) {
             return Json::sendJsonWith409([
-                'message' => 'Failed to logged out, please try again later.',
+                'message' => 'Failed to delete session, please try again later.',
             ]);
         }
 
         return Json::sendJsonWith200([
-            'message' => 'The user successfully logged out.',
+            'message' => 'You have successfully logged out.',
         ]);
     }
 }
