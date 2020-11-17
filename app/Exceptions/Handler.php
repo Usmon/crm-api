@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 
 use Illuminate\Validation\ValidationException;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 use Illuminate\Foundation\Exceptions\Handler as Exceptions;
 
 use Symfony\Component\HttpFoundation\Response;
@@ -30,6 +32,12 @@ final class Handler extends Exceptions
         if ($e instanceof ValidationException) {
             return Json::sendJsonWith422([
                 'message' => $e->errors(),
+            ]);
+        }
+
+        if ($e instanceof ModelNotFoundException) {
+            return Json::sendJsonWith404([
+                'message' => $e->getMessage(),
             ]);
         }
 
