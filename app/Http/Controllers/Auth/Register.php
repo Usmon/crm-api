@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Helper\Json;
+use App\Helpers\Json;
 
 use App\Http\Controllers\Controller;
 
-use App\Http\Requests\Auth\Register as RegisterRequest;
+use App\Logic\Auth\Requests\Register as RegisterRequest;
 
 use App\Logic\Auth\Services\Register as RegisterService;
 
-use Illuminate\Http\JsonResponse;
+use App\Logic\Auth\Repositories\Register as RegisterRepository;
 
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\JsonResponse;
 
 final class Register extends Controller
 {
@@ -22,13 +22,22 @@ final class Register extends Controller
     protected $service;
 
     /**
+     * @var RegisterRepository
+     */
+    protected $repository;
+
+    /**
      * @param RegisterService $service
+     *
+     * @param RegisterRepository $repository
      *
      * @return void
      */
-    public function __construct(RegisterService $service)
+    public function __construct(RegisterService $service, RegisterRepository $repository)
     {
         $this->service = $service;
+
+        $this->repository = $repository;
 
         $this->middleware('guest:api');
     }
@@ -40,15 +49,11 @@ final class Register extends Controller
      */
     public function __invoke(RegisterRequest $request): JsonResponse
     {
-        $user = $this->service->createUser($this->createCredentials($request));
+        $user = $this->repository->createUser($this->service->createCredentials($request));
 
         if (! $user) {
-            return Json::sendJsonWith422([
-                'errors' => [
-                    'user' => [
-                        'Failed to register a user, please try again later.'
-                    ],
-                ],
+            return Json::sendJsonWith409([
+                'message' => 'Failed to register a user, please try again later.',
             ]);
         }
 
@@ -57,21 +62,5 @@ final class Register extends Controller
         return Json::sendJsonWith200([
             'message' => 'The user successfully registered.',
         ]);
-    }
-
-    /**
-     * @param RegisterRequest $request
-     *
-     * @return array
-     */
-    protected function createCredentials(RegisterRequest $request): array
-    {
-        return [
-            'login' => $request->json('login'),
-
-            'email' => $request->json('email'),
-
-            'password' => Hash::make($request->json('password')),
-        ];
     }
 }

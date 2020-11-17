@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Helper\Json;
+use App\Helpers\Json;
 
 use App\Http\Controllers\Controller;
 
-use App\Http\Requests\Auth\Login as LoginRequest;
+use App\Logic\Auth\Requests\Login as LoginRequest;
 
 use App\Logic\Auth\Services\Login as LoginService;
 
+use App\Logic\Auth\Repositories\Login as LoginRepository;
+
 use Illuminate\Http\JsonResponse;
-
-use Illuminate\Support\Facades\Hash;
-
-use Jenssegers\Agent\Agent;
 
 final class Login extends Controller
 {
@@ -24,13 +22,22 @@ final class Login extends Controller
     protected $service;
 
     /**
+     * @var LoginRepository
+     */
+    protected $repository;
+
+    /**
      * @param LoginService $service
+     *
+     * @param LoginRepository $repository
      *
      * @return void
      */
-    public function __construct(LoginService $service)
+    public function __construct(LoginService $service, LoginRepository $repository)
     {
         $this->service = $service;
+
+        $this->repository = $repository;
 
         $this->middleware('guest:api');
     }
@@ -42,23 +49,19 @@ final class Login extends Controller
      */
     public function __invoke(LoginRequest $request): JsonResponse
     {
-        $user = $this->service->getUserByLogin($request->json('login'));
+        $credentials = $this->service->createCredentials($request);
+
+        $user = $this->repository->getUser('login', $credentials['login']) ?? $this->repository->getUser('email', $credentials['email']);
 
         if (! $user) {
-            return Json::sendJsonWith422([
-                'errors' => [
-                    'login' => [
-                        'The provided login was not found.'
-                    ],
-                ],
+            return Json::sendJsonWith404([
+                'message' => 'The user with these credentials was not found.',
             ]);
         }
 
-        $check = Hash::check($request->json('password'), $user->password);
-
-        if (! $check) {
+        if (! $this->service->checkPassword($user, $credentials['password'])) {
             return Json::sendJsonWith422([
-                'errors' => [
+                'message' => [
                     'password' => [
                         'The provided password is incorrect.',
                     ],
@@ -66,42 +69,16 @@ final class Login extends Controller
             ]);
         }
 
-        $token = $this->service->createTokenForUser($user, $this->createDevice($request));
+        $token = $this->repository->createToken($user, $this->service->createDevice($request));
 
         if (! $token) {
-            return Json::sendJsonWith422([
-                'errors' => [
-                    'token' => [
-                        'Failed to create a token, please try again later.',
-                    ],
-                ],
+            return Json::sendJsonWith409([
+                'message' => 'Failed to create a token, please try again later.',
             ]);
         }
 
         return Json::sendJsonWith200([
-            'token' => $token,
+            'token' => $token->value,
         ]);
-    }
-
-    /**
-     * @param LoginRequest $request
-     *
-     * @return array
-     */
-    protected function createDevice(LoginRequest $request): array
-    {
-        $agent = new Agent;
-
-        $agent->setUserAgent($request->userAgent());
-
-        return [
-            'ip' => $request->ip(),
-
-            'os' => $agent->platform(),
-
-            'type' => $agent->deviceType(),
-
-            'name' => $agent->browser() ?? $agent->device(),
-        ];
     }
 }

@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Exception;
-
-use App\Helper\Json;
+use App\Helpers\Json;
 
 use App\Http\Controllers\Controller;
 
-use App\Http\Requests\Auth\Logout as LogoutRequest;
+use App\Logic\Auth\Requests\Logout as LogoutRequest;
 
 use App\Logic\Auth\Services\Logout as LogoutService;
+
+use App\Logic\Auth\Repositories\Logout as LogoutRepository;
 
 use Illuminate\Http\JsonResponse;
 
@@ -22,13 +22,22 @@ final class Logout extends Controller
     protected $service;
 
     /**
+     * @var LogoutRepository
+     */
+    protected $repository;
+
+    /**
      * @param LogoutService $service
+     *
+     * @param LogoutRepository $repository
      *
      * @return void
      */
-    public function __construct(LogoutService $service)
+    public function __construct(LogoutService $service, LogoutRepository $repository)
     {
         $this->service = $service;
+
+        $this->repository = $repository;
 
         $this->middleware('auth:api');
     }
@@ -37,20 +46,28 @@ final class Logout extends Controller
      * @param LogoutRequest $request
      *
      * @return JsonResponse
-     *
-     * @throws Exception
      */
     public function __invoke(LogoutRequest $request): JsonResponse
     {
-        $token = $this->service->deleteUserToken($request->user(), $request->bearerToken());
+        $user = $this->service->getUser($request);
+
+        if (! $user) {
+            return Json::sendJsonWith401([
+                'message' => 'You are not authorized.',
+            ]);
+        }
+
+        $token = $this->service->getBearerToken($request);
 
         if (! $token) {
-            return Json::sendJsonWith422([
-                'errors' => [
-                    'token' => [
-                        'Failed to logout a user, please try again later.'
-                    ],
-                ],
+            return Json::sendJsonWith401([
+                'message' => 'You are not authorized.',
+            ]);
+        }
+
+        if (! $this->repository->deleteToken($user, $token)) {
+            return Json::sendJsonWith409([
+                'message' => 'Failed to logged out, please try again later.',
             ]);
         }
 
