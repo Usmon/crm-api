@@ -51,7 +51,13 @@ final class Login extends Controller
     {
         $user = $this->repository->getUser('login', $request->json('login')) ?? $this->repository->getUser('email', $request->json('email'));
 
-        if (! $this->service->checkPassword($user, $request->json('password'))) {
+        if (! $user) {
+            return Json::sendJsonWith404([
+                'message' => 'The user with these credentials was not found.',
+            ]);
+        }
+
+        if (! $this->service->checkPassword($user->password, $request->json('password'))) {
             return Json::sendJsonWith422([
                 'message' => [
                     'password' => [

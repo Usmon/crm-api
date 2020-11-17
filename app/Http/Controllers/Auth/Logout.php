@@ -6,11 +6,11 @@ use App\Helpers\Json;
 
 use App\Http\Controllers\Controller;
 
-use App\Logic\Auth\Requests\Logout as LogoutRequest;
-
 use App\Logic\Auth\Services\Logout as LogoutService;
 
 use App\Logic\Auth\Repositories\Logout as LogoutRepository;
+
+use Illuminate\Http\Request;
 
 use Illuminate\Http\JsonResponse;
 
@@ -43,11 +43,11 @@ final class Logout extends Controller
     }
 
     /**
-     * @param LogoutRequest $request
+     * @param Request $request
      *
      * @return JsonResponse
      */
-    public function __invoke(LogoutRequest $request): JsonResponse
+    public function __invoke(Request $request): JsonResponse
     {
         if (! $this->repository->deleteToken($this->service->getUser($request), $this->service->getBearerToken($request))) {
             return Json::sendJsonWith409([
