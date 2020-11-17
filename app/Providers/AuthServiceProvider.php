@@ -28,26 +28,32 @@ final class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        $this->registerBearerToken();
+    }
+
+    /**
+     * @return void
+     */
+    protected function registerBearerToken(): void
+    {
         Auth::viaRequest('bearer-token', function (Request $request) {
-            $bearerToken = $request->bearerToken();
-
-            if ($bearerToken) {
-                $token = Token::findByValue($bearerToken)->first();
-
-                if ($token) {
-                    $token->fill([
-                        'used_at' => Carbon::now(),
-                    ]);
-
-                    $token->save();
-
-                    return $token->user;
-                }
-
+            if (! $request->bearerToken()) {
                 return null;
             }
 
-            return null;
+            $token = Token::findBy('value', $request->bearerToken())->first();
+
+            if (! $token) {
+                return null;
+            }
+
+            $token->device['ip'] = $request->ip();
+
+            $token->used_at = Carbon::now();
+
+            $token->save();
+
+            return $token->user;
         });
     }
 }
