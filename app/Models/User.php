@@ -118,7 +118,7 @@ final class User extends Auth
      * @var array
      */
     public const DEFAULT_PROFILE = [
-        'first_name'=> null,
+        'first_name' => null,
 
         'middle_name' => null,
 

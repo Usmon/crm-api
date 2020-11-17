@@ -73,7 +73,7 @@ final class Login extends Controller
 
         if (! $token) {
             return Json::sendJsonWith409([
-                'message' => 'Failed to create a token, please try again later.',
+                'message' => 'Failed to create token, please try again later.',
             ]);
         }
 

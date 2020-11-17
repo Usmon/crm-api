@@ -53,7 +53,7 @@ final class Register extends Controller
 
         if (! $user) {
             return Json::sendJsonWith409([
-                'message' => 'Failed to register a user, please try again later.',
+                'message' => 'Failed to register user, please try again later.',
             ]);
         }
 
