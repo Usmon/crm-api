@@ -4,7 +4,7 @@ namespace App\Exceptions;
 
 use Throwable;
 
-use App\Helper\Json;
+use App\Helpers\Json;
 
 use Illuminate\Http\Request;
 
@@ -29,7 +29,7 @@ final class Handler extends Exceptions
     {
         if ($e instanceof ValidationException) {
             return Json::sendJsonWith422([
-                'errors' => $e->errors(),
+                'message' => $e->errors(),
             ]);
         }
 
