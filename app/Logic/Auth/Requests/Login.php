@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Logic\Auth\Requests;
+
+use Illuminate\Validation\Rule;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-final class Register extends FormRequest
+final class Login extends FormRequest
 {
     /**
      * @return bool
@@ -21,17 +23,17 @@ final class Register extends FormRequest
     {
         return [
             'login' => [
-                'required',
+                Rule::requiredIf($this->json('email') === '' ?? $this->json('email') === null),
 
                 'string',
 
                 'max:255',
 
-                'unique:users',
+                Rule::exists('users', 'login'),
             ],
 
             'email' => [
-                'required',
+                Rule::requiredIf($this->json('login') === '' ?? $this->json('login') === null),
 
                 'email',
 
@@ -39,7 +41,7 @@ final class Register extends FormRequest
 
                 'max:255',
 
-                'unique:users',
+                Rule::exists('users', 'email'),
             ],
 
             'password' => [
@@ -47,9 +49,7 @@ final class Register extends FormRequest
 
                 'string',
 
-                'min:8',
-
-                'confirmed',
+                'max:255',
             ],
         ];
     }
