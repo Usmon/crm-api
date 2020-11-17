@@ -51,6 +51,16 @@ trait Authenticatable
      *
      * @return void
      */
+    public function setAuthPassword($value)
+    {
+        $this->{$this->getAuthPasswordName()} = $value;
+    }
+
+    /**
+     * @param string $value
+     *
+     * @return void
+     */
     public function setRememberToken($value)
     {
         $this->{$this->getRememberTokenName()} = $value;
