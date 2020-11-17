@@ -2,8 +2,6 @@
 
 namespace App\Logic\Auth\Services;
 
-use App\Models\User;
-
 use App\Logic\Auth\Requests\Login as LoginRequest;
 
 use Illuminate\Support\Facades\Hash;
@@ -13,15 +11,15 @@ use Jenssegers\Agent\Agent;
 final class Login
 {
     /**
-     * @param User $user
+     * @param string $hashedPassword
      *
      * @param string $password
      *
      * @return bool
      */
-    public function checkPassword(User $user, string $password): bool
+    public function checkPassword(string $hashedPassword, string $password): bool
     {
-        return Hash::check($password, $user->password);
+        return Hash::check($password, $hashedPassword);
     }
 
     /**
@@ -43,22 +41,6 @@ final class Login
             'type' => $agent->deviceType(),
 
             'name' => $agent->browser() ?? $agent->device(),
-        ];
-    }
-
-    /**
-     * @param LoginRequest $request
-     *
-     * @return array
-     */
-    public function createCredentials(LoginRequest $request): array
-    {
-        return [
-            'login' => $request->json('login'),
-
-            'email' => $request->json('email'),
-
-            'password' => $request->json('password'),
         ];
     }
 }

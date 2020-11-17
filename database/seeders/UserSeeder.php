@@ -32,7 +32,5 @@ final class UserSeeder extends Seeder
                 'photo' => null,
             ],
         ]);
-
-        User::factory()->count(99)->create();
     }
 }

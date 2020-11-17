@@ -19,13 +19,9 @@ final class Logout
      */
     public function deleteToken(User $user, string $token = null): bool
     {
-        $token = Token::findBy($token)->first();
+        $token = Token::findBy('value', $token)->first() ?? null;
 
         if (! $token) {
-            return false;
-        }
-
-        if ($token->deleted_at) {
             return false;
         }
 

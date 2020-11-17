@@ -4,27 +4,27 @@ namespace App\Logic\Auth\Services;
 
 use App\Models\User;
 
-use App\Logic\Auth\Requests\Logout as LogoutRequest;
+use Illuminate\Http\Request;
 
 final class Logout
 {
     /**
-     * @param LogoutRequest $request
+     * @param Request $request
      *
-     * @return User|null
+     * @return User
      */
-    public function getUser(LogoutRequest $request): ?User
+    public function getUser(Request $request): User
     {
-        return $request->user() ?? null;
+        return $request->user();
     }
 
     /**
-     * @param LogoutRequest $request
+     * @param Request $request
      *
-     * @return string|null
+     * @return string
      */
-    public function getBearerToken(LogoutRequest $request): ?string
+    public function getBearerToken(Request $request): string
     {
-        return $request->bearerToken() ?? null;
+        return $request->bearerToken();
     }
 }

@@ -15,22 +15,12 @@ final class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        Role::factory()->createMany([
-            [
-                'name' => 'Administrator',
+        Role::factory()->create([
+            'name' => 'Administrator',
 
-                'slug' => Str::slug('Administrator'),
+            'slug' => Str::slug('Administrator'),
 
-                'description' => 'Administrator role description.',
-            ],
-
-            [
-                'name' => 'Customer',
-
-                'slug' => Str::slug('Customer'),
-
-                'description' => 'Customer role description.',
-            ],
-        ]);
+            'description' => 'Administrator role description.',
+        ],);
     }
 }
