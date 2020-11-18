@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\User\Sessions;
 
-use App\Helpers\Json;
-
 use App\Models\Token;
+
+use App\Helpers\Json;
 
 use App\Http\Controllers\Controller as Controllers;
 
