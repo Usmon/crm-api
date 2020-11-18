@@ -50,7 +50,7 @@ class Controller extends Controllers
     public function index(Request $request): JsonResponse
     {
         return Json::sendJsonWith200([
-            'sessions' => $this->service->getAll($this->repository->all($this->service->getUser($request)), $this->service->getBearerToken($request)),
+            'sessions' => $this->service->getSessions($this->repository->getSessions($this->service->getUser($request)), $this->service->getBearerToken($request)),
         ]);
     }
 
@@ -59,9 +59,9 @@ class Controller extends Controllers
      *
      * @return JsonResponse
      */
-    public function other(Request $request): JsonResponse
+    public function deleteOther(Request $request): JsonResponse
     {
-        $this->repository->other($this->service->getUser($request), $this->service->getBearerToken($request));
+        $this->repository->deleteOtherSessions($this->service->getUser($request), $this->service->getBearerToken($request));
 
         return Json::sendJsonWith200([
             'message' => 'The other sessions successfully deleted.',
@@ -77,7 +77,7 @@ class Controller extends Controllers
      */
     public function delete(Request $request, Token $token): JsonResponse
     {
-        if (! $this->repository->delete($this->service->getUser($request), $token)) {
+        if (! $this->repository->deleteSession($this->service->getUser($request), $token)) {
             return Json::sendJsonWith409([
                 'message' => 'Failed to delete session, please try again later.',
             ]);

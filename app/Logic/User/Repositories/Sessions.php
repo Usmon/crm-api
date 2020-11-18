@@ -17,7 +17,7 @@ final class Sessions
      *
      * @return Collection
      */
-    public function all(User $user): Collection
+    public function getSessions(User $user): Collection
     {
         return $user->tokens()->orderBy('used_at', 'desc')->get();
     }
@@ -29,7 +29,7 @@ final class Sessions
      *
      * @return void
      */
-    public function other(User $user, string $token): void
+    public function deleteOtherSessions(User $user, string $token): void
     {
         Token::query()->where('value', '!=', $token)->where('user_id', '=', $user->id)->delete();
     }
@@ -41,7 +41,7 @@ final class Sessions
      *
      * @return bool
      */
-    public function delete(User $user, Token $token): bool
+    public function deleteSession(User $user, Token $token): bool
     {
         if ($user->id !== $token->user_id) {
             return false;

@@ -19,7 +19,7 @@ final class Sessions
      *
      * @return Collection
      */
-    public function getAll(Collection $collection, string $currentToken): Collection
+    public function getSessions(Collection $collection, string $currentToken): Collection
     {
         return $collection->transform(function (Token $token) use ($currentToken) {
             return [

@@ -53,7 +53,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:api'], function () {
     Route::group(['prefix' => 'sessions', 'as' => 'sessions.'], function () {
         Route::get('/', [UserSessionsController::class, 'index'])->name('index');
 
-        Route::delete('other', [UserSessionsController::class, 'other'])->name('other');
+        Route::delete('other', [UserSessionsController::class, 'deleteOther'])->name('delete.other');
 
         Route::delete('{token}', [UserSessionsController::class, 'delete'])->name('delete');
     });
