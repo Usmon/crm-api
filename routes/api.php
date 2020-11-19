@@ -20,6 +20,8 @@ use App\Http\Controllers\User\Controller as UserController;
 
 use App\Http\Controllers\User\Sessions\Controller as UserSessionsController;
 
+use App\Http\Controllers\Dashboard\Users\Controller as DashboardUsersController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -50,6 +52,7 @@ Route::group(['prefix' => 'auth', 'as' => 'auth.'], function () {
 Route::group(['prefix' => 'user', 'middleware' => 'auth:api'], function () {
     Route::get('/', UserController::class)->name('user');
 
+    // User sessions routes
     Route::group(['prefix' => 'sessions', 'as' => 'sessions.'], function () {
         Route::get('/', [UserSessionsController::class, 'index'])->name('index');
 
@@ -57,4 +60,9 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:api'], function () {
 
         Route::delete('{token}', [UserSessionsController::class, 'delete'])->name('delete');
     });
+});
+
+// Dashboard routes
+Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dashboard.'], function () {
+    Route::apiResource('users', DashboardUsersController::class);
 });

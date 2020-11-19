@@ -49,6 +49,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
+ * @method static Builder|self filter(array $filters)
+ *
  * @mixin Auth
  */
 final class User extends Auth
@@ -155,5 +157,31 @@ final class User extends Auth
     public function scopeFindBy(Builder $query, string $key, string $value = null): Builder
     {
         return $query->where($key, '=', $value);
+    }
+
+    /**
+     * @param Builder $query
+     *
+     * @param array $filters
+     *
+     * @return Builder
+     */
+    public function scopeFilter(Builder $query, array $filters): Builder
+    {
+        return $query->when($filters['search'] ?? null, function (Builder $query, string $search) {
+            return $query->where(function (Builder $query) use ($search) {
+                return $query->where('login', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%')
+                    ->orWhere('profile->first_name', 'like', '%' . $search . '%')
+                    ->orWhere('profile->middle_name', 'like', '%' . $search . '%')
+                    ->orWhere('profile->last_name', 'like', '%' . $search . '%');
+            });
+        })->when($filters['date'] ?? null, function (Builder $query, array $date) {
+            return $query->whereBetween('created_at', $date);
+        })->when($filters['role'] ?? null, function (Builder $query, int $role) {
+            return $query->whereHas('roles', function (Builder $query) use ($role) {
+                return $query->where('id', '=', $role);
+            });
+        });
     }
 }
