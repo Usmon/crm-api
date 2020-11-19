@@ -3,6 +3,7 @@
 namespace App\Logic\Dashboard\CRUD\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 final class Roles extends FormRequest
 {
@@ -78,6 +79,20 @@ final class Roles extends FormRequest
 
                 ],
 
+                'roles' => [
+                    'required',
+
+                    'array',
+                ],
+
+                'roles.*' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('roles', 'id'),
+                ],
+
             ],
 
             'dashboard.roles.update' => [
@@ -104,6 +119,20 @@ final class Roles extends FormRequest
 
                     'string',
 
+                ],
+
+                'roles' => [
+                    'required',
+
+                    'array',
+                ],
+
+                'roles.*' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('roles', 'id'),
                 ],
             ],
         ];
