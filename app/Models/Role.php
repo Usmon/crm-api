@@ -132,7 +132,7 @@ final class Role extends Model
             return $query->whereHas('users', function (Builder $query) use ($user) {
                 return $query->where('id', '=', $user);
             });
-        })->when($filters['permission'] ?? null, function (Builder $query, int $permission) {
+        })->when($filters['permissions'] ?? null, function (Builder $query, int $permission) {
             return $query->whereHas('permissions', function (Builder $query) use ($permission) {
                 return $query->where('id', '=', $permission);
             });

@@ -2,8 +2,9 @@
 
 namespace App\Logic\Dashboard\CRUD\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+
+use Illuminate\Foundation\Http\FormRequest;
 
 final class Roles extends FormRequest
 {
@@ -60,7 +61,6 @@ final class Roles extends FormRequest
                     'string',
 
                     'max:255',
-
                 ],
 
                 'slug' => [
@@ -70,29 +70,28 @@ final class Roles extends FormRequest
 
                     'max:255',
 
+                    Rule::unique('roles', 'slug'),
                 ],
 
                 'description' => [
                     'required',
 
                     'string',
-
                 ],
 
-                'roles' => [
+                'permissions' => [
                     'required',
 
                     'array',
                 ],
 
-                'roles.*' => [
+                'permissions.*' => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('roles', 'id'),
+                    Rule::exists('permissions', 'id'),
                 ],
-
             ],
 
             'dashboard.roles.update' => [
@@ -102,7 +101,6 @@ final class Roles extends FormRequest
                     'string',
 
                     'max:255',
-
                 ],
 
                 'slug' => [
@@ -112,27 +110,27 @@ final class Roles extends FormRequest
 
                     'max:255',
 
+                    Rule::unique('roles', 'slug')->ignore($this->route('role')),
                 ],
 
                 'description' => [
                     'required',
 
                     'string',
-
                 ],
 
-                'roles' => [
+                'permissions' => [
                     'required',
 
                     'array',
                 ],
 
-                'roles.*' => [
+                'permissions.*' => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('roles', 'id'),
+                    Rule::exists('permissions', 'id'),
                 ],
             ],
         ];
