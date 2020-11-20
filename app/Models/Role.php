@@ -110,4 +110,32 @@ final class Role extends Model
     {
         return $query->where($key, '=', $value);
     }
+
+    /**
+     * @param Builder $query
+     *
+     * @param array $filters
+     *
+     * @return Builder
+     */
+    public function scopeFilter(Builder $query, array $filters): Builder
+    {
+        return $query->when($filters['search'] ?? null, function (Builder $query, string $search) {
+            return $query->where(function (Builder $query) use ($search) {
+                return $query->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('slug', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%');
+            });
+        })->when($filters['date'] ?? null, function (Builder $query, array $date) {
+            return $query->whereBetween('created_at', $date);
+        })->when($filters['user'] ?? null, function (Builder $query, int $user) {
+            return $query->whereHas('users', function (Builder $query) use ($user) {
+                return $query->where('id', '=', $user);
+            });
+        })->when($filters['permissions'] ?? null, function (Builder $query, int $permission) {
+            return $query->whereHas('permissions', function (Builder $query) use ($permission) {
+                return $query->where('id', '=', $permission);
+            });
+        });
+    }
 }

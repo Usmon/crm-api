@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Http\JsonResponse;
 
-class Controller extends Controllers
+final class Controller extends Controllers
 {
     /**
      * @var SessionsService
