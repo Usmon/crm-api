@@ -1,6 +1,6 @@
 # Silkroad Express API
 
-This project of API forenter code here Silkroad express company. <a href="https://laravel.com/docs/8.x" target="_blank">Framework Laravel 8x</a>
+This project of API for Silkroad express company. <a href="https://laravel.com/docs/8.x" target="_blank">Framework Laravel 8x</a>
 
 ## Technical requirements
 1. PHP 7.3
