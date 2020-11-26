@@ -17,6 +17,8 @@ final class DatabaseSeeder extends Seeder
 
         $this->call(PermissionSeeder::class);
 
+        $this->call(ShipmentSeeder::class);
+
         $this->call(FedexOrderSeeder::class);
     }
 }

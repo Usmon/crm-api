@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Shipment;
+
 use App\Models\FedexOrder;
+
 use App\Models\User;
 
 use App\Models\Role;
@@ -10,6 +13,8 @@ use App\Models\Role;
 use App\Models\Token;
 
 use App\Models\Permission;
+
+use App\Observers\ShipmentObserver;
 
 use App\Observers\UserObserver;
 
@@ -39,5 +44,7 @@ final class ObserverServiceProvider extends ServiceProvider
         FedexOrder::observe(FedexOrderObserver::class);
 
         Permission::observe(PermissionObserver::class);
+
+        Shipment::observe(ShipmentObserver::class);
     }
 }
