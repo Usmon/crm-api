@@ -55,13 +55,7 @@ final class Shipments
     {
         $id = json_decode($id);
         try {
-            if(is_array($id)){
-                Shipment::destroy($id);
-            }
-            else{
-                $shipment = Shipment::findOrFail($id);
-                $shipment->delete();
-            }
+            Shipment::destroy($id);
         } catch (Exception $e) {
             return false;
         }
