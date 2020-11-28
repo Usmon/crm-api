@@ -47,7 +47,7 @@ final class Roles
      */
     public function getRoles(Collection $collection): Collection
     {
-        return $collection->transform(function (Roles $role) {
+        return $collection->transform(function (Role $role) {
             return [
                 'id' => $role->id,
 
@@ -100,7 +100,7 @@ final class Roles
 
             'description' => $request->json('description'),
 
-            'permissions' => $request->json('permissions'),
+            // 'permissions' => $request->json('permissions'),
         ];
     }
 

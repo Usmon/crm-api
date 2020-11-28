@@ -8,11 +8,15 @@ use App\Models\Role;
 
 use App\Models\Token;
 
+use App\Models\Pickup;
+
 use App\Models\Permission;
 
 use App\Observers\UserObserver;
 
 use App\Observers\RoleObserver;
+
+use App\Observers\PickupObserver;
 
 use App\Observers\TokenObserver;
 
@@ -30,6 +34,8 @@ final class ObserverServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
 
         Role::observe(RoleObserver::class);
+
+        Pickup::observe(PickupObserver::class);
 
         Token::observe(TokenObserver::class);
 
