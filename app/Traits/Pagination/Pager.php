@@ -2,6 +2,8 @@
 
 namespace App\Traits\Pagination;
 
+use Illuminate\Database\Eloquent\Builder;
+
 /**
  * Trait pager for pagination collections
  * 
@@ -14,7 +16,7 @@ trait Pager
      * 
      * @property int
      */
-    private static $page_size;
+    private $page_size;
     
     /**
      * Construct for Pagination trait
@@ -22,7 +24,7 @@ trait Pager
     public function __construct()
     {
         parent::__construct();
-        self::$page_size = env('PAGE_SIZE', 20);
+        $this->page_size = env('PAGE_SIZE', 20);
     }
 
     /**
@@ -32,8 +34,8 @@ trait Pager
      * 
      * @return \Illuminate\Pagination\Paginator
      */
-    public static function pager(int $size = 0)
+    public function scopePager(Builder $query,int $size = 0)
     {
-        return self::paginate($size > 0 ? $size : self::$page_size);
+        return $query->paginate($size > 0 ? $size : $this->page_size);
     }
 }
