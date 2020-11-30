@@ -17,7 +17,7 @@ final class Shipments
      */
     public function getShipments(array $filters):Paginator
     {
-        return Shipment::filter($filters)->orderBy('created_at', 'desc')->pager(10);
+        return Shipment::filter($filters)->orderBy('created_at', 'desc')->pager();
     }
 
     /**

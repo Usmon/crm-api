@@ -16,7 +16,7 @@ final class FedexOrders
      */
     public function getFedexOrders(array $filters): Paginator
     {
-        return FedexOrder::filter($filters)->orderBy('created_at', 'desc')->pager(10);
+        return FedexOrder::filter($filters)->orderBy('created_at', 'desc')->pager();
     }
 
     /**

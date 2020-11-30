@@ -15,7 +15,7 @@ final class Orders
      */
     public function getOrders(array $filters): Paginator
     {
-        return Order::filter($filters)->orderBy('created_at', 'desc')->pager(10);
+        return Order::filter($filters)->orderBy('created_at', 'desc')->pager();
     }
 
     /**
