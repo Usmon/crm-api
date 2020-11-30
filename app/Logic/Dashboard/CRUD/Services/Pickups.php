@@ -25,9 +25,6 @@ final class Pickups
             'search' => $request->json('search'),
 
             'date' => $request->json('date'),
-
-            'bring_address' =>$request->json('bring_address'),
-
         ];
     }
 
@@ -38,7 +35,7 @@ final class Pickups
      */
     public function getOnlyFilters(PickupsRequest $request): array
     {
-        return $request->only('search', 'date', 'bring_address');
+        return $request->only('search', 'date');
     }
 
     /**
@@ -62,9 +59,9 @@ final class Pickups
 
                 'staff_id' => $pickup->staff_id,
 
-                'driver_id' => $pickup->driver_id,
-
                 'customer_id' => $pickup->customer_id,
+
+                'driver_id' => $pickup->driver_id,
 
                 'created_at' => $pickup->created_at,
 

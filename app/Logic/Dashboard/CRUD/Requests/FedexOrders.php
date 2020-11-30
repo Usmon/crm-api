@@ -6,7 +6,7 @@ use Illuminate\Validation\Rule;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-final class Pickups extends FormRequest
+final class FedexOrders extends FormRequest
 {
     /**
      * @return bool
@@ -22,7 +22,7 @@ final class Pickups extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'dashboard.pickups.index' => [
+            'dashboard.fedex-orders.index' => [
                 'search' => [
                     'nullable',
 
@@ -50,34 +50,39 @@ final class Pickups extends FormRequest
 
                     'date',
 
-                    'after:date.from'
+                    'after:date.from',
                 ],
-
             ],
 
-            'dashboard.pickups.store' => [
-                'note' => [
+            'dashboard.fedex-orders.store' => [
+                'price' => [
                     'required',
 
+                    'numeric',
+
+                    'min:0',
+                ],
+
+                'discount_price' => [
+                    'required',
+
+                    'numeric',
+
+                    'min:0',
+                ],
+
+                'service_type' => [
                     'string',
 
-                    'max:255',
+                    'in:ground'
                 ],
-                'bring_address' => [
-                    'required',
 
-                    'integer',
-                ],
-                'bring_datetime_start' => [
-                    'required',
+                'status' => [
+                    'string',
 
-                    'date',
+                    'in:ground,pending,arrived'
                 ],
-                'bring_datetime_end' => [
-                    'required',
 
-                    'date',
-                ],
                 'staff_id' => [
                     'required',
 
@@ -85,13 +90,7 @@ final class Pickups extends FormRequest
 
                     Rule::exists('users', 'id'),
                 ],
-                'driver_id' => [
-                    'required',
 
-                    'integer',
-
-                    Rule::exists('users', 'id'),
-                ],
                 'customer_id' => [
                     'required',
 
@@ -100,31 +99,50 @@ final class Pickups extends FormRequest
                     Rule::exists('users', 'id'),
                 ],
 
-            ],
-
-            'dashboard.pickups.update' => [
-                'note' => [
+                'permissions' => [
                     'required',
 
-                    'string',
-
-                    'max:255',
+                    'array',
                 ],
-                'bring_address' => [
+
+                'permissions.*' => [
                     'required',
 
                     'integer',
+
+                    Rule::exists('permissions', 'id'),
                 ],
-                'bring_datetime_start' => [
+            ],
+
+            'dashboard.fedex-orders.update' => [
+                'price' => [
                     'required',
 
-                    'date',
+                    'numeric',
+
+                    'min:0',
                 ],
-                'bring_datetime_end' => [
+
+                'discount_price' => [
                     'required',
 
-                    'date',
+                    'numeric',
+
+                    'min:0',
                 ],
+
+                'service_type' => [
+                    'string',
+
+                    'in:ground'
+                ],
+
+                'status' => [
+                    'string',
+
+                    'in:ground,pending,arrived'
+                ],
+
                 'staff_id' => [
                     'required',
 
@@ -132,13 +150,7 @@ final class Pickups extends FormRequest
 
                     Rule::exists('users', 'id'),
                 ],
-                'driver_id' => [
-                    'required',
 
-                    'integer',
-
-                    Rule::exists('users', 'id'),
-                ],
                 'customer_id' => [
                     'required',
 
@@ -147,6 +159,19 @@ final class Pickups extends FormRequest
                     Rule::exists('users', 'id'),
                 ],
 
+                'permissions' => [
+                    'required',
+
+                    'array',
+                ],
+
+                'permissions.*' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('permissions', 'id'),
+                ],
             ],
         ];
 

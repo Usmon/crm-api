@@ -8,34 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\Builder;
 
-use Illuminate\Database\Eloquent\Collection;
-
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-
-use App\Traits\Pagination\Pager;
-
 /**
- * App\Models\Pickup
+ * App\Models\Shipment
  *
  * @property int $id
  *
- * @property string $note
+ * @property string $name
  *
- * @property int $bring_address
- *
- * @property Carbon $bring_datetime_start
- *
- * @property Carbon $bring_datetime_end
- *
- * @property int staff_id
- *
- * @property int driver_id
- *
- * @property int customer_id
+ * @property string $status
  *
  * @property Carbon|null $created_at
  *
@@ -43,44 +27,24 @@ use App\Traits\Pagination\Pager;
  *
  * @property Carbon|null $deleted_at
  *
- * @property-read Collection|User[] $users
- *
- * @property-read Collection|Order[] $orders
- *
- * @method static Builder|self findBy(string $key, string $value = null)
- *
- * @method static Builder|self filter(array $filters)
- *
- * @mixin Model
  */
-final class Pickup extends Model
+final class Shipment extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    use Pager;
 
     /**
      * @var string
      */
-    protected $table = 'pickups';
+    protected $table = 'shipments';
 
     /**
      * @var array
      */
     protected $fillable = [
-      'note',
+        'name',
 
-      'bring_address',
-
-      'bring_datetime_start',
-
-      'bring_datetime_end',
-
-      'staff_id',
-
-      'driver_id',
-
-      'customer_id',
+        'status'
     ];
 
     /**
@@ -89,19 +53,9 @@ final class Pickup extends Model
     protected $casts = [
         'id' => 'integer',
 
-        'note' => 'string',
+        'name' => 'string',
 
-        'bring_address' => 'integer',
-
-        'bring_datetime_start' => 'datetime',
-
-        'bring_datetime_end' => 'datetime',
-
-        'staff_id' => 'integer',
-
-        'driver_id' => 'integer',
-
-        'customer_id' => 'integer',
+        'status' => 'string',
 
         'created_at' => 'datetime',
 
@@ -109,22 +63,6 @@ final class Pickup extends Model
 
         'deleted_at' => 'datetime',
     ];
-
-     /**
-     * @return HasMany
-     */
-    public function orders(): HasMany
-    {
-        return $this->hasMany(Order::class);
-    }
-
-    /**
-     * @return BelongsTo
-     */
-    public function users(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
 
     /**
      * @param Builder $query
@@ -151,12 +89,15 @@ final class Pickup extends Model
     {
         return $query->when($filters['search'] ?? null, function (Builder $query, string $search) {
             return $query->where(function (Builder $query) use ($search) {
-                return $query->where('note', 'like', '%' . $search . '%');
+                return $query->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('status', 'like', '%' . $search . '%');
             });
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
+        })->when($filters['name'] ?? null, function (Builder $query, string $name) {
+            return $query->where('name', 'like', '%'. $name .'%');
+        })->when($filters['status'] ?? null, function (Builder $query, string $status) {
+            return $query->where('status', 'like', '%'. $status .'%');
         });
     }
-
-
 }
