@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Pagination\Pager;
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -40,6 +41,7 @@ use Ramsey\Collection\Collection;
  */
 final class FedexOrder extends Model
 {
+    use Pager;
     use HasFactory;
     use SoftDeletes;
 

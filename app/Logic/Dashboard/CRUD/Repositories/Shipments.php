@@ -6,18 +6,18 @@ use App\Models\Shipment;
 
 use Exception;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Pagination\Paginator;
 
 final class Shipments
 {
     /**
      * @param array $filters
      *
-     * @return Collection
+     * @return Paginator
      */
-    public function getShipments(array $filters): Collection
+    public function getShipments(array $filters):Paginator
     {
-        return Shipment::filter($filters)->orderBy('created_at', 'desc')->get();
+        return Shipment::filter($filters)->orderBy('created_at', 'desc')->pager(10);
     }
 
     /**

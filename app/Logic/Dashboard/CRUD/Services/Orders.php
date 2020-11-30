@@ -5,7 +5,8 @@ namespace App\Logic\Dashboard\CRUD\Services;
 use App\Logic\Dashboard\CRUD\Requests\Orders as OrdersRequest;
 
 use App\Models\Order;
-use Illuminate\Database\Eloquent\Collection;
+
+use Illuminate\Contracts\Pagination\Paginator;
 
 final class Orders
 {
@@ -53,13 +54,13 @@ final class Orders
     }
 
     /**
-     * @param Collection $collection
+     * @param Paginator $paginator
      *
-     * @return Collection
+     * @return Paginator
      */
-    public function getOrders(Collection $collection): Collection
+    public function getOrders(Paginator $paginator): Paginator
     {
-        return $collection->transform(function (Order $order) {
+        $paginator->getCollection()->transform(function (Order $order) {
             return [
                 'id' => $order->id,
 
@@ -86,6 +87,7 @@ final class Orders
                 'updated_at' => $order->updated_at,
             ];
         });
+        return $paginator;
     }
 
     /**

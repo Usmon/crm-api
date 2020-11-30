@@ -5,18 +5,18 @@ namespace App\Logic\Dashboard\CRUD\Repositories;
 use App\Models\FedexOrder;
 use Exception;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Pagination\Paginator;
 
 final class FedexOrders
 {
     /**
      * @param array $filters
      *
-     * @return Collection
+     * @return Paginator
      */
-    public function getFedexOrders(array $filters): Collection
+    public function getFedexOrders(array $filters): Paginator
     {
-        return FedexOrder::filter($filters)->orderBy('created_at', 'desc')->get();
+        return FedexOrder::filter($filters)->orderBy('created_at', 'desc')->pager(10);
     }
 
     /**
