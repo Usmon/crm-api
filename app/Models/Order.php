@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Carbon;
+use App\Models\Pickup;
 
 use App\Traits\Pagination\Pager;
 
 use Illuminate\Database\Eloquent\Model;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+use Illuminate\Support\Carbon;
 
 use Illuminate\Database\Eloquent\Builder;
 
@@ -14,7 +18,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * App\Models\Order

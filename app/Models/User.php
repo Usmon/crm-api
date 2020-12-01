@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+use App\Traits\Pagination\Pager;
+
 /**
  * App\Models\User
  *
@@ -47,6 +49,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property-read Collection|Token[] $tokens
  *
+ * @property-read Collection|Token[] $pickups
+ *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
  * @method static Builder|self filter(array $filters)
@@ -57,6 +61,7 @@ final class User extends Auth
 {
     use HasFactory;
     use SoftDeletes;
+    use Pager;
 
     /**
      * @var string
@@ -143,6 +148,14 @@ final class User extends Auth
     public function tokens(): HasMany
     {
         return $this->hasMany(Token::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function pickups(): HasMany
+    {
+        return $this->hasMany(Pickup::class);
     }
 
     /**
