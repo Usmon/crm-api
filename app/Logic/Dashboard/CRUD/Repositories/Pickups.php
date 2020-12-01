@@ -19,7 +19,7 @@ final class Pickups
      */
     public function getPickups(array $filters): Paginator
     {
-        return Pickup::filter($filters)->orderBy('created_at', 'desc')->pager(20);
+        return Pickup::filter($filters)->orderBy('created_at', 'desc')->pager();
     }
 
     /**
