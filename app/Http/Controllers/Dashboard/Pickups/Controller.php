@@ -103,16 +103,21 @@ final class Controller extends Controllers
      *
      * @return JsonResponse
      */
-    public function destroy(Pickup $pickup): JsonResponse
+    public function destroy($id): JsonResponse
     {
-        if(!$this->repository->deletePickup($pickup)) {
-            return Json::sendJsonwith409([
+        $id = $this->service->deletePickup($id);
+
+        if(!$id)
+        {
+            return Json::sendJsonWith409([
                 'message' => 'Failed to delete pickup, please try again later.',
             ]);
         }
 
+        $this->repository->deletePickup($id);
+
         return Json::sendJsonWith200([
-            'message' => 'The pickup was successfully deleted.',
+            'message' => 'The pickup deleted successfully',
         ]);
     }
 

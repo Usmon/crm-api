@@ -10,7 +10,7 @@ use Illuminate\Support\Arr;
 
 use Illuminate\Support\Facades\Hash;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Pagination\Paginator;
 
 final class Pickups
 {
@@ -39,13 +39,13 @@ final class Pickups
     }
 
     /**
-     * @param Collection $collection
+     * @param Paginator $paginator
      *
-     * @return Collection
+     * @return Paginator
      */
-    public function getPickups(Collection $collection): Collection
+    public function getPickups(Paginator $paginator): Paginator
     {
-        return $collection->transform(function (Pickup $pickup) {
+        $paginator->getCollection()->transform(function (Pickup $pickup) {
             return [
                 'id' => $pickup->id,
 
@@ -68,7 +68,13 @@ final class Pickups
                 'updated_at' => $pickup->updated_at,
             ];
         });
+
+        return $paginator;
+
+
     }
+
+
 
     /**
      * @param Pickup $pickup
@@ -148,6 +154,13 @@ final class Pickups
         ];
 
         return $pickups;
+    }
+
+    public function deletePickup($id)
+    {
+        $id = json_decode($id);
+
+        return (is_int($id) || array_filter($id,'is_int')===$id) ? $id : 0;
     }
 
 

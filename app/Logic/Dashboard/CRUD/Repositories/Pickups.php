@@ -8,18 +8,18 @@ use App\Models\Pickup;
 
 use Illuminate\Support\Arr;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Pagination\Paginator;
 
 final class Pickups
 {
     /**
      * @param array $filters
      *
-     * @return Collection
+     * @return Paginator
      */
-    public function getPickups(array $filters): Collection
+    public function getPickups(array $filters): Paginator
     {
-        return Pickup::filter($filters)->orderBy('created_at', 'desc')->get();
+        return Pickup::filter($filters)->orderBy('created_at', 'desc')->pager(20);
     }
 
     /**
@@ -29,11 +29,7 @@ final class Pickups
      */
     public function storePickup (array $pickupData): Pickup
     {
-        $pickup = new Pickup;
-
-        $pickup->fill($pickupData);
-
-        $pickup->save();
+        $pickup = Pickup::create($pickupData);
 
         return $pickup;
     }
@@ -57,18 +53,9 @@ final class Pickups
      *
      * @return bool
      */
-    public function deletePickup(Pickup $pickup): bool
+    public function deletePickup($id): bool
     {
-        try
-        {
-            $pickup->delete();
-        }
-        catch (Exception $e)
-        {
-            return false;
-        }
-
-        return true;
+        return Pickup::destroy($id);
     }
 }
 

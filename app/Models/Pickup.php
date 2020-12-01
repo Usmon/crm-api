@@ -110,7 +110,7 @@ final class Pickup extends Model
         'deleted_at' => 'datetime',
     ];
 
-     /**
+    /**
      * @return HasMany
      */
     public function orders(): HasMany
@@ -149,14 +149,16 @@ final class Pickup extends Model
      */
     public function scopeFilter(Builder $query, array $filters): Builder
     {
-        return $query->when($filters['search'] ?? null, function (Builder $query, string $search) {
-            return $query->where(function (Builder $query) use ($search) {
+        return $query->when($filters['search'] ?? null, function (Builder $query, string $search)
+        {
+            return $query->where(function (Builder $query) use ($search)
+            {
                 return $query->where('note', 'like', '%' . $search . '%');
             });
-        })->when($filters['date'] ?? null, function (Builder $query, array $date) {
+        })->when($filters['date'] ?? null, function (Builder $query, array $date)
+        {
             return $query->whereBetween('created_at', $date);
         });
     }
-
 
 }
