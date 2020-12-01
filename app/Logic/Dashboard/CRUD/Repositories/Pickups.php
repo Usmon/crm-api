@@ -29,7 +29,11 @@ final class Pickups
      */
     public function storePickup (array $pickupData): Pickup
     {
-        $pickup = Pickup::create($pickupData);
+        $pickup = new Pickup;
+
+        $pickup->fill($pickupData);
+
+        $pickup->save();
 
         return $pickup;
     }
