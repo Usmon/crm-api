@@ -6,7 +6,7 @@ use App\Models\Shipment;
 
 use App\Logic\Dashboard\CRUD\Requests\Shipments as ShipmentsRequest;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Pagination\Paginator;
 
 final class Shipments
 {
@@ -36,13 +36,13 @@ final class Shipments
     }
 
     /**
-     * @param Collection $collection
+     * @param Paginator $paginator
      *
-     * @return Collection
+     * @return Paginator
      */
-    public function getShipments(Collection $collection): Collection
+    public function getShipments(Paginator $paginator): Paginator
     {
-        return $collection->transform(function (Shipment $shipment) {
+        $paginator->getCollection()->transform(function (Shipment $shipment) {
             return [
                 'id' => $shipment->id,
 
@@ -55,6 +55,8 @@ final class Shipments
                 'updated_at' => $shipment->updated_at,
             ];
         });
+
+        return $paginator;
     }
 
     /**

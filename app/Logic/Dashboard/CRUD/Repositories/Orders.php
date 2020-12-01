@@ -4,18 +4,18 @@ namespace App\Logic\Dashboard\CRUD\Repositories;
 
 use App\Models\Order;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Pagination\Paginator;
 
 final class Orders
 {
     /**
      * @param array $filters
      *
-     * @return Collection
+     * @return Paginator
      */
-    public function getOrders(array $filters): Collection
+    public function getOrders(array $filters): Paginator
     {
-        return Order::filter($filters)->orderBy('created_at', 'desc')->get();
+        return Order::filter($filters)->orderBy('created_at', 'desc')->pager();
     }
 
     /**

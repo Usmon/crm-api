@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Models\Pickup;
 
+use App\Traits\Pagination\Pager;
+
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -54,6 +56,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  */
 final class Order extends Model
 {
+    use Pager;
     use HasFactory;
     use SoftDeletes;
 

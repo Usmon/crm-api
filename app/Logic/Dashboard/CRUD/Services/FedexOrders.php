@@ -4,9 +4,9 @@ namespace App\Logic\Dashboard\CRUD\Services;
 
 use App\Models\FedexOrder;
 
-use App\Logic\Dashboard\CRUD\Requests\FedexOrders as FedexOrdersRequest;
+use Illuminate\Contracts\Pagination\Paginator;
 
-use Illuminate\Database\Eloquent\Collection;
+use App\Logic\Dashboard\CRUD\Requests\FedexOrders as FedexOrdersRequest;
 
 final class FedexOrders
 {
@@ -39,13 +39,13 @@ final class FedexOrders
     }
 
     /**
-     * @param Collection $collection
+     * @param Paginator $paginator
      *
-     * @return Collection
+     * @return Paginator
      */
-    public function getFedexOrders(Collection $collection): Collection
+    public function getFedexOrders(Paginator $paginator): Paginator
     {
-        return $collection->transform(function (FedexOrder $fedexOrder) {
+        $paginator->getCollection()->transform(function (FedexOrder $fedexOrder) {
             return [
                 'id' => $fedexOrder->id,
 
@@ -72,6 +72,7 @@ final class FedexOrders
                 'updated_at' => $fedexOrder->updated_at,
             ];
         });
+        return $paginator;
     }
 
     /**
