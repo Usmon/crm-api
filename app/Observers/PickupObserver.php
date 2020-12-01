@@ -67,7 +67,7 @@ final class PickupObserver
 
         $pickup->staff_id = $pickup->staff_id;
 
-        $pickup->driver_id = $pickup->drvier_id;
+        $pickup->driver_id = $pickup->driver_id;
 
         $pickup->customer_id = $pickup->customer_id;
 
