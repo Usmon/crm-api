@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Order;
 
+use App\Models\Sender;
 use App\Models\Shipment;
 
 use App\Models\FedexOrder;
@@ -20,6 +21,7 @@ use App\Models\Permission;
 
 use App\Observers\OrderObserver;
 
+use App\Observers\SenderObserver;
 use App\Observers\ShipmentObserver;
 
 use App\Observers\UserObserver;
@@ -58,5 +60,7 @@ final class ObserverServiceProvider extends ServiceProvider
         Shipment::observe(ShipmentObserver::class);
 
         Order::observe(OrderObserver::class);
+
+        Sender::observe(SenderObserver::class);
     }
 }
