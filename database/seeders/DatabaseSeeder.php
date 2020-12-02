@@ -24,5 +24,7 @@ final class DatabaseSeeder extends Seeder
         $this->call(PickupSeeder::class);
 
         $this->call(OrderSeeder::class);
+
+        $this->call(RecipientSeeder::class);
     }
 }

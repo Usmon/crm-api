@@ -34,6 +34,8 @@ use App\Http\Controllers\Dashboard\FedexOrders\Controller as DashboardFedexOrder
 
 use App\Http\Controllers\Dashboard\Deliveries\Controller as DashboardDeliveriesController;
 
+use App\Http\Controllers\Dashboard\Recipients\Controller as DashboardRecipientsController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -89,5 +91,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     Route::apiResource('orders', DashboardOrdersController::class);
 
     Route::apiResource('deliveries', DashboardDeliveriesController::class);
+
+    Route::apiResource('recipients', DashboardRecipientsController::class);
 
 });
