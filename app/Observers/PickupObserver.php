@@ -71,11 +71,11 @@ final class PickupObserver
 
         $pickup->customer_id = $pickup->customer_id;
 
-        $pickup->created_at = $role->created_at ?? Carbon::now();
+        $pickup->created_at = $pickup->created_at ?? Carbon::now();
 
-        $pickup->updated_at = $role->updated_at ?? Carbon::now();
+        $pickup->updated_at = $pickup->updated_at ?? Carbon::now();
 
-        $pickup->deleted_at = $role->deleted_at ?? null;
+        $pickup->deleted_at = $pickup->deleted_at ?? null;
     }
 
 
