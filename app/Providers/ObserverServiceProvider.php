@@ -18,6 +18,8 @@ use App\Models\Pickup;
 
 use App\Models\Permission;
 
+use App\Models\WarehouseItem;
+
 use App\Observers\OrderObserver;
 
 use App\Observers\ShipmentObserver;
@@ -33,6 +35,8 @@ use App\Observers\TokenObserver;
 use App\Observers\FedexOrderObserver;
 
 use App\Observers\PermissionObserver;
+
+use App\Observers\WarehouseItemObserver;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -58,5 +62,7 @@ final class ObserverServiceProvider extends ServiceProvider
         Shipment::observe(ShipmentObserver::class);
 
         Order::observe(OrderObserver::class);
+
+        WarehouseItem::observe(WarehouseItemObserver::class);
     }
 }
