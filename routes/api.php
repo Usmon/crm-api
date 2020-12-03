@@ -34,6 +34,8 @@ use App\Http\Controllers\Dashboard\Senders\Controller as DashboardSendersControl
 
 use App\Http\Controllers\Dashboard\FedexOrders\Controller as DashboardFedexOrdersController;
 
+use App\Http\Controllers\Dashboard\WarehouseItems\Controller as DashboardWarehouseItemsController;
+
 use App\Http\Controllers\Dashboard\Deliveries\Controller as DashboardDeliveriesController;
 
 /*
@@ -91,6 +93,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     Route::apiResource('orders', DashboardOrdersController::class);
 
     Route::apiResource('senders', DashboardSendersController::class);
+
+    Route::apiResource('warehouse-items', DashboardWarehouseItemsController::class);
 
     Route::apiResource('deliveries', DashboardDeliveriesController::class);
 
