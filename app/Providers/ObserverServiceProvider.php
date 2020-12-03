@@ -6,6 +6,8 @@ use App\Models\Order;
 
 use App\Models\Recipient;
 
+use App\Models\Sender;
+
 use App\Models\Shipment;
 
 use App\Models\FedexOrder;
@@ -18,11 +20,17 @@ use App\Models\Token;
 
 use App\Models\Pickup;
 
+use App\Models\Delivery;
+
 use App\Models\Permission;
+
+use App\Models\WarehouseItem;
 
 use App\Observers\OrderObserver;
 
 use App\Observers\RecipientObserver;
+
+use App\Observers\SenderObserver;
 
 use App\Observers\ShipmentObserver;
 
@@ -32,11 +40,15 @@ use App\Observers\RoleObserver;
 
 use App\Observers\PickupObserver;
 
+use App\Observers\DeliveryObserver;
+
 use App\Observers\TokenObserver;
 
 use App\Observers\FedexOrderObserver;
 
 use App\Observers\PermissionObserver;
+
+use App\Observers\WarehouseItemObserver;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -53,6 +65,8 @@ final class ObserverServiceProvider extends ServiceProvider
 
         Pickup::observe(PickupObserver::class);
 
+        Delivery::observe(DeliveryObserver::class);
+
         Token::observe(TokenObserver::class);
 
         FedexOrder::observe(FedexOrderObserver::class);
@@ -64,5 +78,9 @@ final class ObserverServiceProvider extends ServiceProvider
         Order::observe(OrderObserver::class);
 
         Recipient::observe(RecipientObserver::class);
+
+        Sender::observe(SenderObserver::class);
+
+        WarehouseItem::observe(WarehouseItemObserver::class);
     }
 }

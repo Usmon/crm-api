@@ -6,7 +6,7 @@ use Illuminate\Validation\Rule;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-final class Deliveries extends FormRequest
+final class Senders extends FormRequest
 {
     /**
      * @return bool
@@ -22,7 +22,7 @@ final class Deliveries extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'dashboard.deliveries.index' => [
+            'dashboard.senders.index' => [
                 'search' => [
                     'nullable',
 
@@ -50,20 +50,12 @@ final class Deliveries extends FormRequest
 
                     'date',
 
-                    'after:date.from'
+                    'after:date.from',
                 ],
             ],
 
-            'dashboard.deliveries.store' => [
-                'order_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('orders', 'id'),
-                ],
-
-                'driver_id' => [
+            'dashboard.senders.store' => [
+                'customer_id' => [
                     'required',
 
                     'integer',
@@ -71,25 +63,29 @@ final class Deliveries extends FormRequest
                     Rule::exists('users', 'id'),
                 ],
 
-                'status' => [
+                'address' => [
                     'required',
 
-                    'string',
-
-                    'in:pending,delivering,delivered'
+                    'string'
                 ],
-            ],
 
-            'dashboard.deliveries.update' => [
-                'order_id' => [
+                'permissions' => [
+                    'required',
+
+                    'array',
+                ],
+
+                'permissions.*' => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('orders', 'id'),
+                    Rule::exists('permissions', 'id'),
                 ],
+            ],
 
-                'driver_id' => [
+            'dashboard.senders.update' => [
+                'customer_id' => [
                     'required',
 
                     'integer',
@@ -97,15 +93,26 @@ final class Deliveries extends FormRequest
                     Rule::exists('users', 'id'),
                 ],
 
-                'status' => [
+                'address' => [
                     'required',
 
-                    'string',
+                    'string'
+                ],
 
-                    'in:pending,delivering,delivered'
+                'permissions' => [
+                    'required',
+
+                    'array',
+                ],
+
+                'permissions.*' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('permissions', 'id'),
                 ],
             ],
-
         ];
 
         return $rules[$this->route()->getName()];

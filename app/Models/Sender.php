@@ -2,102 +2,68 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Carbon;
+use App\Traits\Pagination\Pager;
 
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\Builder;
 
-use Illuminate\Database\Eloquent\Collection;
-
 use Illuminate\Database\Eloquent\SoftDeletes;
+
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
-use App\Traits\Pagination\Pager;
-
 /**
- * App\Models\Pickup
+ * App\Models\Sender
  *
- * @property int $id
+ * @property string $address
  *
- * @property int $order_id
+ * @property integer $customer_id
  *
- * @property int $driver_id
+ * @property-read HasOne $customer
  *
- * @property string $status
+ * @method static Builder|self findBy(string $key, string $value = null)
  *
- * @property Carbon|null $created_at
+ * @method static Builder|self filter(array $filters)
  *
- * @property Carbon|null $updated_at
- *
- * @property Carbon|null $deleted_at
- *
+ * @mixin Model
  */
-
-final class Delivery extends Model
+final class Sender extends Model
 {
+    use Pager;
     use HasFactory;
     use SoftDeletes;
-    use Pager;
 
     /**
      * @var string
      */
-    protected $table = 'deliveries';
+    protected $table = 'senders';
 
     /**
      * @var array
      */
     protected $fillable = [
-        'order_id',
+        'customer_id',
 
-        'driver_id',
-
-        'status',
+        'address'
     ];
-
-    /**
-     * @var array
-     */
-    protected $hidden = [];
 
     /**
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
+        'customer_id' => 'integer',
 
-        'order_id' => 'integer',
-
-        'driver_id' => 'integer',
-
-        'status' => 'string',
-
-        'created_at' => 'datetime',
-
-        'updated_at' => 'datetime',
-
-        'deleted_at' => 'datetime',
-
+        'address' => 'string'
     ];
 
     /**
-     * @return BelongsTo
+     * @return HasOne
      */
-    public function orders(): BelongsTo
+    protected function customer():HasOne
     {
-        return $this->belongsTo(Order::class);
-    }
-
-    /**
-     * @return BelongsTo
-     */
-    public function users(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
+        return $this->hasOne(User::class,'id');
     }
 
     /**
@@ -125,10 +91,12 @@ final class Delivery extends Model
     {
         return $query->when($filters['search'] ?? null, function (Builder $query, string $search) {
             return $query->where(function (Builder $query) use ($search) {
-                return $query->where('status', 'like', '%' . $search . '%');
+                return $query->where('address', 'like', '%' . $search . '%');
             });
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
+        })->when($filters['address'] ?? null, function (Builder $query, string $search){
+            return $query->where('address','like','%'. $search .'%');
         });
     }
 }
