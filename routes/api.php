@@ -38,6 +38,8 @@ use App\Http\Controllers\Dashboard\WarehouseItems\Controller as DashboardWarehou
 
 use App\Http\Controllers\Dashboard\Deliveries\Controller as DashboardDeliveriesController;
 
+use App\Http\Controllers\Dashboard\Recipients\Controller as DashboardRecipientsController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -97,5 +99,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     Route::apiResource('warehouse-items', DashboardWarehouseItemsController::class);
 
     Route::apiResource('deliveries', DashboardDeliveriesController::class);
+
+    Route::apiResource('recipients', DashboardRecipientsController::class);
 
 });
