@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Feedback;
+
 use App\Models\Order;
 
 use App\Models\Recipient;
@@ -25,6 +27,8 @@ use App\Models\Delivery;
 use App\Models\Permission;
 
 use App\Models\WarehouseItem;
+
+use App\Observers\FeedbackObserver;
 
 use App\Observers\OrderObserver;
 
@@ -82,5 +86,7 @@ final class ObserverServiceProvider extends ServiceProvider
         Sender::observe(SenderObserver::class);
 
         WarehouseItem::observe(WarehouseItemObserver::class);
+
+        Feedback::observe(FeedbackObserver::class);
     }
 }
