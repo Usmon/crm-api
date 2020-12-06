@@ -44,6 +44,8 @@ use App\Http\Controllers\Dashboard\Messages\Controller as DashboardMessagesContr
 
 use App\Http\Controllers\Dashboard\Feedbacks\Controller as DashboardFeedbacksController;
 
+use App\Http\Controllers\Dashboard\SpendingCategories\Controller as DashboardSpendingCategoriesController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -109,4 +111,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     Route::apiResource('messages', DashboardMessagesController::class);
 
     Route::apiResource('feedbacks', DashboardFeedbacksController::class);
+
+    Route::apiResource('spending-categories', DashboardSpendingCategoriesController::class);
 });
