@@ -2,11 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Relations\HasOne;
-
-use Illuminate\Database\Eloquent\Relations\HasMany;
-
-
 use Illuminate\Support\Carbon;
 
 use App\Traits\Pagination\Pager;
@@ -17,14 +12,16 @@ use Illuminate\Database\Eloquent\Builder;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * App\Models\Recipient
+ * App\Models\SpendingCategory
  *
- * @property integer $customer_id
+ * @property string $name
  *
- * @property string $address
+ * @property integer|null $parent_id
  *
  * @property Carbon|null $created_at
  *
@@ -32,13 +29,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property Carbon|null $deleted_at
  *
+ * @property integer|null $deleted_by
+ *
+ * @property-read HasOne|null $parent
+ *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
  * @method static Builder|self filter(array $filters)
  *
  * @mixin Model
  */
-final class Recipient extends Model
+final class SpendingCategory extends Model
 {
     use Pager;
     use HasFactory;
@@ -47,48 +48,45 @@ final class Recipient extends Model
     /**
      * @var string
      */
-    protected $table = 'recipients';
+    protected $table = 'spending_categories';
 
     /**
      * @var array
      */
     protected $fillable = [
-        'customer_id',
+        'name',
 
-        'address'
+        'parent_id',
+
+        'deleted_by'
     ];
 
     /**
      * @var array
      */
     protected $casts = [
-        'customer_id' => 'integer',
+        'name' => 'string',
 
-        'address' => 'string',
+        'parent_id' => 'integer',
 
         'created_at' => 'datetime',
 
         'updated_at' => 'datetime',
 
-        'deleted_at' => 'datetime'
+        'deleted_at' => 'datetime',
+
+        'deleted_by' => 'integer'
     ];
 
     /**
      * @return HasOne
      */
-    public function customer():HasOne
+    public function parent()
     {
-        return $this->hasOne(User::class,'id');
+        return $this->hasOne(SpendingCategory::class,'id')
+            ? $this->hasOne(SpendingCategory::class,'id')
+            : null;
     }
-
-    /**
-     * @return HasMany
-     */
-    public function boxes():HasMany
-    {
-        return $this->hasMany(Box::class);
-    }
-
     /**
      * @param Builder $query
      *
@@ -114,12 +112,14 @@ final class Recipient extends Model
     {
         return $query->when($filters['search'] ?? null, function (Builder $query, string $search) {
             return $query->where(function (Builder $query) use ($search) {
-                return $query->where('address', 'like', '%' . $search . '%');
+                return $query->where('name', 'like', '%' . $search . '%');
             });
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
-        })->when($filters['address'] ?? null, function (Builder $query, $address){
-            return $query->where('address', 'like', '%'. $address .'%');
+        })->when($filters['name'] ?? null, function (Builder $query, $name){
+            return $query->where('name', 'like', '%' . $name . '%');
+        })->when($filters['parent_id'] ?? null, function(Builder $query, $parent_id){
+            return $query->where('parent_id', '=', $parent_id);
         });
     }
 }

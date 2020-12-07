@@ -34,5 +34,11 @@ final class DatabaseSeeder extends Seeder
         $this->call(WarehouseItemSeeder::class);
 
         $this->call(BoxSeeder::class);
+
+        $this->call(MessageSeeder::class);
+
+        $this->call(FeedbackSeeder::class);
+
+        $this->call(SpendingCategorySeeder::class);
     }
 }

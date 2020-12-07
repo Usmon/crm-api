@@ -64,13 +64,17 @@ final class Boxes extends FormRequest
                 'weight' => [
                     'nullable',
 
-                    'float',
+                    'numeric',
+
+                    'min:0'
                 ],
 
                 'additional_weight' => [
                     'nullable',
 
-                    'float',
+                    'numeric',
+
+                    'min:0'
                 ],
             ],
 
@@ -104,19 +108,23 @@ final class Boxes extends FormRequest
 
                     'integer',
 
-                    Rule::exists('recipient', 'id'),
+                    Rule::exists('recipients', 'id'),
                 ],
 
                 'weight' => [
                     'required',
 
-                    'float',
+                    'numeric',
+
+                    'min:0'
                 ],
 
                 'additional_weight' => [
                     'required',
 
-                    'float',
+                    'numeric',
+
+                    'min:0'
                 ],
 
                 'status' => [
@@ -166,19 +174,23 @@ final class Boxes extends FormRequest
 
                     'integer',
 
-                    Rule::exists('recipient', 'id'),
+                    Rule::exists('recipients', 'id'),
                 ],
 
                 'weight' => [
                     'required',
 
-                    'float',
+                    'numeric',
+
+                    'min:0'
                 ],
 
                 'additional_weight' => [
                     'required',
 
-                    'float',
+                    'numeric',
+
+                    'min:0'
                 ],
 
                 'status' => [

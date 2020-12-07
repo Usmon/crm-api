@@ -2,11 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Relations\HasOne;
-
-use Illuminate\Database\Eloquent\Relations\HasMany;
-
-
 use Illuminate\Support\Carbon;
 
 use App\Traits\Pagination\Pager;
@@ -17,14 +12,18 @@ use Illuminate\Database\Eloquent\Builder;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * App\Models\Recipient
+ * App\Models\Email
  *
- * @property integer $customer_id
+ * @property integer $sender_id
  *
- * @property string $address
+ * @property integer $receiver_id
+ *
+ * @property string $body
  *
  * @property Carbon|null $created_at
  *
@@ -32,13 +31,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property Carbon|null $deleted_at
  *
+ * @property integer|null $deleted_by
+ *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
  * @method static Builder|self filter(array $filters)
  *
  * @mixin Model
  */
-final class Recipient extends Model
+final class Message extends Model
 {
     use Pager;
     use HasFactory;
@@ -47,46 +48,52 @@ final class Recipient extends Model
     /**
      * @var string
      */
-    protected $table = 'recipients';
+    protected $table = 'messages';
 
     /**
      * @var array
      */
     protected $fillable = [
-        'customer_id',
+        'sender_id',
 
-        'address'
+        'receiver_id',
+
+        'body'
     ];
 
     /**
      * @var array
      */
     protected $casts = [
-        'customer_id' => 'integer',
+        'sender_id' => 'integer',
 
-        'address' => 'string',
+        'receiver_id' => 'integer',
+
+        'body' => 'string',
 
         'created_at' => 'datetime',
 
         'updated_at' => 'datetime',
 
-        'deleted_at' => 'datetime'
+        'deleted_at' => 'datetime',
+
+        'deleted_by' => 'integer'
     ];
 
     /**
      * @return HasOne
      */
-    public function customer():HasOne
+    public function sender():HasOne
     {
-        return $this->hasOne(User::class,'id');
+        return $this->hasOne(User::class);
     }
 
     /**
-     * @return HasMany
+     * @return HasOne
      */
-    public function boxes():HasMany
+    public function receiver():HasOne
     {
-        return $this->hasMany(Box::class);
+        return $this->hasOne(User::class);
     }
 
     /**
@@ -114,12 +121,12 @@ final class Recipient extends Model
     {
         return $query->when($filters['search'] ?? null, function (Builder $query, string $search) {
             return $query->where(function (Builder $query) use ($search) {
-                return $query->where('address', 'like', '%' . $search . '%');
+                return $query->where('body', 'like', '%' . $search . '%');
             });
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
-        })->when($filters['address'] ?? null, function (Builder $query, $address){
-            return $query->where('address', 'like', '%'. $address .'%');
+        })->when($filters['body'] ?? null, function (Builder $query, $body){
+            return $query->where('body', 'like', '%'. $body .'%');
         });
     }
 }

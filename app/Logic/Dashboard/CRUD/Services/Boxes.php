@@ -2,7 +2,7 @@
 
 namespace App\Logic\Dashboard\CRUD\Services;
 
-use App\Models\Boxes;
+use App\Models\Box;
 
 use App\Logic\Dashboard\CRUD\Requests\Boxes as BoxesRequest;
 

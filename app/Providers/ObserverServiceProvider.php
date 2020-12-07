@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Feedback;
+
 use App\Models\Order;
 
 use App\Models\Recipient;
@@ -11,6 +13,8 @@ use App\Models\Sender;
 use App\Models\Shipment;
 
 use App\Models\FedexOrder;
+
+use App\Models\SpendingCategory;
 
 use App\Models\User;
 
@@ -28,6 +32,8 @@ use App\Models\Permission;
 
 use App\Models\WarehouseItem;
 
+use App\Observers\FeedbackObserver;
+
 use App\Observers\OrderObserver;
 
 use App\Observers\RecipientObserver;
@@ -35,6 +41,8 @@ use App\Observers\RecipientObserver;
 use App\Observers\SenderObserver;
 
 use App\Observers\ShipmentObserver;
+
+use App\Observers\SpendingCategoryObserver;
 
 use App\Observers\UserObserver;
 
@@ -88,5 +96,9 @@ final class ObserverServiceProvider extends ServiceProvider
         WarehouseItem::observe(WarehouseItemObserver::class);
 
         Box::observe(BoxObserver::class);
+
+        Feedback::observe(FeedbackObserver::class);
+
+        SpendingCategory::observe(SpendingCategoryObserver::class);
     }
 }

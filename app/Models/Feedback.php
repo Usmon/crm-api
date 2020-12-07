@@ -2,11 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Relations\HasOne;
-
-use Illuminate\Database\Eloquent\Relations\HasMany;
-
-
 use Illuminate\Support\Carbon;
 
 use App\Traits\Pagination\Pager;
@@ -17,14 +12,18 @@ use Illuminate\Database\Eloquent\Builder;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * App\Models\Recipient
+ * App\Models\Feedback
+ *
+ * @property integer $staff_id
  *
  * @property integer $customer_id
  *
- * @property string $address
+ * @property string $message
  *
  * @property Carbon|null $created_at
  *
@@ -38,7 +37,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @mixin Model
  */
-final class Recipient extends Model
+final class Feedback extends Model
 {
     use Pager;
     use HasFactory;
@@ -47,24 +46,28 @@ final class Recipient extends Model
     /**
      * @var string
      */
-    protected $table = 'recipients';
+    protected $table = 'feedbacks';
 
     /**
      * @var array
      */
     protected $fillable = [
+        'staff_id',
+
         'customer_id',
 
-        'address'
+        'message'
     ];
 
     /**
      * @var array
      */
     protected $casts = [
+        'staff_id' => 'integer',
+
         'customer_id' => 'integer',
 
-        'address' => 'string',
+        'message' => 'string',
 
         'created_at' => 'datetime',
 
@@ -76,17 +79,17 @@ final class Recipient extends Model
     /**
      * @return HasOne
      */
-    public function customer():HasOne
+    public function staff():HasOne
     {
         return $this->hasOne(User::class,'id');
     }
 
     /**
-     * @return HasMany
+     * @return HasOne
      */
-    public function boxes():HasMany
+    public function customer():HasOne
     {
-        return $this->hasMany(Box::class);
+        return $this->hasOne(User::class,'id');
     }
 
     /**
@@ -114,12 +117,12 @@ final class Recipient extends Model
     {
         return $query->when($filters['search'] ?? null, function (Builder $query, string $search) {
             return $query->where(function (Builder $query) use ($search) {
-                return $query->where('address', 'like', '%' . $search . '%');
+                return $query->where('message', 'like', '%' . $search . '%');
             });
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
-        })->when($filters['address'] ?? null, function (Builder $query, $address){
-            return $query->where('address', 'like', '%'. $address .'%');
+        })->when($filters['message'] ?? null, function (Builder $query, $message){
+            return $query->where('message', 'like', '%'. $message .'%');
         });
     }
 }

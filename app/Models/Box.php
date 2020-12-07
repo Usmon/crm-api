@@ -65,7 +65,7 @@ final class Box extends Model
     protected $fillable = [
         'order_id',
 
-        'cutomer_id',
+        'customer_id',
 
         'sender_id',
 

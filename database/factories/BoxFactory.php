@@ -45,7 +45,7 @@ final class BoxFactory extends Factory
 
             'additional_weight' => $this->faker->randomFloat(2, 100, 1000),
 
-            'status' => $status[random(0,1)],
+            'status' => $status[random_int(0,1)],
 
             'box_image' => $this->faker->text(),
         ];
