@@ -1,6 +1,7 @@
 # Silkroad Express API
 
 This project of API for Silkroad express company. <a href="https://laravel.com/docs/8.x" target="_blank">Framework Laravel 8x</a>
+If you want to get more logs of deployment just join to the group: <a href="https://t.me/joinchat/F0SDFliVxiagsLZpmakOBA" target="_blank">Silkroad Telegram Group</a>
 
 ## Technical requirements
 1. PHP 7.3
