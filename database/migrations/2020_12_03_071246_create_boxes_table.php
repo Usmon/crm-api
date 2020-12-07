@@ -51,7 +51,7 @@ final class CreateBoxesTable extends Migration
 
             $table->foreign('sender_id')->references('id')->on('senders')->onDelete('cascade');
 
-            $table->foreign('recipient_id')->references('id')->on('recipient')->onDelete('cascade');
+            $table->foreign('recipient_id')->references('id')->on('recipients')->onDelete('cascade');
         });
     }
 
