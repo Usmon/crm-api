@@ -1,0 +1,28 @@
+name: SilkroadExp development CI/CD
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    name: silkroad-api deployment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull Changes and Restart Service
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ~/dev-sr-api
+            git pull origin main
+            sudo systemctl restart sr-api.service
+            
+      - name: Finished deployed, notify
+        run: |
+          curl --data-urlencode "text=${{secrets.BOT_DEV_MESSAGE}}" \
+               --data-urlencode "parse_mode=html" \
+               --data-urlencode "chat_id=${{secrets.CHAT_ID}}" \
+               https://api.telegram.org/bot${{secrets.BOT_TOKEN}}/sendMessage
