@@ -67,6 +67,6 @@ final class SpendingObserver
 
         $spending->deleted_at = $spending->deleted_at ?? null;
 
-        $spending->creator_id = Auth::id();
+        $spending->creator_id = $spending->creator_id ?? Auth::id();
     }
 }
