@@ -78,6 +78,14 @@ final class Recipient extends Model
     }
 
     /**
+     * @return HasMany
+     */
+    public function boxes():HasMany
+    {
+        return $this->hasMany(Box::class);
+    }
+
+    /**
      * @param Builder $query
      *
      * @param string $key
