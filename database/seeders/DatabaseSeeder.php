@@ -36,5 +36,7 @@ final class DatabaseSeeder extends Seeder
         $this->call(MessageSeeder::class);
 
         $this->call(FeedbackSeeder::class);
+
+        $this->call(SpendingCategorySeeder::class);
     }
 }
