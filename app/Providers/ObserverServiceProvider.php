@@ -6,6 +6,8 @@ use App\Models\Feedback;
 
 use App\Models\Order;
 
+use App\Models\Project;
+
 use App\Models\Recipient;
 
 use App\Models\Sender;
@@ -35,6 +37,8 @@ use App\Models\WarehouseItem;
 use App\Observers\FeedbackObserver;
 
 use App\Observers\OrderObserver;
+
+use App\Observers\ProjectObserver;
 
 use App\Observers\RecipientObserver;
 
@@ -100,5 +104,7 @@ final class ObserverServiceProvider extends ServiceProvider
         SpendingCategory::observe(SpendingCategoryObserver::class);
 
         Spending::observe(SpendingObserver::class);
+
+        Project::observe(ProjectObserver::class);
     }
 }
