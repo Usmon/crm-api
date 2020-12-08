@@ -35,7 +35,7 @@ final class TaskSteps
      */
     public function getOnlyFilters(TaskStepsRequest $request): array
     {
-        return $request->only('search', 'date', 'amount', 'category_id', 'note');
+        return $request->only('search', 'date', 'task_id', 'step');
     }
 
     /**

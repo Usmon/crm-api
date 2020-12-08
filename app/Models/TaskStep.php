@@ -99,14 +99,14 @@ final class TaskStep extends Model
     {
         return $query->when($filters['search'] ?? null, function (Builder $query, string $search) {
             return $query->where(function (Builder $query) use ($search) {
-                return $query->where('note', 'like', '%' . $search . '%');
+                return $query->where('step', 'like', '%' . $search . '%');
             });
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
-        })->when($filters['note'] ?? null, function (Builder $query, $note){
-            return $query->where('note', 'like', '%' . $note . '%');
-        })->when($filters['category_id'] ?? null, function(Builder $query, $category_id){
-            return $query->where('category_id', '=', $category_id);
+        })->when($filters['step'] ?? null, function (Builder $query, $step){
+            return $query->where('step', 'like', '%' . $step . '%');
+        })->when($filters['task_id'] ?? null, function(Builder $query, $task_id){
+            return $query->where('task_id', '=', $task_id);
         });
     }
 }
