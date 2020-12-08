@@ -1,0 +1,729 @@
+{
+    "openapi" : "3.0.0",
+    "info" : {
+      "title" : "Silkroad API Documentation",
+      "version" : "1.0.0"
+    },
+    "servers" : [ {
+      "description" : "SwaggerHub API Auto Mocking",
+      "url" : "https://virtserver.swaggerhub.com/Usmon/SilkroadExpress/1.0.0"
+    }, {
+      "description" : "Development server",
+      "url" : "http://dev-api.silkroadexp.com/"
+    }, {
+      "description" : "Production server",
+      "url" : "http://api.silkroadexp.com/"
+    }, {
+      "description" : "Local server",
+      "url" : "http://127.0.0.1:8000/"
+    } ],
+    "tags" : [ {
+      "name" : "Authorization"
+    }, {
+      "name" : "User"
+    }, {
+      "name" : "Spendings"
+    }, {
+      "name" : "Version"
+    } ],
+    "paths" : {
+      "/" : {
+        "get" : {
+          "tags" : [ "Version" ],
+          "responses" : {
+            "200" : {
+              "description" : "OK",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/VersionSuccess"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/auth/register" : {
+        "post" : {
+          "tags" : [ "Authorization" ],
+          "security" : [ {
+            "BearerAuth" : [ ]
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "OK",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/RegisterSuccess"
+                  }
+                }
+              }
+            },
+            "422" : {
+              "description" : "Unprocessable entity",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/UnprocessableEntity"
+                  }
+                }
+              }
+            }
+          },
+          "requestBody" : {
+            "required" : true,
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RegisterBody"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/auth/login" : {
+        "post" : {
+          "tags" : [ "Authorization" ],
+          "responses" : {
+            "200" : {
+              "description" : "OK",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/LoginSuccess"
+                  }
+                }
+              }
+            },
+            "422" : {
+              "description" : "Unprocessable Entity",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/UnprocessableEntity"
+                  }
+                }
+              }
+            }
+          },
+          "requestBody" : {
+            "required" : true,
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/LoginBody"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/auth/logout" : {
+        "post" : {
+          "tags" : [ "Authorization" ],
+          "security" : [ {
+            "BearerAuth" : [ ]
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "OK",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/LogoutSuccess"
+                  }
+                }
+              }
+            },
+            "401" : {
+              "description" : "Unauthorized",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/Unauthorized"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/user" : {
+        "get" : {
+          "tags" : [ "User" ],
+          "security" : [ {
+            "BearerAuth" : [ ]
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "OK",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/UserSuccess"
+                  }
+                }
+              }
+            },
+            "401" : {
+              "description" : "Unauthorized",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/Unauthorized"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/user/sessions" : {
+        "get" : {
+          "tags" : [ "User" ],
+          "security" : [ {
+            "BearerAuth" : [ ]
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "OK",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/UserSessionsSuccess"
+                  }
+                }
+              }
+            },
+            "401" : {
+              "description" : "Unauthorized",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/Unauthorized"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/user/sessions/other" : {
+        "delete" : {
+          "tags" : [ "User" ],
+          "security" : [ {
+            "BearerAuth" : [ ]
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "OK",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/UserSessionsOthersDeleteSuccess"
+                  }
+                }
+              }
+            },
+            "401" : {
+              "description" : "Unauthorized",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/Unauthorized"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/user/sessions/{token}" : {
+        "delete" : {
+          "tags" : [ "User" ],
+          "security" : [ {
+            "BearerAuth" : [ ]
+          } ],
+          "parameters" : [ {
+            "in" : "path",
+            "name" : "token",
+            "schema" : {
+              "type" : "string"
+            },
+            "required" : true,
+            "description" : "Token string"
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "OK",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/UserSessionsOthersDeleteSuccess"
+                  }
+                }
+              }
+            },
+            "401" : {
+              "description" : "Unauthorized",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/Unauthorized"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/spendings" : {
+        "get" : {
+          "tags" : [ "Spendings" ],
+          "security" : [ {
+            "BearerAuth" : [ ]
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "OK",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/Spendings"
+                  }
+                }
+              }
+            },
+            "401" : {
+              "description" : "Unauthorized",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/Unauthorized"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post" : {
+          "tags" : [ "Spendings" ],
+          "responses" : {
+            "201" : {
+              "description" : "OK",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/Spending"
+                  }
+                }
+              }
+            },
+            "422" : {
+              "description" : "Unprocessable Entity",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/UnprocessableEntity"
+                  }
+                }
+              }
+            }
+          },
+          "requestBody" : {
+            "required" : true,
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SpendingBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components" : {
+      "schemas" : {
+        "VersionSuccess" : {
+          "type" : "object",
+          "properties" : {
+            "success" : {
+              "type" : "boolean"
+            },
+            "data" : {
+              "type" : "object",
+              "properties" : {
+                "app" : {
+                  "type" : "object",
+                  "properties" : {
+                    "name" : {
+                      "type" : "string"
+                    },
+                    "version" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Unauthorized" : {
+          "type" : "object",
+          "properties" : {
+            "success" : {
+              "type" : "boolean"
+            },
+            "data" : {
+              "type" : "object",
+              "properties" : {
+                "message" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "example" : {
+            "success" : false,
+            "data" : {
+              "message" : "You are not authorized."
+            }
+          }
+        },
+        "UnprocessableEntity" : {
+          "type" : "object",
+          "properties" : {
+            "success" : {
+              "type" : "boolean"
+            },
+            "errors" : {
+              "type" : "object",
+              "properties" : {
+                "error" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          },
+          "example" : {
+            "success" : false,
+            "data" : {
+              "message" : {
+                "error_type" : "Error message"
+              }
+            }
+          }
+        },
+        "RegisterBody" : {
+          "type" : "object",
+          "properties" : {
+            "login" : {
+              "type" : "string"
+            },
+            "email" : {
+              "type" : "string"
+            },
+            "password" : {
+              "type" : "string"
+            },
+            "password_confirmation" : {
+              "type" : "string"
+            }
+          },
+          "example" : {
+            "login" : "john_doe",
+            "email" : "johndoe@mail.com",
+            "password" : "password",
+            "password_confirmation" : "password"
+          }
+        },
+        "LoginBody" : {
+          "type" : "object",
+          "properties" : {
+            "login" : {
+              "type" : "string"
+            },
+            "password" : {
+              "type" : "string"
+            },
+            "device_ip" : {
+              "type" : "string"
+            },
+            "device_os" : {
+              "type" : "string"
+            },
+            "device_type" : {
+              "type" : "string"
+            },
+            "device_name" : {
+              "type" : "string"
+            }
+          },
+          "example" : {
+            "login" : "admin",
+            "password" : "secret",
+            "device_ip" : "127.0.0.1",
+            "device_os" : "Windows 10",
+            "device_type" : "browser",
+            "device_name" : "Google Chrome"
+          }
+        },
+        "LoginSuccess" : {
+          "type" : "object",
+          "properties" : {
+            "success" : {
+              "type" : "boolean"
+            },
+            "data" : {
+              "type" : "object",
+              "properties" : {
+                "token" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "example" : {
+            "success" : true,
+            "data" : {
+              "token" : "token string"
+            }
+          }
+        },
+        "LogoutSuccess" : {
+          "type" : "object",
+          "properties" : {
+            "success" : {
+              "type" : "boolean"
+            },
+            "data" : {
+              "type" : "object",
+              "properties" : {
+                "message" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "example" : {
+            "success" : true,
+            "data" : {
+              "message" : "You have successfully logged out."
+            }
+          }
+        },
+        "RegisterSuccess" : {
+          "type" : "object",
+          "properties" : {
+            "success" : {
+              "type" : "boolean"
+            }
+          },
+          "example" : {
+            "success" : true
+          }
+        },
+        "UserSuccess" : {
+          "type" : "object",
+          "properties" : {
+            "success" : {
+              "type" : "boolean"
+            },
+            "user" : {
+              "type" : "object",
+              "properties" : {
+                "id" : {
+                  "type" : "integer"
+                },
+                "login" : {
+                  "type" : "string"
+                },
+                "email" : {
+                  "type" : "string"
+                },
+                "profile" : {
+                  "type" : "object",
+                  "properties" : {
+                    "first_name" : {
+                      "type" : "string"
+                    },
+                    "middle_name" : {
+                      "type" : "string"
+                    },
+                    "last_name" : {
+                      "type" : "string"
+                    },
+                    "photo" : {
+                      "type" : "string"
+                    }
+                  }
+                },
+                "created_at" : {
+                  "type" : "string",
+                  "format" : "datetime"
+                },
+                "updated_at" : {
+                  "type" : "string",
+                  "format" : "datetime"
+                },
+                "deleted_at" : {
+                  "type" : "string",
+                  "format" : "datetime"
+                }
+              }
+            }
+          },
+          "example" : {
+            "success" : true,
+            "user" : {
+              "id" : 1,
+              "login" : "admin",
+              "email" : "admin@silkroad.test",
+              "profile" : {
+                "first_name" : "John",
+                "middle_name" : "Jr",
+                "last_name" : "Doe",
+                "photo" : null
+              },
+              "created_at" : "2020-01-01T00:00:00.000000Z",
+              "updated_at" : "2020-01-01T00:00:00.000000Z",
+              "deleted_at" : null
+            }
+          }
+        },
+        "UserSessionsSuccess" : {
+          "type" : "object",
+          "properties" : {
+            "success" : {
+              "type" : "boolean"
+            },
+            "data" : {
+              "type" : "object",
+              "properties" : {
+                "sessions" : {
+                  "type" : "object",
+                  "properties" : {
+                    "id" : {
+                      "type" : "integer"
+                    },
+                    "ip" : {
+                      "type" : "string"
+                    },
+                    "os" : {
+                      "type" : "string"
+                    },
+                    "type" : {
+                      "type" : "string"
+                    },
+                    "name" : {
+                      "type" : "string"
+                    },
+                    "current" : {
+                      "type" : "boolean"
+                    },
+                    "used_at" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "UserSessionsOthersDeleteSuccess" : {
+          "type" : "object",
+          "properties" : {
+            "success" : {
+              "type" : "boolean"
+            },
+            "data" : {
+              "type" : "object",
+              "properties" : {
+                "message" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "example" : {
+            "success" : true,
+            "data" : {
+              "message" : "The other sessions successfully deleted."
+            }
+          }
+        },
+        "Spendings" : {
+          "type" : "object",
+          "properties" : {
+            "success" : {
+              "type" : "boolean"
+            },
+            "data" : {
+              "type" : "object",
+              "properties" : {
+                "spendings" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Spending" : {
+          "type" : "object",
+          "properties" : {
+            "success" : {
+              "type" : "boolean"
+            },
+            "data" : {
+              "type" : "object",
+              "properties" : {
+                "id" : {
+                  "type" : "integer"
+                },
+                "category_id" : {
+                  "type" : "integer"
+                },
+                "amount" : {
+                  "type" : "number"
+                },
+                "note" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        },
+        "SpendingBody" : {
+          "type" : "object",
+          "properties" : {
+            "category_id" : {
+              "type" : "integer"
+            },
+            "amount" : {
+              "type" : "number"
+            },
+            "note" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "securitySchemes" : {
+        "BearerAuth" : {
+          "type" : "http",
+          "scheme" : "bearer",
+          "bearerFormat" : "JWT"
+        }
+      }
+    }
+  }
