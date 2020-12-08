@@ -46,5 +46,7 @@ final class DatabaseSeeder extends Seeder
         $this->call(ProjectSeeder::class);
 
         $this->call(TaskSeeder::class);
+
+        $this->call(TaskStepSeeder::class);
     }
 }
