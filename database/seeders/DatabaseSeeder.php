@@ -44,5 +44,7 @@ final class DatabaseSeeder extends Seeder
         $this->call(SpendingSeeder::class);
 
         $this->call(ProjectSeeder::class);
+
+        $this->call(TaskSeeder::class);
     }
 }

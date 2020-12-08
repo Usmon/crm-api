@@ -51,6 +51,8 @@ use App\Http\Controllers\Dashboard\Spendings\Controller as DashboardSpendingsCon
 
 use App\Http\Controllers\Dashboard\Projects\Controller as DashboardProjectsController;
 
+use App\Http\Controllers\Dashboard\Tasks\Controller as DashboardTasksController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -123,4 +125,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     Route::apiResource('spendings', DashboardSpendingsController::class);
 
     Route::apiResource('projects', DashboardProjectsController::class);
+
+    Route::apiResource('tasks', DashboardTasksController::class);
 });
