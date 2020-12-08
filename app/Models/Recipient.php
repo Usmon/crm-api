@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\HasOne;
+
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 use Illuminate\Support\Carbon;
 
 use App\Traits\Pagination\Pager;
