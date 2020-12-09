@@ -99,31 +99,14 @@ final class TaskFile extends Model
     {
         return $query->when($filters['search'] ?? null, function (Builder $query, string $search) {
             return $query->where(function (Builder $query) use ($search) {
-                return $query->where('title', 'like', '%' . $search . '%')
-                    ->orWhere('note', 'like', '%' . $search . '%');
+                return $query->where('name', 'like', '%' . $search . '%');
             });
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
-        })->when($filters['title'] ?? null, function (Builder $query, $title){
-            return $query->where('title', 'like', '%' . $title . '%');
-        })->when($filters['note'] ?? null, function (Builder $query, $note){
-            return $query->where('note', 'like', '%' . $note . '%');
-        })->when($filters['creator_id'] ?? null, function (Builder $query, $creator_id){
-            return $query->where('creator_id', '=', $creator_id);
-        })->when($filters['project_id'] ?? null, function (Builder $query, $project_id){
-            return $query->where('project_id', '=', $project_id);
-        })->when($filters['in_may_day'] ?? null, function (Builder $query, $in_may_day){
-            return $query->where('in_may_day', '=', $in_may_day);
-        })->when($filters['is_completed'] ?? null, function (Builder $query, $is_completed){
-            return $query->where('is_completed', '=', $is_completed);
-        })->when($filters['is_important'] ?? null, function (Builder $query, $is_important){
-            return $query->where('is_important', '=', $is_important);
-        })->when($filters['remind_me_at'] ?? null, function (Builder $query, array $remind_me_at) {
-            return $query->whereBetween('remind_me_at', $remind_me_at);
-        })->when($filters['due_date'] ?? null, function (Builder $query, array $due_date) {
-            return $query->whereBetween('due_date', $due_date);
-        })->when($filters['next_repeat'] ?? null, function (Builder $query, array $next_repeat) {
-            return $query->whereBetween('due_date', $next_repeat);
+        })->when($filters['name'] ?? null, function (Builder $query, $name){
+            return $query->where('name', 'like', '%' . $name . '%');
+        })->when($filters['task_id'] ?? null, function (Builder $query, $task_id){
+            return $query->where('task_id', '=', $task_id);
         });
     }
 }
