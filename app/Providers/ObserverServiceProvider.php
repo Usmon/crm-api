@@ -21,6 +21,7 @@ use App\Models\Spending;
 use App\Models\SpendingCategory;
 
 use App\Models\Task;
+use App\Models\TaskFile;
 use App\Models\User;
 
 use App\Models\Role;
@@ -53,6 +54,7 @@ use App\Observers\SpendingCategoryObserver;
 
 use App\Observers\SpendingObserver;
 
+use App\Observers\TaskFileObserver;
 use App\Observers\TaskObserver;
 use App\Observers\UserObserver;
 
@@ -116,5 +118,7 @@ final class ObserverServiceProvider extends ServiceProvider
         Project::observe(ProjectObserver::class);
 
         Task::observe(TaskObserver::class);
+
+        TaskFile::observe(TaskFileObserver::class);
     }
 }
