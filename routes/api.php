@@ -34,7 +34,7 @@ use App\Http\Controllers\Dashboard\Senders\Controller as DashboardSendersControl
 
 use App\Http\Controllers\Dashboard\FedexOrders\Controller as DashboardFedexOrdersController;
 
-use App\Http\Controllers\Dashboard\WarehouseItems\Controller as DashboardWarehouseItemsCon
+use App\Http\Controllers\Dashboard\WarehouseItems\Controller as DashboardWarehouseItemsController;
 
 use App\Http\Controllers\Dashboard\Deliveries\Controller as DashboardDeliveriesController;
 
