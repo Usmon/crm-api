@@ -41,6 +41,7 @@ use App\Http\Controllers\Dashboard\Deliveries\Controller as DashboardDeliveriesC
 use App\Http\Controllers\Dashboard\Recipients\Controller as DashboardRecipientsController;
 
 use App\Http\Controllers\Dashboard\Boxes\Controller as DashboardBoxesController;
+
 use App\Http\Controllers\Dashboard\Messages\Controller as DashboardMessagesController;
 
 use App\Http\Controllers\Dashboard\Feedbacks\Controller as DashboardFeedbacksController;
@@ -52,6 +53,8 @@ use App\Http\Controllers\Dashboard\Spendings\Controller as DashboardSpendingsCon
 use App\Http\Controllers\Dashboard\Projects\Controller as DashboardProjectsController;
 
 use App\Http\Controllers\Dashboard\Tasks\Controller as DashboardTasksController;
+
+use App\Http\Controllers\Dashboard\TaskSteps\Controller as DashboardTaskStepsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -127,4 +130,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     Route::apiResource('projects', DashboardProjectsController::class);
 
     Route::apiResource('tasks', DashboardTasksController::class);
+
+    Route::apiResource('task-steps', DashboardTaskStepsController::class);
 });
