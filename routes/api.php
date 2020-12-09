@@ -34,7 +34,7 @@ use App\Http\Controllers\Dashboard\Senders\Controller as DashboardSendersControl
 
 use App\Http\Controllers\Dashboard\FedexOrders\Controller as DashboardFedexOrdersController;
 
-use App\Http\Controllers\Dashboard\WarehouseItems\Controller as DashboardWarehouseItemsController;
+use App\Http\Controllers\Dashboard\WarehouseItems\Controller as DashboardWarehouseItemsCon
 
 use App\Http\Controllers\Dashboard\Deliveries\Controller as DashboardDeliveriesController;
 
@@ -54,10 +54,13 @@ use App\Http\Controllers\Dashboard\Projects\Controller as DashboardProjectsContr
 
 use App\Http\Controllers\Dashboard\Tasks\Controller as DashboardTasksController;
 
+use App\Http\Controllers\Dashboard\TaskUsers\Controller as DashboardTaskUsersController;
+
 use App\Http\Controllers\Dashboard\TaskSteps\Controller as DashboardTaskStepsController;
 
 /*
-|--------------------------------------------------------------------------
+|--------------------------------------------------------------
+------------
 | API Routes
 |--------------------------------------------------------------------------
 */
@@ -119,6 +122,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     Route::apiResource('recipients', DashboardRecipientsController::class);
 
     Route::apiResource('boxes', DashboardBoxesController::class);
+
     Route::apiResource('messages', DashboardMessagesController::class);
 
     Route::apiResource('feedbacks', DashboardFeedbacksController::class);
@@ -130,6 +134,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     Route::apiResource('projects', DashboardProjectsController::class);
 
     Route::apiResource('tasks', DashboardTasksController::class);
+
+    Route::apiResource('task-users', DashboardTaskUsersController::class);
 
     Route::apiResource('task-steps', DashboardTaskStepsController::class);
 });
