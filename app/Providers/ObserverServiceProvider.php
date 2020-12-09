@@ -24,6 +24,8 @@ use App\Models\Task;
 
 use App\Models\TaskUser;
 
+use App\Models\TaskStep;
+
 use App\Models\User;
 
 use App\Models\Role;
@@ -59,6 +61,8 @@ use App\Observers\SpendingObserver;
 use App\Observers\TaskObserver;
 
 use App\Observers\TaskUserObserver;
+
+use App\Observers\TaskStepObserver;
 
 use App\Observers\UserObserver;
 
@@ -124,5 +128,7 @@ final class ObserverServiceProvider extends ServiceProvider
         Task::observe(TaskObserver::class);
 
         TaskUser::observe(TaskUserObserver::class);
+
+        TaskStep::observe(TaskStepObserver::class);
     }
 }
