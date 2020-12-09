@@ -6,6 +6,8 @@ use App\Models\Feedback;
 
 use App\Models\Order;
 
+use App\Models\OrderComment;
+
 use App\Models\Project;
 
 use App\Models\Recipient;
@@ -21,6 +23,7 @@ use App\Models\Spending;
 use App\Models\SpendingCategory;
 
 use App\Models\Task;
+
 use App\Models\User;
 
 use App\Models\Role;
@@ -39,6 +42,8 @@ use App\Models\WarehouseItem;
 
 use App\Observers\FeedbackObserver;
 
+use App\Observers\OrderCommentObserver;
+
 use App\Observers\OrderObserver;
 
 use App\Observers\ProjectObserver;
@@ -54,6 +59,7 @@ use App\Observers\SpendingCategoryObserver;
 use App\Observers\SpendingObserver;
 
 use App\Observers\TaskObserver;
+
 use App\Observers\UserObserver;
 
 use App\Observers\RoleObserver;
@@ -116,5 +122,7 @@ final class ObserverServiceProvider extends ServiceProvider
         Project::observe(ProjectObserver::class);
 
         Task::observe(TaskObserver::class);
+
+        OrderComment::observe(OrderCommentObserver::class);
     }
 }

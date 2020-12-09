@@ -53,6 +53,8 @@ use App\Http\Controllers\Dashboard\Projects\Controller as DashboardProjectsContr
 
 use App\Http\Controllers\Dashboard\Tasks\Controller as DashboardTasksController;
 
+use App\Http\Controllers\Dashboard\OrderComments\Controller as DashboardOrderCommentsController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -127,4 +129,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     Route::apiResource('projects', DashboardProjectsController::class);
 
     Route::apiResource('tasks', DashboardTasksController::class);
+
+    Route::apiResource('order-comments', DashboardOrderCommentsController::class);
 });
