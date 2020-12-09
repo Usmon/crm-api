@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Dashboard\Recipients;
 
 use App\Helpers\Json;
 
+use App\Models\Recipient;
+
+use Illuminate\Http\JsonResponse;
+
 use App\Http\Controllers\Controller as Controllers;
 
 use App\Logic\Dashboard\CRUD\Requests\Recipients as RecipientsRequest;
@@ -11,10 +15,6 @@ use App\Logic\Dashboard\CRUD\Requests\Recipients as RecipientsRequest;
 use App\Logic\Dashboard\CRUD\Services\Recipients as RecipientsService;
 
 use App\Logic\Dashboard\CRUD\Repositories\Recipients as RecipientsRepository;
-
-use App\Models\Recipient;
-
-use Illuminate\Http\JsonResponse;
 
 final class Controller extends Controllers
 {

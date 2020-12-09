@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Dashboard\Shipments;
 
+use App\Helpers\Json;
+
 use App\Models\Shipment;
 
-use App\Helpers\Json;
+use Illuminate\Http\JsonResponse;
 
 use App\Http\Controllers\Controller as Controllers;
 
@@ -14,7 +16,6 @@ use App\Logic\Dashboard\CRUD\Services\Shipments as ShipmentsService;
 
 use App\Logic\Dashboard\CRUD\Repositories\Shipments as ShipmentsRepository;
 
-use Illuminate\Http\JsonResponse;
 
 final class Controller extends Controllers
 {

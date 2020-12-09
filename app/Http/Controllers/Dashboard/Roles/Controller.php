@@ -6,6 +6,8 @@ use App\Models\Role;
 
 use App\Helpers\Json;
 
+use Illuminate\Http\JsonResponse;
+
 use App\Http\Controllers\Controller as Controllers;
 
 use App\Logic\Dashboard\CRUD\Requests\Roles as RolesRequest;
@@ -13,8 +15,6 @@ use App\Logic\Dashboard\CRUD\Requests\Roles as RolesRequest;
 use App\Logic\Dashboard\CRUD\Services\Roles as RolesService;
 
 use App\Logic\Dashboard\CRUD\Repositories\Roles as RolesRepository;
-
-use Illuminate\Http\JsonResponse;
 
 final class Controller extends Controllers
 {
