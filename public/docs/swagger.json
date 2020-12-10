@@ -6,16 +6,13 @@
   },
   "servers" : [ {
     "description" : "SwaggerHub API Auto Mocking",
-    "url" : "https://virtserver.swaggerhub.com/MakhmudovMurod/Silkroad/1.0.0"
-  }, {
-    "description" : "SwaggerHub API Auto Mocking",
     "url" : "https://virtserver.swaggerhub.com/Usmon/SilkroadExpress/1.0.0"
   }, {
     "description" : "Development server",
     "url" : "http://dev-api.silkroadexp.com/"
   }, {
     "description" : "Production server",
-    "url" : "http://prod-api.silkroadexp.com/"
+    "url" : "http://api.silkroadexp.com/"
   }, {
     "description" : "Local server",
     "url" : "http://127.0.0.1:8000/"
@@ -32,6 +29,8 @@
     "name" : "Boxes"
   }, {
     "name" : "Deliveries"
+  }, {
+    "name" : "Orders"
   } ],
   "paths" : {
     "/" : {
@@ -613,6 +612,150 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Delivery"
+                }
+              }
+            }
+          },
+          "422" : {
+            "description" : "Unprocessable Entity",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnprocessableEntity"
+                }
+              }
+            }
+          }
+        },
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DeliveryBody"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders" : {
+      "get" : {
+        "tags" : [ "Orders" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Orders"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthroized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Orders" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Order"
+                }
+              }
+            }
+          },
+          "422" : {
+            "description" : "Unprocessable Entity",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnprocessableEntity"
+                }
+              }
+            }
+          }
+        },
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/OrderBody"
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Orders" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrderDeleteSuccess"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders/{id}" : {
+      "put" : {
+        "tags" : [ "Orders" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Order"
                 }
               }
             }
@@ -1288,6 +1431,226 @@
           "success" : true,
           "data" : {
             "message" : "The delivery deleted successfully."
+          }
+        }
+      },
+      "Orders" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "filters" : {
+                "type" : "object",
+                "properties" : {
+                  "search" : {
+                    "type" : "string"
+                  },
+                  "date" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              },
+              "orders" : {
+                "type" : "object",
+                "properties" : {
+                  "current_page" : {
+                    "type" : "integer"
+                  },
+                  "data" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "object"
+                    },
+                    "properties" : {
+                      "id" : {
+                        "type" : "integer"
+                      },
+                      "staff_id" : {
+                        "type" : "integer"
+                      },
+                      "customer_id" : {
+                        "type" : "integer"
+                      },
+                      "fedex_order_id" : {
+                        "type" : "string"
+                      },
+                      "pickup_id" : {
+                        "type" : "integer"
+                      },
+                      "shipment_id" : {
+                        "type" : "integer"
+                      },
+                      "price" : {
+                        "type" : "number"
+                      },
+                      "payed_price" : {
+                        "type" : "number"
+                      },
+                      "status" : {
+                        "type" : "string"
+                      },
+                      "payment_status" : {
+                        "type" : "string"
+                      }
+                    }
+                  },
+                  "first_page_url" : {
+                    "type" : "string"
+                  },
+                  "from" : {
+                    "type" : "integer"
+                  },
+                  "last_page" : {
+                    "type" : "integer"
+                  },
+                  "last_page_url" : {
+                    "type" : "string"
+                  },
+                  "links" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "object"
+                    },
+                    "properties" : {
+                      "url" : {
+                        "type" : "string"
+                      },
+                      "label" : {
+                        "type" : "integer"
+                      },
+                      "active" : {
+                        "type" : "boolean"
+                      }
+                    }
+                  },
+                  "next_page_url" : {
+                    "type" : "string"
+                  },
+                  "path" : {
+                    "type" : "string"
+                  },
+                  "per_page" : {
+                    "type" : "integer"
+                  },
+                  "prev_page_url" : {
+                    "type" : "string"
+                  },
+                  "to" : {
+                    "type" : "integer"
+                  },
+                  "total" : {
+                    "type" : "integer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Order" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "id" : {
+                "type" : "integer"
+              },
+              "staff_id" : {
+                "type" : "integer"
+              },
+              "customer_id" : {
+                "type" : "integer"
+              },
+              "fedex_order_id" : {
+                "type" : "string"
+              },
+              "pickup_id" : {
+                "type" : "integer"
+              },
+              "shipment_id" : {
+                "type" : "integer"
+              },
+              "price" : {
+                "type" : "number"
+              },
+              "payed_price" : {
+                "type" : "number"
+              },
+              "status" : {
+                "type" : "string"
+              },
+              "payment_status" : {
+                "type" : "string"
+              }
+            }
+          }
+        }
+      },
+      "OrderBody" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer"
+          },
+          "staff_id" : {
+            "type" : "integer"
+          },
+          "customer_id" : {
+            "type" : "integer"
+          },
+          "fedex_order_id" : {
+            "type" : "string"
+          },
+          "pickup_id" : {
+            "type" : "integer"
+          },
+          "shipment_id" : {
+            "type" : "integer"
+          },
+          "price" : {
+            "type" : "number"
+          },
+          "payed_price" : {
+            "type" : "number"
+          },
+          "status" : {
+            "type" : "string"
+          },
+          "payment_status" : {
+            "type" : "string"
+          }
+        }
+      },
+      "OrderDeleteSuccess" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "message" : {
+                "type" : "string"
+              }
+            }
+          }
+        },
+        "example" : {
+          "success" : true,
+          "data" : {
+            "message" : "The order deleted successfully."
           }
         }
       }
