@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Dashboard\Messages;
 
 use App\Helpers\Json;
 
+use App\Models\Message;
+
+use Illuminate\Http\JsonResponse;
+
 use App\Http\Controllers\Controller as Controllers;
 
 use App\Logic\Dashboard\CRUD\Requests\Messages as MessagesRequest;
@@ -11,10 +15,6 @@ use App\Logic\Dashboard\CRUD\Requests\Messages as MessagesRequest;
 use App\Logic\Dashboard\CRUD\Services\Messages as MessagesService;
 
 use App\Logic\Dashboard\CRUD\Repositories\Messages as MessagesRepository;
-
-use App\Models\Message;
-
-use Illuminate\Http\JsonResponse;
 
 final class Controller extends Controllers
 {

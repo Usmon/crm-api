@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Dashboard\Spendings;
 
 use App\Helpers\Json;
 
+use App\Models\Spending;
+
+use Illuminate\Http\JsonResponse;
+
 use App\Http\Controllers\Controller as Controllers;
 
 use App\Logic\Dashboard\CRUD\Requests\Spendings as SpendingsRequest;
@@ -12,9 +16,6 @@ use App\Logic\Dashboard\CRUD\Services\Spendings as SpendingsService;
 
 use App\Logic\Dashboard\CRUD\Repositories\Spendings as SpendingsRepository;
 
-use App\Models\Spending;
-
-use Illuminate\Http\JsonResponse;
 
 final class Controller extends Controllers
 {
