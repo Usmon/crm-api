@@ -6,6 +6,8 @@ use App\Models\Feedback;
 
 use App\Models\Order;
 
+use App\Models\OrderComment;
+
 use App\Models\Project;
 
 use App\Models\Recipient;
@@ -46,6 +48,8 @@ use App\Models\WarehouseItem;
 
 use App\Observers\FeedbackObserver;
 
+use App\Observers\OrderCommentObserver;
+
 use App\Observers\OrderObserver;
 
 use App\Observers\ProjectObserver;
@@ -61,6 +65,7 @@ use App\Observers\SpendingCategoryObserver;
 use App\Observers\SpendingObserver;
 
 use App\Observers\TaskFileObserver;
+
 use App\Observers\TaskObserver;
 
 use App\Observers\TaskUserObserver;
@@ -130,6 +135,8 @@ final class ObserverServiceProvider extends ServiceProvider
 
         Task::observe(TaskObserver::class);
 
+        OrderComment::observe(OrderCommentObserver::class);
+      
         TaskFile::observe(TaskFileObserver::class);
 
         TaskUser::observe(TaskUserObserver::class);
