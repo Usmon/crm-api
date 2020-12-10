@@ -2,8 +2,9 @@
 
 namespace App\Logic\Dashboard\CRUD\Repositories;
 
-use App\Models\FedexOrder;
 use Exception;
+
+use App\Models\FedexOrder;
 
 use Illuminate\Contracts\Pagination\Paginator;
 

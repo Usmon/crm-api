@@ -2,9 +2,9 @@
 
 namespace App\Logic\Dashboard\CRUD\Repositories;
 
-use App\Models\Shipment;
-
 use Exception;
+
+use App\Models\Shipment;
 
 use Illuminate\Contracts\Pagination\Paginator;
 

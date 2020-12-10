@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Dashboard\WarehouseItems;
 
 use App\Helpers\Json;
 
+use App\Models\WarehouseItem;
+
+use Illuminate\Http\JsonResponse;
+
 use App\Http\Controllers\Controller as Controllers;
 
 use App\Logic\Dashboard\CRUD\Requests\WarehouseItems as WarehouseItemsRequest;
@@ -12,9 +16,6 @@ use App\Logic\Dashboard\CRUD\Services\WarehouseItems as WarehouseItemsService;
 
 use App\Logic\Dashboard\CRUD\Repositories\WarehouseItems as WarehouseItemsRepository;
 
-use App\Models\WarehouseItem;
-
-use Illuminate\Http\JsonResponse;
 
 final class Controller extends Controllers
 {
