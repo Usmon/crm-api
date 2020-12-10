@@ -54,8 +54,19 @@ use App\Http\Controllers\Dashboard\Spendings\Controller as DashboardSpendingsCon
 
 use App\Http\Controllers\Dashboard\Projects\Controller as DashboardProjectsController;
 
+use App\Http\Controllers\Dashboard\Tasks\Controller as DashboardTasksController;
+
+use App\Http\Controllers\Dashboard\OrderComments\Controller as DashboardOrderCommentsController;
+
+use App\Http\Controllers\Dashboard\TaskFiles\Controller as DashboardTaskFilesController;
+
+use App\Http\Controllers\Dashboard\TaskUsers\Controller as DashboardTaskUsersController;
+
+use App\Http\Controllers\Dashboard\TaskSteps\Controller as DashboardTaskStepsController;
+
 /*
-|--------------------------------------------------------------------------
+|--------------------------------------------------------------
+------------
 | API Routes
 |--------------------------------------------------------------------------
 */
@@ -129,4 +140,14 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     Route::apiResource('spendings', DashboardSpendingsController::class);
 
     Route::apiResource('projects', DashboardProjectsController::class);
+
+    Route::apiResource('tasks', DashboardTasksController::class);
+
+    Route::apiResource('order-comments', DashboardOrderCommentsController::class);
+
+    Route::apiResource('task-files', DashboardTaskFilesController::class);
+
+    Route::apiResource('task-users', DashboardTaskUsersController::class);
+
+    Route::apiResource('task-steps', DashboardTaskStepsController::class);
 });

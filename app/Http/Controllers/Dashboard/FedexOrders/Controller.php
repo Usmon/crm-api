@@ -30,7 +30,9 @@ final class Controller extends Controllers
 
     /**
      * Controller constructor.
+     *
      * @param FedexOrdersService $service
+     *
      * @param FedexOrdersRepository $repository
      */
     public function __construct(FedexOrdersService $service, FedexOrdersRepository $repository)
@@ -49,7 +51,7 @@ final class Controller extends Controllers
         return Json::sendJsonWith200([
             'filters' => $this->service->getAllFilters($request),
 
-            'fedex_orders' => $this->service->getFedexOrders($this->repository->getFedexOrders($this->service->getOnlyFilters($request))),
+            'fedex-orders' => $this->service->getFedexOrders($this->repository->getFedexOrders($this->service->getOnlyFilters($request))),
         ]);
     }
 
@@ -87,7 +89,7 @@ final class Controller extends Controllers
         return Json::sendJsonWith200([
             'message' => 'The fedex-order was successfully updated.',
 
-            'fedex' => $this->repository->updateFedexOrder($fedexOrder, $this->service->updateCredentials($request)),
+            'fedex-order' => $this->repository->updateFedexOrder($fedexOrder, $this->service->updateCredentials($request)),
         ]);
     }
 

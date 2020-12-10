@@ -46,5 +46,15 @@ final class DatabaseSeeder extends Seeder
         $this->call(SpendingSeeder::class);
 
         $this->call(ProjectSeeder::class);
+
+        $this->call(TaskSeeder::class);
+
+        $this->call(OrderCommentSeeder::class);
+
+        $this->call(TaskFileSeeder::class);
+
+        $this->call(TaskUserSeeder::class);
+
+        $this->call(TaskStepSeeder::class);
     }
 }

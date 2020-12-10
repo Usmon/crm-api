@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Dashboard\Projects;
 
 use App\Helpers\Json;
 
+use App\Models\Project;
+
+use Illuminate\Http\JsonResponse;
+
 use App\Http\Controllers\Controller as Controllers;
 
 use App\Logic\Dashboard\CRUD\Requests\Projects as ProjectsRequest;
@@ -11,10 +15,6 @@ use App\Logic\Dashboard\CRUD\Requests\Projects as ProjectsRequest;
 use App\Logic\Dashboard\CRUD\Services\Projects as ProjectsService;
 
 use App\Logic\Dashboard\CRUD\Repositories\Projects as ProjectsRepository;
-
-use App\Models\Project;
-
-use Illuminate\Http\JsonResponse;
 
 final class Controller extends Controllers
 {

@@ -12,20 +12,16 @@ use Illuminate\Database\Eloquent\Builder;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-use Illuminate\Database\Eloquent\Relations\HasOne;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * App\Models\Spending
+ * App\Models\OrderComment
  *
- * @property integer $creator_id
+ * @property int $order_id
  *
- * @property double $amount
+ * @property int $owner_id
  *
- * @property integer $category_id
- *
- * @property string $note
+ * @property string $comment
  *
  * @property Carbon|null $created_at
  *
@@ -33,17 +29,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property Carbon|null $deleted_at
  *
- * @property integer|null $deleted_by
+ * @property int|null $deleted_by
  *
- * @property-read HasOne $category
- *
- * @method static Builder|self findBy(string $key, string $value = null)
- *
- * @method static Builder|self filter(array $filters)
- *
- * @mixin Model
  */
-final class Spending extends Model
+final class OrderComment extends Model
 {
     use Pager;
     use HasFactory;
@@ -52,51 +41,38 @@ final class Spending extends Model
     /**
      * @var string
      */
-    protected $table = 'spendings';
+    protected $table = 'order_comments';
 
     /**
      * @var array
      */
     protected $fillable = [
-        'creator_id',
+        'order_id',
 
-        'amount',
+        'owner_id',
 
-        'category_id',
-
-        'note',
-
-        'deleted_by'
+        'comment'
     ];
 
     /**
      * @var array
      */
     protected $casts = [
-        'creator_id' => 'integer',
+        'id' => 'integer',
 
-        'amount' => 'double',
+        'order_id' => 'integer',
 
-        'category_id' => 'integer',
+        'owner_id' => 'integer',
 
-        'note' => 'string',
+        'comment' => 'string',
 
         'created_at' => 'datetime',
 
         'updated_at' => 'datetime',
 
         'deleted_at' => 'datetime',
-
-        'deleted_by' => 'integer'
     ];
 
-    /**
-     * @return HasOne
-     */
-    public function category()
-    {
-        return $this->hasOne(SpendingCategory::class,'id');
-    }
     /**
      * @param Builder $query
      *
@@ -122,14 +98,16 @@ final class Spending extends Model
     {
         return $query->when($filters['search'] ?? null, function (Builder $query, string $search) {
             return $query->where(function (Builder $query) use ($search) {
-                return $query->where('note', 'like', '%' . $search . '%');
+                return $query->where('comment', 'like', '%' . $search . '%');
             });
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
-        })->when($filters['note'] ?? null, function (Builder $query, $note){
-            return $query->where('note', 'like', '%' . $note . '%');
-        })->when($filters['category_id'] ?? null, function(Builder $query, $category_id){
-            return $query->where('category_id', '=', $category_id);
+        })->when($filters['comment'] ?? null, function (Builder $query, string $comment) {
+            return $query->where('comment', 'like', '%'. $comment .'%');
+        })->when($filters['order_id'] ?? null, function (Builder $query, int $order_id) {
+            return $query->where('order_id', '=', $order_id);
+        })->when($filters['owner_id'] ?? null, function (Builder $query, int $owner_id) {
+            return $query->where('owner_id', '=', $owner_id);
         });
     }
 }

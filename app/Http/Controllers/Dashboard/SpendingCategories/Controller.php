@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Dashboard\SpendingCategories;
 
 use App\Helpers\Json;
 
+use App\Models\SpendingCategory;
+
+use Illuminate\Http\JsonResponse;
+
 use App\Http\Controllers\Controller as Controllers;
 
 use App\Logic\Dashboard\CRUD\Requests\SpendingCategories as SpendingCategoriesRequest;
@@ -11,10 +15,6 @@ use App\Logic\Dashboard\CRUD\Requests\SpendingCategories as SpendingCategoriesRe
 use App\Logic\Dashboard\CRUD\Services\SpendingCategories as SpendingCategoriesService;
 
 use App\Logic\Dashboard\CRUD\Repositories\SpendingCategories as SpendingCategoriesRepository;
-
-use App\Models\SpendingCategory;
-
-use Illuminate\Http\JsonResponse;
 
 final class Controller extends Controllers
 {
