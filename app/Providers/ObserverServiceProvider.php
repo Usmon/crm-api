@@ -32,6 +32,8 @@ use App\Models\Delivery;
 
 use App\Models\Box;
 
+use App\Models\BoxItem;
+
 use App\Models\Permission;
 
 use App\Models\WarehouseItem;
@@ -61,6 +63,8 @@ use App\Observers\PickupObserver;
 use App\Observers\DeliveryObserver;
 
 use App\Observers\BoxObserver;
+
+use App\Observers\BoxItemObserver;
 
 use App\Observers\TokenObserver;
 
@@ -104,6 +108,8 @@ final class ObserverServiceProvider extends ServiceProvider
         WarehouseItem::observe(WarehouseItemObserver::class);
 
         Box::observe(BoxObserver::class);
+
+        BoxItem::observe(BoxItemObserver::class);
 
         Feedback::observe(FeedbackObserver::class);
 
