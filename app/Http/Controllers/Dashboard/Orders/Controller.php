@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Dashboard\Orders;
 
 use App\Helpers\Json;
 
+use App\Models\Order;
+
+use Illuminate\Http\JsonResponse;
+
 use App\Http\Controllers\Controller as Controllers;
 
 use App\Logic\Dashboard\CRUD\Requests\Orders as OrdersRequest;
@@ -11,10 +15,6 @@ use App\Logic\Dashboard\CRUD\Requests\Orders as OrdersRequest;
 use App\Logic\Dashboard\CRUD\Services\Orders as OrdersService;
 
 use App\Logic\Dashboard\CRUD\Repositories\Orders as OrdersRepository;
-
-use App\Models\Order;
-
-use Illuminate\Http\JsonResponse;
 
 final class Controller extends Controllers
 {
@@ -94,7 +94,7 @@ final class Controller extends Controllers
         return Json::sendJsonWith200([
             'message' => 'The order was successfully updated.',
 
-            'fedex' => $this->repository->updateOrder($order, $this->service->updateCredentials($request)),
+            'order' => $this->repository->updateOrder($order, $this->service->updateCredentials($request)),
         ]);
     }
 

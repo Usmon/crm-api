@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Traits\Date;
+
 use Illuminate\Support\Carbon;
 
 use App\Traits\Pagination\Pager;
@@ -12,20 +14,14 @@ use Illuminate\Database\Eloquent\Builder;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-use Illuminate\Database\Eloquent\Relations\HasOne;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * App\Models\Spending
+ * App\Models\TaskFile
  *
- * @property integer $creator_id
+ * @property integer $task_id
  *
- * @property double $amount
- *
- * @property integer $category_id
- *
- * @property string $note
+ * @property string $name
  *
  * @property Carbon|null $created_at
  *
@@ -35,15 +31,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property integer|null $deleted_by
  *
- * @property-read HasOne $category
- *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
  * @method static Builder|self filter(array $filters)
  *
  * @mixin Model
  */
-final class Spending extends Model
+final class TaskFile extends Model
 {
     use Pager;
     use HasFactory;
@@ -52,19 +46,15 @@ final class Spending extends Model
     /**
      * @var string
      */
-    protected $table = 'spendings';
+    protected $table = 'task_files';
 
     /**
      * @var array
      */
     protected $fillable = [
-        'creator_id',
+        'task_id',
 
-        'amount',
-
-        'category_id',
-
-        'note',
+        'name',
 
         'deleted_by'
     ];
@@ -73,30 +63,17 @@ final class Spending extends Model
      * @var array
      */
     protected $casts = [
-        'creator_id' => 'integer',
+        'task_id' => 'integer',
 
-        'amount' => 'double',
-
-        'category_id' => 'integer',
-
-        'note' => 'string',
+        'name' => 'string',
 
         'created_at' => 'datetime',
 
         'updated_at' => 'datetime',
 
-        'deleted_at' => 'datetime',
-
         'deleted_by' => 'integer'
     ];
 
-    /**
-     * @return HasOne
-     */
-    public function category()
-    {
-        return $this->hasOne(SpendingCategory::class,'id');
-    }
     /**
      * @param Builder $query
      *
@@ -122,14 +99,14 @@ final class Spending extends Model
     {
         return $query->when($filters['search'] ?? null, function (Builder $query, string $search) {
             return $query->where(function (Builder $query) use ($search) {
-                return $query->where('note', 'like', '%' . $search . '%');
+                return $query->where('name', 'like', '%' . $search . '%');
             });
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
-        })->when($filters['note'] ?? null, function (Builder $query, $note){
-            return $query->where('note', 'like', '%' . $note . '%');
-        })->when($filters['category_id'] ?? null, function(Builder $query, $category_id){
-            return $query->where('category_id', '=', $category_id);
+        })->when($filters['name'] ?? null, function (Builder $query, $name){
+            return $query->where('name', 'like', '%' . $name . '%');
+        })->when($filters['task_id'] ?? null, function (Builder $query, $task_id){
+            return $query->where('task_id', '=', $task_id);
         });
     }
 }
