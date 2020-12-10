@@ -63,14 +63,6 @@ final class OrderComments extends FormRequest
                     Rule::exists('orders', 'id'),
                 ],
 
-                'owner_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('users', 'id'),
-                ],
-
                 'comment' => [
                     'required',
 
@@ -99,14 +91,6 @@ final class OrderComments extends FormRequest
                     'integer',
 
                     Rule::exists('orders', 'id'),
-                ],
-
-                'owner_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('users', 'id'),
                 ],
 
                 'comment' => [

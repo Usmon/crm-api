@@ -96,8 +96,6 @@ final class OrderComments
         return [
             'order_id' => $request->json('order_id'),
 
-            'owner_id' => $request->json('owner_id'),
-
             'comment' => $request->json('comment')
         ];
     }
@@ -111,8 +109,6 @@ final class OrderComments
     {
         $credentials = [
             'order_id' => $request->json('order_id'),
-
-            'owner_id' => $request->json('owner_id'),
 
             'comment' => $request->json('comment')
         ];

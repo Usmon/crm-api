@@ -65,6 +65,8 @@ final class OrderCommentObserver
 
         $orderComment->updated_at = $orderComment->updated_at ?? Carbon::now();
 
+        $orderComment->owner_id = $orderComment->owner_id ?? Auth::id();
+
         $orderComment->deleted_at = $orderComment->deleted_at ?? null;
     }
 }
