@@ -54,7 +54,7 @@ final class Controller extends Controllers
         return Json::sendJsonWith200([
             'filters' => $this->service->getAllFilters($request),
 
-            'box_tems' => $this->service->getBoxItems($this->repository->getBoxItems($this->service->getOnlyFilters($request))),
+            'box_items' => $this->service->getBoxItems($this->repository->getBoxItems($this->service->getOnlyFilters($request))),
         ]);
 
     }
