@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\FedexOrderItem;
 use App\Models\Feedback;
 
 use App\Models\Order;
@@ -44,6 +45,7 @@ use App\Models\Permission;
 
 use App\Models\WarehouseItem;
 
+use App\Observers\FedexOrderItemObserver;
 use App\Observers\FeedbackObserver;
 
 use App\Observers\OrderObserver;
@@ -135,5 +137,7 @@ final class ObserverServiceProvider extends ServiceProvider
         TaskUser::observe(TaskUserObserver::class);
 
         TaskStep::observe(TaskStepObserver::class);
+
+        FedexOrderItem::observe(FedexOrderItemObserver::class);
     }
 }

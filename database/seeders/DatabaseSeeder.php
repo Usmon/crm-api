@@ -52,5 +52,7 @@ final class DatabaseSeeder extends Seeder
         $this->call(TaskUserSeeder::class);
 
         $this->call(TaskStepSeeder::class);
+
+        $this->call(FedexOrderItemSeeder::class);
     }
 }
