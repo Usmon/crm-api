@@ -14,7 +14,7 @@
       "description": "Development server"
     },
     {
-      "url": "http://prod-api.silkroadexp.com/",
+      "url": "http://api.silkroadexp.com/",
       "description": "Production server"
     },
     {
@@ -331,7 +331,7 @@
         ]
       }
     },
-    "/spendings": {
+    "/dashboard/spendings": {
       "get": {
         "tags": [
           "Spendings"
@@ -402,7 +402,7 @@
         }
       }
     },
-    "/boxes": {
+    "/dashboard/boxes": {
       "get": {
         "tags": [
           "Boxes"
@@ -510,7 +510,7 @@
         ]
       }
     },
-    "/boxes/{id}": {
+    "/dashboard/boxes/{id}": {
       "put": {
         "tags": [
           "Boxes"
@@ -566,7 +566,7 @@
         ]
       }
     },
-    "/deliveries": {
+    "/dashboard/deliveries": {
       "get": {
         "tags": [
           "Deliveries"
@@ -674,7 +674,7 @@
         ]
       }
     },
-    "/deliveries/{id}": {
+    "/dashboard/deliveries/{id}": {
       "put": {
         "tags": [
           "Deliveries"
@@ -730,7 +730,7 @@
         ]
       }
     },
-    "/orders": {
+    "/dashboard/orders": {
       "get": {
         "tags": [
           "Orders"
@@ -838,7 +838,7 @@
         ]
       }
     },
-    "/orders/{id}": {
+    "/dashboard/orders/{id}": {
       "put": {
         "tags": [
           "Orders"
