@@ -3,9 +3,14 @@
 namespace App\Providers;
 
 use App\Models\DeliveryComment;
+
+use App\Models\FedexOrderItem;
+
 use App\Models\Feedback;
 
 use App\Models\Order;
+
+use App\Models\OrderComment;
 
 use App\Models\Project;
 
@@ -41,12 +46,19 @@ use App\Models\Delivery;
 
 use App\Models\Box;
 
+use App\Models\BoxItem;
+
 use App\Models\Permission;
 
 use App\Models\WarehouseItem;
 
 use App\Observers\DeliveryCommentObserver;
+
+use App\Observers\FedexOrderItemObserver;
+
 use App\Observers\FeedbackObserver;
+
+use App\Observers\OrderCommentObserver;
 
 use App\Observers\OrderObserver;
 
@@ -63,6 +75,7 @@ use App\Observers\SpendingCategoryObserver;
 use App\Observers\SpendingObserver;
 
 use App\Observers\TaskFileObserver;
+
 use App\Observers\TaskObserver;
 
 use App\Observers\TaskUserObserver;
@@ -78,6 +91,8 @@ use App\Observers\PickupObserver;
 use App\Observers\DeliveryObserver;
 
 use App\Observers\BoxObserver;
+
+use App\Observers\BoxItemObserver;
 
 use App\Observers\TokenObserver;
 
@@ -122,6 +137,8 @@ final class ObserverServiceProvider extends ServiceProvider
 
         Box::observe(BoxObserver::class);
 
+        BoxItem::observe(BoxItemObserver::class);
+
         Feedback::observe(FeedbackObserver::class);
 
         SpendingCategory::observe(SpendingCategoryObserver::class);
@@ -132,6 +149,8 @@ final class ObserverServiceProvider extends ServiceProvider
 
         Task::observe(TaskObserver::class);
 
+        OrderComment::observe(OrderCommentObserver::class);
+      
         TaskFile::observe(TaskFileObserver::class);
 
         TaskUser::observe(TaskUserObserver::class);
@@ -139,5 +158,7 @@ final class ObserverServiceProvider extends ServiceProvider
         TaskStep::observe(TaskStepObserver::class);
 
         DeliveryComment::observe(DeliveryCommentObserver::class);
+
+        FedexOrderItem::observe(FedexOrderItemObserver::class);
     }
 }
