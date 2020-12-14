@@ -12,6 +12,7 @@ use App\Models\Order;
 
 use App\Models\OrderComment;
 
+use App\Models\OrderUser;
 use App\Models\Project;
 
 use App\Models\Recipient;
@@ -62,6 +63,7 @@ use App\Observers\OrderCommentObserver;
 
 use App\Observers\OrderObserver;
 
+use App\Observers\OrderUserObserver;
 use App\Observers\ProjectObserver;
 
 use App\Observers\RecipientObserver;
@@ -150,7 +152,7 @@ final class ObserverServiceProvider extends ServiceProvider
         Task::observe(TaskObserver::class);
 
         OrderComment::observe(OrderCommentObserver::class);
-      
+
         TaskFile::observe(TaskFileObserver::class);
 
         TaskUser::observe(TaskUserObserver::class);
@@ -160,5 +162,7 @@ final class ObserverServiceProvider extends ServiceProvider
         DeliveryComment::observe(DeliveryCommentObserver::class);
 
         FedexOrderItem::observe(FedexOrderItemObserver::class);
+
+        OrderUser::observe(OrderUserObserver::class);
     }
 }
