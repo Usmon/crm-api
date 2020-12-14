@@ -60,6 +60,8 @@ use App\Http\Controllers\Dashboard\TaskUsers\Controller as DashboardTaskUsersCon
 
 use App\Http\Controllers\Dashboard\TaskSteps\Controller as DashboardTaskStepsController;
 
+use App\Http\Controllers\Dashboard\ShipmentComments\Controller as DashboardShipmentCommentsController;
+
 /*
 |--------------------------------------------------------------
 ------------
@@ -142,4 +144,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     Route::apiResource('task-users', DashboardTaskUsersController::class);
 
     Route::apiResource('task-steps', DashboardTaskStepsController::class);
+
+    Route::apiResource('shipment-comments', DashboardShipmentCommentsController::class);
 });
