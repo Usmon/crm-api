@@ -64,6 +64,8 @@ use App\Http\Controllers\Dashboard\TaskUsers\Controller as DashboardTaskUsersCon
 
 use App\Http\Controllers\Dashboard\TaskSteps\Controller as DashboardTaskStepsController;
 
+use App\Http\Controllers\Dashboard\ShipmentComments\Controller as DashboardShipmentCommentsController;
+
 use App\Http\Controllers\Dashboard\DeliveryComments\Controller as DashboardDeliveryCommentsController;
 
 use App\Http\Controllers\Dashboard\FedexOrderItems\Controller as DashboardFedexOrderItemsController;
@@ -154,6 +156,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     Route::apiResource('task-users', DashboardTaskUsersController::class);
 
     Route::apiResource('task-steps', DashboardTaskStepsController::class);
+
+    Route::apiResource('shipment-comments', DashboardShipmentCommentsController::class);
 
     Route::apiResource('delivery-comments', DashboardDeliveryCommentsController::class);
 

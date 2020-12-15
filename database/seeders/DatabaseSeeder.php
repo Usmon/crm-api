@@ -57,6 +57,8 @@ final class DatabaseSeeder extends Seeder
 
         $this->call(TaskStepSeeder::class);
 
+        $this->call(ShipmentCommentSeeder::class);
+
         $this->call(DeliveryCommentSeeder::class);
 
         $this->call(FedexOrderItemSeeder::class);

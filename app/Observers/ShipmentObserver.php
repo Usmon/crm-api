@@ -29,7 +29,7 @@ final class ShipmentObserver
      */
     public function deleting(Shipment $shipment): void
     {
-        $shipment->deleted_at = $user->deleted_at ?? Carbon::now();
+        $shipment->deleted_at = $shipment->deleted_at ?? Carbon::now();
     }
 
     /**
