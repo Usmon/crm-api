@@ -42,6 +42,8 @@ use App\Http\Controllers\Dashboard\Recipients\Controller as DashboardRecipientsC
 
 use App\Http\Controllers\Dashboard\Boxes\Controller as DashboardBoxesController;
 
+use App\Http\Controllers\Dashboard\BoxItems\Controller as DashboardBoxItemsController;
+
 use App\Http\Controllers\Dashboard\Messages\Controller as DashboardMessagesController;
 
 use App\Http\Controllers\Dashboard\Feedbacks\Controller as DashboardFeedbacksController;
@@ -54,6 +56,8 @@ use App\Http\Controllers\Dashboard\Projects\Controller as DashboardProjectsContr
 
 use App\Http\Controllers\Dashboard\Tasks\Controller as DashboardTasksController;
 
+use App\Http\Controllers\Dashboard\OrderComments\Controller as DashboardOrderCommentsController;
+
 use App\Http\Controllers\Dashboard\TaskFiles\Controller as DashboardTaskFilesController;
 
 use App\Http\Controllers\Dashboard\TaskUsers\Controller as DashboardTaskUsersController;
@@ -61,6 +65,10 @@ use App\Http\Controllers\Dashboard\TaskUsers\Controller as DashboardTaskUsersCon
 use App\Http\Controllers\Dashboard\TaskSteps\Controller as DashboardTaskStepsController;
 
 use App\Http\Controllers\Dashboard\ShipmentComments\Controller as DashboardShipmentCommentsController;
+
+use App\Http\Controllers\Dashboard\DeliveryComments\Controller as DashboardDeliveryCommentsController;
+
+use App\Http\Controllers\Dashboard\FedexOrderItems\Controller as DashboardFedexOrderItemsController;
 
 /*
 |--------------------------------------------------------------
@@ -127,6 +135,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
 
     Route::apiResource('boxes', DashboardBoxesController::class);
 
+    Route::apiResource('box-items', DashboardBoxItemsController::class);
+
     Route::apiResource('messages', DashboardMessagesController::class);
 
     Route::apiResource('feedbacks', DashboardFeedbacksController::class);
@@ -139,6 +149,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
 
     Route::apiResource('tasks', DashboardTasksController::class);
 
+    Route::apiResource('order-comments', DashboardOrderCommentsController::class);
+
     Route::apiResource('task-files', DashboardTaskFilesController::class);
 
     Route::apiResource('task-users', DashboardTaskUsersController::class);
@@ -146,4 +158,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     Route::apiResource('task-steps', DashboardTaskStepsController::class);
 
     Route::apiResource('shipment-comments', DashboardShipmentCommentsController::class);
+
+    Route::apiResource('delivery-comments', DashboardDeliveryCommentsController::class);
+
+    Route::apiResource('fedex-order-items', DashboardFedexOrderItemsController::class);
 });

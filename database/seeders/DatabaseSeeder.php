@@ -35,6 +35,8 @@ final class DatabaseSeeder extends Seeder
 
         $this->call(BoxSeeder::class);
 
+        $this->call(BoxItemSeeder::class);
+
         $this->call(MessageSeeder::class);
 
         $this->call(FeedbackSeeder::class);
@@ -47,6 +49,8 @@ final class DatabaseSeeder extends Seeder
 
         $this->call(TaskSeeder::class);
 
+        $this->call(OrderCommentSeeder::class);
+
         $this->call(TaskFileSeeder::class);
 
         $this->call(TaskUserSeeder::class);
@@ -54,5 +58,9 @@ final class DatabaseSeeder extends Seeder
         $this->call(TaskStepSeeder::class);
 
         $this->call(ShipmentCommentSeeder::class);
+
+        $this->call(DeliveryCommentSeeder::class);
+
+        $this->call(FedexOrderItemSeeder::class);
     }
 }
