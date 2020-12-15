@@ -70,6 +70,8 @@ use App\Http\Controllers\Dashboard\DeliveryComments\Controller as DashboardDeliv
 
 use App\Http\Controllers\Dashboard\FedexOrderItems\Controller as DashboardFedexOrderItemsController;
 
+use App\Http\Controllers\Dashboard\OrderUsers\Controller as DashboardOrderUsersController;
+
 use App\Http\Controllers\Dashboard\DeliveryUsers\Controller as DashboardDeliveryUsersController;
 
 /*
@@ -164,6 +166,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     Route::apiResource('delivery-comments', DashboardDeliveryCommentsController::class);
 
     Route::apiResource('fedex-order-items', DashboardFedexOrderItemsController::class);
+
+    Route::apiResource('order-users', DashboardOrderUsersController::class);
 
     Route::apiResource('delivery-users', DashboardDeliveryUsersController::class);
 });
