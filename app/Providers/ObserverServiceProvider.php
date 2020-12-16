@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Customer;
 use App\Models\DeliveryComment;
 
 use App\Models\DeliveryUser;
@@ -58,6 +59,7 @@ use App\Models\Permission;
 
 use App\Models\WarehouseItem;
 
+use App\Observers\CustomerObserver;
 use App\Observers\DeliveryCommentObserver;
 
 use App\Observers\DeliveryUserObserver;
@@ -178,5 +180,7 @@ final class ObserverServiceProvider extends ServiceProvider
         OrderUser::observe(OrderUserObserver::class);
 
         DeliveryUser::observe(DeliveryUserObserver::class);
+
+        Customer::observe(CustomerObserver::class);
     }
 }
