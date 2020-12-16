@@ -19,16 +19,7 @@ final class Deliveries
      */
     public function getDeliveries(array $filters): Paginator
     {
-        return Delivery::with(
-            [
-                'users'=>
-                function($query){$query->select('id','login');},
-
-                'orders'=>
-                function($query){$query->select('id','customer_id');}
-
-            ]
-        )->filter($filters)->orderBy('created_at', 'desc')->pager();
+        return Delivery::with(['users','orders'])->filter($filters)->orderBy('created_at', 'desc')->pager();
     }
 
     /**
