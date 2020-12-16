@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\DeliveryComment;
 
+use App\Models\DeliveryUser;
 use App\Models\FedexOrderItem;
 
 use App\Models\Feedback;
@@ -12,6 +13,7 @@ use App\Models\Order;
 
 use App\Models\OrderComment;
 
+use App\Models\OrderUser;
 use App\Models\Project;
 
 use App\Models\Recipient;
@@ -23,6 +25,9 @@ use App\Models\Shipment;
 use App\Models\FedexOrder;
 
 use App\Models\ShipmentUser;
+
+use App\Models\ShipmentComment;
+
 use App\Models\Spending;
 
 use App\Models\SpendingCategory;
@@ -55,6 +60,7 @@ use App\Models\WarehouseItem;
 
 use App\Observers\DeliveryCommentObserver;
 
+use App\Observers\DeliveryUserObserver;
 use App\Observers\FedexOrderItemObserver;
 
 use App\Observers\FeedbackObserver;
@@ -63,12 +69,14 @@ use App\Observers\OrderCommentObserver;
 
 use App\Observers\OrderObserver;
 
+use App\Observers\OrderUserObserver;
 use App\Observers\ProjectObserver;
 
 use App\Observers\RecipientObserver;
 
 use App\Observers\SenderObserver;
 
+use App\Observers\ShipmentCommentObserver;
 use App\Observers\ShipmentObserver;
 
 use App\Observers\ShipmentUserObserver;
@@ -159,10 +167,16 @@ final class ObserverServiceProvider extends ServiceProvider
 
         TaskStep::observe(TaskStepObserver::class);
 
+        ShipmentComment::observe(ShipmentCommentObserver::class);
+
         DeliveryComment::observe(DeliveryCommentObserver::class);
 
         FedexOrderItem::observe(FedexOrderItemObserver::class);
 
         ShipmentUser::observe(ShipmentUserObserver::class);
+
+        OrderUser::observe(OrderUserObserver::class);
+
+        DeliveryUser::observe(DeliveryUserObserver::class);
     }
 }
