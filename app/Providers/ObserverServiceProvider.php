@@ -25,7 +25,10 @@ use App\Models\Shipment;
 
 use App\Models\FedexOrder;
 
+use App\Models\ShipmentUser;
+
 use App\Models\ShipmentComment;
+
 use App\Models\Spending;
 
 use App\Models\SpendingCategory;
@@ -78,6 +81,7 @@ use App\Observers\SenderObserver;
 use App\Observers\ShipmentCommentObserver;
 use App\Observers\ShipmentObserver;
 
+use App\Observers\ShipmentUserObserver;
 use App\Observers\SpendingCategoryObserver;
 
 use App\Observers\SpendingObserver;
@@ -170,6 +174,8 @@ final class ObserverServiceProvider extends ServiceProvider
         DeliveryComment::observe(DeliveryCommentObserver::class);
 
         FedexOrderItem::observe(FedexOrderItemObserver::class);
+
+        ShipmentUser::observe(ShipmentUserObserver::class);
 
         OrderUser::observe(OrderUserObserver::class);
 
