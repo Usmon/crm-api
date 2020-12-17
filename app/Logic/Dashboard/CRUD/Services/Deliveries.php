@@ -51,9 +51,9 @@ final class Deliveries
             return [
                 'id' => $delivery->id,
 
-                'order_id' => $delivery->order_id,
+                'customer' => $delivery->orders->customer_id,
 
-                'driver_id' => $delivery->driver_id,
+                'driver' => $delivery->users->login,
 
                 'status' => $delivery->status,
 
@@ -80,9 +80,9 @@ final class Deliveries
         return [
             'id' => $delivery->id,
 
-            'order_id' => $delivery->order_id,
+            'customer' => $delivery->orders->customer_id,
 
-            'driver_id' => $delivery->driver_id,
+            'driver' => $delivery->users->login,
 
             'status' => $delivery->status,
 

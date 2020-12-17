@@ -68,5 +68,7 @@ final class DatabaseSeeder extends Seeder
         $this->call(OrderUserSeeder::class);
 
         $this->call(DeliveryUserSeeder::class);
+
+        $this->call(CustomerSeeder::class);
     }
 }
