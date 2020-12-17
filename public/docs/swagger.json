@@ -1,63 +1,57 @@
 {
-  "openapi": "3.0.0",
-  "info": {
-    "title": "Silkroad API Documentation",
-    "version": "1.0.0"
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Silkroad API Documentation",
+    "version" : "1.0.0"
   },
-  "servers": [
-    {
-      "url": "https://virtserver.swaggerhub.com/Usmon/SilkroadExpress/1.0.0",
-      "description": "SwaggerHub API Auto Mocking"
-    },
-    {
-      "url": "http://dev-api.silkroadexp.com/",
-      "description": "Development server"
-    },
-    {
-      "url": "http://api.silkroadexp.com/",
-      "description": "Production server"
-    },
-    {
-      "url": "http://127.0.0.1:8000/",
-      "description": "Local server"
-    }
-  ],
-  "tags": [
-    {
-      "name": "Authorization"
-    },
-    {
-      "name": "User"
-    },
-    {
-      "name": "Spendings"
-    },
-    {
-      "name": "Version"
-    },
-    {
-      "name": "Boxes"
-    },
-    {
-      "name": "Deliveries"
-    },
-    {
-      "name": "Orders"
-    }
-  ],
-  "paths": {
-    "/": {
-      "get": {
-        "tags": [
-          "Version"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/VersionSuccess"
+  "servers" : [ {
+    "description" : "Development server",
+    "url" : "https://dev-api.silkroadexp.com/"
+  }, {
+    "description" : "Production server",
+    "url" : "http://api.silkroadexp.com/"
+  }, {
+    "description" : "Local server",
+    "url" : "http://127.0.0.1:8000/"
+  } ],
+  "tags" : [ {
+    "name" : "Authorization"
+  }, {
+    "name" : "User"
+  }, {
+    "name" : "Version"
+  }, {
+    "name" : "Boxes"
+  }, {
+    "name" : "Deliveries"
+  }, {
+    "name" : "Orders"
+  }, {
+    "name" : "Box Items"
+  }, {
+    "name" : "Pickups"
+  }, {
+    "name" : "Spendings"
+  }, {
+    "name" : "Spending Categories"
+  }, {
+    "name" : "Recipients"
+  }, {
+    "name" : "Tasks"
+  }, {
+    "name" : "Users"
+  } ],
+  "paths" : {
+    "/" : {
+      "get" : {
+        "tags" : [ "Version" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/VersionSuccess"
                 }
               }
             }
@@ -65,82 +59,106 @@
         }
       }
     },
-    "/auth/register": {
-      "post": {
-        "tags": [
-          "Authorization"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegisterBody"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RegisterSuccess"
+    "/auth/register" : {
+      "post" : {
+        "tags" : [ "Authorization" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RegisterSuccess"
                 }
               }
             }
           },
-          "422": {
-            "description": "Unprocessable entity",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnprocessableEntity"
+          "422" : {
+            "description" : "Unprocessable entity",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnprocessableEntity"
                 }
               }
             }
           }
         },
-        "security": [
-          {
-            "BearerAuth": []
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/RegisterBody"
+              }
+            }
           }
-        ]
+        }
       }
     },
-    "/auth/login": {
-      "post": {
-        "tags": [
-          "Authorization"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginBody"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LoginSuccess"
+    "/auth/login" : {
+      "post" : {
+        "tags" : [ "Authorization" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/LoginSuccess"
                 }
               }
             }
           },
-          "422": {
-            "description": "Unprocessable Entity",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnprocessableEntity"
+          "422" : {
+            "description" : "Unprocessable Entity",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnprocessableEntity"
+                }
+              }
+            }
+          }
+        },
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/LoginBody"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/logout" : {
+      "post" : {
+        "tags" : [ "Authorization" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/LogoutSuccess"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
                 }
               }
             }
@@ -148,253 +166,29 @@
         }
       }
     },
-    "/auth/logout": {
-      "post": {
-        "tags": [
-          "Authorization"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LogoutSuccess"
+    "/user" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UserSuccess"
                 }
               }
             }
           },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Unauthorized"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ]
-      }
-    },
-    "/user": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserSuccess"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Unauthorized"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ]
-      }
-    },
-    "/user/sessions": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserSessionsSuccess"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Unauthorized"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ]
-      }
-    },
-    "/user/sessions/other": {
-      "delete": {
-        "tags": [
-          "User"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserSessionsOthersDeleteSuccess"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Unauthorized"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ]
-      }
-    },
-    "/user/sessions/{token}": {
-      "delete": {
-        "tags": [
-          "User"
-        ],
-        "parameters": [
-          {
-            "name": "token",
-            "in": "path",
-            "description": "Token string",
-            "required": true,
-            "style": "simple",
-            "explode": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserSessionsOthersDeleteSuccess"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Unauthorized"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ]
-      }
-    },
-    "/dashboard/spendings": {
-      "get": {
-        "tags": [
-          "Spendings"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Spendings"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Unauthorized"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ]
-      },
-      "post": {
-        "tags": [
-          "Spendings"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SpendingBody"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Spending"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnprocessableEntity"
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
                 }
               }
             }
@@ -402,1399 +196,5469 @@
         }
       }
     },
-    "/dashboard/boxes": {
-      "get": {
-        "tags": [
-          "Boxes"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Boxes"
+    "/user/sessions" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UserSessionsSuccess"
                 }
               }
             }
           },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Unauthorized"
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
                 }
               }
             }
           }
-        },
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ]
-      },
-      "post": {
-        "tags": [
-          "Boxes"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BoxBody"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Box"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnprocessableEntity"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ]
-      },
-      "delete": {
-        "tags": [
-          "Boxes"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BoxDeleteSuccess"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Unauthorized"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ]
+        }
       }
     },
-    "/dashboard/boxes/{id}": {
-      "put": {
-        "tags": [
-          "Boxes"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "style": "simple",
-            "explode": false,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BoxBody"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Box"
+    "/user/sessions/other" : {
+      "delete" : {
+        "tags" : [ "User" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UserSessionsOthersDeleteSuccess"
                 }
               }
             }
           },
-          "422": {
-            "description": "Unprocessable Entity",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnprocessableEntity"
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
                 }
               }
             }
           }
-        },
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ]
+        }
       }
     },
-    "/dashboard/deliveries": {
-      "get": {
-        "tags": [
-          "Deliveries"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Deliveries"
+    "/user/sessions/{token}" : {
+      "delete" : {
+        "tags" : [ "User" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "token",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true,
+          "description" : "Token string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UserSessionsOthersDeleteSuccess"
                 }
               }
             }
           },
-          "401": {
-            "description": "Unauthroized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Unauthorized"
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
                 }
               }
             }
           }
-        },
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ]
-      },
-      "post": {
-        "tags": [
-          "Deliveries"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeliveryBody"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Delivery"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnprocessableEntity"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ]
-      },
-      "delete": {
-        "tags": [
-          "Deliveries"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DeliveryDeleteSuccess"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Unauthorized"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ]
+        }
       }
     },
-    "/dashboard/deliveries/{id}": {
-      "put": {
-        "tags": [
-          "Deliveries"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "style": "simple",
-            "explode": false,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeliveryBody"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Delivery"
+    "/dashboard/boxes" : {
+      "get" : {
+        "tags" : [ "Boxes" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Boxes"
                 }
               }
             }
           },
-          "422": {
-            "description": "Unprocessable Entity",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnprocessableEntity"
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Boxes" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Box"
+                }
+              }
+            }
+          },
+          "422" : {
+            "description" : "Unprocessable Entity",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnprocessableEntity"
                 }
               }
             }
           }
         },
-        "security": [
-          {
-            "BearerAuth": []
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/BoxBody"
+              }
+            }
           }
-        ]
+        }
+      },
+      "delete" : {
+        "tags" : [ "Boxes" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BoxDeleteSuccess"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
       }
     },
-    "/dashboard/orders": {
-      "get": {
-        "tags": [
-          "Orders"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Orders"
+    "/dashboard/boxes/{id}" : {
+      "put" : {
+        "tags" : [ "Boxes" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Box"
                 }
               }
             }
           },
-          "401": {
-            "description": "Unauthroized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Unauthorized"
+          "422" : {
+            "description" : "Unprocessable Entity",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnprocessableEntity"
                 }
               }
             }
           }
         },
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ]
-      },
-      "post": {
-        "tags": [
-          "Orders"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/OrderBody"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Order"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnprocessableEntity"
-                }
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/BoxBody"
               }
             }
           }
-        },
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ]
-      },
-      "delete": {
-        "tags": [
-          "Orders"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OrderDeleteSuccess"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Unauthorized"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ]
+        }
       }
     },
-    "/dashboard/orders/{id}": {
-      "put": {
-        "tags": [
-          "Orders"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "style": "simple",
-            "explode": false,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeliveryBody"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Order"
+    "/dashboard/deliveries" : {
+      "get" : {
+        "tags" : [ "Deliveries" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Deliveries"
                 }
               }
             }
           },
-          "422": {
-            "description": "Unprocessable Entity",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnprocessableEntity"
+          "401" : {
+            "description" : "Unauthroized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Deliveries" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Delivery"
+                }
+              }
+            }
+          },
+          "422" : {
+            "description" : "Unprocessable Entity",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnprocessableEntity"
                 }
               }
             }
           }
         },
-        "security": [
-          {
-            "BearerAuth": []
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DeliveryBody"
+              }
+            }
           }
-        ]
+        }
+      },
+      "delete" : {
+        "tags" : [ "Deliveries" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DeliveryDeleteSuccess"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dashboard/deliveries/{id}" : {
+      "put" : {
+        "tags" : [ "Deliveries" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Delivery"
+                }
+              }
+            }
+          },
+          "422" : {
+            "description" : "Unprocessable Entity",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnprocessableEntity"
+                }
+              }
+            }
+          }
+        },
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DeliveryBody"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dashboard/orders" : {
+      "get" : {
+        "tags" : [ "Orders" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Orders"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthroized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Orders" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Order"
+                }
+              }
+            }
+          },
+          "422" : {
+            "description" : "Unprocessable Entity",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnprocessableEntity"
+                }
+              }
+            }
+          }
+        },
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/OrderBody"
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Orders" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrderDeleteSuccess"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dashboard/orders/{id}" : {
+      "put" : {
+        "tags" : [ "Orders" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Order"
+                }
+              }
+            }
+          },
+          "422" : {
+            "description" : "Unprocessable Entity",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnprocessableEntity"
+                }
+              }
+            }
+          }
+        },
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DeliveryBody"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dashboard/box-items" : {
+      "get" : {
+        "tags" : [ "Box Items" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BoxItems"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthroized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Box Items" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BoxItemCreate"
+                }
+              }
+            }
+          },
+          "422" : {
+            "description" : "Unprocessable Entity",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnprocessableEntity"
+                }
+              }
+            }
+          }
+        },
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/BoxItemBody"
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Box Items" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BoxItemDeleteSuccess"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dashboard/box-items/{id}" : {
+      "get" : {
+        "tags" : [ "Box Items" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BoxItem"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthroized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Box Items" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BoxItemUpdate"
+                }
+              }
+            }
+          },
+          "422" : {
+            "description" : "Unprocessable Entity",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnprocessableEntity"
+                }
+              }
+            }
+          }
+        },
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/BoxItemBody"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dashboard/pickups" : {
+      "get" : {
+        "tags" : [ "Pickups" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Pickups"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthroized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Pickups" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PickupCreate"
+                }
+              }
+            }
+          },
+          "422" : {
+            "description" : "Unprocessable Entity",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnprocessableEntity"
+                }
+              }
+            }
+          }
+        },
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PickupBody"
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Pickups" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PickupDeleteSuccess"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dashboard/pickups/{id}" : {
+      "get" : {
+        "tags" : [ "Pickups" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Pickup"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthroized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Pickups" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PickupUpdate"
+                }
+              }
+            }
+          },
+          "422" : {
+            "description" : "Unprocessable Entity",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnprocessableEntity"
+                }
+              }
+            }
+          }
+        },
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PickupBody"
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Pickups" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PickupDeleteSuccess"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dashboard/spendings" : {
+      "get" : {
+        "tags" : [ "Spendings" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Spendings"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthroized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Spendings" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SpendingCreate"
+                }
+              }
+            }
+          },
+          "422" : {
+            "description" : "Unprocessable Entity",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnprocessableEntity"
+                }
+              }
+            }
+          }
+        },
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SpendingBody"
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Spendings" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SpendingDeleteSuccess"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dashboard/spendings/{id}" : {
+      "get" : {
+        "tags" : [ "Spendings" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Spending"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthroized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Spendings" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SpendingUpdate"
+                }
+              }
+            }
+          },
+          "422" : {
+            "description" : "Unprocessable Entity",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnprocessableEntity"
+                }
+              }
+            }
+          }
+        },
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PickupBody"
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Spendings" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SpendingDeleteSuccess"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dashboard/spending-categories" : {
+      "get" : {
+        "tags" : [ "Spending Categories" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SpendingCategories"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthroized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Spending Categories" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SpendingCategoryCreate"
+                }
+              }
+            }
+          },
+          "422" : {
+            "description" : "Unprocessable Entity",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnprocessableEntity"
+                }
+              }
+            }
+          }
+        },
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SpendingCategoryBody"
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Spending Categories" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SpendingCategoryDeleteSuccess"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dashboard/spending-categories/{id}" : {
+      "get" : {
+        "tags" : [ "Spending Categories" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SpendingCategory"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthroized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Spending Categories" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SpendingCategoryUpdate"
+                }
+              }
+            }
+          },
+          "422" : {
+            "description" : "Unprocessable Entity",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnprocessableEntity"
+                }
+              }
+            }
+          }
+        },
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PickupBody"
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Spending Categories" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SpendingCategoryDeleteSuccess"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dashboard/recipients" : {
+      "get" : {
+        "tags" : [ "Recipients" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Recipients"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthroized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Recipients" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RecipientCreate"
+                }
+              }
+            }
+          },
+          "422" : {
+            "description" : "Unprocessable Entity",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnprocessableEntity"
+                }
+              }
+            }
+          }
+        },
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/RecipientBody"
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Recipients" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RecipientDeleteSuccess"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dashboard/recipients/{id}" : {
+      "get" : {
+        "tags" : [ "Recipients" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Recipient"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthroized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Recipients" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RecipientUpdate"
+                }
+              }
+            }
+          },
+          "422" : {
+            "description" : "Unprocessable Entity",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnprocessableEntity"
+                }
+              }
+            }
+          }
+        },
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/RecipientBody"
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Recipients" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RecipientDeleteSuccess"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dashboard/tasks" : {
+      "get" : {
+        "tags" : [ "Tasks" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Tasks"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthroized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Tasks" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TaskCreate"
+                }
+              }
+            }
+          },
+          "422" : {
+            "description" : "Unprocessable Entity",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnprocessableEntity"
+                }
+              }
+            }
+          }
+        },
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/TaskBody"
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Tasks" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TaskDeleteSuccess"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dashboard/tasks/{id}" : {
+      "get" : {
+        "tags" : [ "Tasks" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Task"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthroized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Tasks" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TaskUpdate"
+                }
+              }
+            }
+          },
+          "422" : {
+            "description" : "Unprocessable Entity",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnprocessableEntity"
+                }
+              }
+            }
+          }
+        },
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/TaskBody"
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Tasks" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TaskDeleteSuccess"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dashboard/users" : {
+      "get" : {
+        "tags" : [ "Users" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Users"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthroized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Users" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UserCreate"
+                }
+              }
+            }
+          },
+          "422" : {
+            "description" : "Unprocessable Entity",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnprocessableEntity"
+                }
+              }
+            }
+          }
+        },
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UserBody"
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Users" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UserDeleteSuccess"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dashboard/users/{id}" : {
+      "get" : {
+        "tags" : [ "Users" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthroized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Users" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UserUpdate"
+                }
+              }
+            }
+          },
+          "422" : {
+            "description" : "Unprocessable Entity",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnprocessableEntity"
+                }
+              }
+            }
+          }
+        },
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UserBody"
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Users" ],
+        "security" : [ {
+          "BearerAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UserDeleteSuccess"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
-  "components": {
-    "schemas": {
-      "VersionSuccess": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
+  "components" : {
+    "schemas" : {
+      "VersionSuccess" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
           },
-          "data": {
-            "$ref": "#/components/schemas/VersionSuccess_data"
-          }
-        }
-      },
-      "Unauthorized": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "data": {
-            "$ref": "#/components/schemas/Unauthorized_data"
-          }
-        },
-        "example": {
-          "success": false,
-          "data": {
-            "message": "You are not authorized."
-          }
-        }
-      },
-      "UnprocessableEntity": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "errors": {
-            "$ref": "#/components/schemas/UnprocessableEntity_errors"
-          }
-        },
-        "example": {
-          "success": false,
-          "data": {
-            "message": {
-              "error_type": "Error message"
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "app" : {
+                "type" : "object",
+                "properties" : {
+                  "name" : {
+                    "type" : "string"
+                  },
+                  "version" : {
+                    "type" : "string"
+                  }
+                }
+              }
             }
           }
         }
       },
-      "RegisterBody": {
-        "type": "object",
-        "properties": {
-          "login": {
-            "type": "string"
+      "Unauthorized" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
           },
-          "email": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string"
-          },
-          "password_confirmation": {
-            "type": "string"
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "message" : {
+                "type" : "string"
+              }
+            }
           }
         },
-        "example": {
-          "login": "john_doe",
-          "email": "johndoe@mail.com",
-          "password": "password",
-          "password_confirmation": "password"
-        }
-      },
-      "LoginBody": {
-        "type": "object",
-        "properties": {
-          "login": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string"
-          },
-          "device_ip": {
-            "type": "string"
-          },
-          "device_os": {
-            "type": "string"
-          },
-          "device_type": {
-            "type": "string"
-          },
-          "device_name": {
-            "type": "string"
-          }
-        },
-        "example": {
-          "login": "admin",
-          "password": "secret",
-          "device_ip": "127.0.0.1",
-          "device_os": "Windows 10",
-          "device_type": "browser",
-          "device_name": "Google Chrome"
-        }
-      },
-      "LoginSuccess": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "data": {
-            "$ref": "#/components/schemas/LoginSuccess_data"
-          }
-        },
-        "example": {
-          "success": true,
-          "data": {
-            "token": "token string"
+        "example" : {
+          "success" : false,
+          "data" : {
+            "message" : "You are not authorized."
           }
         }
       },
-      "LogoutSuccess": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
+      "UnprocessableEntity" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
           },
-          "data": {
-            "$ref": "#/components/schemas/Unauthorized_data"
+          "errors" : {
+            "type" : "object",
+            "properties" : {
+              "error" : {
+                "type" : "array",
+                "items" : {
+                  "type" : "string"
+                }
+              }
+            }
           }
         },
-        "example": {
-          "success": true,
-          "data": {
-            "message": "You have successfully logged out."
+        "example" : {
+          "success" : false,
+          "data" : {
+            "message" : {
+              "error_type" : "Error message"
+            }
           }
         }
       },
-      "RegisterSuccess": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
+      "RegisterBody" : {
+        "type" : "object",
+        "properties" : {
+          "login" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "password" : {
+            "type" : "string"
+          },
+          "password_confirmation" : {
+            "type" : "string"
           }
         },
-        "example": {
-          "success": true
+        "example" : {
+          "login" : "john_doe",
+          "email" : "johndoe@mail.com",
+          "password" : "password",
+          "password_confirmation" : "password"
         }
       },
-      "UserSuccess": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
+      "LoginBody" : {
+        "type" : "object",
+        "properties" : {
+          "login" : {
+            "type" : "string"
           },
-          "user": {
-            "$ref": "#/components/schemas/UserSuccess_user"
+          "password" : {
+            "type" : "string"
           }
         },
-        "example": {
-          "success": true,
-          "user": {
-            "id": 1,
-            "login": "admin",
-            "email": "admin@silkroad.test",
-            "profile": {
-              "first_name": "John",
-              "middle_name": "Jr",
-              "last_name": "Doe",
-              "photo": null
+        "example" : {
+          "login" : "axel",
+          "password" : "secret"
+        }
+      },
+      "LoginSuccess" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "token" : {
+                "type" : "string"
+              }
+            }
+          }
+        },
+        "example" : {
+          "success" : true,
+          "data" : {
+            "token" : "token string"
+          }
+        }
+      },
+      "LogoutSuccess" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "message" : {
+                "type" : "string"
+              }
+            }
+          }
+        },
+        "example" : {
+          "success" : true,
+          "data" : {
+            "message" : "You have successfully logged out."
+          }
+        }
+      },
+      "RegisterSuccess" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          }
+        },
+        "example" : {
+          "success" : true
+        }
+      },
+      "UserSuccess" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "user" : {
+            "type" : "object",
+            "properties" : {
+              "id" : {
+                "type" : "integer"
+              },
+              "login" : {
+                "type" : "string"
+              },
+              "email" : {
+                "type" : "string"
+              },
+              "profile" : {
+                "type" : "object",
+                "properties" : {
+                  "first_name" : {
+                    "type" : "string"
+                  },
+                  "middle_name" : {
+                    "type" : "string"
+                  },
+                  "last_name" : {
+                    "type" : "string"
+                  },
+                  "photo" : {
+                    "type" : "string"
+                  }
+                }
+              },
+              "created_at" : {
+                "type" : "string",
+                "format" : "datetime"
+              },
+              "updated_at" : {
+                "type" : "string",
+                "format" : "datetime"
+              },
+              "deleted_at" : {
+                "type" : "string",
+                "format" : "datetime"
+              }
+            }
+          }
+        },
+        "example" : {
+          "success" : true,
+          "user" : {
+            "id" : 1,
+            "login" : "admin",
+            "email" : "admin@silkroad.test",
+            "profile" : {
+              "first_name" : "John",
+              "middle_name" : "Jr",
+              "last_name" : "Doe",
+              "photo" : null
             },
-            "created_at": "2020-01-01T00:00:00.000000Z",
-            "updated_at": "2020-01-01T00:00:00.000000Z",
-            "deleted_at": null
+            "created_at" : "2020-01-01T00:00:00.000000Z",
+            "updated_at" : "2020-01-01T00:00:00.000000Z",
+            "deleted_at" : null
           }
         }
       },
-      "UserSessionsSuccess": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
+      "UserSessionsSuccess" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
           },
-          "data": {
-            "$ref": "#/components/schemas/UserSessionsSuccess_data"
-          }
-        }
-      },
-      "UserSessionsOthersDeleteSuccess": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "data": {
-            "$ref": "#/components/schemas/Unauthorized_data"
-          }
-        },
-        "example": {
-          "success": true,
-          "data": {
-            "message": "The other sessions successfully deleted."
-          }
-        }
-      },
-      "Spendings": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "data": {
-            "$ref": "#/components/schemas/Spendings_data"
-          }
-        }
-      },
-      "Spending": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "data": {
-            "$ref": "#/components/schemas/Spending_data"
-          }
-        }
-      },
-      "SpendingBody": {
-        "type": "object",
-        "properties": {
-          "category_id": {
-            "type": "integer"
-          },
-          "amount": {
-            "type": "number"
-          },
-          "note": {
-            "type": "string"
-          }
-        }
-      },
-      "Boxes": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "data": {
-            "$ref": "#/components/schemas/Boxes_data"
-          }
-        }
-      },
-      "Box": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "data": {
-            "$ref": "#/components/schemas/Box_data"
-          }
-        }
-      },
-      "BoxBody": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer"
-          },
-          "order_id": {
-            "type": "integer"
-          },
-          "customer_id": {
-            "type": "integer"
-          },
-          "sender_id": {
-            "type": "integer"
-          },
-          "recipient_id": {
-            "type": "integer"
-          },
-          "weight": {
-            "type": "number"
-          },
-          "additional_weight": {
-            "type": "number"
-          },
-          "status": {
-            "type": "string"
-          },
-          "box_image": {
-            "type": "string"
-          }
-        }
-      },
-      "BoxDeleteSuccess": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "data": {
-            "$ref": "#/components/schemas/Unauthorized_data"
-          }
-        },
-        "example": {
-          "success": true,
-          "data": {
-            "message": "The box deleted successfully."
-          }
-        }
-      },
-      "Deliveries": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "data": {
-            "$ref": "#/components/schemas/Deliveries_data"
-          }
-        }
-      },
-      "Delivery": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "data": {
-            "$ref": "#/components/schemas/Delivery_data"
-          }
-        }
-      },
-      "DeliveryBody": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer"
-          },
-          "order_id": {
-            "type": "integer"
-          },
-          "driver_id": {
-            "type": "integer"
-          },
-          "status": {
-            "type": "string"
-          }
-        }
-      },
-      "DeliveryDeleteSuccess": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "data": {
-            "$ref": "#/components/schemas/Unauthorized_data"
-          }
-        },
-        "example": {
-          "success": true,
-          "data": {
-            "message": "The delivery deleted successfully."
-          }
-        }
-      },
-      "Orders": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "data": {
-            "$ref": "#/components/schemas/Orders_data"
-          }
-        }
-      },
-      "Order": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "data": {
-            "$ref": "#/components/schemas/Order_data"
-          }
-        }
-      },
-      "OrderBody": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer"
-          },
-          "staff_id": {
-            "type": "integer"
-          },
-          "customer_id": {
-            "type": "integer"
-          },
-          "fedex_order_id": {
-            "type": "string"
-          },
-          "pickup_id": {
-            "type": "integer"
-          },
-          "shipment_id": {
-            "type": "integer"
-          },
-          "price": {
-            "type": "number"
-          },
-          "payed_price": {
-            "type": "number"
-          },
-          "status": {
-            "type": "string"
-          },
-          "payment_status": {
-            "type": "string"
-          }
-        }
-      },
-      "OrderDeleteSuccess": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "data": {
-            "$ref": "#/components/schemas/Unauthorized_data"
-          }
-        },
-        "example": {
-          "success": true,
-          "data": {
-            "message": "The order deleted successfully."
-          }
-        }
-      },
-      "VersionSuccess_data_app": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "version": {
-            "type": "string"
-          }
-        }
-      },
-      "VersionSuccess_data": {
-        "type": "object",
-        "properties": {
-          "app": {
-            "$ref": "#/components/schemas/VersionSuccess_data_app"
-          }
-        }
-      },
-      "Unauthorized_data": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string"
-          }
-        }
-      },
-      "UnprocessableEntity_errors": {
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "array",
-            "items": {
-              "type": "string"
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "sessions" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer"
+                  },
+                  "ip" : {
+                    "type" : "string"
+                  },
+                  "os" : {
+                    "type" : "string"
+                  },
+                  "type" : {
+                    "type" : "string"
+                  },
+                  "name" : {
+                    "type" : "string"
+                  },
+                  "current" : {
+                    "type" : "boolean"
+                  },
+                  "used_at" : {
+                    "type" : "string"
+                  }
+                }
+              }
             }
           }
         }
       },
-      "LoginSuccess_data": {
-        "type": "object",
-        "properties": {
-          "token": {
-            "type": "string"
+      "UserSessionsOthersDeleteSuccess" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "message" : {
+                "type" : "string"
+              }
+            }
+          }
+        },
+        "example" : {
+          "success" : true,
+          "data" : {
+            "message" : "The other sessions successfully deleted."
           }
         }
       },
-      "UserSuccess_user_profile": {
-        "type": "object",
-        "properties": {
-          "first_name": {
-            "type": "string"
+      "Boxes" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
           },
-          "middle_name": {
-            "type": "string"
-          },
-          "last_name": {
-            "type": "string"
-          },
-          "photo": {
-            "type": "string"
-          }
-        }
-      },
-      "UserSuccess_user": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer"
-          },
-          "login": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "profile": {
-            "$ref": "#/components/schemas/UserSuccess_user_profile"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "datetime"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "datetime"
-          },
-          "deleted_at": {
-            "type": "string",
-            "format": "datetime"
-          }
-        }
-      },
-      "UserSessionsSuccess_data_sessions": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer"
-          },
-          "ip": {
-            "type": "string"
-          },
-          "os": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "current": {
-            "type": "boolean"
-          },
-          "used_at": {
-            "type": "string"
-          }
-        }
-      },
-      "UserSessionsSuccess_data": {
-        "type": "object",
-        "properties": {
-          "sessions": {
-            "$ref": "#/components/schemas/UserSessionsSuccess_data_sessions"
-          }
-        }
-      },
-      "Spendings_data": {
-        "type": "object",
-        "properties": {
-          "spendings": {
-            "type": "array",
-            "items": {
-              "type": "object"
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "boxes" : {
+                "type" : "array",
+                "items" : {
+                  "type" : "object"
+                }
+              }
             }
           }
         }
       },
-      "Spending_data": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer"
+      "Box" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
           },
-          "category_id": {
-            "type": "integer"
-          },
-          "amount": {
-            "type": "number"
-          },
-          "note": {
-            "type": "string"
-          }
-        }
-      },
-      "Boxes_data": {
-        "type": "object",
-        "properties": {
-          "boxes": {
-            "type": "array",
-            "items": {
-              "type": "object"
-            }
-          }
-        }
-      },
-      "Box_data": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer"
-          },
-          "order_id": {
-            "type": "integer"
-          },
-          "customer_id": {
-            "type": "integer"
-          },
-          "sender_id": {
-            "type": "integer"
-          },
-          "recipient_id": {
-            "type": "integer"
-          },
-          "weight": {
-            "type": "number"
-          },
-          "additional_weight": {
-            "type": "number"
-          },
-          "status": {
-            "type": "string"
-          },
-          "box_image": {
-            "type": "string"
-          }
-        }
-      },
-      "Deliveries_data_filters": {
-        "type": "object",
-        "properties": {
-          "search": {
-            "type": "string"
-          },
-          "date": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          }
-        }
-      },
-      "Deliveries_data_deliveries": {
-        "type": "object",
-        "properties": {
-          "current_page": {
-            "type": "integer"
-          },
-          "data": {
-            "type": "array",
-            "properties": {
-              "id": {
-                "type": "integer"
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "id" : {
+                "type" : "integer"
               },
-              "order_id": {
-                "type": "integer"
+              "order_id" : {
+                "type" : "integer"
               },
-              "driver_id": {
-                "type": "integer"
+              "customer_id" : {
+                "type" : "integer"
               },
-              "status": {
-                "type": "string"
+              "sender_id" : {
+                "type" : "integer"
+              },
+              "recipient_id" : {
+                "type" : "integer"
+              },
+              "weight" : {
+                "type" : "number"
+              },
+              "additional_weight" : {
+                "type" : "number"
+              },
+              "status" : {
+                "type" : "string"
+              },
+              "box_image" : {
+                "type" : "string"
+              }
+            }
+          }
+        }
+      },
+      "BoxBody" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer"
+          },
+          "order_id" : {
+            "type" : "integer"
+          },
+          "customer_id" : {
+            "type" : "integer"
+          },
+          "sender_id" : {
+            "type" : "integer"
+          },
+          "recipient_id" : {
+            "type" : "integer"
+          },
+          "weight" : {
+            "type" : "number"
+          },
+          "additional_weight" : {
+            "type" : "number"
+          },
+          "status" : {
+            "type" : "string"
+          },
+          "box_image" : {
+            "type" : "string"
+          }
+        }
+      },
+      "BoxDeleteSuccess" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "message" : {
+                "type" : "string"
+              }
+            }
+          }
+        },
+        "example" : {
+          "success" : true,
+          "data" : {
+            "message" : "The box deleted successfully."
+          }
+        }
+      },
+      "Deliveries" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "filters" : {
+                "type" : "object",
+                "properties" : {
+                  "search" : {
+                    "type" : "string"
+                  },
+                  "date" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              },
+              "deliveries" : {
+                "type" : "object",
+                "properties" : {
+                  "current_page" : {
+                    "type" : "integer"
+                  },
+                  "data" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "object"
+                    },
+                    "properties" : {
+                      "id" : {
+                        "type" : "integer"
+                      },
+                      "customer" : {
+                        "type" : "integer"
+                      },
+                      "driver" : {
+                        "type" : "string"
+                      },
+                      "status" : {
+                        "type" : "string"
+                      }
+                    }
+                  },
+                  "first_page_url" : {
+                    "type" : "string"
+                  },
+                  "from" : {
+                    "type" : "integer"
+                  },
+                  "last_page" : {
+                    "type" : "integer"
+                  },
+                  "last_page_url" : {
+                    "type" : "string"
+                  },
+                  "links" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "object"
+                    },
+                    "properties" : {
+                      "url" : {
+                        "type" : "string"
+                      },
+                      "label" : {
+                        "type" : "integer"
+                      },
+                      "active" : {
+                        "type" : "boolean"
+                      }
+                    }
+                  },
+                  "next_page_url" : {
+                    "type" : "string"
+                  },
+                  "path" : {
+                    "type" : "string"
+                  },
+                  "per_page" : {
+                    "type" : "integer"
+                  },
+                  "prev_page_url" : {
+                    "type" : "string"
+                  },
+                  "to" : {
+                    "type" : "integer"
+                  },
+                  "total" : {
+                    "type" : "integer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Delivery" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "id" : {
+                "type" : "integer"
+              },
+              "customer" : {
+                "type" : "integer"
+              },
+              "driver" : {
+                "type" : "string"
+              },
+              "status" : {
+                "type" : "string"
+              }
+            }
+          }
+        }
+      },
+      "DeliveryBody" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer"
+          },
+          "order_id" : {
+            "type" : "integer"
+          },
+          "driver_id" : {
+            "type" : "integer"
+          },
+          "status" : {
+            "type" : "string"
+          }
+        }
+      },
+      "DeliveryDeleteSuccess" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "message" : {
+                "type" : "string"
+              }
+            }
+          }
+        },
+        "example" : {
+          "success" : true,
+          "data" : {
+            "message" : "The delivery deleted successfully."
+          }
+        }
+      },
+      "Orders" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "filters" : {
+                "type" : "object",
+                "properties" : {
+                  "search" : {
+                    "type" : "string"
+                  },
+                  "date" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              },
+              "orders" : {
+                "type" : "object",
+                "properties" : {
+                  "current_page" : {
+                    "type" : "integer"
+                  },
+                  "data" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "object"
+                    },
+                    "properties" : {
+                      "id" : {
+                        "type" : "integer"
+                      },
+                      "staff_id" : {
+                        "type" : "integer"
+                      },
+                      "customer_id" : {
+                        "type" : "integer"
+                      },
+                      "fedex_order_id" : {
+                        "type" : "string"
+                      },
+                      "pickup_id" : {
+                        "type" : "integer"
+                      },
+                      "shipment_id" : {
+                        "type" : "integer"
+                      },
+                      "price" : {
+                        "type" : "number"
+                      },
+                      "payed_price" : {
+                        "type" : "number"
+                      },
+                      "status" : {
+                        "type" : "string"
+                      },
+                      "payment_status" : {
+                        "type" : "string"
+                      }
+                    }
+                  },
+                  "first_page_url" : {
+                    "type" : "string"
+                  },
+                  "from" : {
+                    "type" : "integer"
+                  },
+                  "last_page" : {
+                    "type" : "integer"
+                  },
+                  "last_page_url" : {
+                    "type" : "string"
+                  },
+                  "links" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "object"
+                    },
+                    "properties" : {
+                      "url" : {
+                        "type" : "string"
+                      },
+                      "label" : {
+                        "type" : "integer"
+                      },
+                      "active" : {
+                        "type" : "boolean"
+                      }
+                    }
+                  },
+                  "next_page_url" : {
+                    "type" : "string"
+                  },
+                  "path" : {
+                    "type" : "string"
+                  },
+                  "per_page" : {
+                    "type" : "integer"
+                  },
+                  "prev_page_url" : {
+                    "type" : "string"
+                  },
+                  "to" : {
+                    "type" : "integer"
+                  },
+                  "total" : {
+                    "type" : "integer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Order" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "id" : {
+                "type" : "integer"
+              },
+              "staff_id" : {
+                "type" : "integer"
+              },
+              "customer_id" : {
+                "type" : "integer"
+              },
+              "fedex_order_id" : {
+                "type" : "string"
+              },
+              "pickup_id" : {
+                "type" : "integer"
+              },
+              "shipment_id" : {
+                "type" : "integer"
+              },
+              "price" : {
+                "type" : "number"
+              },
+              "payed_price" : {
+                "type" : "number"
+              },
+              "status" : {
+                "type" : "string"
+              },
+              "payment_status" : {
+                "type" : "string"
+              }
+            }
+          }
+        }
+      },
+      "OrderBody" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer"
+          },
+          "staff_id" : {
+            "type" : "integer"
+          },
+          "customer_id" : {
+            "type" : "integer"
+          },
+          "fedex_order_id" : {
+            "type" : "string"
+          },
+          "pickup_id" : {
+            "type" : "integer"
+          },
+          "shipment_id" : {
+            "type" : "integer"
+          },
+          "price" : {
+            "type" : "number"
+          },
+          "payed_price" : {
+            "type" : "number"
+          },
+          "status" : {
+            "type" : "string"
+          },
+          "payment_status" : {
+            "type" : "string"
+          }
+        }
+      },
+      "OrderDeleteSuccess" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "message" : {
+                "type" : "string"
+              }
+            }
+          }
+        },
+        "example" : {
+          "success" : true,
+          "data" : {
+            "message" : "The order deleted successfully."
+          }
+        }
+      },
+      "BoxItems" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "filters" : {
+                "type" : "object",
+                "properties" : {
+                  "search" : {
+                    "type" : "string"
+                  },
+                  "date" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "string"
+                    }
+                  },
+                  "quantity" : {
+                    "type" : "integer"
+                  },
+                  "weight" : {
+                    "type" : "number"
+                  },
+                  "price" : {
+                    "type" : "number"
+                  }
+                }
+              },
+              "box_items" : {
+                "type" : "object",
+                "properties" : {
+                  "current_page" : {
+                    "type" : "integer"
+                  },
+                  "data" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "object"
+                    },
+                    "properties" : {
+                      "id" : {
+                        "type" : "integer"
+                      },
+                      "box_id" : {
+                        "type" : "integer"
+                      },
+                      "warehouse_item_id" : {
+                        "type" : "integer"
+                      },
+                      "name" : {
+                        "type" : "string"
+                      },
+                      "quantity" : {
+                        "type" : "integer"
+                      },
+                      "price" : {
+                        "type" : "number"
+                      },
+                      "weight" : {
+                        "type" : "number"
+                      },
+                      "made_in" : {
+                        "type" : "string"
+                      },
+                      "note" : {
+                        "type" : "string"
+                      },
+                      "is_additional" : {
+                        "type" : "integer"
+                      },
+                      "created_at" : {
+                        "type" : "string"
+                      },
+                      "updated_at" : {
+                        "type" : "string"
+                      }
+                    }
+                  },
+                  "first_page_url" : {
+                    "type" : "string"
+                  },
+                  "from" : {
+                    "type" : "integer"
+                  },
+                  "last_page" : {
+                    "type" : "integer"
+                  },
+                  "last_page_url" : {
+                    "type" : "string"
+                  },
+                  "links" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "object"
+                    },
+                    "properties" : {
+                      "url" : {
+                        "type" : "string"
+                      },
+                      "label" : {
+                        "type" : "integer"
+                      },
+                      "active" : {
+                        "type" : "boolean"
+                      }
+                    }
+                  },
+                  "next_page_url" : {
+                    "type" : "string"
+                  },
+                  "path" : {
+                    "type" : "string"
+                  },
+                  "per_page" : {
+                    "type" : "integer"
+                  },
+                  "prev_page_url" : {
+                    "type" : "string"
+                  },
+                  "to" : {
+                    "type" : "integer"
+                  },
+                  "total" : {
+                    "type" : "integer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "BoxItem" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "box_item" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer"
+                  },
+                  "box_id" : {
+                    "type" : "integer"
+                  },
+                  "warehouse_item_id" : {
+                    "type" : "integer"
+                  },
+                  "name" : {
+                    "type" : "integer"
+                  },
+                  "quantity" : {
+                    "type" : "integer"
+                  },
+                  "price" : {
+                    "type" : "number"
+                  },
+                  "weight" : {
+                    "type" : "number"
+                  },
+                  "made_in" : {
+                    "type" : "string"
+                  },
+                  "note" : {
+                    "type" : "string"
+                  },
+                  "is_additional" : {
+                    "type" : "integer"
+                  },
+                  "created_at" : {
+                    "type" : "string"
+                  },
+                  "updated_at" : {
+                    "type" : "string"
+                  }
+                },
+                "example" : {
+                  "id" : "78",
+                  "box_id" : "100",
+                  "warehouse_item_id" : "76",
+                  "name" : "Example Name",
+                  "quantity" : "1",
+                  "price" : "567.19",
+                  "weight" : "188.12",
+                  "made_in" : "Example",
+                  "note" : "Example Text",
+                  "is_additional" : "1",
+                  "created_at" : "2020-12-10T05:19:29.000000Z",
+                  "updated_at" : "2020-12-10T05:19:29.000000Z"
+                }
+              }
+            }
+          }
+        }
+      },
+      "BoxItemCreate" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "message" : {
+                "type" : "string"
+              },
+              "box_item" : {
+                "type" : "object",
+                "properties" : {
+                  "box_id" : {
+                    "type" : "integer"
+                  },
+                  "warehouse_item_id" : {
+                    "type" : "integer"
+                  },
+                  "name" : {
+                    "type" : "integer"
+                  },
+                  "quantity" : {
+                    "type" : "integer"
+                  },
+                  "price" : {
+                    "type" : "number"
+                  },
+                  "weight" : {
+                    "type" : "number"
+                  },
+                  "made_in" : {
+                    "type" : "string"
+                  },
+                  "note" : {
+                    "type" : "string"
+                  },
+                  "is_additional" : {
+                    "type" : "integer"
+                  },
+                  "created_at" : {
+                    "type" : "string"
+                  },
+                  "updated_at" : {
+                    "type" : "string"
+                  },
+                  "deleted_at" : {
+                    "type" : "string"
+                  },
+                  "id" : {
+                    "type" : "integer"
+                  }
+                }
               }
             },
-            "items": {
-              "type": "object"
+            "example" : {
+              "message" : "The box item was successfully created."
             }
+          }
+        }
+      },
+      "BoxItemBody" : {
+        "type" : "object",
+        "properties" : {
+          "box_id" : {
+            "type" : "integer"
           },
-          "first_page_url": {
-            "type": "string"
+          "warehouse_item_id" : {
+            "type" : "integer"
           },
-          "from": {
-            "type": "integer"
+          "name" : {
+            "type" : "integer"
           },
-          "last_page": {
-            "type": "integer"
+          "quantity" : {
+            "type" : "integer"
           },
-          "last_page_url": {
-            "type": "string"
+          "price" : {
+            "type" : "number"
           },
-          "links": {
-            "type": "array",
-            "properties": {
-              "url": {
-                "type": "string"
+          "weight" : {
+            "type" : "number"
+          },
+          "made_in" : {
+            "type" : "string"
+          },
+          "note" : {
+            "type" : "string"
+          },
+          "is_additional" : {
+            "type" : "integer"
+          }
+        },
+        "example" : {
+          "id" : "78",
+          "box_id" : "100",
+          "warehouse_item_id" : "76",
+          "name" : "Example Name",
+          "quantity" : "1",
+          "price" : "567.19",
+          "weight" : "188.12",
+          "made_in" : "Example",
+          "note" : "Example Text",
+          "is_additional" : "1"
+        }
+      },
+      "BoxItemDeleteSuccess" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "object"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "message" : {
+                "type" : "string"
+              }
+            }
+          }
+        },
+        "example" : {
+          "success" : true,
+          "data" : {
+            "message" : "The box item deleted successfully."
+          }
+        }
+      },
+      "BoxItemUpdate" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "message" : {
+                "type" : "string"
               },
-              "label": {
-                "type": "integer"
-              },
-              "active": {
-                "type": "boolean"
+              "box_item" : {
+                "type" : "object",
+                "properties" : {
+                  "box_id" : {
+                    "type" : "integer"
+                  },
+                  "warehouse_item_id" : {
+                    "type" : "integer"
+                  },
+                  "name" : {
+                    "type" : "integer"
+                  },
+                  "quantity" : {
+                    "type" : "integer"
+                  },
+                  "price" : {
+                    "type" : "number"
+                  },
+                  "weight" : {
+                    "type" : "number"
+                  },
+                  "made_in" : {
+                    "type" : "string"
+                  },
+                  "note" : {
+                    "type" : "string"
+                  },
+                  "is_additional" : {
+                    "type" : "integer"
+                  },
+                  "created_at" : {
+                    "type" : "string"
+                  },
+                  "updated_at" : {
+                    "type" : "string"
+                  },
+                  "deleted_at" : {
+                    "type" : "string"
+                  },
+                  "id" : {
+                    "type" : "integer"
+                  }
+                }
               }
             },
-            "items": {
-              "type": "object"
+            "example" : {
+              "message" : "The box item was successfully updated."
             }
-          },
-          "next_page_url": {
-            "type": "string"
-          },
-          "path": {
-            "type": "string"
-          },
-          "per_page": {
-            "type": "integer"
-          },
-          "prev_page_url": {
-            "type": "string"
-          },
-          "to": {
-            "type": "integer"
-          },
-          "total": {
-            "type": "integer"
           }
         }
       },
-      "Deliveries_data": {
-        "type": "object",
-        "properties": {
-          "filters": {
-            "$ref": "#/components/schemas/Deliveries_data_filters"
+      "Pickups" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
           },
-          "deliveries": {
-            "$ref": "#/components/schemas/Deliveries_data_deliveries"
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "filters" : {
+                "type" : "object",
+                "properties" : {
+                  "search" : {
+                    "type" : "string"
+                  },
+                  "date" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              },
+              "pickups" : {
+                "type" : "object",
+                "properties" : {
+                  "current_page" : {
+                    "type" : "integer"
+                  },
+                  "data" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "object"
+                    },
+                    "properties" : {
+                      "id" : {
+                        "type" : "integer"
+                      },
+                      "note" : {
+                        "type" : "string"
+                      },
+                      "bring_address" : {
+                        "type" : "integer"
+                      },
+                      "bring_datetime_start" : {
+                        "type" : "string"
+                      },
+                      "bring_datetime_end" : {
+                        "type" : "string"
+                      },
+                      "staff_id" : {
+                        "type" : "integer"
+                      },
+                      "customer_id" : {
+                        "type" : "integer"
+                      },
+                      "driver_id" : {
+                        "type" : "integer"
+                      },
+                      "created_at" : {
+                        "type" : "string"
+                      },
+                      "updated_at" : {
+                        "type" : "string"
+                      }
+                    }
+                  },
+                  "first_page_url" : {
+                    "type" : "string"
+                  },
+                  "from" : {
+                    "type" : "integer"
+                  },
+                  "last_page" : {
+                    "type" : "integer"
+                  },
+                  "last_page_url" : {
+                    "type" : "string"
+                  },
+                  "links" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "object"
+                    },
+                    "properties" : {
+                      "url" : {
+                        "type" : "string"
+                      },
+                      "label" : {
+                        "type" : "integer"
+                      },
+                      "active" : {
+                        "type" : "boolean"
+                      }
+                    }
+                  },
+                  "next_page_url" : {
+                    "type" : "string"
+                  },
+                  "path" : {
+                    "type" : "string"
+                  },
+                  "per_page" : {
+                    "type" : "integer"
+                  },
+                  "prev_page_url" : {
+                    "type" : "string"
+                  },
+                  "to" : {
+                    "type" : "integer"
+                  },
+                  "total" : {
+                    "type" : "integer"
+                  }
+                }
+              }
+            }
           }
         }
       },
-      "Delivery_data": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer"
+      "Pickup" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
           },
-          "order_id": {
-            "type": "integer"
-          },
-          "driver_id": {
-            "type": "integer"
-          },
-          "status": {
-            "type": "string"
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "pickup" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer"
+                  },
+                  "note" : {
+                    "type" : "string"
+                  },
+                  "bring_address" : {
+                    "type" : "integer"
+                  },
+                  "bring_datetime_start" : {
+                    "type" : "string"
+                  },
+                  "bring_datetime_end" : {
+                    "type" : "string"
+                  },
+                  "staff_id" : {
+                    "type" : "integer"
+                  },
+                  "customer_id" : {
+                    "type" : "integer"
+                  },
+                  "driver_id" : {
+                    "type" : "integer"
+                  },
+                  "created_at" : {
+                    "type" : "string"
+                  },
+                  "updated_at" : {
+                    "type" : "string"
+                  }
+                },
+                "example" : {
+                  "id" : 78,
+                  "box_id" : 100,
+                  "note" : "Example Note",
+                  "bring_address" : 23423,
+                  "bring_datetime_start" : "2020-11-24T00:00:00.000000Z",
+                  "bring_datetime_end" : "2020-12-24T00:00:00.000000Z",
+                  "staff_id" : 1,
+                  "customer_id" : 18,
+                  "driver_id" : 2,
+                  "created_at" : "2020-12-10T05:19:29.000000Z",
+                  "updated_at" : "2020-12-10T05:19:29.000000Z"
+                }
+              }
+            }
           }
         }
       },
-      "Orders_data_orders": {
-        "type": "object",
-        "properties": {
-          "current_page": {
-            "type": "integer"
+      "PickupCreate" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
           },
-          "data": {
-            "type": "array",
-            "properties": {
-              "id": {
-                "type": "integer"
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "message" : {
+                "type" : "string"
               },
-              "staff_id": {
-                "type": "integer"
-              },
-              "customer_id": {
-                "type": "integer"
-              },
-              "fedex_order_id": {
-                "type": "string"
-              },
-              "pickup_id": {
-                "type": "integer"
-              },
-              "shipment_id": {
-                "type": "integer"
-              },
-              "price": {
-                "type": "number"
-              },
-              "payed_price": {
-                "type": "number"
-              },
-              "status": {
-                "type": "string"
-              },
-              "payment_status": {
-                "type": "string"
+              "pickup" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer"
+                  },
+                  "note" : {
+                    "type" : "string"
+                  },
+                  "bring_address" : {
+                    "type" : "integer"
+                  },
+                  "bring_datetime_start" : {
+                    "type" : "string"
+                  },
+                  "bring_datetime_end" : {
+                    "type" : "string"
+                  },
+                  "staff_id" : {
+                    "type" : "integer"
+                  },
+                  "customer_id" : {
+                    "type" : "integer"
+                  },
+                  "driver_id" : {
+                    "type" : "integer"
+                  },
+                  "created_at" : {
+                    "type" : "string"
+                  },
+                  "updated_at" : {
+                    "type" : "string"
+                  }
+                }
               }
             },
-            "items": {
-              "type": "object"
+            "example" : {
+              "message" : "The pickup was successfully created."
             }
+          }
+        }
+      },
+      "PickupBody" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer"
           },
-          "first_page_url": {
-            "type": "string"
+          "note" : {
+            "type" : "string"
           },
-          "from": {
-            "type": "integer"
+          "bring_address" : {
+            "type" : "integer"
           },
-          "last_page": {
-            "type": "integer"
+          "bring_datetime_start" : {
+            "type" : "string"
           },
-          "last_page_url": {
-            "type": "string"
+          "bring_datetime_end" : {
+            "type" : "string"
           },
-          "links": {
-            "type": "array",
-            "properties": {
-              "url": {
-                "type": "string"
+          "staff_id" : {
+            "type" : "integer"
+          },
+          "customer_id" : {
+            "type" : "integer"
+          },
+          "driver_id" : {
+            "type" : "integer"
+          },
+          "created_at" : {
+            "type" : "string"
+          },
+          "updated_at" : {
+            "type" : "string"
+          }
+        },
+        "example" : {
+          "id" : 78,
+          "box_id" : 100,
+          "note" : "Example Note",
+          "bring_address" : 23423,
+          "bring_datetime_start" : "2020-11-24T00:00:00.000000Z",
+          "bring_datetime_end" : "2020-12-24T00:00:00.000000Z",
+          "staff_id" : 1,
+          "customer_id" : 18,
+          "driver_id" : 2,
+          "created_at" : "2020-12-10T05:19:29.000000Z",
+          "updated_at" : "2020-12-10T05:19:29.000000Z"
+        }
+      },
+      "PickupDeleteSuccess" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "object"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "message" : {
+                "type" : "string"
+              }
+            }
+          }
+        },
+        "example" : {
+          "success" : true,
+          "data" : {
+            "message" : "The pickup deleted successfully."
+          }
+        }
+      },
+      "PickupUpdate" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "message" : {
+                "type" : "string"
               },
-              "label": {
-                "type": "integer"
-              },
-              "active": {
-                "type": "boolean"
+              "pickup" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer"
+                  },
+                  "note" : {
+                    "type" : "string"
+                  },
+                  "bring_address" : {
+                    "type" : "integer"
+                  },
+                  "bring_datetime_start" : {
+                    "type" : "string"
+                  },
+                  "bring_datetime_end" : {
+                    "type" : "string"
+                  },
+                  "staff_id" : {
+                    "type" : "integer"
+                  },
+                  "customer_id" : {
+                    "type" : "integer"
+                  },
+                  "driver_id" : {
+                    "type" : "integer"
+                  },
+                  "created_at" : {
+                    "type" : "string"
+                  },
+                  "updated_at" : {
+                    "type" : "string"
+                  }
+                }
               }
             },
-            "items": {
-              "type": "object"
+            "example" : {
+              "message" : "The pickup was successfully updated.",
+              "pickup" : {
+                "id" : 78,
+                "box_id" : 100,
+                "note" : "Example Note",
+                "bring_address" : 23423,
+                "bring_datetime_start" : "2020-11-24T00:00:00.000000Z",
+                "bring_datetime_end" : "2020-12-24T00:00:00.000000Z",
+                "staff_id" : 1,
+                "customer_id" : 18,
+                "driver_id" : 2,
+                "created_at" : "2020-12-10T05:19:29.000000Z",
+                "updated_at" : "2020-12-10T05:19:29.000000Z"
+              }
             }
-          },
-          "next_page_url": {
-            "type": "string"
-          },
-          "path": {
-            "type": "string"
-          },
-          "per_page": {
-            "type": "integer"
-          },
-          "prev_page_url": {
-            "type": "string"
-          },
-          "to": {
-            "type": "integer"
-          },
-          "total": {
-            "type": "integer"
           }
         }
       },
-      "Orders_data": {
-        "type": "object",
-        "properties": {
-          "filters": {
-            "$ref": "#/components/schemas/Deliveries_data_filters"
+      "Spendings" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
           },
-          "orders": {
-            "$ref": "#/components/schemas/Orders_data_orders"
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "filters" : {
+                "type" : "object",
+                "properties" : {
+                  "search" : {
+                    "type" : "string"
+                  },
+                  "date" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "string"
+                    }
+                  },
+                  "amount" : {
+                    "type" : "number"
+                  },
+                  "category_id" : {
+                    "type" : "integer"
+                  },
+                  "note" : {
+                    "type" : "string"
+                  }
+                }
+              },
+              "spendings" : {
+                "type" : "object",
+                "properties" : {
+                  "current_page" : {
+                    "type" : "integer"
+                  },
+                  "data" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "object"
+                    },
+                    "properties" : {
+                      "id" : {
+                        "type" : "integer"
+                      },
+                      "creator_id" : {
+                        "type" : "integer"
+                      },
+                      "amount" : {
+                        "type" : "number"
+                      },
+                      "category_id" : {
+                        "type" : "integer"
+                      },
+                      "note" : {
+                        "type" : "string"
+                      },
+                      "created_at" : {
+                        "type" : "string"
+                      },
+                      "updated_at" : {
+                        "type" : "string"
+                      },
+                      "deleted_by" : {
+                        "type" : "string"
+                      }
+                    }
+                  },
+                  "first_page_url" : {
+                    "type" : "string"
+                  },
+                  "from" : {
+                    "type" : "integer"
+                  },
+                  "last_page" : {
+                    "type" : "integer"
+                  },
+                  "last_page_url" : {
+                    "type" : "string"
+                  },
+                  "links" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "object"
+                    },
+                    "properties" : {
+                      "url" : {
+                        "type" : "string"
+                      },
+                      "label" : {
+                        "type" : "integer"
+                      },
+                      "active" : {
+                        "type" : "boolean"
+                      }
+                    }
+                  },
+                  "next_page_url" : {
+                    "type" : "string"
+                  },
+                  "path" : {
+                    "type" : "string"
+                  },
+                  "per_page" : {
+                    "type" : "integer"
+                  },
+                  "prev_page_url" : {
+                    "type" : "string"
+                  },
+                  "to" : {
+                    "type" : "integer"
+                  },
+                  "total" : {
+                    "type" : "integer"
+                  }
+                }
+              }
+            }
           }
         }
       },
-      "Order_data": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer"
+      "Spending" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
           },
-          "staff_id": {
-            "type": "integer"
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "spending" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer"
+                  },
+                  "creator_id" : {
+                    "type" : "integer"
+                  },
+                  "amount" : {
+                    "type" : "number"
+                  },
+                  "category_id" : {
+                    "type" : "integer"
+                  },
+                  "note" : {
+                    "type" : "string"
+                  },
+                  "created_at" : {
+                    "type" : "string"
+                  },
+                  "updated_at" : {
+                    "type" : "string"
+                  },
+                  "deleted_by" : {
+                    "type" : "string"
+                  }
+                },
+                "example" : {
+                  "id" : 7,
+                  "creator_id" : 1,
+                  "amount" : 87.89,
+                  "category_id" : 2,
+                  "note" : "Example note",
+                  "created_at" : "2020-12-10T05:19:29.000000Z",
+                  "updated_at" : "2020-12-10T05:19:29.000000Z",
+                  "deleted_by" : 2
+                }
+              }
+            }
+          }
+        }
+      },
+      "SpendingCreate" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
           },
-          "customer_id": {
-            "type": "integer"
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "message" : {
+                "type" : "string"
+              },
+              "spending" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer"
+                  },
+                  "creator_id" : {
+                    "type" : "integer"
+                  },
+                  "amount" : {
+                    "type" : "number"
+                  },
+                  "category_id" : {
+                    "type" : "integer"
+                  },
+                  "note" : {
+                    "type" : "string"
+                  },
+                  "created_at" : {
+                    "type" : "string"
+                  },
+                  "updated_at" : {
+                    "type" : "string"
+                  },
+                  "deleted_by" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            },
+            "example" : {
+              "message" : "The spending was successfully created."
+            }
+          }
+        }
+      },
+      "SpendingBody" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer"
           },
-          "fedex_order_id": {
-            "type": "string"
+          "creator_id" : {
+            "type" : "integer"
           },
-          "pickup_id": {
-            "type": "integer"
+          "amount" : {
+            "type" : "number"
           },
-          "shipment_id": {
-            "type": "integer"
+          "category_id" : {
+            "type" : "integer"
           },
-          "price": {
-            "type": "number"
+          "note" : {
+            "type" : "string"
           },
-          "payed_price": {
-            "type": "number"
+          "created_at" : {
+            "type" : "string"
           },
-          "status": {
-            "type": "string"
+          "updated_at" : {
+            "type" : "string"
           },
-          "payment_status": {
-            "type": "string"
+          "deleted_by" : {
+            "type" : "string"
+          }
+        },
+        "example" : {
+          "id" : 7,
+          "creator_id" : 1,
+          "amount" : 87.89,
+          "category_id" : 2,
+          "note" : "Example note",
+          "created_at" : "2020-12-10T05:19:29.000000Z",
+          "updated_at" : "2020-12-10T05:19:29.000000Z",
+          "deleted_by" : 2
+        }
+      },
+      "SpendingDeleteSuccess" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "object"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "message" : {
+                "type" : "string"
+              }
+            }
+          }
+        },
+        "example" : {
+          "success" : true,
+          "data" : {
+            "message" : "The spending deleted successfully."
+          }
+        }
+      },
+      "SpendingUpdate" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "message" : {
+                "type" : "string"
+              },
+              "spending" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer"
+                  },
+                  "creator_id" : {
+                    "type" : "integer"
+                  },
+                  "amount" : {
+                    "type" : "number"
+                  },
+                  "category_id" : {
+                    "type" : "integer"
+                  },
+                  "note" : {
+                    "type" : "string"
+                  },
+                  "created_at" : {
+                    "type" : "string"
+                  },
+                  "updated_at" : {
+                    "type" : "string"
+                  },
+                  "deleted_by" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            },
+            "example" : {
+              "message" : "The spending was successfully updated.",
+              "spending" : {
+                "id" : 7,
+                "creator_id" : 1,
+                "amount" : 87.89,
+                "category_id" : 2,
+                "note" : "Example note",
+                "created_at" : "2020-12-10T05:19:29.000000Z",
+                "updated_at" : "2020-12-10T05:19:29.000000Z",
+                "deleted_by" : 2
+              }
+            }
+          }
+        }
+      },
+      "SpendingCategories" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "filters" : {
+                "type" : "object",
+                "properties" : {
+                  "search" : {
+                    "type" : "string"
+                  },
+                  "date" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "string"
+                    }
+                  },
+                  "name" : {
+                    "type" : "string"
+                  },
+                  "parent_id" : {
+                    "type" : "integer"
+                  }
+                }
+              },
+              "spending-categories" : {
+                "type" : "object",
+                "properties" : {
+                  "current_page" : {
+                    "type" : "integer"
+                  },
+                  "data" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "object"
+                    },
+                    "properties" : {
+                      "id" : {
+                        "type" : "integer"
+                      },
+                      "name" : {
+                        "type" : "string"
+                      },
+                      "parent_id" : {
+                        "type" : "integer"
+                      },
+                      "created_at" : {
+                        "type" : "string"
+                      },
+                      "updated_at" : {
+                        "type" : "string"
+                      },
+                      "deleted_by" : {
+                        "type" : "string"
+                      }
+                    }
+                  },
+                  "first_page_url" : {
+                    "type" : "string"
+                  },
+                  "from" : {
+                    "type" : "integer"
+                  },
+                  "last_page" : {
+                    "type" : "integer"
+                  },
+                  "last_page_url" : {
+                    "type" : "string"
+                  },
+                  "links" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "object"
+                    },
+                    "properties" : {
+                      "url" : {
+                        "type" : "string"
+                      },
+                      "label" : {
+                        "type" : "integer"
+                      },
+                      "active" : {
+                        "type" : "boolean"
+                      }
+                    }
+                  },
+                  "next_page_url" : {
+                    "type" : "string"
+                  },
+                  "path" : {
+                    "type" : "string"
+                  },
+                  "per_page" : {
+                    "type" : "integer"
+                  },
+                  "prev_page_url" : {
+                    "type" : "string"
+                  },
+                  "to" : {
+                    "type" : "integer"
+                  },
+                  "total" : {
+                    "type" : "integer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "SpendingCategory" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "spending-category" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer"
+                  },
+                  "name" : {
+                    "type" : "string"
+                  },
+                  "parent_id" : {
+                    "type" : "integer"
+                  },
+                  "created_at" : {
+                    "type" : "string"
+                  },
+                  "updated_at" : {
+                    "type" : "string"
+                  },
+                  "deleted_by" : {
+                    "type" : "string"
+                  }
+                },
+                "example" : {
+                  "id" : 7,
+                  "name" : "Example text",
+                  "parent_id" : 8,
+                  "created_at" : "2020-12-10T05:19:29.000000Z",
+                  "updated_at" : "2020-12-10T05:19:29.000000Z",
+                  "deleted_by" : 2
+                }
+              }
+            }
+          }
+        }
+      },
+      "SpendingCategoryCreate" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "message" : {
+                "type" : "string"
+              },
+              "spending-category" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer"
+                  },
+                  "name" : {
+                    "type" : "string"
+                  },
+                  "parent_id" : {
+                    "type" : "integer"
+                  },
+                  "created_at" : {
+                    "type" : "string"
+                  },
+                  "updated_at" : {
+                    "type" : "string"
+                  },
+                  "deleted_by" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            },
+            "example" : {
+              "message" : "The spending category was successfully created."
+            }
+          }
+        }
+      },
+      "SpendingCategoryBody" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "parent_id" : {
+            "type" : "string"
+          },
+          "created_at" : {
+            "type" : "string"
+          },
+          "updated_at" : {
+            "type" : "string"
+          },
+          "deleted_by" : {
+            "type" : "string"
+          }
+        },
+        "example" : {
+          "id" : 7,
+          "name" : "Example Note",
+          "parent_id" : 8,
+          "category_id" : 2,
+          "created_at" : "2020-12-10T05:19:29.000000Z",
+          "updated_at" : "2020-12-10T05:19:29.000000Z",
+          "deleted_by" : 2
+        }
+      },
+      "SpendingCategoryDeleteSuccess" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "object"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "message" : {
+                "type" : "string"
+              }
+            }
+          }
+        },
+        "example" : {
+          "success" : true,
+          "data" : {
+            "message" : "The spending category deleted successfully."
+          }
+        }
+      },
+      "SpendingCategoryUpdate" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "message" : {
+                "type" : "string"
+              },
+              "spending-category" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer"
+                  },
+                  "name" : {
+                    "type" : "string"
+                  },
+                  "parent_id" : {
+                    "type" : "integer"
+                  },
+                  "created_at" : {
+                    "type" : "string"
+                  },
+                  "updated_at" : {
+                    "type" : "string"
+                  },
+                  "deleted_by" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            },
+            "example" : {
+              "message" : "The spending category  was successfully updated.",
+              "spending" : {
+                "id" : 7,
+                "name" : "Example name",
+                "parent_id" : 9,
+                "created_at" : "2020-12-10T05:19:29.000000Z",
+                "updated_at" : "2020-12-10T05:19:29.000000Z",
+                "deleted_by" : 2
+              }
+            }
+          }
+        }
+      },
+      "Recipients" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "filters" : {
+                "type" : "object",
+                "properties" : {
+                  "search" : {
+                    "type" : "string"
+                  },
+                  "date" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "string"
+                    }
+                  },
+                  "customer_id" : {
+                    "type" : "integer"
+                  },
+                  "address" : {
+                    "type" : "string"
+                  }
+                }
+              },
+              "recipients" : {
+                "type" : "object",
+                "properties" : {
+                  "current_page" : {
+                    "type" : "integer"
+                  },
+                  "data" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "object"
+                    },
+                    "properties" : {
+                      "id" : {
+                        "type" : "integer"
+                      },
+                      "customer_id" : {
+                        "type" : "integer"
+                      },
+                      "address" : {
+                        "type" : "string"
+                      },
+                      "created_at" : {
+                        "type" : "string"
+                      },
+                      "updated_at" : {
+                        "type" : "string"
+                      },
+                      "deleted_by" : {
+                        "type" : "string"
+                      }
+                    }
+                  },
+                  "first_page_url" : {
+                    "type" : "string"
+                  },
+                  "from" : {
+                    "type" : "integer"
+                  },
+                  "last_page" : {
+                    "type" : "integer"
+                  },
+                  "last_page_url" : {
+                    "type" : "string"
+                  },
+                  "links" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "object"
+                    },
+                    "properties" : {
+                      "url" : {
+                        "type" : "string"
+                      },
+                      "label" : {
+                        "type" : "integer"
+                      },
+                      "active" : {
+                        "type" : "boolean"
+                      }
+                    }
+                  },
+                  "next_page_url" : {
+                    "type" : "string"
+                  },
+                  "path" : {
+                    "type" : "string"
+                  },
+                  "per_page" : {
+                    "type" : "integer"
+                  },
+                  "prev_page_url" : {
+                    "type" : "string"
+                  },
+                  "to" : {
+                    "type" : "integer"
+                  },
+                  "total" : {
+                    "type" : "integer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Recipient" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "recipient" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer"
+                  },
+                  "customer_id" : {
+                    "type" : "integer"
+                  },
+                  "address" : {
+                    "type" : "string"
+                  },
+                  "created_at" : {
+                    "type" : "string"
+                  },
+                  "updated_at" : {
+                    "type" : "string"
+                  },
+                  "deleted_by" : {
+                    "type" : "string"
+                  }
+                },
+                "example" : {
+                  "id" : 7,
+                  "customer_id" : 1,
+                  "address" : "Example Address",
+                  "created_at" : "2020-12-10T05:19:29.000000Z",
+                  "updated_at" : "2020-12-10T05:19:29.000000Z",
+                  "deleted_by" : 2
+                }
+              }
+            }
+          }
+        }
+      },
+      "RecipientCreate" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "message" : {
+                "type" : "string"
+              },
+              "recipient" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer"
+                  },
+                  "customer_id" : {
+                    "type" : "integer"
+                  },
+                  "address" : {
+                    "type" : "string"
+                  },
+                  "created_at" : {
+                    "type" : "string"
+                  },
+                  "updated_at" : {
+                    "type" : "string"
+                  },
+                  "deleted_by" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            },
+            "example" : {
+              "message" : "The recipient was successfully created."
+            }
+          }
+        }
+      },
+      "RecipientBody" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer"
+          },
+          "customer_id" : {
+            "type" : "integer"
+          },
+          "address" : {
+            "type" : "string"
+          },
+          "created_at" : {
+            "type" : "string"
+          },
+          "updated_at" : {
+            "type" : "string"
+          },
+          "deleted_by" : {
+            "type" : "integer"
+          }
+        },
+        "example" : {
+          "id" : 7,
+          "customer_id" : 2,
+          "address" : "Example address",
+          "created_at" : "2020-12-10T05:19:29.000000Z",
+          "updated_at" : "2020-12-10T05:19:29.000000Z",
+          "deleted_by" : 2
+        }
+      },
+      "RecipientDeleteSuccess" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "object"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "message" : {
+                "type" : "string"
+              }
+            }
+          }
+        },
+        "example" : {
+          "success" : true,
+          "data" : {
+            "message" : "The recipient deleted successfully."
+          }
+        }
+      },
+      "RecipientUpdate" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "message" : {
+                "type" : "string"
+              },
+              "recipient" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer"
+                  },
+                  "customer_id" : {
+                    "type" : "integer"
+                  },
+                  "address" : {
+                    "type" : "string"
+                  },
+                  "created_at" : {
+                    "type" : "string"
+                  },
+                  "updated_at" : {
+                    "type" : "string"
+                  },
+                  "deleted_by" : {
+                    "type" : "integer"
+                  }
+                }
+              }
+            },
+            "example" : {
+              "message" : "The recipient  was successfully updated.",
+              "recipient" : {
+                "id" : 7,
+                "customer_id" : 2,
+                "address" : "Example address",
+                "created_at" : "2020-12-10T05:19:29.000000Z",
+                "updated_at" : "2020-12-10T05:19:29.000000Z",
+                "deleted_by" : 2
+              }
+            }
+          }
+        }
+      },
+      "Tasks" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "filters" : {
+                "type" : "object",
+                "properties" : {
+                  "search" : {
+                    "type" : "string"
+                  },
+                  "date" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "string"
+                    }
+                  },
+                  "creator_id" : {
+                    "type" : "integer"
+                  },
+                  "project_id" : {
+                    "type" : "integer"
+                  },
+                  "title" : {
+                    "type" : "string"
+                  },
+                  "note" : {
+                    "type" : "string"
+                  },
+                  "in_may_day" : {
+                    "type" : "integer"
+                  },
+                  "is_completed" : {
+                    "type" : "integer"
+                  },
+                  "is_important" : {
+                    "type" : "integer"
+                  },
+                  "remind_me_at" : {
+                    "type" : "string"
+                  },
+                  "due_date" : {
+                    "type" : "string"
+                  },
+                  "next_repeat" : {
+                    "type" : "string"
+                  }
+                }
+              },
+              "tasks" : {
+                "type" : "object",
+                "properties" : {
+                  "current_page" : {
+                    "type" : "integer"
+                  },
+                  "data" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "object"
+                    },
+                    "properties" : {
+                      "id" : {
+                        "type" : "integer"
+                      },
+                      "creator_id" : {
+                        "type" : "integer"
+                      },
+                      "project_id" : {
+                        "type" : "integer"
+                      },
+                      "title" : {
+                        "type" : "string"
+                      },
+                      "note" : {
+                        "type" : "string"
+                      },
+                      "in_may_day" : {
+                        "type" : "integer"
+                      },
+                      "is_completed" : {
+                        "type" : "integer"
+                      },
+                      "is_important" : {
+                        "type" : "integer"
+                      },
+                      "remind_me_at" : {
+                        "type" : "string"
+                      },
+                      "due_date" : {
+                        "type" : "string"
+                      },
+                      "next_repeat" : {
+                        "type" : "string"
+                      },
+                      "created_at" : {
+                        "type" : "string"
+                      },
+                      "updated_at" : {
+                        "type" : "string"
+                      },
+                      "deleted_by" : {
+                        "type" : "string"
+                      }
+                    },
+                    "example" : {
+                      "id" : 1,
+                      "creator_id" : 2,
+                      "project_id" : 3,
+                      "title" : "Example title",
+                      "note" : "Example note",
+                      "in_may_day" : 1,
+                      "is_completed" : 1,
+                      "is_important" : 1,
+                      "remind_me_at" : "2020-02-02",
+                      "due_date" : "2020-02-02",
+                      "next_repeat" : "text",
+                      "created_at" : "2020-02-02",
+                      "updated_at" : "2020-02-02"
+                    }
+                  },
+                  "first_page_url" : {
+                    "type" : "string"
+                  },
+                  "from" : {
+                    "type" : "integer"
+                  },
+                  "last_page" : {
+                    "type" : "integer"
+                  },
+                  "last_page_url" : {
+                    "type" : "string"
+                  },
+                  "links" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "object"
+                    },
+                    "properties" : {
+                      "url" : {
+                        "type" : "string"
+                      },
+                      "label" : {
+                        "type" : "integer"
+                      },
+                      "active" : {
+                        "type" : "boolean"
+                      }
+                    }
+                  },
+                  "next_page_url" : {
+                    "type" : "string"
+                  },
+                  "path" : {
+                    "type" : "string"
+                  },
+                  "per_page" : {
+                    "type" : "integer"
+                  },
+                  "prev_page_url" : {
+                    "type" : "string"
+                  },
+                  "to" : {
+                    "type" : "integer"
+                  },
+                  "total" : {
+                    "type" : "integer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Task" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "task" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer"
+                  },
+                  "creator_id" : {
+                    "type" : "integer"
+                  },
+                  "project_id" : {
+                    "type" : "integer"
+                  },
+                  "title" : {
+                    "type" : "string"
+                  },
+                  "note" : {
+                    "type" : "string"
+                  },
+                  "in_may_day" : {
+                    "type" : "integer"
+                  },
+                  "is_completed" : {
+                    "type" : "integer"
+                  },
+                  "is_important" : {
+                    "type" : "integer"
+                  },
+                  "remind_me_at" : {
+                    "type" : "string"
+                  },
+                  "due_date" : {
+                    "type" : "string"
+                  },
+                  "next_repeat" : {
+                    "type" : "string"
+                  },
+                  "created_at" : {
+                    "type" : "string"
+                  },
+                  "updated_at" : {
+                    "type" : "string"
+                  },
+                  "deleted_by" : {
+                    "type" : "integer"
+                  }
+                },
+                "example" : {
+                  "id" : 7,
+                  "creator_id" : 1,
+                  "project_id" : 1,
+                  "title" : "Example Title",
+                  "note" : "Example note",
+                  "in_may_day" : 1,
+                  "is_completed" : 1,
+                  "is_important" : 1,
+                  "remind_me_at" : "2020-12-10T05:19:29.000000Z",
+                  "due_date" : "2020-12-10T05:19:29.000000Z",
+                  "next_repeat" : "2020-12-10T05:19:29.000000Z",
+                  "created_at" : "2020-12-10T05:19:29.000000Z",
+                  "updated_at" : "2020-12-10T05:19:29.000000Z",
+                  "deleted_by" : 2
+                }
+              }
+            }
+          }
+        }
+      },
+      "TaskCreate" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "message" : {
+                "type" : "string"
+              },
+              "task" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer"
+                  },
+                  "creator_id" : {
+                    "type" : "integer"
+                  },
+                  "project_id" : {
+                    "type" : "integer"
+                  },
+                  "title" : {
+                    "type" : "string"
+                  },
+                  "note" : {
+                    "type" : "string"
+                  },
+                  "in_may_day" : {
+                    "type" : "integer"
+                  },
+                  "is_completed" : {
+                    "type" : "integer"
+                  },
+                  "is_important" : {
+                    "type" : "integer"
+                  },
+                  "remind_me_at" : {
+                    "type" : "string"
+                  },
+                  "due_date" : {
+                    "type" : "string"
+                  },
+                  "next_repeat" : {
+                    "type" : "string"
+                  },
+                  "created_at" : {
+                    "type" : "string"
+                  },
+                  "updated_at" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            },
+            "example" : {
+              "message" : "The task was successfully created."
+            }
+          }
+        }
+      },
+      "TaskBody" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer"
+          },
+          "creator_id" : {
+            "type" : "integer"
+          },
+          "project_id" : {
+            "type" : "integer"
+          },
+          "title" : {
+            "type" : "string"
+          },
+          "note" : {
+            "type" : "string"
+          },
+          "in_may_day" : {
+            "type" : "integer"
+          },
+          "is_completed" : {
+            "type" : "integer"
+          },
+          "is_important" : {
+            "type" : "integer"
+          },
+          "remind_me_at" : {
+            "type" : "string"
+          },
+          "due_date" : {
+            "type" : "string"
+          },
+          "next_repeat" : {
+            "type" : "string"
+          },
+          "created_at" : {
+            "type" : "string"
+          },
+          "updated_at" : {
+            "type" : "string"
+          },
+          "deleted_by" : {
+            "type" : "integer"
+          }
+        },
+        "example" : {
+          "id" : 7,
+          "creator_id" : 1,
+          "project_id" : 1,
+          "title" : "Example Title",
+          "note" : "Example note",
+          "in_may_day" : 1,
+          "is_completed" : 1,
+          "is_important" : 1,
+          "remind_me_at" : "2020-12-10T05:19:29.000000Z",
+          "due_date" : "2020-12-10T05:19:29.000000Z",
+          "next_repeat" : "2020-12-10T05:19:29.000000Z",
+          "created_at" : "2020-12-10T05:19:29.000000Z",
+          "updated_at" : "2020-12-10T05:19:29.000000Z",
+          "deleted_by" : 2
+        }
+      },
+      "TaskDeleteSuccess" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "object"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "message" : {
+                "type" : "string"
+              }
+            }
+          }
+        },
+        "example" : {
+          "success" : true,
+          "data" : {
+            "message" : "The task deleted successfully."
+          }
+        }
+      },
+      "TaskUpdate" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "message" : {
+                "type" : "string"
+              },
+              "task" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer"
+                  },
+                  "creator_id" : {
+                    "type" : "integer"
+                  },
+                  "project_id" : {
+                    "type" : "integer"
+                  },
+                  "title" : {
+                    "type" : "string"
+                  },
+                  "note" : {
+                    "type" : "string"
+                  },
+                  "in_may_day" : {
+                    "type" : "integer"
+                  },
+                  "is_completed" : {
+                    "type" : "integer"
+                  },
+                  "is_important" : {
+                    "type" : "integer"
+                  },
+                  "remind_me_at" : {
+                    "type" : "string"
+                  },
+                  "due_date" : {
+                    "type" : "string"
+                  },
+                  "next_repeat" : {
+                    "type" : "string"
+                  },
+                  "created_at" : {
+                    "type" : "string"
+                  },
+                  "updated_at" : {
+                    "type" : "string"
+                  },
+                  "deleted_by" : {
+                    "type" : "integer"
+                  }
+                }
+              }
+            },
+            "example" : {
+              "message" : "The task  was successfully updated.",
+              "recipient" : {
+                "id" : 7,
+                "creator_id" : 1,
+                "project_id" : 1,
+                "title" : "Example Title",
+                "note" : "Example note",
+                "in_may_day" : 1,
+                "is_completed" : 1,
+                "is_important" : 1,
+                "remind_me_at" : "2020-12-10T05:19:29.000000Z",
+                "due_date" : "2020-12-10T05:19:29.000000Z",
+                "next_repeat" : "2020-12-10T05:19:29.000000Z",
+                "created_at" : "2020-12-10T05:19:29.000000Z",
+                "updated_at" : "2020-12-10T05:19:29.000000Z",
+                "deleted_by" : 2
+              }
+            }
+          }
+        }
+      },
+      "Users" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "filters" : {
+                "type" : "object",
+                "properties" : {
+                  "search" : {
+                    "type" : "string"
+                  },
+                  "date" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "string"
+                    }
+                  },
+                  "role" : {
+                    "type" : "integer"
+                  }
+                }
+              },
+              "users" : {
+                "type" : "object",
+                "properties" : {
+                  "current_page" : {
+                    "type" : "integer"
+                  },
+                  "data" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "object"
+                    },
+                    "properties" : {
+                      "id" : {
+                        "type" : "integer"
+                      },
+                      "role_id" : {
+                        "type" : "integer"
+                      },
+                      "title" : {
+                        "type" : "string"
+                      },
+                      "phone_id" : {
+                        "type" : "integer"
+                      },
+                      "username" : {
+                        "type" : "string"
+                      },
+                      "full_name" : {
+                        "type" : "string"
+                      },
+                      "email" : {
+                        "type" : "string"
+                      },
+                      "avatar" : {
+                        "type" : "string"
+                      },
+                      "email_verified_at" : {
+                        "type" : "string"
+                      },
+                      "password" : {
+                        "type" : "string"
+                      },
+                      "remember_token" : {
+                        "type" : "string"
+                      },
+                      "created_at" : {
+                        "type" : "string"
+                      },
+                      "updated_at" : {
+                        "type" : "string"
+                      },
+                      "deleted_by" : {
+                        "type" : "integer"
+                      }
+                    },
+                    "example" : {
+                      "id" : 1,
+                      "role_id" : 1,
+                      "title" : "Example title",
+                      "phone_id" : 2,
+                      "username" : "Example username",
+                      "full_name" : "Examplov Examplejon",
+                      "email" : "example@gmail.com",
+                      "avatar" : "user_image",
+                      "email_verified_at" : "2020-02-02",
+                      "password" : "password",
+                      "remember_token" : "kjhkjHKJHKUihuah09*&*79",
+                      "created_at" : "2020-02-02",
+                      "updated_at" : "2020-02-02"
+                    }
+                  },
+                  "first_page_url" : {
+                    "type" : "string"
+                  },
+                  "from" : {
+                    "type" : "integer"
+                  },
+                  "last_page" : {
+                    "type" : "integer"
+                  },
+                  "last_page_url" : {
+                    "type" : "string"
+                  },
+                  "links" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "object"
+                    },
+                    "properties" : {
+                      "url" : {
+                        "type" : "string"
+                      },
+                      "label" : {
+                        "type" : "integer"
+                      },
+                      "active" : {
+                        "type" : "boolean"
+                      }
+                    }
+                  },
+                  "next_page_url" : {
+                    "type" : "string"
+                  },
+                  "path" : {
+                    "type" : "string"
+                  },
+                  "per_page" : {
+                    "type" : "integer"
+                  },
+                  "prev_page_url" : {
+                    "type" : "string"
+                  },
+                  "to" : {
+                    "type" : "integer"
+                  },
+                  "total" : {
+                    "type" : "integer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "User" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "user" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer"
+                  },
+                  "role_id" : {
+                    "type" : "integer"
+                  },
+                  "title" : {
+                    "type" : "string"
+                  },
+                  "phone_id" : {
+                    "type" : "integer"
+                  },
+                  "username" : {
+                    "type" : "string"
+                  },
+                  "full_name" : {
+                    "type" : "string"
+                  },
+                  "email" : {
+                    "type" : "string"
+                  },
+                  "avatar" : {
+                    "type" : "string"
+                  },
+                  "email_verified_at" : {
+                    "type" : "string"
+                  },
+                  "password" : {
+                    "type" : "string"
+                  },
+                  "remember_token" : {
+                    "type" : "string"
+                  },
+                  "created_at" : {
+                    "type" : "string"
+                  },
+                  "updated_at" : {
+                    "type" : "string"
+                  },
+                  "deleted_by" : {
+                    "type" : "string"
+                  }
+                },
+                "example" : {
+                  "id" : 1,
+                  "role_id" : 1,
+                  "title" : "User title",
+                  "phone_id" : 2,
+                  "username" : "Example username",
+                  "full_name" : "Eshanov Bahodir",
+                  "email" : "example@gmail.com",
+                  "avatar" : "image_name",
+                  "email_verified_at" : "2020-12-10T05:19:29.000000Z",
+                  "password" : "password",
+                  "remember_token" : "sdfgF&768&#879879sdfYGYguyGEUYGFUEF",
+                  "created_at" : "2020-12-10T05:19:29.000000Z",
+                  "updated_at" : "2020-12-10T05:19:29.000000Z",
+                  "deleted_by" : 2
+                }
+              }
+            }
+          }
+        }
+      },
+      "UserCreate" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "message" : {
+                "type" : "string"
+              },
+              "user" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer"
+                  },
+                  "role_id" : {
+                    "type" : "integer"
+                  },
+                  "title" : {
+                    "type" : "string"
+                  },
+                  "phone_id" : {
+                    "type" : "integer"
+                  },
+                  "username" : {
+                    "type" : "string"
+                  },
+                  "full_name" : {
+                    "type" : "string"
+                  },
+                  "email" : {
+                    "type" : "string"
+                  },
+                  "avatar" : {
+                    "type" : "string"
+                  },
+                  "email_verified_at" : {
+                    "type" : "string"
+                  },
+                  "password" : {
+                    "type" : "string"
+                  },
+                  "remember_token" : {
+                    "type" : "string"
+                  },
+                  "created_at" : {
+                    "type" : "string"
+                  },
+                  "updated_at" : {
+                    "type" : "string"
+                  },
+                  "deleted_by" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            },
+            "example" : {
+              "message" : "The user was successfully created."
+            }
+          }
+        }
+      },
+      "UserBody" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer"
+          },
+          "role_id" : {
+            "type" : "integer"
+          },
+          "title" : {
+            "type" : "string"
+          },
+          "phone_id" : {
+            "type" : "integer"
+          },
+          "username" : {
+            "type" : "string"
+          },
+          "full_name" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "avatar" : {
+            "type" : "string"
+          },
+          "email_verified_at" : {
+            "type" : "string"
+          },
+          "password" : {
+            "type" : "string"
+          },
+          "remember_token" : {
+            "type" : "string"
+          },
+          "created_at" : {
+            "type" : "string"
+          },
+          "updated_at" : {
+            "type" : "string"
+          },
+          "deleted_by" : {
+            "type" : "string"
+          }
+        },
+        "example" : {
+          "id" : 1,
+          "role_id" : 1,
+          "title" : "User title",
+          "phone_id" : 2,
+          "username" : "Example username",
+          "full_name" : "Eshanov Bahodir",
+          "email" : "example@gmail.com",
+          "avatar" : "image_name",
+          "password" : "password"
+        }
+      },
+      "UserDeleteSuccess" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "object"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "message" : {
+                "type" : "string"
+              }
+            }
+          }
+        },
+        "example" : {
+          "success" : true,
+          "data" : {
+            "message" : "The user deleted successfully."
+          }
+        }
+      },
+      "UserUpdate" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "message" : {
+                "type" : "string"
+              },
+              "user" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer"
+                  },
+                  "role_id" : {
+                    "type" : "integer"
+                  },
+                  "title" : {
+                    "type" : "string"
+                  },
+                  "phone_id" : {
+                    "type" : "integer"
+                  },
+                  "username" : {
+                    "type" : "string"
+                  },
+                  "full_name" : {
+                    "type" : "string"
+                  },
+                  "email" : {
+                    "type" : "string"
+                  },
+                  "avatar" : {
+                    "type" : "string"
+                  },
+                  "email_verified_at" : {
+                    "type" : "string"
+                  },
+                  "password" : {
+                    "type" : "string"
+                  },
+                  "remember_token" : {
+                    "type" : "string"
+                  },
+                  "created_at" : {
+                    "type" : "string"
+                  },
+                  "updated_at" : {
+                    "type" : "string"
+                  },
+                  "deleted_by" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            },
+            "example" : {
+              "message" : "The user  was successfully updated.",
+              "user" : {
+                "id" : 1,
+                "role_id" : 1,
+                "title" : "User title",
+                "phone_id" : 2,
+                "username" : "Example username",
+                "full_name" : "Eshanov Bahodir",
+                "email" : "example@gmail.com",
+                "avatar" : "image_name",
+                "email_verified_at" : "2020-12-10T05:19:29.000000Z",
+                "password" : "password",
+                "remember_token" : "sdfgF&768&#879879sdfYGYguyGEUYGFUEF",
+                "created_at" : "2020-12-10T05:19:29.000000Z",
+                "updated_at" : "2020-12-10T05:19:29.000000Z",
+                "deleted_by" : 2
+              }
+            }
           }
         }
       }
     },
-    "securitySchemes": {
-      "BearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
+    "securitySchemes" : {
+      "BearerAuth" : {
+        "type" : "http",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
       }
     }
   }
