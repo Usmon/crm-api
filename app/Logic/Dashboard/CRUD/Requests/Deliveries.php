@@ -52,6 +52,28 @@ final class Deliveries extends FormRequest
 
                     'after:date.from'
                 ],
+
+                'order_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('orders','id'),
+                ],
+
+                'driver_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('users','id'),
+                ],
+
+                'status' => [
+                    'nullable',
+
+                    'string'
+                ],
             ],
 
             'dashboard.deliveries.store' => [
