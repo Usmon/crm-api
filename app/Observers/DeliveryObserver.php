@@ -4,8 +4,6 @@ namespace App\Observers;
 
 use App\Models\Delivery;
 
-use Illuminate\Support\Str;
-
 use Illuminate\Support\Carbon;
 
 final class DeliveryObserver
@@ -57,10 +55,6 @@ final class DeliveryObserver
      */
     public function defaultProperties(Delivery $delivery): void
     {
-        $delivery->order_id = $delivery->order_id;
-
-        $delivery->driver_id = $delivery->driver_id;
-
         $delivery->status = $delivery->status ?? 'pending';
 
         $delivery->created_at = $delivery->created_at ?? Carbon::now();
@@ -69,6 +63,4 @@ final class DeliveryObserver
 
         $delivery->deleted_at = $delivery->deleted_at ?? null;
     }
-
-
 }

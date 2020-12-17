@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Dashboard\Deliveries;
 
+use App\Helpers\Json;
+
 use App\Models\Delivery;
 
-use App\Helpers\Json;
+use Illuminate\Http\JsonResponse;
 
 use App\Http\Controllers\Controller as Controllers;
 
@@ -13,10 +15,6 @@ use App\Logic\Dashboard\CRUD\Requests\Deliveries as DeliveriesRequest;
 use App\Logic\Dashboard\CRUD\Services\Deliveries as DeliveriesService;
 
 use App\Logic\Dashboard\CRUD\Repositories\Deliveries as DeliveriesRepository;
-
-use Illuminate\Http\JsonResponse;
-
-use Illuminate\Http\Request;
 
 final class Controller extends Controllers
 {
@@ -103,7 +101,7 @@ final class Controller extends Controllers
     }
 
     /**
-     * @param Delivery $delivery
+     * @param $id
      *
      * @return JsonResponse
      */

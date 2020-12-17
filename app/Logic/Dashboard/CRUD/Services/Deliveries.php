@@ -4,11 +4,9 @@ namespace App\Logic\Dashboard\CRUD\Services;
 
 use App\Models\Delivery;
 
-use App\Logic\Dashboard\CRUD\Requests\Deliveries as DeliveriesRequest;
-
-use Illuminate\Support\Arr;
-
 use Illuminate\Contracts\Pagination\Paginator;
+
+use App\Logic\Dashboard\CRUD\Requests\Deliveries as DeliveriesRequest;
 
 final class Deliveries
 {
@@ -23,6 +21,12 @@ final class Deliveries
             'search' => $request->json('search'),
 
             'date' => $request->json('date'),
+
+            'driver_id' => $request->json('driver_id'),
+
+            'order_id' => $request->json('order_id'),
+
+            'status' => $request->json('status'),
         ];
     }
 
@@ -33,7 +37,7 @@ final class Deliveries
      */
     public function getOnlyFilters(DeliveriesRequest $request): array
     {
-        return $request->only('search', 'date');
+        return $request->only('search', 'date', 'driver_id', 'order_id', 'status');
     }
 
     /**
@@ -47,15 +51,19 @@ final class Deliveries
             return [
                 'id' => $delivery->id,
 
-                'order_id' => $delivery->order_id,
+                'customer' => $delivery->orders->customer_id,
 
-                'driver_id' => $delivery->driver_id,
+                'driver' => $delivery->users->login,
 
                 'status' => $delivery->status,
 
                 'created_at' => $delivery->created_at,
 
                 'updated_at' => $delivery->updated_at,
+
+                'order' => $delivery->order,
+
+                'driver' => $delivery->driver
             ];
         });
 
@@ -72,9 +80,9 @@ final class Deliveries
         return [
             'id' => $delivery->id,
 
-            'order_id' => $delivery->order_id,
+            'customer' => $delivery->orders->customer_id,
 
-            'driver_id' => $delivery->driver_id,
+            'driver' => $delivery->users->login,
 
             'status' => $delivery->status,
 
@@ -82,6 +90,9 @@ final class Deliveries
 
             'updated_at' => $delivery->updated_at,
 
+            'order' => $delivery->order,
+
+            'driver' => $delivery->driver,
         ];
     }
 
