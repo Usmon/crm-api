@@ -2,11 +2,7 @@
 
 namespace App\Logic\Dashboard\CRUD\Repositories;
 
-use Exception;
-
 use App\Models\Delivery;
-
-use Illuminate\Support\Arr;
 
 use Illuminate\Contracts\Pagination\Paginator;
 
@@ -19,7 +15,7 @@ final class Deliveries
      */
     public function getDeliveries(array $filters): Paginator
     {
-        return Delivery::with(['users','orders'])->filter($filters)->orderBy('created_at', 'desc')->pager();
+        return Delivery::with(['order','driver'])->filter($filters)->orderBy('created_at', 'desc')->pager();
     }
 
     /**

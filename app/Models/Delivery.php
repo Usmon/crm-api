@@ -4,22 +4,22 @@ namespace App\Models;
 
 use Illuminate\Support\Carbon;
 
+use App\Traits\Pagination\Pager;
+
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\Builder;
 
-use Illuminate\Database\Eloquent\Collection;
-
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-use App\Traits\Pagination\Pager;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * App\Models\Pickup
+ * App\Models\Delivery
  *
  * @property int $id
  *
@@ -35,13 +35,21 @@ use App\Traits\Pagination\Pager;
  *
  * @property Carbon|null $deleted_at
  *
+ * @property-read BelongsTo|null $order
+ *
+ * @property-read BelongsTo|null $driver
+ *
+ * @method static Builder|self findBy(string $key, string $value = null)
+ *
+ * @method static Builder|self filter(array $filters)
+ *
  */
 
 final class Delivery extends Model
 {
+    use Pager;
     use HasFactory;
     use SoftDeletes;
-    use Pager;
 
     /**
      * @var string
@@ -58,11 +66,6 @@ final class Delivery extends Model
 
         'status',
     ];
-
-    /**
-     * @var array
-     */
-    protected $hidden = [];
 
     /**
      * @var array
@@ -85,19 +88,19 @@ final class Delivery extends Model
     ];
 
     /**
-     * @return BelongsTo
+     * @return HasOne
      */
-    public function orders(): BelongsTo
+    public function order(): HasOne
     {
-        return $this->belongsTo(Order::class,'order_id');
+        return $this->hasOne(Order::class,'id','order_id');
     }
 
     /**
-     * @return BelongsTo
+     * @return HasOne
      */
-    public function users(): BelongsTo
+    public function driver(): HasOne
     {
-        return $this->belongsTo(User::class, 'driver_id');
+        return $this->hasOne(User::class,'id','driver_id');
     }
 
     /**
@@ -129,6 +132,12 @@ final class Delivery extends Model
             });
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
+        })->when($filters['status'] ?? null, function (Builder $query, string $status) {
+            return $query->where('status', '%'. $status .'%');
+        })->when($filters['order_id'] ?? null, function (Builder $query, int $order_id) {
+            return $query->where('order_id', '=', $order_id);
+        })->when($filters['driver_id'] ?? null, function (Builder $query, int $driver_id) {
+            return $query->where('driver_id', '=', $driver_id);
         });
     }
 }
