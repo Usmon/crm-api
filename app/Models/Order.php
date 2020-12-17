@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 
 /**
  * App\Models\Order
@@ -157,6 +159,14 @@ final class Order extends Model
     public function shipment(): HasOne
     {
         return $this->HasOne(Shipment::class, 'id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function deliveries(): HasMany
+    {
+        return $this->hasMany(Delivery::class);
     }
 
     /**
