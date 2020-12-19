@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Carbon;
+
 use App\Traits\Pagination\Pager;
 
 use Illuminate\Database\Eloquent\Model;
@@ -17,11 +19,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * App\Models\Sender
  *
+ * @property integer $id
+ *
  * @property string $address
  *
  * @property integer $customer_id
  *
- * @property-read HasOne $customer
+ * @property Carbon|null $created_at
+ *
+ * @property Carbon|null $updated_at
+ *
+ * @property Carbon|null $deleted_at
+ *
+ * @property-read HasOne|null $customer
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
@@ -55,7 +65,13 @@ final class Sender extends Model
     protected $casts = [
         'customer_id' => 'integer',
 
-        'address' => 'string'
+        'address' => 'string',
+
+        'created_at' => 'datetime',
+
+        'updated_at' => 'datetime',
+
+        'deleted_at' => 'datetime'
     ];
 
     /**
@@ -63,7 +79,7 @@ final class Sender extends Model
      */
     protected function customer():HasOne
     {
-        return $this->hasOne(User::class,'id');
+        return $this->hasOne(User::class,'id','customer_id');
     }
 
     /**
@@ -95,8 +111,10 @@ final class Sender extends Model
             });
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
-        })->when($filters['address'] ?? null, function (Builder $query, string $search){
-            return $query->where('address','like','%'. $search .'%');
+        })->when($filters['address'] ?? null, function (Builder $query, string $address){
+            return $query->where('address','like','%'. $address .'%');
+        })->when($filters['customer_id'] ?? null, function (Builder $query, int $customer_id){
+            return $query->where('customer_id','=', $customer_id);
         });
     }
 }

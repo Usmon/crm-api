@@ -12,10 +12,14 @@ use Illuminate\Database\Eloquent\Builder;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * App\Models\OrderComment
+ *
+ * @property int $id
  *
  * @property int $order_id
  *
@@ -31,6 +35,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property int|null $deleted_by
  *
+ * @property-read HasOne|null $order
+ *
+ * @property-read HasOne|null $owner
+ *
+ * @method static Builder|self findBy(string $key, string $value = null)
+ *
+ * @method static Builder|self filter(array $filters)
+ *
+ * @mixin Model
  */
 final class OrderComment extends Model
 {
@@ -73,6 +86,21 @@ final class OrderComment extends Model
         'deleted_at' => 'datetime',
     ];
 
+    /**
+     * @return HasOne
+     */
+    public function order():HasOne
+    {
+        return $this->hasOne(Order::class, 'id', 'order_id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function owner():HasOne
+    {
+        return $this->hasOne(User::class, 'id', 'owner_id');
+    }
     /**
      * @param Builder $query
      *

@@ -56,6 +56,8 @@ final class TaskSteps
                 'created_at' => $taskStep->created_at,
 
                 'updated_at' => $taskStep->updated_at,
+
+                'task' => $taskStep->task,
             ];
         });
 
@@ -79,6 +81,8 @@ final class TaskSteps
             'created_at' => $taskStep->created_at,
 
             'updated_at' => $taskStep->updated_at,
+
+            'task' => $taskStep->task,
         ];
     }
 

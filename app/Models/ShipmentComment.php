@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -32,6 +34,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Carbon|null $deleted_at
  *
  * @property integer|null $deleted_by
+ *
+ * @property-read HasOne|null $shipment
+ *
+ * @property-read HasOne|null $owner
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
@@ -78,7 +84,25 @@ final class ShipmentComment extends Model
         'updated_at' => 'datetime',
 
         'deleted_at' => 'datetime',
+
+        'deleted_by' => 'integer'
     ];
+
+    /**
+     * @return HasOne
+     */
+    public function shipment():HasOne
+    {
+        return $this->hasOne(Shipment::class, 'id', 'shipment_id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function owner():HasOne
+    {
+        return $this->hasOne(User::class, 'id', 'owner_id');
+    }
 
     /**
      * @param Builder $query
@@ -111,8 +135,10 @@ final class ShipmentComment extends Model
             return $query->whereBetween('created_at', $date);
         })->when($filters['comment'] ?? null, function (Builder $query, string $comment) {
             return $query->where('comment', 'like', '%'. $comment .'%');
-        })->when($filters['shipment_id'] ?? null, function (Builder $query, string $shipment) {
-            return $query->where('shipment_id', '=', $shipment);
+        })->when($filters['shipment_id'] ?? null, function (Builder $query, int $shipment_id) {
+            return $query->where('shipment_id', '=', $shipment_id);
+        })->when($filters['owner_id'] ?? null, function (Builder $query, int $owner_id) {
+            return $query->where('owner_id', '=', $owner_id);
         });
     }
 }

@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Models\FedexOrderItem;
 
 use Illuminate\Support\Carbon;
+
 use Illuminate\Support\Facades\Auth;
 
 final class FedexOrderItemObserver

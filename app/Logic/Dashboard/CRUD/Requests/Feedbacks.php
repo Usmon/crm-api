@@ -52,6 +52,28 @@ final class Feedbacks extends FormRequest
 
                     'after:date.from',
                 ],
+
+                'message' => [
+                    'nullable',
+
+                    'string'
+                ],
+
+                'staff_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('users','id'),
+                ],
+
+                'customer_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('users','id'),
+                ],
             ],
 
             'dashboard.feedbacks.store' => [

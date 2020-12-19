@@ -52,6 +52,28 @@ final class Messages extends FormRequest
 
                     'after:date.from',
                 ],
+
+                'message' => [
+                    'nullable',
+
+                    'string'
+                ],
+
+                'sender_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('users','id'),
+                ],
+
+                'receiver' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('users','id')
+                ],
             ],
 
             'dashboard.messages.store' => [

@@ -15,7 +15,7 @@ final class OrderUsers
      */
     public function getOrderUsers(array $filters): Paginator
     {
-        return OrderUser::with(['user','order'])->filter($filters)->orderBy('created_at', 'desc')->pager();
+        return OrderUser::filter($filters)->orderBy('created_at', 'desc')->pager();
     }
 
     /**

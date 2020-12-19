@@ -56,6 +56,8 @@ final class ShipmentComments
                 'created_at' => $shipmentComment->created_at,
 
                 'updated_at' => $shipmentComment->updated_at,
+
+                'shipment' => $shipmentComment->shipment,
             ];
         });
 
@@ -79,6 +81,8 @@ final class ShipmentComments
             'created_at' => $shipmentComment->created_at,
 
             'updated_at' => $shipmentComment->updated_at,
+
+            'shipment' => $shipmentComment->shipment,
         ];
     }
 

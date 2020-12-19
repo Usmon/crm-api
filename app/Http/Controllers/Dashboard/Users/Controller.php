@@ -6,6 +6,8 @@ use App\Models\User;
 
 use App\Helpers\Json;
 
+use Illuminate\Http\JsonResponse;
+
 use App\Http\Controllers\Controller as Controllers;
 
 use App\Logic\Dashboard\CRUD\Requests\Users as UsersRequest;
@@ -13,8 +15,6 @@ use App\Logic\Dashboard\CRUD\Requests\Users as UsersRequest;
 use App\Logic\Dashboard\CRUD\Services\Users as UsersService;
 
 use App\Logic\Dashboard\CRUD\Repositories\Users as UsersRepository;
-
-use Illuminate\Http\JsonResponse;
 
 final class Controller extends Controllers
 {

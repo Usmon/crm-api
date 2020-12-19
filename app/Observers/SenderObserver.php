@@ -45,7 +45,6 @@ final class SenderObserver
      */
     public function restoring(Sender $sender): void
     {
-
         $sender->deleted_at = null;
     }
 

@@ -52,6 +52,70 @@ final class Tasks extends FormRequest
 
                     'after:date.from',
                 ],
+
+                'title' => [
+                    'nullable',
+
+                    'string',
+                ],
+
+                'note' => [
+                    'nullable',
+
+                    'string',
+                ],
+
+                'creator_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('users','id'),
+                ],
+
+                'project_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('projects','id'),
+                ],
+
+                'in_may_day' => [
+                    'nullable',
+
+                    'integer',
+                ],
+
+                'is_completed' => [
+                    'nullable',
+
+                    'integer',
+                ],
+
+                'is_important' => [
+                    'nullable',
+
+                    'integer',
+                ],
+
+                'remind_me_at' => [
+                    'nullable',
+
+                    'array',
+                ],
+
+                'due_date' => [
+                    'nullable',
+
+                    'array',
+                ],
+
+                'next_repeat' => [
+                    'nullable',
+
+                    'array',
+                ],
             ],
 
             'dashboard.tasks.store' => [

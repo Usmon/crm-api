@@ -52,6 +52,20 @@ final class TaskSteps extends FormRequest
 
                     'after:date.from',
                 ],
+
+                'task_id' => [
+                    'nullable',
+
+                     'integer',
+
+                    Rule::exists('tasks','id'),
+                ],
+
+                'step' => [
+                    'nullable',
+
+                    'string',
+                ]
             ],
 
             'dashboard.task-steps.store' => [

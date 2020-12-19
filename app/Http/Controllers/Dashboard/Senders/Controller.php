@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Dashboard\Senders;
 
 use App\Helpers\Json;
 
+use App\Models\Sender;
+
+use Illuminate\Http\JsonResponse;
+
 use App\Http\Controllers\Controller as Controllers;
 
 use App\Logic\Dashboard\CRUD\Requests\Senders as SendersRequest;
@@ -11,10 +15,6 @@ use App\Logic\Dashboard\CRUD\Requests\Senders as SendersRequest;
 use App\Logic\Dashboard\CRUD\Services\Senders as SendersService;
 
 use App\Logic\Dashboard\CRUD\Repositories\Senders as SendersRepository;
-
-use App\Models\Sender;
-
-use Illuminate\Http\JsonResponse;
 
 final class Controller extends Controllers
 {
@@ -94,7 +94,7 @@ final class Controller extends Controllers
         return Json::sendJsonWith200([
             'message' => 'The sender was successfully updated.',
 
-            'fedex' => $this->repository->updateSender($sender, $this->service->updateCredentials($request)),
+            'sender' => $this->repository->updateSender($sender, $this->service->updateCredentials($request)),
         ]);
     }
 

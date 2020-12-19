@@ -19,6 +19,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * App\Models\SpendingCategory
  *
+ * @property integer $id
+ *
  * @property string $name
  *
  * @property integer|null $parent_id
@@ -81,11 +83,9 @@ final class SpendingCategory extends Model
     /**
      * @return HasOne
      */
-    public function parent()
+    public function parent():HasOne
     {
-        return $this->hasOne(SpendingCategory::class,'id')
-            ? $this->hasOne(SpendingCategory::class,'id')
-            : null;
+        return $this->hasOne(SpendingCategory::class,'id', 'parent_id');
     }
     /**
      * @param Builder $query

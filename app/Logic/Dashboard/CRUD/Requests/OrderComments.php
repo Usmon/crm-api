@@ -52,6 +52,28 @@ final class OrderComments extends FormRequest
 
                     'after:date.from',
                 ],
+
+                'comment' => [
+                    'nullable',
+
+                    'string',
+                ],
+
+                'order_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('orders','id'),
+                ],
+
+                'owner_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('users','id'),
+                ],
             ],
 
             'dashboard.order-comments.store' => [

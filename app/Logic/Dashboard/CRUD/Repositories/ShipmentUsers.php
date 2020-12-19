@@ -15,7 +15,7 @@ final class ShipmentUsers
      */
     public function getShipmentUsers(array $filters): Paginator
     {
-        return ShipmentUser::with(['user','shipment'])->filter($filters)->orderBy('created_at', 'desc')->pager();
+        return ShipmentUser::filter($filters)->orderBy('created_at', 'desc')->pager();
     }
 
     /**

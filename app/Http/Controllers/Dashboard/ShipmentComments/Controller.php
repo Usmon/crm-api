@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Dashboard\ShipmentComments;
 
-use App\Models\ShipmentComment;
-
 use App\Helpers\Json;
+
+use App\Models\ShipmentComment;
 
 use Illuminate\Http\JsonResponse;
 
@@ -92,9 +92,9 @@ final class Controller extends Controllers
     public function update(ShipmentCommentsRequest $request, ShipmentComment $shipmentComment): JsonResponse
     {
         return Json::sendJsonWith200([
-            'message' => 'The task was successfully updated.',
+            'message' => 'The shipment-comment was successfully updated.',
 
-            'task' => $this->repository->updateShipmentComment($shipmentComment, $this->service->updateCredentials($request)),
+            'shipment-comment' => $this->repository->updateShipmentComment($shipmentComment, $this->service->updateCredentials($request)),
         ]);
     }
 

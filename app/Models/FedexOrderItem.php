@@ -12,10 +12,14 @@ use Illuminate\Database\Eloquent\Builder;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * App\Models\FedexOrderItem
+ *
+ * @property integer $id
  *
  * @property integer $fedex_order_id
  *
@@ -40,6 +44,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Carbon|null $deleted_at
  *
  * @property integer|null $deleted_by
+ *
+ * @property-read HasOne|null $fedex_order
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
@@ -111,6 +117,14 @@ final class FedexOrderItem extends Model
     ];
 
     /**
+     * @return HasOne
+     */
+    public function fedex_order():HasOne
+    {
+        return $this->hasOne(FedexOrder::class, 'id', 'fedex_order_id');
+    }
+
+    /**
      * @param Builder $query
      *
      * @param string $key
@@ -139,7 +153,7 @@ final class FedexOrderItem extends Model
             });
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
-        })->when($filters['fedex_order_id'] ?? null, function (Builder $query, $fedex_order_id){
+        })->when($filters['fedex_order_id'] ?? null, function (Builder $query, int $fedex_order_id){
             return $query->where('fedex_order_id', '=', $fedex_order_id);
         })->when($filters['weight'] ?? null, function (Builder $query, array $weight){
             return $query->whereBetween('weight', $weight);

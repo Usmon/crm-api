@@ -17,6 +17,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * App\Models\Project
  *
+ * @property int $id
+ *
  * @property string $name
  *
  * @property Carbon|null $created_at

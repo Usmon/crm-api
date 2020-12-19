@@ -2,9 +2,9 @@
 
 namespace App\Observers;
 
-use App\Models\SpendingCategory;
-
 use Illuminate\Support\Carbon;
+
+use App\Models\SpendingCategory;
 
 use Illuminate\Support\Facades\Auth;
 

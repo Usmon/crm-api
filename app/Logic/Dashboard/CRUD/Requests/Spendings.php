@@ -52,6 +52,28 @@ final class Spendings extends FormRequest
 
                     'after:date.from',
                 ],
+
+                'creator_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('users','id'),
+                ],
+
+                'amount' => [
+                    'nullable',
+
+                    'array',
+                ],
+
+                'category_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('spending_categories','id'),
+                ],
             ],
 
             'dashboard.spendings.store' => [

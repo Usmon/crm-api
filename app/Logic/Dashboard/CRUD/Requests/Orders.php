@@ -52,6 +52,70 @@ final class Orders extends FormRequest
 
                     'after:date.from',
                 ],
+
+                'status' => [
+                    'nullable',
+
+                    'string',
+                ],
+
+                'payment_status' => [
+                    'nullable',
+
+                    'string',
+                ],
+
+                'price' => [
+                    'nullable',
+
+                    'array',
+                ],
+
+                'payed_price' => [
+                    'nullable',
+
+                    'array',
+                ],
+
+                'staff_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('users','id'),
+                ],
+
+                'customer_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('users','id'),
+                ],
+
+                'fedex_order_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('fedex_orders','id'),
+                ],
+
+                'pickup_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('pickups','id'),
+                ],
+
+                'shipment_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('shipments','id'),
+                ]
             ],
 
             'dashboard.orders.store' => [

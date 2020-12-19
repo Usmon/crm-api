@@ -60,6 +60,10 @@ final class Feedbacks
                 'created_at' => $feedback->created_at,
 
                 'updated_at' => $feedback->updated_at,
+
+                'staff' => $feedback->staff,
+
+                'customer' => $feedback->customer,
             ];
         });
 
@@ -85,6 +89,10 @@ final class Feedbacks
             'created_at' => $feedback->created_at,
 
             'updated_at' => $feedback->updated_at,
+
+            'customer' => $feedback->customer,
+
+            'staff' => $feedback->staff,
         ];
     }
 
