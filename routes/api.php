@@ -76,6 +76,8 @@ use App\Http\Controllers\Dashboard\OrderUsers\Controller as DashboardOrderUsersC
 
 use App\Http\Controllers\Dashboard\DeliveryUsers\Controller as DashboardDeliveryUsersController;
 
+use App\Http\Controllers\Dashboard\Customers\Controller as DashboardCustomersController;
+
 /*
 |--------------------------------------------------------------
 ------------
@@ -174,4 +176,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     Route::apiResource('order-users', DashboardOrderUsersController::class);
 
     Route::apiResource('delivery-users', DashboardDeliveryUsersController::class);
+
+    Route::apiResource('customers', DashboardCustomersController::class);
 });

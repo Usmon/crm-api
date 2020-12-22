@@ -159,6 +159,14 @@ final class User extends Auth
     }
 
     /**
+     * @return HasMany
+     */
+    public function deliveries(): HasMany
+    {
+        return $this->hasMany(Delivery::class);
+    }
+
+    /**
      * @param Builder $query
      *
      * @param string $key

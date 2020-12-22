@@ -51,9 +51,11 @@ final class Deliveries
             return [
                 'id' => $delivery->id,
 
-                'order_id' => $delivery->order_id,
+                'order_id'=> $delivery->order_id,
 
-                'driver_id' => $delivery->driver_id,
+                'customer' => $delivery->orders->customer_id,
+
+                'driver' => $delivery->users->login,
 
                 'status' => $delivery->status,
 
@@ -61,9 +63,6 @@ final class Deliveries
 
                 'updated_at' => $delivery->updated_at,
 
-                'order' => $delivery->order,
-
-                'driver' => $delivery->driver
             ];
         });
 
@@ -80,9 +79,11 @@ final class Deliveries
         return [
             'id' => $delivery->id,
 
-            'order_id' => $delivery->order_id,
+            'order_id'=> $delivery->order_id,
 
-            'driver_id' => $delivery->driver_id,
+            'customer' => $delivery->orders->customer_id,
+
+            'driver' => $delivery->users->login,
 
             'status' => $delivery->status,
 
@@ -90,9 +91,6 @@ final class Deliveries
 
             'updated_at' => $delivery->updated_at,
 
-            'order' => $delivery->order,
-
-            'driver' => $delivery->driver,
         ];
     }
 

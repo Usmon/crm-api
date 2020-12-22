@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -88,19 +88,19 @@ final class Delivery extends Model
     ];
 
     /**
-     * @return HasOne
+     * @return BelongsTo
      */
-    public function order(): HasOne
+    public function orders(): BelongsTo
     {
-        return $this->hasOne(Order::class,'id','order_id');
+        return $this->belongsTo(Order::class,'order_id');
     }
 
     /**
-     * @return HasOne
+     * @return BelongsTo
      */
-    public function driver(): HasOne
+    public function users(): BelongsTo
     {
-        return $this->hasOne(User::class,'id','driver_id');
+        return $this->belongsTo(User::class,'driver_id');
     }
 
     /**
