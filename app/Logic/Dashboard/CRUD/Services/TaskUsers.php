@@ -56,6 +56,10 @@ final class TaskUsers
                 'created_at' => $taskUser->created_at,
 
                 'updated_at' => $taskUser->updated_at,
+
+                'user' => $taskUser->user,
+
+                'task' => $taskUser->task,
             ];
         });
 
@@ -79,6 +83,10 @@ final class TaskUsers
             'created_at' => $taskUser->created_at,
 
             'updated_at' => $taskUser->updated_at,
+
+            'user' => $taskUser->user,
+
+            'task' => $taskUser->task,
         ];
     }
 

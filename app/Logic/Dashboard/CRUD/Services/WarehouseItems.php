@@ -89,6 +89,10 @@ final class WarehouseItems
                 'created_at' => $warehouseItem->created_at,
 
                 'updated_at' => $warehouseItem->updated_at,
+
+                'customer' => $warehouseItem->customer,
+
+                'shipment' => $warehouseItem->shipment,
             ];
         });
         return $paginator;
@@ -127,6 +131,10 @@ final class WarehouseItems
             'created_at' => $warehouseItem->created_at,
 
             'updated_at' => $warehouseItem->updated_at,
+
+            'customer' => $warehouseItem->customer,
+
+            'shipment' => $warehouseItem->shipment,
         ];
     }
 

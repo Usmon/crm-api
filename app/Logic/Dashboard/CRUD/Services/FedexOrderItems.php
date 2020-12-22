@@ -81,6 +81,8 @@ final class FedexOrderItems
                 'created_at' => $fedexOrderItem->created_at,
 
                 'updated_at' => $fedexOrderItem->updated_at,
+
+                'fedex_order' => $fedexOrderItem->fedex_order,
             ];
         });
 
@@ -116,6 +118,8 @@ final class FedexOrderItems
             'created_at' => $fedexOrderItem->created_at,
 
             'updated_at' => $fedexOrderItem->updated_at,
+
+            'fedex_order' => $fedexOrderItem->fedex_order,
         ];
     }
 

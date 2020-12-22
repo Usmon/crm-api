@@ -19,8 +19,11 @@ final class Shipments
     {
         return [
             'search' => $request->json('search'),
+
             'name' => $request->json('name'),
+
             'status' => $request->json('status'),
+
             'date' => $request->json('date'),
         ];
     }

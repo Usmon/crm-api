@@ -52,6 +52,22 @@ final class TaskUsers extends FormRequest
 
                     'after:date.from',
                 ],
+
+                'user_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('users','id'),
+                ],
+
+                'task_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('tasks','id'),
+                ],
             ],
 
             'dashboard.task-users.store' => [

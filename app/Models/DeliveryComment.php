@@ -12,10 +12,14 @@ use Illuminate\Database\Eloquent\Builder;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * App\Models\DeliveryComment
+ *
+ * @property integer $id
  *
  * @property integer $delivery_id
  *
@@ -30,6 +34,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Carbon|null $deleted_at
  *
  * @property integer|null $deleted_by
+ *
+ * @property-read HasOne|null $delivery
+ *
+ * @property-read HasOne|null $owner
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
@@ -79,6 +87,22 @@ final class DeliveryComment extends Model
     ];
 
     /**
+     * @return HasOne
+     */
+    public function delivery():HasOne
+    {
+        return $this->hasOne(Delivery::class, 'id', 'delivery_id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function owner():HasOne
+    {
+        return $this->hasOne(User::class, 'id', 'owner_id');
+    }
+
+    /**
      * @param Builder $query
      *
      * @param string $key
@@ -107,10 +131,12 @@ final class DeliveryComment extends Model
             });
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
-        })->when($filters['comment'] ?? null, function (Builder $query, $comment){
+        })->when($filters['comment'] ?? null, function (Builder $query, string $comment){
             return $query->where('comment', 'like', '%' . $comment . '%');
-        })->when($filters['delivery_id'] ?? null, function (Builder $query, $delivery_id){
+        })->when($filters['delivery_id'] ?? null, function (Builder $query, int $delivery_id){
             return $query->where('delivery_id', '=', $delivery_id);
+        })->when($filters['owner_id'] ?? null, function (Builder $query, int $owner_id){
+            return $query->where('owner_id', '=', $owner_id);
         });
     }
 }

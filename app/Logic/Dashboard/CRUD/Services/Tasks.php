@@ -89,6 +89,10 @@ final class Tasks
                 'created_at' => $task->created_at,
 
                 'updated_at' => $task->updated_at,
+
+                'creator' => $task->creator,
+
+                'project' => $task->project,
             ];
         });
 

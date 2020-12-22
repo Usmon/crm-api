@@ -33,9 +33,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property int|null deleted_by
  *
- * @property-read HasOne $user
+ * @property-read HasOne|null $user
  *
- * @property-read HasOne $order
+ * @property-read HasOne|null $order
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *

@@ -6,8 +6,6 @@ use App\Models\Message;
 
 use Illuminate\Support\Carbon;
 
-use Illuminate\Support\Facades\Auth;
-
 final class MessageObserver
 {
     /**

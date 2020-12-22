@@ -56,6 +56,8 @@ final class Recipients
                 'created_at' => $recipient->created_at,
 
                 'updated_at' => $recipient->updated_at,
+
+                'customer' => $recipient->customer,
             ];
         });
 
@@ -79,6 +81,8 @@ final class Recipients
             'created_at' => $recipient->created_at,
 
             'updated_at' => $recipient->updated_at,
+
+            'customer' => $recipient->customer,
         ];
     }
 

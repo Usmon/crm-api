@@ -26,6 +26,10 @@ final class FedexOrders
             'transit_time' => $request->json('transit_time'),
 
             'status' => $request->json('status'),
+
+            'staff_id' => $request->json('staff_id'),
+
+            'customer_id' => $request->json('customer_id'),
         ];
     }
 
@@ -70,6 +74,10 @@ final class FedexOrders
                 'created_at' => $fedexOrder->created_at,
 
                 'updated_at' => $fedexOrder->updated_at,
+
+                'customer' => $fedexOrder->customer,
+
+                'staff' => $fedexOrder->staff,
             ];
         });
         return $paginator;
@@ -105,6 +113,10 @@ final class FedexOrders
             'created_at' => $fedexOrder->created_at,
 
             'updated_at' => $fedexOrder->updated_at,
+
+            'customer' => $fedexOrder->customer,
+
+            'staff' => $fedexOrder->staff,
         ];
     }
 

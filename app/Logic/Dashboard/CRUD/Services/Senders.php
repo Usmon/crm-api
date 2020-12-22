@@ -56,6 +56,8 @@ final class Senders
                 'created_at' => $sender->created_at,
 
                 'updated_at' => $sender->updated_at,
+
+                'customer' => $sender->customer,
             ];
         });
         return $paginator;
@@ -78,6 +80,8 @@ final class Senders
             'created_at' => $sender->created_at,
 
             'updated_at' => $sender->updated_at,
+
+            'customer' => $sender->customer,
         ];
     }
 

@@ -24,6 +24,8 @@ final class DeliveryComments
 
             'delivery_id' => $request->json('delivery_id'),
 
+            'owner_id' => $request->json('owner_id'),
+
             'comment' => $request->json('comment'),
         ];
     }
@@ -58,6 +60,10 @@ final class DeliveryComments
                 'created_at' => $deliveryComment->created_at,
 
                 'updated_at' => $deliveryComment->updated_at,
+
+                'delivery' => $deliveryComment->delivery,
+
+                'owner' => $deliveryComment->owner,
             ];
         });
         return $paginator;
@@ -82,6 +88,10 @@ final class DeliveryComments
             'created_at' => $deliveryComment->created_at,
 
             'updated_at' => $deliveryComment->updated_at,
+
+            'delivery' => $deliveryComment->delivery,
+
+            'owner' => $deliveryComment->owner,
         ];
     }
 

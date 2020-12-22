@@ -52,6 +52,18 @@ final class Shipments extends FormRequest
 
                     'after:date.from',
                 ],
+
+                'name' => [
+                    'nullable',
+
+                    'string',
+                ],
+
+                'status' => [
+                    'nullable',
+
+                    'string',
+                ],
             ],
 
             'dashboard.shipments.store' => [

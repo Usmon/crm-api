@@ -19,6 +19,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * App\Models\Feedback
  *
+ * @property integer $id
+ *
  * @property integer $staff_id
  *
  * @property integer $customer_id
@@ -30,6 +32,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Carbon|null $updated_at
  *
  * @property Carbon|null $deleted_at
+ *
+ * @property-read HasOne|null $staff
+ *
+ * @property-read HasOne|null $customer
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
@@ -81,7 +87,7 @@ final class Feedback extends Model
      */
     public function staff():HasOne
     {
-        return $this->hasOne(User::class,'id');
+        return $this->hasOne(User::class,'id','staff_id');
     }
 
     /**
@@ -89,7 +95,7 @@ final class Feedback extends Model
      */
     public function customer():HasOne
     {
-        return $this->hasOne(User::class,'id');
+        return $this->hasOne(User::class,'id','customer_id');
     }
 
     /**
@@ -120,9 +126,13 @@ final class Feedback extends Model
                 return $query->where('message', 'like', '%' . $search . '%');
             });
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
-            return $query->whereBetween('created_at', $date);
-        })->when($filters['message'] ?? null, function (Builder $query, $message){
-            return $query->where('message', 'like', '%'. $message .'%');
+                return $query->whereBetween('created_at', $date);
+        })->when($filters['message'] ?? null, function (Builder $query, string $message){
+                return $query->where('message', 'like', '%'. $message .'%');
+        })->when($filters['staff_id'] ?? null, function (Builder $query, int $staff_id){
+                return $query->where('staff_id', '=', $staff_id);
+        })->when($filters['customer_id'] ?? null, function (Builder $query, int $customer_id){
+                return $query->where('customer_id', '=', $customer_id);
         });
     }
 }

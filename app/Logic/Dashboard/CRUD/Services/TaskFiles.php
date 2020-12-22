@@ -56,6 +56,8 @@ final class TaskFiles
                 'created_at' => $taskFile->created_at,
 
                 'updated_at' => $taskFile->updated_at,
+
+                'task' => $taskFile->task,
             ];
         });
         return $paginator;
@@ -78,6 +80,8 @@ final class TaskFiles
             'created_at' => $taskFile->created_at,
 
             'updated_at' => $taskFile->updated_at,
+
+            'task' => $taskFile->task,
         ];
     }
 

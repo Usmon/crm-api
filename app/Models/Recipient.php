@@ -2,10 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Relations\HasOne;
-
-use Illuminate\Database\Eloquent\Relations\HasMany;
-
 use Illuminate\Support\Carbon;
 
 use App\Traits\Pagination\Pager;
@@ -16,10 +12,14 @@ use Illuminate\Database\Eloquent\Builder;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * App\Models\Recipient
+ *
+ * @property integer $id
  *
  * @property integer $customer_id
  *
@@ -30,6 +30,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Carbon|null $updated_at
  *
  * @property Carbon|null $deleted_at
+ *
+ * @property-read HasOne|null $customer
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
@@ -77,15 +79,7 @@ final class Recipient extends Model
      */
     public function customer():HasOne
     {
-        return $this->hasOne(User::class,'id');
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function boxes():HasMany
-    {
-        return $this->hasMany(Box::class);
+        return $this->hasOne(User::class,'id', 'customer_id');
     }
 
     /**
@@ -119,6 +113,8 @@ final class Recipient extends Model
             return $query->whereBetween('created_at', $date);
         })->when($filters['address'] ?? null, function (Builder $query, $address){
             return $query->where('address', 'like', '%'. $address .'%');
+        })->when($filters['customer_id'] ?? null, function (Builder $query, int $customer_id){
+            return $query->where('customer_id', '=', $customer_id);
         });
     }
 }

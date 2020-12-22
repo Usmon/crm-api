@@ -12,10 +12,14 @@ use Illuminate\Database\Eloquent\Builder;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * App\Models\TaskUsers
+ *
+ * @property integer $id
  *
  * @property integer $user_id
  *
@@ -28,6 +32,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Carbon|null $deleted_at
  *
  * @property integer|null $deleted_by
+ *
+ * @property-read HasOne|null $user
+ *
+ * @property-read HasOne|null $task
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
@@ -71,6 +79,22 @@ final class TaskUser extends Model
 
         'deleted_by' => 'integer'
     ];
+
+    /**
+     * @return HasOne
+     */
+    public function user():HasOne
+    {
+        return $this->hasOne(User::class,'id','user_id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function task():HasOne
+    {
+        return $this->hasOne(Task::class,'id','task_id');
+    }
 
     /**
      * @param Builder $query

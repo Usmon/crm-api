@@ -15,7 +15,7 @@ final class DeliveryUsers
      */
     public function getDeliveryUsers(array $filters): Paginator
     {
-        return DeliveryUser::with(['user','delivery'])->filter($filters)->orderBy('created_at', 'desc')->pager();
+        return DeliveryUser::filter($filters)->orderBy('created_at', 'desc')->pager();
     }
 
     /**

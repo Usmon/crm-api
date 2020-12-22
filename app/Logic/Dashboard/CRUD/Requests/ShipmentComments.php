@@ -52,6 +52,28 @@ final class ShipmentComments extends FormRequest
 
                     'after:date.from',
                 ],
+
+                'comment' => [
+                    'nullable',
+
+                    'string',
+                ],
+
+                'shipment_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('shipments','id')
+                ],
+
+                'owner_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('users','id'),
+                ],
             ],
 
             'dashboard.shipment-comments.store' => [

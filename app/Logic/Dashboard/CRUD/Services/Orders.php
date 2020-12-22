@@ -85,6 +85,16 @@ final class Orders
                 'created_at' => $order->created_at,
 
                 'updated_at' => $order->updated_at,
+
+                'staff' => $order->staff,
+
+                'customer' => $order->customer,
+
+                'fedex_order' => $order->fedex_order,
+
+                'pickup' => $order->pickup,
+
+                'shipment' => $order->shipment,
             ];
         });
         return $paginator;
@@ -121,6 +131,16 @@ final class Orders
             'created_at' => $order->created_at,
 
             'updated_at' => $order->updated_at,
+
+            'staff' => $order->staff,
+
+            'customer' => $order->customer,
+
+            'fedex_order' => $order->fedex_order,
+
+            'pickup' => $order->pickup,
+
+            'shipment' => $order->shipment,
         ];
     }
 

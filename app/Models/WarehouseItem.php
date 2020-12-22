@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * App\Models\WarehouseItem
@@ -44,9 +46,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property Carbon|null $deleted_at
  *
+ * @property-read HasOne|null $customer
+ *
+ * @property-read HasOne|null $shipment
+ *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
  * @method static Builder|self filter(array $filters)
+ *
+ * @mixin Model
  */
 
 final class WarehouseItem extends Model
@@ -117,6 +125,23 @@ final class WarehouseItem extends Model
 
         'deleted_at' => 'datetime',
     ];
+
+    /**
+     * @return HasOne
+     */
+    public function customer():HasOne
+    {
+        return $this->hasOne(User::class,'id','customer_id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function shipment():HasOne
+    {
+        return $this->hasOne(Shipment::class,'id','shipment_id');
+    }
+
     /**
      * @param Builder $query
      *
@@ -151,6 +176,12 @@ final class WarehouseItem extends Model
             return $query->where('name', 'like', '%'. $name .'%');
         })->when($filters['note'] ?? null, function (Builder $query, string $note) {
             return $query->where('note', 'like', '%'. $note .'%');
+        })->when($filters['customer_id'] ?? null, function (Builder $query, int $customer_id) {
+            return $query->where('customer_id', '=', $customer_id);
+        })->when($filters['shipment_id'] ?? null, function (Builder $query, int $shipment_id) {
+            return $query->where('shipment_id', '=', $shipment_id);
+        })->when($filters['init_quantity'] ?? null, function (Builder $query, array $init_quantity) {
+            return $query->whereBetween('quantity', $init_quantity);
         });
     }
 }

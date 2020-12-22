@@ -58,6 +58,10 @@ final class OrderComments
                 'comment' => $orderComment->comment,
 
                 'updated_at' => $orderComment->updated_at,
+
+                'order' => $orderComment->order,
+
+                'owner' => $orderComment->owner,
             ];
         });
 
@@ -83,6 +87,10 @@ final class OrderComments
             'comment' => $orderComment->comment,
 
             'updated_at' => $orderComment->updated_at,
+
+            'order' => $orderComment->order,
+
+            'owner' => $orderComment->owner,
         ];
     }
 

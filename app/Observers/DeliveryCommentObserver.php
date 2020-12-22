@@ -2,9 +2,9 @@
 
 namespace App\Observers;
 
-use App\Models\DeliveryComment;
-
 use Illuminate\Support\Carbon;
+
+use App\Models\DeliveryComment;
 
 use Illuminate\Support\Facades\Auth;
 

@@ -52,6 +52,12 @@ final class SpendingCategories extends FormRequest
 
                     'after:date.from',
                 ],
+
+                'name' => [
+                    'nullable',
+
+                    'string',
+                ],
             ],
 
             'dashboard.spending-categories.store' => [

@@ -52,6 +52,12 @@ final class Projects extends FormRequest
 
                     'after:date.from',
                 ],
+
+                'name' => [
+                    'nullable',
+
+                    'string'
+                ],
             ],
 
             'dashboard.projects.store' => [

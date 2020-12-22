@@ -52,6 +52,20 @@ final class TaskFiles extends FormRequest
 
                     'after:date.from',
                 ],
+
+                'task_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('tasks','id'),
+                ],
+
+                'name' => [
+                    'nullable',
+
+                    'string',
+                ],
             ],
 
             'dashboard.task-files.store' => [

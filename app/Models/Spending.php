@@ -19,6 +19,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * App\Models\Spending
  *
+ * @property integer $id
+ *
  * @property integer $creator_id
  *
  * @property double $amount
@@ -35,7 +37,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property integer|null $deleted_by
  *
- * @property-read HasOne $category
+ * @property-read HasOne|null $creator
+ *
+ * @property-read HasOne|null $category
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
@@ -93,10 +97,19 @@ final class Spending extends Model
     /**
      * @return HasOne
      */
-    public function category()
+    public function category():HasOne
     {
-        return $this->hasOne(SpendingCategory::class,'id');
+        return $this->hasOne(SpendingCategory::class,'id', 'category_id');
     }
+
+    /**
+     * @return HasOne
+     */
+    public function creator():HasOne
+    {
+        return $this->hasOne(User::class,'id', 'creator_id');
+    }
+
     /**
      * @param Builder $query
      *
@@ -128,7 +141,9 @@ final class Spending extends Model
             return $query->whereBetween('created_at', $date);
         })->when($filters['note'] ?? null, function (Builder $query, $note){
             return $query->where('note', 'like', '%' . $note . '%');
-        })->when($filters['category_id'] ?? null, function(Builder $query, $category_id){
+        })->when($filters['creator_id'] ?? null, function(Builder $query, int $creator_id){
+            return $query->where('creator_id', '=', $creator_id);
+        })->when($filters['category_id'] ?? null, function(Builder $query, int $category_id){
             return $query->where('category_id', '=', $category_id);
         });
     }

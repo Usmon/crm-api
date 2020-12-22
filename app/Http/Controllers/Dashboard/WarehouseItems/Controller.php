@@ -95,7 +95,7 @@ final class Controller extends Controllers
         return Json::sendJsonWith200([
             'message' => 'The warehouse-item was successfully updated.',
 
-            'shipment' => $this->repository->updateWarehouseItem($warehouseItem, $this->service->updateCredentials($request))
+            'warehouse-item' => $this->repository->updateWarehouseItem($warehouseItem, $this->service->updateCredentials($request))
         ]);
     }
 
@@ -110,14 +110,14 @@ final class Controller extends Controllers
 
         if(!$id){
             return Json::sendJsonWith409([
-                'message' => 'Failed to delete order, parameters does not match.',
+                'message' => 'Failed to delete warehouse-item, parameters does not match.',
             ]);
         }
 
         $this->repository->deleteWarehouseItem($id);
 
         return Json::sendJsonWith200([
-            'message' => 'The order was successfully deleted.',
+            'message' => 'The warehouse-item was successfully deleted.',
         ]);
     }
 }

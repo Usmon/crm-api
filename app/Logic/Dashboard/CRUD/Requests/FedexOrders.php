@@ -52,6 +52,22 @@ final class FedexOrders extends FormRequest
 
                     'after:date.from',
                 ],
+
+                'customer_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('users','id'),
+                ],
+
+                'staff_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('users','id'),
+                ],
             ],
 
             'dashboard.fedex-orders.store' => [

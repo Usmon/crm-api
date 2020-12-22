@@ -19,6 +19,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * App\Models\DeliveryUser
  *
+ * @property integer $id
+ *
  * @property integer $user_id
  *
  * @property integer $delivery_id
@@ -31,9 +33,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property integer|null $deleted_by
  *
- * @property-read HasOne $user
+ * @property-read HasOne|null $user
  *
- * @property-read HasOne $delivery
+ * @property-read HasOne|null $delivery
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *

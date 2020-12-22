@@ -61,7 +61,11 @@ final class Messages
 
                 'updated_at' => $message->updated_at,
 
-                'deleted_at' => $message->deleted_at
+                'deleted_at' => $message->deleted_at,
+
+                'sender' => $message->sender,
+
+                'receiver' => $message->receiver,
             ];
         });
 
@@ -89,6 +93,10 @@ final class Messages
             'updated_at' => $message->updated_at,
 
             'deleted_at' => $message->deleted_at,
+
+            'sender' => $message->sender,
+
+            'receiver' => $message->receiver
         ];
     }
 

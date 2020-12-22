@@ -61,6 +61,14 @@ final class DeliveryComments extends FormRequest
                     Rule::exists('deliveries', 'id'),
                 ],
 
+                'owner_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('users','id'),
+                ],
+
                 'comment' => [
                     'nullable',
 

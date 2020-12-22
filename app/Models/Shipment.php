@@ -29,6 +29,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property Carbon|null $deleted_at
  *
+ * @method static Builder|self findBy(string $key, string $value = null)
+ *
+ * @method static Builder|self filter(array $filters)
+ *
+ * @mixin Model
  */
 final class Shipment extends Model
 {

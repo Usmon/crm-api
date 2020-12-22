@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Dashboard\FedexOrders;
 
-use App\Models\FedexOrder;
-
 use App\Helpers\Json;
+
+use App\Models\FedexOrder;
 
 use App\Http\Controllers\Controller as Controllers;
 

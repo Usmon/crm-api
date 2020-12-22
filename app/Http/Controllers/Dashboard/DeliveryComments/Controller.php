@@ -52,7 +52,7 @@ final class Controller extends Controllers
         return Json::sendJsonWith200([
             'filters' => $this->service->getAllFilters($request),
 
-            'delivery-comment' => $this->service->getDeliveryComments($this->repository->getDeliveryComments($this->service->getOnlyFilters($request))),
+            'delivery-comments' => $this->service->getDeliveryComments($this->repository->getDeliveryComments($this->service->getOnlyFilters($request))),
         ]);
     }
 

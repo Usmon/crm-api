@@ -52,6 +52,20 @@ final class Senders extends FormRequest
 
                     'after:date.from',
                 ],
+
+                'address' => [
+                    'nullable',
+
+                    'string',
+                ],
+
+                'customer_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('users','id'),
+                ],
             ],
 
             'dashboard.senders.store' => [

@@ -18,6 +18,8 @@ final class DeliveryUsers
     public function getAllFilters(DeliveryUsersRequest $request): array
     {
         return [
+            'search' => $request->json('search'),
+
             'date' => $request->json('date'),
 
             'delivery_id' => $request->json('delivery_id'),
@@ -33,7 +35,7 @@ final class DeliveryUsers
      */
     public function getOnlyFilters(DeliveryUsersRequest $request): array
     {
-        return $request->only('date', 'user_id', 'delivery_id');
+        return $request->only('search', 'date', 'user_id', 'delivery_id');
     }
 
     /**

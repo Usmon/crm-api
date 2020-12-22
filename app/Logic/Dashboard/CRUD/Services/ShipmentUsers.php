@@ -24,7 +24,7 @@ final class ShipmentUsers
 
             'user_id' => $request->json('user_id'),
 
-            'shipment_id' => $request->json('shipment_id')
+            'shipment_id' => $request->json('shipment_id'),
         ];
     }
 
@@ -128,6 +128,7 @@ final class ShipmentUsers
     public function deleteShipmentUser($id)
     {
         $id = json_decode($id);
+
         return (is_int($id) || array_filter($id,'is_int')===$id) ? $id : 0;
     }
 }
