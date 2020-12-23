@@ -148,11 +148,13 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     Route::apiResource('messages', DashboardMessagesController::class);
 
     Route::apiResource('feedbacks', DashboardFeedbacksController::class);
+    
+    Route::group(['prefix' => 'spendings', 'as' => 'spendings.'], function(){
+        Route::apiResource('categories', DashboardSpendingCategoriesController::class);
 
-    Route::apiResource('spending-categories', DashboardSpendingCategoriesController::class);
-
-    Route::apiResource('spendings', DashboardSpendingsController::class);
-
+        Route::apiResource('/', DashboardSpendingsController::class);
+    });
+    
     Route::apiResource('projects', DashboardProjectsController::class);
 
     Route::apiResource('tasks', DashboardTasksController::class);
