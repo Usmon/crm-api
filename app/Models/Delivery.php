@@ -90,7 +90,7 @@ final class Delivery extends Model
     /**
      * @return BelongsTo
      */
-    public function orders(): BelongsTo
+    public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class,'order_id');
     }
@@ -98,9 +98,9 @@ final class Delivery extends Model
     /**
      * @return BelongsTo
      */
-    public function users(): BelongsTo
+    public function driver(): BelongsTo
     {
-        return $this->belongsTo(User::class,'driver_id');
+        return $this->belongsTo(User::class, 'driver_id');
     }
 
     /**

@@ -51,11 +51,9 @@ final class Deliveries
             return [
                 'id' => $delivery->id,
 
-                'order_id'=> $delivery->order_id,
+                'order'=> $delivery->order()->with('customer')->get(),
 
-                'customer' => $delivery->orders->customer_id,
-
-                'driver' => $delivery->users->login,
+                'driver' => $delivery->driver,
 
                 'status' => $delivery->status,
 
