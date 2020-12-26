@@ -127,57 +127,84 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
 
     Route::apiResource('pickups', DashboardPickupsController::class);
 
-    Route::apiResource('shipments', DashboardShipmentsController::class);
-
-    Route::apiResource('fedex-orders', DashboardFedexOrdersController::class);
-
-    Route::apiResource('orders', DashboardOrdersController::class);
-
     Route::apiResource('senders', DashboardSendersController::class);
 
     Route::apiResource('warehouse-items', DashboardWarehouseItemsController::class);
 
-    Route::apiResource('deliveries', DashboardDeliveriesController::class);
-
     Route::apiResource('recipients', DashboardRecipientsController::class);
-
-    Route::apiResource('boxes', DashboardBoxesController::class);
-
-    Route::apiResource('box-items', DashboardBoxItemsController::class);
 
     Route::apiResource('messages', DashboardMessagesController::class);
 
     Route::apiResource('feedbacks', DashboardFeedbacksController::class);
-    
+
+    Route::apiResource('projects', DashboardProjectsController::class);
+
+    Route::apiResource('customers', DashboardCustomersController::class);
+
+    Route::group(['prefix' => 'fedex-orders', 'as' => 'fedex-orders.'], function () {
+
+        Route::apiResource('/', DashboardFedexOrdersController::class);
+
+        Route::apiResource('items', DashboardFedexOrderItemsController::class);
+
+    });
+
+    Route::group(['prefix' => 'orders', 'as'=> 'orders.'], function () {
+
+        Route::apiResource('/', DashboardOrdersController::class);
+
+        Route::apiResource('users', DashboardOrderUsersController::class);
+
+        Route::apiResource('comments', DashboardOrderCommentsController::class);
+
+    });
+
+    Route::group(['prefix' => 'deliveries', 'as' => 'deliveries.'], function(){
+
+        Route::apiResource('/', DashboardDeliveriesController::class);
+
+        Route::apiResource('users', DashboardDeliveryUsersController::class);
+
+        Route::apiResource('comments', DashboardDeliveryCommentsController::class);
+
+    });
+
+    Route::group(['prefix' => 'shipments', 'as' => 'shipments.'], function(){
+
+        Route::apiResource('/', DashboardShipmentsController::class);
+
+        Route::apiResource('comments', DashboardShipmentCommentsController::class);
+
+        Route::apiResource('users', DashboardShipmentUsersController::class);
+
+    });
+
+    Route::group(['prefix'=> 'boxes', 'as' => 'boxes.'], function(){
+
+        Route::apiResource('/', DashboardBoxesController::class);
+
+        Route::apiResource('items', DashboardBoxItemsController::class);
+
+    });
+
     Route::group(['prefix' => 'spendings', 'as' => 'spendings.'], function(){
+
         Route::apiResource('categories', DashboardSpendingCategoriesController::class);
 
         Route::apiResource('/', DashboardSpendingsController::class);
+
     });
-    
-    Route::apiResource('projects', DashboardProjectsController::class);
 
-    Route::apiResource('tasks', DashboardTasksController::class);
+    Route::group(['prefix' => 'tasks', 'as' => 'tasks.'], function(){
 
-    Route::apiResource('order-comments', DashboardOrderCommentsController::class);
+        Route::apiResource('/', DashboardTasksController::class);
 
-    Route::apiResource('task-files', DashboardTaskFilesController::class);
+        Route::apiResource('files', DashboardTaskFilesController::class);
 
-    Route::apiResource('task-users', DashboardTaskUsersController::class);
+        Route::apiResource('users', DashboardTaskUsersController::class);
 
-    Route::apiResource('task-steps', DashboardTaskStepsController::class);
+        Route::apiResource('steps', DashboardTaskStepsController::class);
 
-    Route::apiResource('shipment-comments', DashboardShipmentCommentsController::class);
+    });
 
-    Route::apiResource('delivery-comments', DashboardDeliveryCommentsController::class);
-
-    Route::apiResource('fedex-order-items', DashboardFedexOrderItemsController::class);
-
-    Route::apiResource('shipment-users', DashboardShipmentUsersController::class);
-
-    Route::apiResource('order-users', DashboardOrderUsersController::class);
-
-    Route::apiResource('delivery-users', DashboardDeliveryUsersController::class);
-
-    Route::apiResource('customers', DashboardCustomersController::class);
 });
