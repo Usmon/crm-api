@@ -78,6 +78,10 @@ use App\Http\Controllers\Dashboard\DeliveryUsers\Controller as DashboardDelivery
 
 use App\Http\Controllers\Dashboard\Customers\Controller as DashboardCustomersController;
 
+use App\Http\Controllers\Dashboard\Trackings\Controller as DashboardTrackingsController;
+
+use App\Http\Controllers\Dashboard\Images\Controller as DashboardImagesController;
+
 /*
 |--------------------------------------------------------------
 ------------
@@ -148,13 +152,13 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     Route::apiResource('messages', DashboardMessagesController::class);
 
     Route::apiResource('feedbacks', DashboardFeedbacksController::class);
-    
+
     Route::group(['prefix' => 'spendings', 'as' => 'spendings.'], function(){
         Route::apiResource('categories', DashboardSpendingCategoriesController::class);
 
         Route::apiResource('/', DashboardSpendingsController::class);
     });
-    
+
     Route::apiResource('projects', DashboardProjectsController::class);
 
     Route::apiResource('tasks', DashboardTasksController::class);
@@ -180,4 +184,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     Route::apiResource('delivery-users', DashboardDeliveryUsersController::class);
 
     Route::apiResource('customers', DashboardCustomersController::class);
+
+    Route::apiResource('trackings', DashboardTrackingsController::class);
+
+    Route::apiResource('images', DashboardImagesController::class);
 });

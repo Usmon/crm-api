@@ -41,6 +41,7 @@ use App\Models\TaskUser;
 
 use App\Models\TaskStep;
 
+use App\Models\Tracking;
 use App\Models\User;
 
 use App\Models\Role;
@@ -94,6 +95,7 @@ use App\Observers\TaskUserObserver;
 
 use App\Observers\TaskStepObserver;
 
+use App\Observers\TrackingObserver;
 use App\Observers\UserObserver;
 
 use App\Observers\RoleObserver;
@@ -182,5 +184,7 @@ final class ObserverServiceProvider extends ServiceProvider
         DeliveryUser::observe(DeliveryUserObserver::class);
 
         Customer::observe(CustomerObserver::class);
+
+        Tracking::observe(TrackingObserver::class);
     }
 }
