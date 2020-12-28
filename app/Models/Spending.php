@@ -145,6 +145,8 @@ final class Spending extends Model
             return $query->where('creator_id', '=', $creator_id);
         })->when($filters['category_id'] ?? null, function(Builder $query, int $category_id){
             return $query->where('category_id', '=', $category_id);
+        })->when($filters['amount'] ?? null, function(Builder $query, array $amount){
+            return $query->whereBetween('amount', $amount);
         });
     }
 }

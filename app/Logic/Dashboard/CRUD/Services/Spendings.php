@@ -62,6 +62,8 @@ final class Spendings
                 'updated_at' => $spending->updated_at,
 
                 'category' => $spending->category,
+
+                'creator' => $spending->creator,
             ];
         });
 
@@ -89,6 +91,8 @@ final class Spendings
             'updated_at' => $spending->updated_at,
 
             'category' => $spending->category,
+
+            'creator' => $spending->creator,
         ];
     }
 
