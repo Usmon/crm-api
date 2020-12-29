@@ -22,7 +22,7 @@ final class SpendingCategories extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'dashboard.spending-categories.index' => [
+            'dashboard.spendings.categories.index' => [
                 'search' => [
                     'nullable',
 
@@ -60,7 +60,7 @@ final class SpendingCategories extends FormRequest
                 ],
             ],
 
-            'dashboard.spending-categories.store' => [
+            'dashboard.spendings.categories.store' => [
                 'name' => [
                     'required',
 
@@ -88,7 +88,7 @@ final class SpendingCategories extends FormRequest
                 ],
             ],
 
-            'dashboard.spending-categories.update' => [
+            'dashboard.spendings.categories.update' => [
                 'name' => [
                     'required',
 
