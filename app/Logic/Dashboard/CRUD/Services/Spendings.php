@@ -35,9 +35,29 @@ final class Spendings
      *
      * @return array
      */
+    public function getAllSorts(SpendingsRequest $request): array
+    {
+        return $request->json('sort') ?? [];
+    }
+
+    /**
+     * @param SpendingsRequest $request
+     *
+     * @return array
+     */
     public function getOnlyFilters(SpendingsRequest $request): array
     {
         return $request->only('search', 'date', 'amount', 'category_id', 'note');
+    }
+
+    /**
+     * @param SpendingsRequest $request
+     *
+     * @return array
+     */
+    public function getOnlySorts(SpendingsRequest $request): array
+    {
+        return $request->only('sort');
     }
 
     /**

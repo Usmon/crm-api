@@ -13,9 +13,9 @@ final class Spendings
      *
      * @return Paginator
      */
-    public function getSpendings(array $filters): Paginator
+    public function getSpendings(array $filters, array $sorts): Paginator
     {
-        return Spending::filter($filters)->orderBy('created_at', 'desc')->pager();
+        return Spending::filter($filters)->sort($sorts)->pager();
     }
 
     /**

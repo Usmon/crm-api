@@ -22,7 +22,7 @@ final class Spendings extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'dashboard.spendings.index' => [
+            'dashboard.spendings.spending.index' => [
                 'search' => [
                     'nullable',
 
@@ -67,16 +67,24 @@ final class Spendings extends FormRequest
                     'array',
                 ],
 
-                'category_id' => [
+                'category_id.*' => [
                     'nullable',
 
                     'integer',
 
                     Rule::exists('spending_categories','id'),
                 ],
+
+                'sort.*' => [
+                    'nullable',
+
+                    'string',
+
+                    // @todo filtering columns in keys
+                ],
             ],
 
-            'dashboard.spendings.store' => [
+            'dashboard.spendings.spending.store' => [
                 'amount' => [
                     'required',
 
@@ -112,7 +120,7 @@ final class Spendings extends FormRequest
                 ],
             ],
 
-            'dashboard.spendings.update' => [
+            'dashboard.spendings.spending.update' => [
                 'amount' => [
                     'required',
 

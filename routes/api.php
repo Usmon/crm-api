@@ -197,7 +197,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
 
         Route::apiResource('categories', DashboardSpendingCategoriesController::class);
 
-        Route::apiResource('/', DashboardSpendingsController::class);
+        Route::apiResource('spending', DashboardSpendingsController::class);
 
     });
 
