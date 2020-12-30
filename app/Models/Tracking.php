@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Sort\Sorter;
 use Illuminate\Support\Carbon;
 
 use App\Traits\Pagination\Pager;
@@ -59,6 +60,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 final class Tracking extends Model
 {
     use Pager;
+    use Sorter;
     use HasFactory;
     use SoftDeletes;
 
@@ -155,14 +157,12 @@ final class Tracking extends Model
             return $query->where(function (Builder $query) use ($search) {
                 return $query->where('tracking', 'like', '%' . $search . '%');
             });
+        })->when($filters['customer_id'] ?? null, function (Builder $query, int $customer_id) {
+            return $query->where('customer_id', '=', $customer_id);
+        })->when($filters['tracking'] ?? null, function (Builder $query, string $tracking) {
+            $query->where('tracking', 'like', '%'. $tracking .'%');
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
-        })->when($filters['tracking'] ?? null, function (Builder $query, string $tracking) {
-            return $query->where('tracking', 'like', '%'. $tracking .'%');
-        })->when($filters['customer_id'] ?? null, function (Builder $query, int $customer_id) {
-            return $query->whereHas('customer', function (Builder $query) use ($customer_id) {
-                return $query->where('id', '=', $customer_id);
-            });
         });
     }
 }

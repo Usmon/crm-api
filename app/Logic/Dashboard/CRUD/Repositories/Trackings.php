@@ -11,11 +11,13 @@ final class Trackings
     /**
      * @param array $filters
      *
+     * @param array $sorts
+     *
      * @return Paginator
      */
-    public function getTrackings(array $filters): Paginator
+    public function getTrackings(array $filters, array $sorts): Paginator
     {
-        return Tracking::filter($filters)->orderBy('created_at', 'desc')->pager();
+        return Tracking::filter($filters)->sort($sorts)->pager();
     }
 
     /**

@@ -66,6 +66,14 @@ final class Trackings extends FormRequest
 
                     Rule::exists('users','id'),
                 ],
+
+                'sort.*' => [
+                    'nullable',
+
+                    'string',
+
+                    // @todo filtering columns in keys
+                ],
             ],
 
             'dashboard.trackings.store' => [
