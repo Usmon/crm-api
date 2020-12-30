@@ -39,6 +39,25 @@ final class Trackings
     }
 
     /**
+     * @param TrackingsRequest $request
+     *
+     * @return array
+     */
+    public function getAllSorts(TrackingsRequest $request): array
+    {
+        return $request->json('sort') ?? [];
+    }
+
+    /**
+     * @param TrackingsRequest $request
+     *
+     * @return array
+     */
+    public function getOnlySorts(TrackingsRequest $request): array
+    {
+        return $request->only('sort');
+    }
+    /**
      * @param Paginator $paginator
      *
      * @return Paginator
