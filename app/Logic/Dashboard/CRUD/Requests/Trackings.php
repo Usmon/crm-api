@@ -59,12 +59,10 @@ final class Trackings extends FormRequest
                     'string',
                 ],
 
-                'customer_id' => [
+                'customer' => [
                     'nullable',
 
-                    'integer',
-
-                    Rule::exists('users','id'),
+                    'string',
                 ],
 
                 'sort.*' => [

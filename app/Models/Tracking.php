@@ -157,12 +157,17 @@ final class Tracking extends Model
             return $query->where(function (Builder $query) use ($search) {
                 return $query->where('tracking', 'like', '%' . $search . '%');
             });
-        })->when($filters['customer_id'] ?? null, function (Builder $query, int $customer_id) {
-            return $query->where('customer_id', '=', $customer_id);
         })->when($filters['tracking'] ?? null, function (Builder $query, string $tracking) {
             $query->where('tracking', 'like', '%'. $tracking .'%');
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
+        })->when($filters['customer'] ?? null, function (Builder $query, string $customer) {
+            return $query->whereHas('customer', function (Builder $query) use ($customer) {
+                return $query->where('login', 'like', '%'. $customer .'%')
+                    ->orWhere('email', 'like', '%'. $customer .'%')
+                    ->orWhere('profile', 'like', '%'. $customer .'%')
+                    ->orWhere('id', '=', $customer);
+            });
         });
     }
 }

@@ -25,6 +25,8 @@ final class Trackings
             'tracking' => $request->json('tracking'),
 
             'customer_id' => $request->json('customer_id'),
+
+            'customer' => $request->json('customer'),
         ];
     }
 
@@ -35,7 +37,7 @@ final class Trackings
      */
     public function getOnlyFilters(TrackingsRequest $request): array
     {
-        return $request->only('search', 'date', 'tracking', 'customer_id',);
+        return $request->only('search', 'date', 'tracking', 'customer');
     }
 
     /**
