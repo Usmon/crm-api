@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Box;
 
-use App\Models\User;
+use App\Models\Customer;
 
 use App\Models\Tracking;
 
@@ -22,7 +22,7 @@ final class TrackingFactory extends Factory
      */
     public function definition(): array
     {
-        $customers = User::all();
+        $customers = Customer::all();
 
         $boxes = Box::all();
 

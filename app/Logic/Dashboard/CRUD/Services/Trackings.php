@@ -24,8 +24,6 @@ final class Trackings
 
             'tracking' => $request->json('tracking'),
 
-            'customer_id' => $request->json('customer_id'),
-
             'customer' => $request->json('customer'),
         ];
     }

@@ -45,7 +45,7 @@ final class CreateTrackingsTable extends Migration
         });
 
         Schema::table($this->table, function (Blueprint $table){
-            $table->foreign('customer_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('customer_id')->references('id')->on('customers')->onUpdate('cascade')->onDelete('cascade');
 
             $table->foreign('box_id')->references('id')->on('boxes')->onUpdate('cascade')->onDelete('cascade');
 

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\Sort\Sorter;
+
 use Illuminate\Support\Carbon;
 
 use App\Traits\Pagination\Pager;
@@ -120,7 +121,7 @@ final class Tracking extends Model
      */
     public function customer():HasOne
     {
-        return $this->hasOne(User::class,'id','customer_id');
+        return $this->hasOne(Customer::class,'id','customer_id')->with(['user']);
     }
 
     /**
@@ -163,10 +164,12 @@ final class Tracking extends Model
             return $query->whereBetween('created_at', $date);
         })->when($filters['customer'] ?? null, function (Builder $query, string $customer) {
             return $query->whereHas('customer', function (Builder $query) use ($customer) {
-                return $query->where('login', 'like', '%'. $customer .'%')
-                    ->orWhere('email', 'like', '%'. $customer .'%')
-                    ->orWhere('profile', 'like', '%'. $customer .'%')
-                    ->orWhere('id', '=', $customer);
+                    $query->whereHas('user', function (Builder $query) use ($customer) {
+                        $query->where('login', 'like', '%' . $customer . '%')
+                            ->orWhere('email', 'like', '%' . $customer . '%')
+                            ->orWhere('profile', 'like', '%' . $customer . '%');
+                })->orWhere('passport', 'like', '%' . $customer . '%')
+                    ->orWhere('note', 'like', '%' . $customer . '%');
             });
         });
     }
