@@ -82,6 +82,8 @@ use App\Http\Controllers\Dashboard\Trackings\Controller as DashboardTrackingsCon
 
 use App\Http\Controllers\Dashboard\Images\Controller as DashboardImagesController;
 
+use App\Http\Controllers\Dashboard\Statuses\Controller as DashboardStatusesController;
+
 /*
 |--------------------------------------------------------------
 ------------
@@ -151,7 +153,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
 
         Route::apiResource('items', DashboardFedexOrderItemsController::class);
     });
-  
+
     Route::apiResource('feedbacks', DashboardFeedbacksController::class);
 
     Route::group(['prefix' => 'orders', 'as'=> 'orders.'], function () {
@@ -164,6 +166,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     });
 
     Route::apiResource('projects', DashboardProjectsController::class);
+
+    Route::get('status/deliveries', [DashboardStatusesController::class, 'statusDeliveries']);
 
     Route::group(['prefix' => 'deliveries', 'as' => 'deliveries.'], function(){
 

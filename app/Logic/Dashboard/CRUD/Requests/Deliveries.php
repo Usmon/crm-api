@@ -74,6 +74,12 @@ final class Deliveries extends FormRequest
 
                     'string'
                 ],
+
+                'sort.*' => [
+                    'nullable',
+
+                    'string',
+                ],
             ],
 
             'dashboard.deliveries.store' => [

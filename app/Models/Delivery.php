@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Traits\Sort\Sorter;
+
 use Illuminate\Support\Carbon;
 
 use App\Traits\Pagination\Pager;
@@ -11,8 +13,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
-
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -39,6 +39,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property-read BelongsTo|null $driver
  *
+ * @property-read array $statuses
+ *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
  * @method static Builder|self filter(array $filters)
@@ -48,6 +50,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 final class Delivery extends Model
 {
     use Pager;
+    use Sorter;
     use HasFactory;
     use SoftDeletes;
 
@@ -85,6 +88,15 @@ final class Delivery extends Model
 
         'deleted_at' => 'datetime',
 
+    ];
+
+
+    const statuses = [
+        'pending',
+
+        'delivered',
+
+        'delivering',
     ];
 
     /**
