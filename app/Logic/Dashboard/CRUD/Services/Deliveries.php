@@ -41,6 +41,25 @@ final class Deliveries
     }
 
     /**
+     * @param DeliveriesRequest $request
+     *
+     * @return array
+     */
+    public function getAllSorts(DeliveriesRequest $request): array
+    {
+        return $request->json('sort') ?? [];
+    }
+
+    /**
+     * @param DeliveriesRequest $request
+     *
+     * @return array
+     */
+    public function getOnlySorts(DeliveriesRequest $request): array
+    {
+        return $request->only('sort');
+    }
+    /**
      * @param Paginator $paginator
      *
      * @return Paginator
