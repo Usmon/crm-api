@@ -29,9 +29,9 @@ final class Controller extends Controllers
     protected $repository;
 
     /**
-     * @param PickupService $service
+     * @param PickupsService $service
      *
-     * @param PickupRepository $repository
+     * @param PickupsRepository $repository
      *
      * @return void
      */
@@ -52,7 +52,13 @@ final class Controller extends Controllers
         return Json::sendJsonWith200([
             'filters' => $this->service->getAllFilters($request),
 
-            'pickups' => $this->service->getPickups($this->repository->getPickups($this->service->getOnlyFilters($request))),
+            'sorts' => $this->service->getOnlySorts($request),
+
+            'pickups' => $this->service->getPickups($this->repository->getPickups(
+                $this->service->getOnlyFilters($request),
+
+                $this->service->getOnlySorts($request)),
+            ),
         ]);
     }
 
@@ -120,7 +126,4 @@ final class Controller extends Controllers
             'message' => 'The pickup deleted successfully',
         ]);
     }
-
-
-
 }

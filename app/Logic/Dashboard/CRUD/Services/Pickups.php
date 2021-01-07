@@ -25,6 +25,26 @@ final class Pickups
             'search' => $request->json('search'),
 
             'date' => $request->json('date'),
+
+            'note' => $request->json('note'),
+
+            'bring_address' => $request->json('bring_address'),
+
+            'bring_datetime_start' => $request->json('bring_datetime_start'),
+
+            'bring_datetime_end' => $request->json('bring_datetime_end'),
+
+            'staff_id' => $request->json('staff_id'),
+
+            'driver_id' => $request->json('driver_id'),
+
+            'customer_id' => $request->json('customer_id'),
+
+            'staff' => $request->json('staff'),
+
+            'driver' => $request->json('driver'),
+
+            'customer' => $request->json('customer'),
         ];
     }
 
@@ -35,7 +55,28 @@ final class Pickups
      */
     public function getOnlyFilters(PickupsRequest $request): array
     {
-        return $request->only('search', 'date');
+        return $request->only('search', 'date', 'note', 'bring_address', 'bring_datetime_start',
+            'bring_datetime_end', 'staff_id', 'driver_id', 'customer_id', 'staff', 'driver', 'customer');
+    }
+
+    /**
+     * @param PickupsRequest $request
+     *
+     * @return array
+     */
+    public function getAllSorts(PickupsRequest $request): array
+    {
+        return $request->json('sort') ?? [];
+    }
+
+    /**
+     * @param PickupsRequest $request
+     *
+     * @return array
+     */
+    public function getOnlySorts(PickupsRequest $request): array
+    {
+        return $request->only('sort');
     }
 
     /**
@@ -51,7 +92,7 @@ final class Pickups
 
                 'note' => $pickup->note,
 
-                'bring_adress' => $pickup->bring_address,
+                'bring_address' => $pickup->bring_address,
 
                 'bring_datetime_start' => $pickup->bring_datetime_start,
 
@@ -66,15 +107,17 @@ final class Pickups
                 'created_at' => $pickup->created_at,
 
                 'updated_at' => $pickup->updated_at,
+
+                'staff' => $pickup->staff,
+
+                'customer' => $pickup->customer,
+
+                'driver' => $pickup->driver,
             ];
         });
 
         return $paginator;
-
-
     }
-
-
 
     /**
      * @param Pickup $pickup
@@ -88,7 +131,7 @@ final class Pickups
 
             'note' => $pickup->note,
 
-            'bring_adress' => $pickup->bring_address,
+            'bring_address' => $pickup->bring_address,
 
             'bring_datetime_start' => $pickup->bring_datetime_start,
 
@@ -103,6 +146,12 @@ final class Pickups
             'created_at' => $pickup->created_at,
 
             'updated_at' => $pickup->updated_at,
+
+            'staff' => $pickup->staff,
+
+            'customer' => $pickup->customer,
+
+            'driver' => $pickup->driver,
         ];
     }
 
@@ -137,7 +186,7 @@ final class Pickups
      */
     public function updatePickup(PickupsRequest $request): array
     {
-        $pickups = [
+        $pickup = [
             'note' => $request->json('note'),
 
             'bring_adress' => $request->json('bring_address'),
@@ -153,7 +202,7 @@ final class Pickups
             'customer_id' => $request->json('customer_id'),
         ];
 
-        return $pickups;
+        return $pickup;
     }
 
     public function deletePickup($id)
