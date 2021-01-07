@@ -2,11 +2,7 @@
 
 namespace App\Logic\Dashboard\CRUD\Repositories;
 
-use Exception;
-
 use App\Models\Pickup;
-
-use Illuminate\Support\Arr;
 
 use Illuminate\Contracts\Pagination\Paginator;
 
@@ -15,11 +11,13 @@ final class Pickups
     /**
      * @param array $filters
      *
+     * @param array $sorts
+     *
      * @return Paginator
      */
-    public function getPickups(array $filters): Paginator
+    public function getPickups(array $filters, array $sorts): Paginator
     {
-        return Pickup::filter($filters)->orderBy('created_at', 'desc')->pager();
+        return Pickup::filter($filters)->sort($sorts)->pager();
     }
 
     /**

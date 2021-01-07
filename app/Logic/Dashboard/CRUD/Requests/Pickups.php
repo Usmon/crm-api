@@ -53,6 +53,72 @@ final class Pickups extends FormRequest
                     'after:date.from'
                 ],
 
+                'note' => [
+                    'nullable',
+
+                    'string',
+                ],
+
+                'bring_address' => [
+                    'nullable',
+
+                    'array',
+                ],
+
+                'bring_datetime_start' => [
+                    'nullable',
+
+                    'array',
+                ],
+
+                'bring_datetime_end' => [
+                    'nullable',
+
+                    'array',
+                ],
+
+                'staff_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('users','id'),
+                ],
+
+                'driver_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('users','id'),
+                ],
+
+                'customer_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('users','id'),
+                ],
+
+                'staff' => [
+                    'nullable',
+
+                    'string',
+                ],
+
+                'driver' => [
+                    'nullable',
+
+                    'string',
+                ],
+
+                'customer' => [
+                    'nullable',
+
+                    'string',
+                ],
+
             ],
 
             'dashboard.pickups.store' => [
@@ -100,6 +166,20 @@ final class Pickups extends FormRequest
                     Rule::exists('users', 'id'),
                 ],
 
+                'permissions' => [
+                    'required',
+
+                    'array',
+                ],
+
+                'permissions.*' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('permissions', 'id'),
+                ],
+
             ],
 
             'dashboard.pickups.update' => [
@@ -145,6 +225,20 @@ final class Pickups extends FormRequest
                     'integer',
 
                     Rule::exists('users', 'id'),
+                ],
+
+                'permissions' => [
+                    'required',
+
+                    'array',
+                ],
+
+                'permissions.*' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('permissions', 'id'),
                 ],
 
             ],

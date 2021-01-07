@@ -40,14 +40,18 @@ final class CreatePickupsTable extends Migration
             $table->timestamp('updated_at')->nullable();
 
             $table->timestamp('deleted_at')->nullable();
+
+            $table->unsignedBigInteger('deleted_by')->nullable();
         });
 
         Schema::table($this->table, function (Blueprint $table) {
-            $table->foreign('staff_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('staff_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
 
-            $table->foreign('driver_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('driver_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
 
-            $table->foreign('customer_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('customer_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->foreign('deleted_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

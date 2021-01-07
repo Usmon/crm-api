@@ -4,9 +4,9 @@ namespace App\Observers;
 
 use App\Models\Pickup;
 
-use Illuminate\Support\Str;
-
 use Illuminate\Support\Carbon;
+
+use Illuminate\Support\Facades\Auth;
 
 final class PickupObserver
 {
@@ -38,6 +38,10 @@ final class PickupObserver
     public function deleting(Pickup $pickup): void
     {
         $pickup->deleted_at = $pickup->deleted_at ?? Carbon::now();
+
+        $pickup->deleted_by = $pickup->deleted_by ?? Auth::id();
+
+        $pickup->update();
     }
 
     /**

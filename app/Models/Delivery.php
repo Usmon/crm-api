@@ -91,7 +91,7 @@ final class Delivery extends Model
     ];
 
 
-    const statuses = [
+    const STATUSES = [
         'pending',
 
         'delivered',
@@ -145,7 +145,7 @@ final class Delivery extends Model
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
         })->when($filters['status'] ?? null, function (Builder $query, string $status) {
-            return $query->where('status', '%'. $status .'%');
+            return $query->where('status', 'like','%'. $status .'%');
         })->when($filters['order_id'] ?? null, function (Builder $query, int $order_id) {
             return $query->where('order_id', '=', $order_id);
         })->when($filters['driver_id'] ?? null, function (Builder $query, int $driver_id) {

@@ -11,6 +11,6 @@ final class Statuses
      */
     public function getStatusDeliveries(): array
     {
-        return Delivery::statuses;
+        return Delivery::STATUSES;
     }
 }
