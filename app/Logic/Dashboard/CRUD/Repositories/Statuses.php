@@ -2,6 +2,8 @@
 
 namespace App\Logic\Dashboard\CRUD\Repositories;
 
+use App\Models\Order;
+
 use App\Models\Delivery;
 
 final class Statuses
@@ -12,5 +14,10 @@ final class Statuses
     public function getStatusDeliveries(): array
     {
         return Delivery::STATUSES;
+    }
+
+    public function getStatusOrders(): array
+    {
+        return Order::STATUSES;
     }
 }
