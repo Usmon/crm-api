@@ -36,4 +36,14 @@ final class Controller extends Controllers
             'statuses' => $this->repository->getStatusDeliveries(),
         ]);
     }
+
+    /**
+     * @return JsonResponse
+     */
+    public function statusOrders(): JsonResponse
+    {
+        return Json::sendJsonWith200([
+            'statuses' => $this->repository->getStatusOrders(),
+        ]);
+    }
 }

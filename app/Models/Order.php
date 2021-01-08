@@ -128,6 +128,26 @@ final class Order extends Model
         'deleted_at' => 'datetime',
     ];
 
+    const STATUSES = [
+        'created',
+
+        'picked_up',
+
+        'waiting',
+
+        'pending',
+
+        'shipping',
+
+        'shipped',
+
+        'delivering',
+
+        'delivered',
+
+        'canceled'
+    ];
+
     /**
      * @return HasOne
      */
