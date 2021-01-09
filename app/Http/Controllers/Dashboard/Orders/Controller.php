@@ -52,7 +52,12 @@ final class Controller extends Controllers
         return Json::sendJsonWith200([
             'filters' => $this->service->getAllFilters($request),
 
-            'orders' => $this->service->getOrders($this->repository->getOrders($this->service->getOnlyFilters($request))),
+            'sorts' => $this->service->getOnlySorts($request),
+
+            'orders' => $this->service->getOrders($this->repository->getOrders(
+                $this->service->getOnlyFilters($request),
+
+                $this->service->getOnlySorts($request))),
         ]);
     }
 

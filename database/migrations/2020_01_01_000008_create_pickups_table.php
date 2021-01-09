@@ -23,7 +23,7 @@ final class CreatePickupsTable extends Migration
 
             $table->text('note');
 
-            $table->integer('bring_address');
+            $table->string('bring_address');
 
             $table->dateTime('bring_datetime_start');
 

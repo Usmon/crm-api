@@ -115,7 +115,31 @@ final class Orders extends FormRequest
                     'integer',
 
                     Rule::exists('shipments','id'),
-                ]
+                ],
+
+                'staff' => [
+                    'nullable',
+
+                    'string',
+                ],
+
+                'customer' => [
+                    'nullable',
+
+                    'string',
+                ],
+
+                'pickup' => [
+                    'nullable',
+
+                    'string',
+                ],
+
+                'shipment' => [
+                    'nullable',
+
+                    'string',
+                ],
             ],
 
             'dashboard.orders.store' => [

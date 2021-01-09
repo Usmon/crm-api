@@ -4,13 +4,9 @@ namespace App\Logic\Dashboard\CRUD\Services;
 
 use App\Models\Pickup;
 
-use App\Logic\Dashboard\CRUD\Requests\Pickups as PickupsRequest;
-
-use Illuminate\Support\Arr;
-
-use Illuminate\Support\Facades\Hash;
-
 use Illuminate\Contracts\Pagination\Paginator;
+
+use App\Logic\Dashboard\CRUD\Requests\Pickups as PickupsRequest;
 
 final class Pickups
 {
@@ -189,7 +185,7 @@ final class Pickups
         $pickup = [
             'note' => $request->json('note'),
 
-            'bring_adress' => $request->json('bring_address'),
+            'bring_address' => $request->json('bring_address'),
 
             'bring_datetime_start' => $request->json('bring_datetime_start'),
 

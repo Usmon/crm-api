@@ -167,9 +167,11 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
 
     Route::apiResource('projects', DashboardProjectsController::class);
 
-    Route::get('status/deliveries', [DashboardStatusesController::class, 'statusDeliveries']);
+    Route::group(['prefix' => 'status', 'as' => 'status.'], function() {
+        Route::get('deliveries', [DashboardStatusesController::class, 'statusDeliveries']);
 
-    Route::get('status/orders', [DashboardStatusesController::class, 'statusOrders']);
+        Route::get('orders', [DashboardStatusesController::class, 'statusOrders']);
+    });
 
     Route::group(['prefix' => 'deliveries', 'as' => 'deliveries.'], function(){
 

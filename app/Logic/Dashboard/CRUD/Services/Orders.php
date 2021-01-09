@@ -39,6 +39,14 @@ final class Orders
             'payed_price' => $request->json('payed_price'),
 
             'payment_status' => $request->json('payment_status'),
+
+            'staff' => $request->json('staff'),
+
+            'customer' => $request->json('customer'),
+
+            'pickup' => $request->json('pickup'),
+
+            'shipment' => $request->json('shipment'),
         ];
     }
 
@@ -49,8 +57,28 @@ final class Orders
      */
     public function getOnlyFilters(OrdersRequest $request): array
     {
-        return $request->only('search', 'date', 'staff_id', 'customer_id', 'fedex_order_id',
-            'pickup_id', 'staff_id', 'price','payed_price','status','payment_status');
+        return $request->only('search', 'date', 'staff_id', 'customer_id', 'fedex_order_id', 'pickup_id',
+            'staff_id', 'price','payed_price','status','payment_status', 'staff', 'customer', 'pickup', 'shipment');
+    }
+
+    /**
+     * @param OrdersRequest $request
+     *
+     * @return array
+     */
+    public function getAllSorts(OrdersRequest $request): array
+    {
+        return $request->json('sort') ?? [];
+    }
+
+    /**
+     * @param OrdersRequest $request
+     *
+     * @return array
+     */
+    public function getOnlySorts(OrdersRequest $request): array
+    {
+        return $request->only('sort');
     }
 
     /**
@@ -95,6 +123,14 @@ final class Orders
                 'pickup' => $order->pickup,
 
                 'shipment' => $order->shipment,
+
+                'boxes' => $order->boxes,
+
+                'total_boxes' => $order->totalBoxes,
+
+                'total_weight_boxes' => $order->totalWeightBoxes,
+
+                'total_delivered_boxes' => $order->totalDeliveredBoxes,
             ];
         });
         return $paginator;
@@ -141,6 +177,14 @@ final class Orders
             'pickup' => $order->pickup,
 
             'shipment' => $order->shipment,
+
+            'boxes' => $order->boxes,
+
+            'total_boxes' => $order->totalBoxes,
+
+            'total_weight_boxes' => $order->totalWeightBoxes,
+
+            'total_delivered_boxes' => $order->totalDeliveredBoxes,
         ];
     }
 

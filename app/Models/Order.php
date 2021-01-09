@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Traits\Sort\Sorter;
+
 use Illuminate\Support\Carbon;
 
 use App\Traits\Pagination\Pager;
@@ -17,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 
 /**
  * App\Models\Order
@@ -57,6 +60,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property-read HasOne|null $shipment
  *
+ * @property-read HasMany|null $boxes
+ *
+ * @property-read int totalBoxes
+ *
+ * @property-read int totalWeightBoxes
+ *
+ * @property-read int totalDeliveredBoxes
+ *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
  * @method static Builder|self filter(array $filters)
@@ -66,6 +77,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 final class Order extends Model
 {
     use Pager;
+    use Sorter;
     use HasFactory;
     use SoftDeletes;
 
@@ -197,6 +209,38 @@ final class Order extends Model
     }
 
     /**
+     * @return HasMany
+     */
+    public function boxes(): HasMany
+    {
+        return $this->hasMany(Box::class);
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalBoxesAttribute(): int
+    {
+        return $this->hasMany(Box::class)->count();
+    }
+
+    /**
+     * @return float
+     */
+    public function getTotalWeightBoxesAttribute(): float
+    {
+        return $this->boxes()->sum('weight');
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalDeliveredBoxesAttribute(): int
+    {
+        return $this->boxes()->where('status','=','delivered')->count();
+    }
+
+    /**
      * @param Builder $query
      *
      * @param string $key
@@ -244,6 +288,39 @@ final class Order extends Model
             return $query->where('pickup_id','=', $pickup_id);
         })->when($filters['shipment_id'] ?? null, function (Builder $query, int $shipment_id){
             return $query->where('shipment_id','=', $shipment_id);
+        })->when($filters['staff'] ?? null, function (Builder $query, string $staff) {
+            return $query->whereHas('staff', function (Builder $query) use ($staff) {
+                $query->where('login', 'like', '%' . $staff . '%')
+                    ->orWhere('email', 'like', '%' . $staff . '%')
+                    ->orWhere('profile', 'like', '%' . $staff . '%');
+            });
+        })->when($filters['customer'] ?? null, function (Builder $query, string $customer) {
+            return $query->whereHas('customer', function (Builder $query) use ($customer) {
+                $query->where('login', 'like', '%' . $customer . '%')
+                    ->orWhere('email', 'like', '%' . $customer . '%')
+                    ->orWhere('profile', 'like', '%' . $customer . '%');
+            });
+        })->when($filters['shipment'] ?? null, function (Builder $query, string $shipment) {
+            return $query->whereHas('shipment', function (Builder $query) use ($shipment) {
+                $query->where('name', 'like', '%' . $shipment . '%')
+                    ->orWhere('status', 'like', '%' . $shipment . '%');
+            });
+        })->when($filters['pickup'] ?? null, function (Builder $query, string $pickup) {
+            return $query->whereHas('pickup', function (Builder $query) use ($pickup) {
+                $query->whereHas('staff', function (Builder $query) use ($pickup) {
+                    $query->where('login', 'like', '%' . $pickup . '%')
+                        ->orWhere('email', 'like', '%' . $pickup . '%')
+                        ->orWhere('profile', 'like', '%' . $pickup . '%');
+                })->whereHas('driver', function (Builder $query) use ($pickup) {
+                    $query->where('login', 'like', '%' . $pickup . '%')
+                        ->orWhere('email', 'like', '%' . $pickup . '%')
+                        ->orWhere('profile', 'like', '%' . $pickup . '%');
+                })->whereHas('customer', function (Builder $query) use ($pickup) {
+                    $query->where('login', 'like', '%' . $pickup . '%')
+                        ->orWhere('email', 'like', '%' . $pickup . '%')
+                        ->orWhere('profile', 'like', '%' . $pickup . '%');
+                })->orWhere('note', 'like', '%' . $pickup . '%');
+            });
         });
     }
 }
