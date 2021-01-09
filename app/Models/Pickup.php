@@ -27,7 +27,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property string $note
  *
- * @property int $bring_address
+ * @property string $bring_address
  *
  * @property Carbon $bring_datetime_start
  *
@@ -104,7 +104,7 @@ final class Pickup extends Model
 
         'note' => 'string',
 
-        'bring_address' => 'integer',
+        'bring_address' => 'string',
 
         'bring_datetime_start' => 'datetime',
 
@@ -195,8 +195,8 @@ final class Pickup extends Model
             return $query->whereBetween('created_at', $date);
         })->when($filters['note'] ?? null, function (Builder $query, string $note) {
             return $query->orWhere('note', 'like', '%'. $note .'%');
-        })->when($filters['bring_address'] ?? null, function (Builder $query, array $bringAddress) {
-            return $query->orWhereBetween('bring_address', $bringAddress);
+        })->when($filters['bring_address'] ?? null, function (Builder $query, string $bringAddress) {
+            return $query->orWhere('bring_address', 'like', '%'. $bringAddress .'%');
         })->when($filters['bring_datetime_start'] ?? null, function (Builder $query, array $bringDatetimeStart) {
             return $query->orWhereBetween('bring_datetime_start', $bringDatetimeStart);
         })->when($filters['bring_datetime_end'] ?? null, function (Builder $query, array $bringDatetimeEnd) {

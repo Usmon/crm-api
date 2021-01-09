@@ -132,7 +132,7 @@ final class Pickups extends FormRequest
                 'bring_address' => [
                     'required',
 
-                    'integer',
+                    'string',
                 ],
                 'bring_datetime_start' => [
                     'required',
@@ -193,7 +193,7 @@ final class Pickups extends FormRequest
                 'bring_address' => [
                     'required',
 
-                    'integer',
+                    'string',
                 ],
                 'bring_datetime_start' => [
                     'required',
