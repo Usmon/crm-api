@@ -4,7 +4,7 @@ namespace App\Observers;
 
 use App\Models\Box;
 
-use Illuminate\Support\Str;
+use App\Models\Order;
 
 use Illuminate\Support\Carbon;
 
@@ -57,18 +57,58 @@ class BoxObserver
      */
     public function defaultProperties(Box $box): void
     {
-        $box->order_id = $box->order_id;
-        $box->customer_id = $box->customer_id;
-        $box->sender_id = $box->sender_id;
-        $box->recipient_id = $box->recipient_id;
-        $box->weight = $box->weight;
-        $box->additional_weight = $box->additional_weight;
+
         $box->status = $box->status ?? 'pending';
-        $box->box_image = $box->box_image;
+
         $box->created_at = $box->created_at ?? Carbon::now();
+
         $box->updated_at = $box->updated_at ?? Carbon::now();
+
         $box->deleted_at = $box->deleted_at ?? null;
     }
 
+    /**
+     * @param Box $box
+     *
+     * @return void
+     */
+    public function created(Box $box): void
+    {
+        $this->afterProperties($box->order_id);
+    }
+
+    /**
+     * @param Box $box
+     *
+     * @return void
+     */
+    public function updated(Box $box): void
+    {
+        $this->afterProperties($box->order_id);
+    }
+
+    /**
+     * @param Box $box
+     *
+     * @return void
+     */
+    public function deleted(Box $box): void
+    {
+        $this->afterProperties($box->order_id);
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return void
+     */
+    public function afterProperties(int $id): void
+    {
+        $order = Order::find($id);
+
+        $orderObserver = new OrderObserver();
+
+        $orderObserver->afterAddedBoxProperties($order);
+    }
 
 }

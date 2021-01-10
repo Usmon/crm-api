@@ -44,6 +44,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property string $payment_status
  *
+ * @property integer $total_boxes
+ *
+ * @property double $total_weight_boxes
+ *
+ * @property integer $total_delivered_boxes
+ *
  * @property Carbon|null $created_at
  *
  * @property Carbon|null $updated_at
@@ -107,6 +113,12 @@ final class Order extends Model
         'status',
 
         'payment_status',
+
+        'total_boxes',
+
+        'total_weight_boxes',
+
+        'total_delivered_boxes',
     ];
 
     /**
@@ -132,6 +144,12 @@ final class Order extends Model
         'status' => 'string',
 
         'payment_status' => 'string',
+
+        'total_boxes' => 'integer',
+
+        'total_weight_boxes' => 'double',
+
+        'total_delivered_boxes' => 'integer',
 
         'created_at' => 'datetime',
 
@@ -288,6 +306,12 @@ final class Order extends Model
             return $query->where('pickup_id','=', $pickup_id);
         })->when($filters['shipment_id'] ?? null, function (Builder $query, int $shipment_id){
             return $query->where('shipment_id','=', $shipment_id);
+        })->when($filters['total_boxes'] ?? null, function (Builder $query, array $total_boxes) {
+            return $query->whereBetween('total_boxes', $total_boxes);
+        })->when($filters['total_weight_boxes'] ?? null, function (Builder $query, array $total_weight_boxes) {
+            return $query->whereBetween('total_weight_boxes', $total_weight_boxes);
+        })->when($filters['total_delivered_boxes'] ?? null, function (Builder $query, array $total_delivered_boxes) {
+            return $query->whereBetween('total_delivered_boxes', $total_delivered_boxes);
         })->when($filters['staff'] ?? null, function (Builder $query, string $staff) {
             return $query->whereHas('staff', function (Builder $query) use ($staff) {
                 $query->where('login', 'like', '%' . $staff . '%')

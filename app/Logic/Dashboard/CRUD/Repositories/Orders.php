@@ -11,6 +11,8 @@ final class Orders
     /**
      * @param array $filters
      *
+     * @param array $sorts
+     *
      * @return Paginator
      */
     public function getOrders(array $filters, array $sorts): Paginator

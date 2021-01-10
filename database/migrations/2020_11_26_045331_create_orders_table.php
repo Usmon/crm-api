@@ -40,6 +40,12 @@ final class CreateOrdersTable extends Migration
 
             $table->enum('payment_status',['payed','debt']);
 
+            $table->integer('total_boxes')->default(0);
+
+            $table->float('total_weight_boxes')->default(0);
+
+            $table->integer('total_delivered_boxes')->default(0);
+
             $table->timestamp('created_at')->nullable();
 
             $table->timestamp('updated_at')->nullable();

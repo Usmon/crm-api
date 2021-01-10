@@ -140,6 +140,24 @@ final class Orders extends FormRequest
 
                     'string',
                 ],
+
+                'total_boxes' => [
+                    'nullable',
+
+                    'array',
+                ],
+
+                'total_weight_boxes' => [
+                    'nullable',
+
+                    'array',
+                ],
+
+                'total_delivered_boxes' =>[
+                    'nullable',
+
+                    'array',
+                ],
             ],
 
             'dashboard.orders.store' => [
