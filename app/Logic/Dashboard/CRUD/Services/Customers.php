@@ -83,8 +83,11 @@ final class Customers
                 'creator' => $customer->creator,
 
                 'referral' => $customer->referral,
+
+                'phones' => $customer->phones,
             ];
         });
+
         return $paginator;
     }
 
@@ -121,6 +124,8 @@ final class Customers
             'creator' => $customer->creator,
 
             'referral' => $customer->referral,
+
+            'phones' => $customer->phones,
         ];
     }
 

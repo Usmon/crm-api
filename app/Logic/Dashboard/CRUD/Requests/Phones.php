@@ -6,7 +6,7 @@ use Illuminate\Validation\Rule;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-final class Deliveries extends FormRequest
+final class Phones extends FormRequest
 {
     /**
      * @return bool
@@ -22,7 +22,7 @@ final class Deliveries extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'dashboard.deliveries.index' => [
+            'dashboard.phones.index' => [
                 'search' => [
                     'nullable',
 
@@ -50,7 +50,7 @@ final class Deliveries extends FormRequest
 
                     'date',
 
-                    'after:date.from'
+                    'after:date.from',
                 ],
 
                 'customer_id' => [
@@ -61,79 +61,72 @@ final class Deliveries extends FormRequest
                     Rule::exists('customers','id'),
                 ],
 
-                'driver_id' => [
+                'phone' => [
                     'nullable',
+
+                    'string',
+                ],
+            ],
+
+            'dashboard.phones.store' => [
+                'customer_id' => [
+                    'required',
 
                     'integer',
 
-                    Rule::exists('users','id'),
+                    Rule::exists('customers', 'id')
                 ],
 
-                'status' => [
-                    'nullable',
+                'phone' => [
+                    'required',
+
+                    'string',
+                ],
+
+                'permissions' => [
+                    'required',
+
+                    'array',
+                ],
+
+                'permissions.*' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('permissions', 'id'),
+                ],
+            ],
+
+            'dashboard.phones.update' => [
+                'customer_id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('customers', 'id')
+                ],
+
+                'phone' => [
+                    'required',
 
                     'string'
                 ],
 
-                'sort.*' => [
-                    'nullable',
+                'permissions' => [
+                    'required',
 
-                    'string',
+                    'array',
+                ],
+
+                'permissions.*' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('permissions', 'id'),
                 ],
             ],
-
-            'dashboard.deliveries.store' => [
-                'customer_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('customers', 'id'),
-                ],
-
-                'driver_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('users', 'id'),
-                ],
-
-                'status' => [
-                    'required',
-
-                    'string',
-
-                    'in:pending,delivering,delivered'
-                ],
-            ],
-
-            'dashboard.deliveries.update' => [
-                'customer_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('customers', 'id'),
-                ],
-
-                'driver_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('users', 'id'),
-                ],
-
-                'status' => [
-                    'required',
-
-                    'string',
-
-                    'in:pending,delivering,delivered'
-                ],
-            ],
-
         ];
 
         return $rules[$this->route()->getName()];

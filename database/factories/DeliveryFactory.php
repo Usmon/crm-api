@@ -2,11 +2,11 @@
 
 namespace Database\Factories;
 
-use App\Models\Delivery;
-
 use App\Models\User;
 
-use App\Models\Order;
+use App\Models\Customer;
+
+use App\Models\Delivery;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -18,18 +18,23 @@ final class DeliveryFactory extends Factory
     protected $model = Delivery::class;
 
     /**
-     * @return array
+     *@return array
      *
+     * @throws \Exception
      */
     public function definition(): array
     {
         $status = ['pending', 'delivering', 'delivered'];
-        $usersId = User::all(['id']);
-        $ordersId = Order::all(['id']);
+
+        $users = User::all();
+
+        $customers = Customer::all();
 
         return [
-            'order_id' => $ordersId->random(),
-            'driver_id' => $usersId->random(),
+            'customer_id' => $customers->random(),
+
+            'driver_id' => $users->random(),
+
             'status' => $status[random_int(0,2)]
         ];
     }

@@ -84,6 +84,8 @@ use App\Http\Controllers\Dashboard\Images\Controller as DashboardImagesControlle
 
 use App\Http\Controllers\Dashboard\Statuses\Controller as DashboardStatusesController;
 
+use App\Http\Controllers\Dashboard\Phones\Controller as DashboardPhonesController;
+
 /*
 |--------------------------------------------------------------
 ------------
@@ -226,4 +228,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     Route::apiResource('trackings', DashboardTrackingsController::class);
 
     Route::apiResource('images', DashboardImagesController::class);
+
+    Route::apiResource('phones', DashboardPhonesController::class);
 });

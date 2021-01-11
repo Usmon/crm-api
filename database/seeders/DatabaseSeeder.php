@@ -27,6 +27,8 @@ final class DatabaseSeeder extends Seeder
 
         $this->call(RecipientSeeder::class);
 
+        $this->call(CustomerSeeder::class);
+
         $this->call(DeliverySeeder::class);
 
         $this->call(SenderSeeder::class);
@@ -69,8 +71,8 @@ final class DatabaseSeeder extends Seeder
 
         $this->call(DeliveryUserSeeder::class);
 
-        $this->call(CustomerSeeder::class);
-
         $this->call(TrackingSeeder::class);
+
+        $this->call(PhoneSeeder::class);
     }
 }
