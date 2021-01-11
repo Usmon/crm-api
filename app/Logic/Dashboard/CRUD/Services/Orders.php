@@ -47,6 +47,12 @@ final class Orders
             'pickup' => $request->json('pickup'),
 
             'shipment' => $request->json('shipment'),
+
+            'total_boxes' => $request->json('total_boxes'),
+
+            'total_weight_boxes' => $request->json('total_weight_boxes'),
+
+            'total_delivered_boxes' => $request->json('total_delivered_boxes'),
         ];
     }
 
@@ -58,7 +64,8 @@ final class Orders
     public function getOnlyFilters(OrdersRequest $request): array
     {
         return $request->only('search', 'date', 'staff_id', 'customer_id', 'fedex_order_id', 'pickup_id',
-            'staff_id', 'price','payed_price','status','payment_status', 'staff', 'customer', 'pickup', 'shipment');
+            'staff_id', 'price','payed_price','status','payment_status', 'staff', 'customer', 'pickup', 'shipment',
+        'total_boxes', 'total_weight_boxes', 'total_delivered_boxes');
     }
 
     /**
@@ -126,11 +133,11 @@ final class Orders
 
                 'boxes' => $order->boxes,
 
-                'total_boxes' => $order->totalBoxes,
+                'total_boxes' => $order->total_boxes,
 
-                'total_weight_boxes' => $order->totalWeightBoxes,
+                'total_weight_boxes' => $order->total_weight_boxes,
 
-                'total_delivered_boxes' => $order->totalDeliveredBoxes,
+                'total_delivered_boxes' => $order->total_delivered_boxes,
             ];
         });
         return $paginator;
@@ -180,11 +187,11 @@ final class Orders
 
             'boxes' => $order->boxes,
 
-            'total_boxes' => $order->totalBoxes,
+            'total_boxes' => $order->total_boxes,
 
-            'total_weight_boxes' => $order->totalWeightBoxes,
+            'total_weight_boxes' => $order->total_weight_boxes,
 
-            'total_delivered_boxes' => $order->totalDeliveredBoxes,
+            'total_delivered_boxes' => $order->total_delivered_boxes,
         ];
     }
 

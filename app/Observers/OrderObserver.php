@@ -62,4 +62,20 @@ final class OrderObserver
 
         $order->deleted_at = $order->deleted_at ?? null;
     }
+
+    /**
+     * @param Order $order
+     *
+     * @return void
+     */
+    public function afterAddedBoxProperties(Order $order): void
+    {
+        $order->total_boxes = $order->totalBoxes;
+
+        $order->total_weight_boxes = $order->totalWeightBoxes;
+
+        $order->total_delivered_boxes = $order->totalDeliveredBoxes;
+
+        $order->update();
+    }
 }
