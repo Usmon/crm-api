@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Logic\Dashboard\CRUD\Repositories;
+namespace App\Logic\Dashboard\CRUD\Services;
 
 use App\Models\Order;
 
@@ -16,8 +16,19 @@ final class Statuses
         return Delivery::STATUSES;
     }
 
+    /**
+     * @return array
+     */
     public function getStatusOrders(): array
     {
         return Order::STATUSES;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPaymentStatusOrders(): array
+    {
+        return Order::PAYMENT_STATUSES;
     }
 }
