@@ -8,23 +8,23 @@ use Illuminate\Http\JsonResponse;
 
 use App\Http\Controllers\Controller as Controllers;
 
-use App\Logic\Dashboard\CRUD\Repositories\Statuses as StatusesRepository;
+use App\Logic\Dashboard\CRUD\Services\Statuses as StatusesService;
 
 final class Controller extends Controllers
 {
     /**
-     * @var StatusesRepository
+     * @var StatusesService
      */
-    protected $repository;
+    protected $service;
 
     /**
      * Controller constructor.
      *
-     * @param StatusesRepository $repository
+     * @param StatusesService $service
      */
-    public function __construct(StatusesRepository $repository)
+    public function __construct(StatusesService $service)
     {
-        $this->repository = $repository;
+        $this->service = $service;
     }
 
     /**
@@ -33,7 +33,7 @@ final class Controller extends Controllers
     public function statusDeliveries(): JsonResponse
     {
         return Json::sendJsonWith200([
-            'statuses' => $this->repository->getStatusDeliveries(),
+            'statuses' => $this->service->getStatusDeliveries(),
         ]);
     }
 
@@ -43,7 +43,17 @@ final class Controller extends Controllers
     public function statusOrders(): JsonResponse
     {
         return Json::sendJsonWith200([
-            'statuses' => $this->repository->getStatusOrders(),
+            'statuses' => $this->service->getStatusOrders(),
+        ]);
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function statusPaymentOrders(): JsonResponse
+    {
+        return Json::sendJsonWith200([
+            'payment_statuses' => $this->service->getPaymentStatusOrders(),
         ]);
     }
 }
