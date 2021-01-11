@@ -56,6 +56,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property Carbon|null $deleted_at
  *
+ * @const STATUSES
+ *
+ * @const PAYMENT_STATUSES
+ *
  * @property-read HasOne|null $staff
  *
  * @property-read HasOne|null $customer
@@ -70,7 +74,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property-read int totalBoxes
  *
- * @property-read int totalWeightBoxes
+ * @property-read double totalWeightBoxes
  *
  * @property-read int totalDeliveredBoxes
  *
@@ -176,6 +180,12 @@ final class Order extends Model
         'delivered',
 
         'canceled'
+    ];
+
+    const PAYMENT_STATUSES = [
+        'payed',
+
+        'debt',
     ];
 
     /**
