@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Traits\Sort\Sorter;
-
 use Illuminate\Support\Carbon;
 
 use App\Traits\Pagination\Pager;
@@ -16,20 +15,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * App\Models\Delivery
+ * App\Models\Phone
  *
- * @property int $id
+ * @property integer $id
  *
- * @property int $customer_id
+ * @property integer $customer_id
  *
- * @property int $driver_id
- *
- * @property string $status
+ * @property string $phone
  *
  * @property Carbon|null $created_at
  *
@@ -37,19 +32,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property Carbon|null $deleted_at
  *
+ * @property int|null $deleted_by
+ *
  * @property-read HasOne|null $customer
- *
- * @property-read BelongsTo|null $driver
- *
- * @const STATUSES
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
  * @method static Builder|self filter(array $filters)
  *
+ * @mixin Model
  */
-
-final class Delivery extends Model
+final class Phone extends Model
 {
     use Pager;
     use Sorter;
@@ -59,7 +52,7 @@ final class Delivery extends Model
     /**
      * @var string
      */
-    protected $table = 'deliveries';
+    protected $table = 'phones';
 
     /**
      * @var array
@@ -67,53 +60,32 @@ final class Delivery extends Model
     protected $fillable = [
         'customer_id',
 
-        'driver_id',
-
-        'status',
+        'phone'
     ];
 
     /**
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
-
         'customer_id' => 'integer',
 
-        'driver_id' => 'integer',
-
-        'status' => 'string',
+        'phone' => 'string',
 
         'created_at' => 'datetime',
 
         'updated_at' => 'datetime',
 
         'deleted_at' => 'datetime',
-    ];
 
-
-    const STATUSES = [
-        'pending',
-
-        'delivered',
-
-        'delivering',
+        'deleted_by' => 'integer',
     ];
 
     /**
      * @return HasOne
      */
-    public function customer(): HasOne
+    protected function customer():HasOne
     {
         return $this->hasOne(Customer::class,'id','customer_id');
-    }
-
-    /**
-     * @return BelongsTo
-     */
-    public function driver(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'driver_id');
     }
 
     /**
@@ -141,16 +113,19 @@ final class Delivery extends Model
     {
         return $query->when($filters['search'] ?? null, function (Builder $query, string $search) {
             return $query->where(function (Builder $query) use ($search) {
-                return $query->where('status', 'like', '%' . $search . '%');
+                return $query->where('phone', 'like', '%' . $search . '%');
             });
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
-        })->when($filters['status'] ?? null, function (Builder $query, string $status) {
-            return $query->where('status', 'like','%'. $status .'%');
-        })->when($filters['customer_id'] ?? null, function (Builder $query, int $customer_id) {
-            return $query->where('customer_id', '=', $customer_id);
-        })->when($filters['driver_id'] ?? null, function (Builder $query, int $driver_id) {
-            return $query->where('driver_id', '=', $driver_id);
+        })->when($filters['phone'] ?? null, function (Builder $query, string $address){
+            return $query->where('phone','like','%'. $address .'%');
+        })->when($filters['customer_id'] ?? null, function (Builder $query, int $customer_id){
+            return $query->where('customer_id','=', $customer_id);
+        })->when($filters['customer'] ?? null, function (Builder $query, string $customer) {
+            return $query->whereHas('customer', function (Builder $query) use ($customer) {
+                $query->where('passport', 'like', '%' . $customer . '%')
+                    ->orWhere('note', 'like', '%' . $customer . '%');
+            });
         });
     }
 }

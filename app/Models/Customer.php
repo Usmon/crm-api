@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 use App\Traits\Pagination\Pager;
@@ -50,6 +51,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property-read HasOne  $creator
  *
  * @property-read HasOne  $referral
+ *
+ * @property-read HasMany $phones
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
@@ -137,6 +140,15 @@ final class Customer extends Model
     {
         return $this->hasOne(User::class, 'id','referral_id');
     }
+
+    /**
+     * @return HasMany
+     */
+    public function phones(): HasMany
+    {
+        return $this->hasMany(Phone::class);
+    }
+
     /**
      * @param Builder $query
      *

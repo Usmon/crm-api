@@ -6,12 +6,12 @@ use Illuminate\Database\Schema\Blueprint;
 
 use Illuminate\Database\Migrations\Migration;
 
-final class CreateDeliveriesTable extends Migration
+final class CreatePhonesTable extends Migration
 {
     /**
      * @var string
      */
-    protected $table = 'deliveries';
+    protected $table = 'phones';
 
     /**
      * @return void
@@ -23,21 +23,21 @@ final class CreateDeliveriesTable extends Migration
 
             $table->unsignedBigInteger('customer_id');
 
-            $table->unsignedBigInteger('driver_id');
-
-            $table->enum('status', ['pending', 'delivering', 'delivered'])->default('pending');
+            $table->string('phone');
 
             $table->timestamp('created_at')->nullable();
 
             $table->timestamp('updated_at')->nullable();
 
             $table->timestamp('deleted_at')->nullable();
+
+            $table->unsignedBigInteger('deleted_by')->nullable();
         });
 
         Schema::table($this->table, function (Blueprint $table) {
             $table->foreign('customer_id')->references('id')->on('customers')->onUpdate('cascade')->onDelete('cascade');
 
-            $table->foreign('driver_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('deleted_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
