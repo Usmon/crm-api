@@ -74,5 +74,7 @@ final class DatabaseSeeder extends Seeder
         $this->call(TrackingSeeder::class);
 
         $this->call(PhoneSeeder::class);
+
+        $this->call(AddressSeeder::class);
     }
 }

@@ -114,14 +114,14 @@ final class Controller extends Controllers
 
         if(!$id){
             return Json::sendJsonWith409([
-                'message' => 'Failed to delete tracking, parameters does not match.',
+                'message' => 'Failed to delete phone, parameters does not match.',
             ]);
         }
 
         $this->repository->deletePhone($id);
 
         return Json::sendJsonWith200([
-            'message' => 'The tracking was successfully deleted.',
+            'message' => 'The phone was successfully deleted.',
         ]);
     }
 }

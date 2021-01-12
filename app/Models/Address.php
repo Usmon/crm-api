@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\Sort\Sorter;
+
 use Illuminate\Support\Carbon;
 
 use App\Traits\Pagination\Pager;
@@ -24,7 +25,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property integer $customer_id
  *
- * @property string $phone
+ * @property string $address
  *
  * @property Carbon|null $created_at
  *
@@ -42,7 +43,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @mixin Model
  */
-final class Phone extends Model
+final class Address extends Model
 {
     use Pager;
     use Sorter;
@@ -52,7 +53,7 @@ final class Phone extends Model
     /**
      * @var string
      */
-    protected $table = 'phones';
+    protected $table = 'addresses';
 
     /**
      * @var array
@@ -60,7 +61,7 @@ final class Phone extends Model
     protected $fillable = [
         'customer_id',
 
-        'phone'
+        'address',
     ];
 
     /**
@@ -69,7 +70,7 @@ final class Phone extends Model
     protected $casts = [
         'customer_id' => 'integer',
 
-        'phone' => 'string',
+        'address' => 'string',
 
         'created_at' => 'datetime',
 
@@ -117,8 +118,8 @@ final class Phone extends Model
             });
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
-        })->when($filters['phone'] ?? null, function (Builder $query, string $phone){
-            return $query->where('phone','like','%'. $phone .'%');
+        })->when($filters['address'] ?? null, function (Builder $query, string $address){
+            return $query->where('phone','like','%'. $address .'%');
         })->when($filters['customer_id'] ?? null, function (Builder $query, int $customer_id){
             return $query->where('customer_id','=', $customer_id);
         })->when($filters['customer'] ?? null, function (Builder $query, string $customer) {

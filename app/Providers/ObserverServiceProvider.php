@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Address;
 use App\Models\Customer;
 use App\Models\DeliveryComment;
 
@@ -61,6 +62,7 @@ use App\Models\Permission;
 
 use App\Models\WarehouseItem;
 
+use App\Observers\AddressObserver;
 use App\Observers\CustomerObserver;
 use App\Observers\DeliveryCommentObserver;
 
@@ -190,5 +192,7 @@ final class ObserverServiceProvider extends ServiceProvider
         Tracking::observe(TrackingObserver::class);
 
         Phone::observe(PhoneObserver::class);
+
+        Address::observe(AddressObserver::class);
     }
 }

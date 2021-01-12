@@ -6,7 +6,7 @@ use Illuminate\Validation\Rule;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-final class Phones extends FormRequest
+final class Addresses extends FormRequest
 {
     /**
      * @return bool
@@ -22,7 +22,7 @@ final class Phones extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'dashboard.phones.index' => [
+            'dashboard.addresses.index' => [
                 'search' => [
                     'nullable',
 
@@ -61,7 +61,7 @@ final class Phones extends FormRequest
                     Rule::exists('customers','id'),
                 ],
 
-                'phone' => [
+                'address' => [
                     'nullable',
 
                     'string',
@@ -71,13 +71,10 @@ final class Phones extends FormRequest
                     'nullable',
 
                     'string',
-
-                    // @todo filtering columns in keys
                 ],
-
             ],
 
-            'dashboard.phones.store' => [
+            'dashboard.addresses.store' => [
                 'customer_id' => [
                     'required',
 
@@ -86,7 +83,7 @@ final class Phones extends FormRequest
                     Rule::exists('customers', 'id')
                 ],
 
-                'phone' => [
+                'address' => [
                     'required',
 
                     'string',
@@ -107,7 +104,7 @@ final class Phones extends FormRequest
                 ],
             ],
 
-            'dashboard.phones.update' => [
+            'dashboard.addresses.update' => [
                 'customer_id' => [
                     'required',
 
@@ -116,7 +113,7 @@ final class Phones extends FormRequest
                     Rule::exists('customers', 'id')
                 ],
 
-                'phone' => [
+                'address' => [
                     'required',
 
                     'string'
