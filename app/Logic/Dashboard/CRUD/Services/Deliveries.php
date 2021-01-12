@@ -70,7 +70,7 @@ final class Deliveries
             return [
                 'id' => $delivery->id,
 
-                'customer'=> $delivery->customer()->with(['phones'])->get(),
+                'customer'=> $delivery->customer()->with(['phones', 'addresses'])->get(),
 
                 'driver' => $delivery->driver,
 
@@ -95,7 +95,7 @@ final class Deliveries
         return [
             'id' => $delivery->id,
 
-            'customer'=> $delivery->customer()->with(['phones'])->get(),
+            'customer'=> $delivery->customer()->with(['phones', 'addresses'])->get(),
 
             'driver' => $delivery->driver,
 
@@ -104,7 +104,6 @@ final class Deliveries
             'created_at' => $delivery->created_at,
 
             'updated_at' => $delivery->updated_at,
-
         ];
     }
 
@@ -144,6 +143,8 @@ final class Deliveries
 
     /**
      * @param $id
+     *
+     * @return array|int
      */
     public function deleteDelivery($id)
     {

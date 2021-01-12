@@ -78,6 +78,8 @@ final class Phones
                 'created_at' => $phone->created_at,
 
                 'updated_at' => $phone->updated_at,
+
+                'customer' => $phone->customer,
             ];
         });
 
@@ -101,6 +103,8 @@ final class Phones
             'created_at' => $phone->created_at,
 
             'updated_at' => $phone->updated_at,
+
+            'customer' => $phone->customer,
         ];
     }
 

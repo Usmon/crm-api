@@ -54,6 +54,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property-read HasMany $phones
  *
+ * @property-read HasMany $addresses
+ *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
  * @method static Builder|self filter(array $filters)
@@ -147,6 +149,14 @@ final class Customer extends Model
     public function phones(): HasMany
     {
         return $this->hasMany(Phone::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function addresses(): HasMany
+    {
+        return $this->hasMany(Address::class);
     }
 
     /**
