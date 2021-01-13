@@ -6,6 +6,8 @@ use App\Models\Order;
 
 use App\Models\Delivery;
 
+use App\Models\Shipment;
+
 final class Statuses
 {
     /**
@@ -30,5 +32,13 @@ final class Statuses
     public function getPaymentStatusOrders(): array
     {
         return Order::PAYMENT_STATUSES;
+    }
+
+    /**
+     * @return array
+     */
+    public function getStatusShipments(): array
+    {
+        return Shipment::STATUSES;
     }
 }
