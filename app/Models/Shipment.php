@@ -29,6 +29,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property Carbon|null $deleted_at
  *
+ * @const STATUSES
+ *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
  * @method static Builder|self filter(array $filters)
@@ -70,6 +72,14 @@ final class Shipment extends Model
         'updated_at' => 'datetime',
 
         'deleted_at' => 'datetime',
+    ];
+
+    const STATUSES = [
+        'pending',
+
+        'shipping',
+
+        'shipped',
     ];
 
     /**

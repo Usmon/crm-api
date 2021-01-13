@@ -56,4 +56,11 @@ final class Controller extends Controllers
             'payment_statuses' => $this->service->getPaymentStatusOrders(),
         ]);
     }
+
+    public function statusShipments(): JsonResponse
+    {
+        return Json::sendJsonWith200([
+            'statuses' => $this->service->getStatusShipments(),
+        ]);
+    }
 }
