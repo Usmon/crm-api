@@ -13,11 +13,13 @@ final class Shipments
     /**
      * @param array $filters
      *
+     * @param array $sorts
+     *
      * @return Paginator
      */
-    public function getShipments(array $filters):Paginator
+    public function getShipments(array $filters, array $sorts):Paginator
     {
-        return Shipment::filter($filters)->orderBy('created_at', 'desc')->pager();
+        return Shipment::filter($filters)->sort($sorts)->pager();
     }
 
     /**

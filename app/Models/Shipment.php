@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Traits\Sort\Sorter;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 use App\Traits\Pagination\Pager;
@@ -23,6 +25,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property string $status
  *
+ * @property integer $total_boxes
+ *
+ * @property double $total_weight_boxes
+ *
+ * @property integer $total_price_orders
+ *
  * @property Carbon|null $created_at
  *
  * @property Carbon|null $updated_at
@@ -30,6 +38,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Carbon|null $deleted_at
  *
  * @const STATUSES
+ *
+ * @property-read HasMany|null $orders
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
@@ -40,6 +50,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 final class Shipment extends Model
 {
     use Pager;
+    use Sorter;
     use HasFactory;
     use SoftDeletes;
 
@@ -54,7 +65,13 @@ final class Shipment extends Model
     protected $fillable = [
         'name',
 
-        'status'
+        'status',
+
+        'total_boxes',
+
+        'total_weight_boxes',
+
+        'total_price_orders',
     ];
 
     /**
@@ -66,6 +83,12 @@ final class Shipment extends Model
         'name' => 'string',
 
         'status' => 'string',
+
+        'total_boxes' => 'integer',
+
+        'total_weight_boxes' => 'float',
+
+        'total_price_orders' => 'double',
 
         'created_at' => 'datetime',
 
@@ -82,6 +105,37 @@ final class Shipment extends Model
         'shipped',
     ];
 
+    /**
+     * @return HasMany
+     */
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class)->with(['boxes']);
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalBoxesAttribute(): int
+    {
+        return $this->orders()->sum('total_boxes');
+    }
+
+    /**
+     * @return float
+     */
+    public function getTotalWeightBoxesAttribute(): float
+    {
+        return $this->orders()->sum('total_weight_boxes');
+    }
+
+    /**
+     * @return float
+     */
+    public function getTotalPriceOrdersAttribute(): float
+    {
+        return $this->orders()->sum('price');
+    }
     /**
      * @param Builder $query
      *

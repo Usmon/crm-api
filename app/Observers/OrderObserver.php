@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\Order;
 
+use App\Models\Shipment;
 use Illuminate\Support\Carbon;
 
 final class OrderObserver
@@ -68,7 +69,7 @@ final class OrderObserver
      *
      * @return void
      */
-    public function afterAddedBoxProperties(Order $order): void
+    public function afterAddedOrUpdatedOrDeletedBoxProperties(Order $order): void
     {
         $order->total_boxes = $order->totalBoxes;
 
@@ -77,5 +78,11 @@ final class OrderObserver
         $order->total_delivered_boxes = $order->totalDeliveredBoxes;
 
         $order->update();
+
+        $shipment = Shipment::find($order->shipment_id);
+
+        $shipmentObserver = new ShipmentObserver();
+
+        $shipmentObserver->afterAddedOrUpdatedOrDeletedBoxProperties($shipment);
     }
 }

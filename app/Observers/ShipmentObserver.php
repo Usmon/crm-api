@@ -51,4 +51,18 @@ final class ShipmentObserver
 
         $shipment->deleted_at = $shipment->deleted_at ?? null;
     }
+
+    /**
+     * @param Shipment $shipment
+     */
+    public function afterAddedOrUpdatedOrDeletedBoxProperties(Shipment $shipment): void
+    {
+        $shipment->total_boxes = $shipment->getTotalBoxesAttribute();
+
+        $shipment->total_weight_boxes = $shipment->getTotalWeightBoxesAttribute();
+
+        $shipment->total_price_orders = $shipment->getTotalPriceOrdersAttribute();
+
+        $shipment->update();
+    }
 }

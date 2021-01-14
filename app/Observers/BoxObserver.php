@@ -108,7 +108,7 @@ class BoxObserver
 
         $orderObserver = new OrderObserver();
 
-        $orderObserver->afterAddedBoxProperties($order);
+        $orderObserver->afterAddedOrUpdatedOrDeletedBoxProperties($order);
     }
 
 }

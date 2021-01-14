@@ -25,6 +25,12 @@ final class CreateShipmentsTable extends Migration
 
             $table->enum('status',['pending', 'shipping', 'shipped']);
 
+            $table->integer('total_boxes')->default(0);
+
+            $table->double('total_weight_boxes')->default(0);
+
+            $table->double('total_price_orders')->default(0);
+
             $table->timestamp('created_at')->nullable();
 
             $table->timestamp('updated_at')->nullable();
