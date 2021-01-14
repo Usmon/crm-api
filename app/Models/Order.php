@@ -269,6 +269,14 @@ final class Order extends Model
     }
 
     /**
+     * @return float
+     */
+    public function getTotalPriceBoxesAttribute(): float
+    {
+        return $this->boxes()->sum('price');
+    }
+
+    /**
      * @param Builder $query
      *
      * @param string $key

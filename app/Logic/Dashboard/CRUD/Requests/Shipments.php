@@ -22,7 +22,7 @@ final class Shipments extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'dashboard.shipments.index' => [
+            'dashboard.shipments.shipment.index' => [
                 'search' => [
                     'nullable',
 
@@ -66,7 +66,7 @@ final class Shipments extends FormRequest
                 ],
             ],
 
-            'dashboard.shipments.store' => [
+            'dashboard.shipments.shipment.store' => [
                 'name' => [
                     'required',
 
@@ -96,7 +96,7 @@ final class Shipments extends FormRequest
                 ],
             ],
 
-            'dashboard.shipments.update' => [
+            'dashboard.shipments.shipment.update' => [
                 'name' => [
                     'required',
 

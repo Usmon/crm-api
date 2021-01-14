@@ -193,7 +193,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
 
     Route::group(['prefix' => 'shipments', 'as' => 'shipments.'], function(){
 
-        Route::apiResource('/', DashboardShipmentsController::class);
+        Route::apiResource('shipment', DashboardShipmentsController::class);
 
         Route::apiResource('comments', DashboardShipmentCommentsController::class);
 

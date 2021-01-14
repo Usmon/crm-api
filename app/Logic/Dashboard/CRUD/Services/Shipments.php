@@ -4,9 +4,9 @@ namespace App\Logic\Dashboard\CRUD\Services;
 
 use App\Models\Shipment;
 
-use App\Logic\Dashboard\CRUD\Requests\Shipments as ShipmentsRequest;
-
 use Illuminate\Contracts\Pagination\Paginator;
+
+use App\Logic\Dashboard\CRUD\Requests\Shipments as ShipmentsRequest;
 
 final class Shipments
 {
@@ -39,6 +39,26 @@ final class Shipments
     }
 
     /**
+     * @param ShipmentsRequest $request
+     *
+     * @return array
+     */
+    public function getAllSorts(ShipmentsRequest $request): array
+    {
+        return $request->json('sort') ?? [];
+    }
+
+    /**
+     * @param ShipmentsRequest $request
+     *
+     * @return array
+     */
+    public function getOnlySorts(ShipmentsRequest $request): array
+    {
+        return $request->only('sort');
+    }
+
+    /**
      * @param Paginator $paginator
      *
      * @return Paginator
@@ -56,6 +76,12 @@ final class Shipments
                 'created_at' => $shipment->created_at,
 
                 'updated_at' => $shipment->updated_at,
+
+                'total_boxes' => $shipment->total_boxes,
+
+                'total_weight_boxes' => $shipment->total_weight_boxes,
+
+                'total_price_orders' => $shipment->total_price_orders,
             ];
         });
 
@@ -79,6 +105,14 @@ final class Shipments
             'created_at' => $shipment->created_at,
 
             'updated_at' => $shipment->updated_at,
+
+            'total_boxes' => $shipment->total_boxes,
+
+            'total_weight_boxes' => $shipment->total_weight_boxes,
+
+            'total_price_orders' => $shipment->total_price_orders,
+
+            'orders' => $shipment->orders,
         ];
     }
 
