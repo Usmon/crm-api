@@ -22,7 +22,7 @@ final class OrderUsers extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'dashboard.order-users.index' => [
+            'dashboard.orders.users.index' => [
                 'search' => [
                     'nullable',
 
@@ -70,7 +70,7 @@ final class OrderUsers extends FormRequest
                 ],
             ],
 
-            'dashboard.order-users.store' => [
+            'dashboard.orders.users.store' => [
                 'user_id' => [
                     'required',
 
@@ -102,7 +102,7 @@ final class OrderUsers extends FormRequest
                 ],
             ],
 
-            'dashboard.order-users.update' => [
+            'dashboard.orders.users.update' => [
                 'user_id' => [
                     'required',
 
