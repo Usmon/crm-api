@@ -14,18 +14,16 @@ use Illuminate\Database\Eloquent\Builder;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-use Illuminate\Database\Eloquent\Relations\HasOne;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * App\Models\Address
+ * App\Models\ShipmentStatus
  *
  * @property integer $id
  *
- * @property integer $customer_id
+ * @property string $name
  *
- * @property string $address
+ * @property array $color
  *
  * @property Carbon|null $created_at
  *
@@ -33,17 +31,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property Carbon|null $deleted_at
  *
- * @property int|null $deleted_by
- *
- * @property-read HasOne|null $customer
- *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
  * @method static Builder|self filter(array $filters)
  *
  * @mixin Model
  */
-final class Address extends Model
+final class ShipmentStatus extends Model
 {
     use Pager;
     use Sorter;
@@ -53,41 +47,40 @@ final class Address extends Model
     /**
      * @var string
      */
-    protected $table = 'addresses';
+    protected $table = 'shipment_statuses';
 
     /**
      * @var array
      */
     protected $fillable = [
-        'customer_id',
+        'name',
 
-        'address',
+        'color',
     ];
 
     /**
      * @var array
      */
     protected $casts = [
-        'customer_id' => 'integer',
+        'name' => 'string',
 
-        'address' => 'string',
+        'color' => 'array',
 
         'created_at' => 'datetime',
 
         'updated_at' => 'datetime',
 
         'deleted_at' => 'datetime',
-
-        'deleted_by' => 'integer',
     ];
 
     /**
-     * @return HasOne
+     * @var array
      */
-    protected function customer():HasOne
-    {
-        return $this->hasOne(Customer::class,'id','customer_id');
-    }
+    public const DEFAULT_COLOR = [
+        'bg' => null,
+
+        'text' => null,
+    ];
 
     /**
      * @param Builder $query
@@ -114,19 +107,12 @@ final class Address extends Model
     {
         return $query->when($filters['search'] ?? null, function (Builder $query, string $search) {
             return $query->where(function (Builder $query) use ($search) {
-                return $query->where('phone', 'like', '%' . $search . '%');
+                return $query->where('name', 'like', '%' . $search . '%');
             });
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
-        })->when($filters['address'] ?? null, function (Builder $query, string $address){
-            return $query->where('phone','like','%'. $address .'%');
-        })->when($filters['customer_id'] ?? null, function (Builder $query, int $customer_id){
-            return $query->where('customer_id','=', $customer_id);
-        })->when($filters['customer'] ?? null, function (Builder $query, string $customer) {
-            return $query->whereHas('customer', function (Builder $query) use ($customer) {
-                $query->where('passport', 'like', '%' . $customer . '%')
-                    ->orWhere('note', 'like', '%' . $customer . '%');
-            });
+        })->when($filters['name'] ?? null, function (Builder $query, string $name){
+            return $query->where('name','like','%'. $name .'%');
         });
     }
 }

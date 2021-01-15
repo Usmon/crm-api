@@ -27,6 +27,7 @@ use App\Models\Shipment;
 
 use App\Models\FedexOrder;
 
+use App\Models\ShipmentStatus;
 use App\Models\ShipmentUser;
 
 use App\Models\ShipmentComment;
@@ -86,6 +87,7 @@ use App\Observers\SenderObserver;
 use App\Observers\ShipmentCommentObserver;
 use App\Observers\ShipmentObserver;
 
+use App\Observers\ShipmentStatusObserver;
 use App\Observers\ShipmentUserObserver;
 use App\Observers\SpendingCategoryObserver;
 
@@ -194,5 +196,7 @@ final class ObserverServiceProvider extends ServiceProvider
         Phone::observe(PhoneObserver::class);
 
         Address::observe(AddressObserver::class);
+
+        ShipmentStatus::observe(ShipmentStatusObserver::class);
     }
 }
