@@ -13,9 +13,9 @@ final class Senders
      *
      * @return Paginator
      */
-    public function getSenders(array $filters): Paginator
+    public function getSenders(array $filters, array $sorts): Paginator
     {
-        return Sender::filter($filters)->orderBy('created_at', 'desc')->pager();
+        return Sender::filter($filters)->sort($sorts)->pager();
     }
 
     /**
