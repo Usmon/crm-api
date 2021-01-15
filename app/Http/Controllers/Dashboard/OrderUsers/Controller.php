@@ -52,7 +52,7 @@ final class Controller extends Controllers
         return Json::sendJsonWith200([
             'filters' => $this->service->getAllFilters($request),
 
-            'order-users' => $this->service->getOrderUsers($this->repository->getOrderUsers($this->service->getOnlyFilters($request))),
+            'users' => $this->service->getOrderUsers($this->repository->getOrderUsers($this->service->getOnlyFilters($request))),
         ]);
     }
 
@@ -64,37 +64,37 @@ final class Controller extends Controllers
     public function store(OrderUsersRequest $request): JsonResponse
     {
         return Json::sendJsonWith200([
-            'message' => 'The order-user was successfully created.',
+            'message' => 'The order was successfully created.',
 
-            'order-user' => $this->repository->storeOrderUser($this->service->storeCredentials($request)),
+            'user' => $this->repository->storeOrderUser($this->service->storeCredentials($request)),
         ]);
     }
 
     /**
-     * @param OrderUser $orderUser
+     * @param OrderUser $user
      *
      * @return JsonResponse
      */
-    public function show(OrderUser $orderUser): JsonResponse
+    public function show(OrderUser $user): JsonResponse
     {
         return Json::sendJsonWith200([
-            'order-user' => $this->service->showOrderUser($orderUser),
+            'user' => $this->service->showOrderUser($user),
         ]);
     }
 
     /**
      * @param OrderUsersRequest $request
      *
-     * @param OrderUser $orderUser
+     * @param OrderUser $user
      *
      * @return JsonResponse
      */
-    public function update(OrderUsersRequest $request, OrderUser $orderUser): JsonResponse
+    public function update(OrderUsersRequest $request, OrderUser $user): JsonResponse
     {
         return Json::sendJsonWith200([
-            'message' => 'The order-user was successfully updated.',
+            'message' => 'The order user was successfully updated.',
 
-            'order-user' => $this->repository->updateOrderUser($orderUser, $this->service->updateCredentials($request)),
+            'user' => $this->repository->updateOrderUser($user, $this->service->updateCredentials($request)),
         ]);
     }
 
@@ -109,14 +109,14 @@ final class Controller extends Controllers
 
         if(!$id){
             return Json::sendJsonWith409([
-                'message' => 'Failed to delete order-user, parameters does not match.',
+                'message' => 'Failed to delete user, parameters does not match.',
             ]);
         }
 
         $this->repository->deleteOrderUser($id);
 
         return Json::sendJsonWith200([
-            'message' => 'The order-user was successfully deleted.',
+            'message' => 'The ouser was successfully deleted.',
         ]);
     }
 }
