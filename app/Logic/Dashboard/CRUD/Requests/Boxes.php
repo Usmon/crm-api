@@ -53,12 +53,36 @@ final class Boxes extends FormRequest
                     'after:date.from'
                 ],
 
-                'status' => [
+                'order_id' => [
                     'nullable',
 
-                    'string',
+                    'integer',
 
-                    'max:255',
+                    Rule::exists('orders','id'),
+                ],
+
+                'customer_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('users', 'id'),
+                ],
+
+                'sender_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('senders', 'id'),
+                ],
+
+                'recipient_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('recipients', 'id'),
                 ],
 
                 'weight' => [
@@ -76,6 +100,40 @@ final class Boxes extends FormRequest
 
                     'min:0'
                 ],
+
+                'order' => [
+                    'nullable',
+
+                    'string',
+                ],
+
+                'customer' => [
+                    'nullable',
+
+                    'string',
+                ],
+
+                'sender' => [
+                    'nullable',
+
+                    'string',
+                ],
+
+                'recipient' => [
+                    'nullable',
+
+                    'string',
+                ],
+
+                'status' => [
+                    'nullable',
+
+                    'string',
+
+                    'max:255',
+                ],
+
+
             ],
 
             'dashboard.boxes.store' => [

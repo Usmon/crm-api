@@ -24,11 +24,27 @@ final class Boxes
 
             'date' => $request->json('date'),
 
+            'order_id' => $request->json('order_id'),
+
+            'customer_id' => $request->json('customer_id'),
+
+            'sender_id' => $request->json('sender_id'),
+
+            'recipient_id' => $request->json('recipient_id'),
+
             'status' => $request->json('status'),
 
             'weight' => $request->json('weight'),
 
             'additional_weight' => $request->json('additional_weight'),
+
+            'order' => $request->json('order'),
+
+            'customer' => $request->json('customer'),
+
+            'sender' => $request->json('sender'),
+
+            'recipient' => $request->json('recipient'),
         ];
     }
 
@@ -39,8 +55,30 @@ final class Boxes
      */
     public function getOnlyFilters(BoxesRequest $request): array
     {
-        return $request->only('search', 'date', 'status', 'weight', 'additional_');
+        return $request->only('search', 'date','order_id','customer_id','sender_id',
+        'recipient_id','status', 'weight', 'additional_weight','order','customer','sender','recipient' );
     }
+
+    /**
+     * @param BoxesRequest $request
+     *
+     * @return array
+     */
+    public function getAllSorts(BoxesRequest $request): array
+    {
+        return $request->json('sort') ?? [];
+    }
+
+    /**
+     * @param BoxesRequest $request
+     *
+     * @return array
+     */
+    public function getOnlySorts(BoxesRequest $request): array
+    {
+        return $request->only('sort');
+    }
+
 
     /**
      * @param Paginator $paginator
@@ -72,6 +110,14 @@ final class Boxes
                 'created_at' => $box->created_at,
 
                 'updated_at' => $box->updated_at,
+
+                'order' => $box->order,
+
+                'customer' => $box->customer,
+
+                'sender' => $box->sender,
+
+                'recipient' => $box->recipient,
             ];
         });
 
@@ -107,6 +153,14 @@ final class Boxes
             'created_at' => $box->created_at,
 
             'updated_at' => $box->updated_at,
+
+            'order' => $box->order,
+
+            'customer' => $box->customer,
+
+            'sender' => $box->sender,
+
+            'recipient' => $box->recipient,
 
         ];
     }
