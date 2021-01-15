@@ -88,6 +88,8 @@ use App\Http\Controllers\Dashboard\Phones\Controller as DashboardPhonesControlle
 
 use App\Http\Controllers\Dashboard\Addresses\Controller as DashboardAddressesController;
 
+use App\Http\Controllers\Dashboard\ShipmentStatuses\Controller as DashboardShipmentStatusesController;
+
 /*
 |--------------------------------------------------------------
 ------------
@@ -199,6 +201,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
 
         Route::apiResource('users', DashboardShipmentUsersController::class);
 
+        Route::apiResource('statuses', DashboardShipmentStatusesController::class);
     });
 
     Route::group(['prefix'=> 'boxes', 'as' => 'boxes.'], function(){
@@ -206,7 +209,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
         Route::apiResource('/', DashboardBoxesController::class);
 
         Route::apiResource('items', DashboardBoxItemsController::class);
-
     });
 
     Route::group(['prefix' => 'spendings', 'as' => 'spendings.'], function(){
