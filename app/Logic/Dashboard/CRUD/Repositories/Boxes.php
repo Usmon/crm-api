@@ -17,9 +17,9 @@ final class Boxes
      *
      * @return Paginator
      */
-    public function getBoxes(array $filters): Paginator
+    public function getBoxes(array $filters, array $sorts): Paginator
     {
-        return Box::filter($filters)->orderBy('created_at', 'desc')->pager();
+        return Box::filter($filters)->sort($sorts)->pager();
     }
 
     /**
