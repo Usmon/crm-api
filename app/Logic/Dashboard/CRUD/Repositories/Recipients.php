@@ -13,9 +13,9 @@ final class Recipients
      *
      * @return Paginator
      */
-    public function getRecipients(array $filters): Paginator
+    public function getRecipients(array $filters, array $sorts): Paginator
     {
-        return Recipient::filter($filters)->orderBy('created_at', 'desc')->pager();
+        return Recipient::filter($filters)->sort($sorts)->pager();
     }
 
     /**

@@ -25,6 +25,8 @@ final class Recipients
             'customer_id' => $request->json('customer_id'),
 
             'address' => $request->json('address'),
+
+            'customer' => $request->json('customer'),
         ];
     }
 
@@ -35,7 +37,27 @@ final class Recipients
      */
     public function getOnlyFilters(RecipientsRequest $request): array
     {
-        return $request->only('search', 'date', 'customer_id', 'address');
+        return $request->only('search', 'date', 'customer_id', 'address','customer');
+    }
+
+    /**
+     * @param RecipientsRequest $request
+     *
+     * @return array
+     */
+    public function getAllSorts(RecipientsRequest $request): array
+    {
+        return $request->json('sort') ?? [];
+    }
+
+    /**
+     * @param RecipientsRequest $request
+     *
+     * @return array
+     */
+    public function getOnlySorts(RecipientsRequest $request): array
+    {
+        return $request->only('sort');
     }
 
     /**
