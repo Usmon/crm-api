@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Traits\Sort\Sorter;
+
 use Illuminate\Support\Carbon;
 
 use App\Traits\Pagination\Pager;
@@ -44,6 +46,7 @@ final class Sender extends Model
     use Pager;
     use HasFactory;
     use SoftDeletes;
+    use Sorter;
 
     /**
      * @var string
@@ -115,6 +118,12 @@ final class Sender extends Model
             return $query->where('address','like','%'. $address .'%');
         })->when($filters['customer_id'] ?? null, function (Builder $query, int $customer_id){
             return $query->where('customer_id','=', $customer_id);
+        })->when($filters['customer'] ?? null, function (Builder $query, string $customer) {
+            return $query->whereHas('customer', function (Builder $query) use ($customer) {
+                $query->orWhere('login', 'like', '%'.$customer.'%')
+                    ->orWhere('email', 'like', '%'.$customer.'%')
+                    ->orWhere('profile', 'like', '%'. $customer.'%');
+            });
         });
     }
 }

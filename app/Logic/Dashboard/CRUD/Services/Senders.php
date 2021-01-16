@@ -25,6 +25,8 @@ final class Senders
             'customer_id' => $request->json('customer_id'),
 
             'address' => $request->json('address'),
+
+            'customer' => $request->json('customer'),
         ];
     }
 
@@ -35,7 +37,27 @@ final class Senders
      */
     public function getOnlyFilters(SendersRequest $request): array
     {
-        return $request->only('search', 'date', 'customer_id', 'address');
+        return $request->only('search', 'date', 'customer_id', 'address', 'customer');
+    }
+
+    /**
+     * @param SendersRequest $request
+     *
+     * @return array
+     */
+    public function getAllSorts(SendersRequest $request): array
+    {
+        return $request->json('sort') ?? [];
+    }
+
+    /**
+     * @param SendersRequest $request
+     *
+     * @return array
+     */
+    public function getOnlySorts(SendersRequest $request): array
+    {
+        return $request->only('sort');
     }
 
     /**
