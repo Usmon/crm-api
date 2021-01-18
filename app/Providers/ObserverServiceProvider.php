@@ -17,6 +17,7 @@ use App\Models\OrderComment;
 
 use App\Models\OrderUser;
 use App\Models\Phone;
+use App\Models\Product;
 use App\Models\Project;
 
 use App\Models\Recipient;
@@ -78,6 +79,7 @@ use App\Observers\OrderObserver;
 
 use App\Observers\OrderUserObserver;
 use App\Observers\PhoneObserver;
+use App\Observers\ProductObserver;
 use App\Observers\ProjectObserver;
 
 use App\Observers\RecipientObserver;
@@ -198,5 +200,7 @@ final class ObserverServiceProvider extends ServiceProvider
         Address::observe(AddressObserver::class);
 
         ShipmentStatus::observe(ShipmentStatusObserver::class);
+
+        Product::observe(ProductObserver::class);
     }
 }
