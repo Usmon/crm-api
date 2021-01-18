@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -44,6 +46,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Carbon|null $deleted_at
  *
  * @property integer $deleted_by
+ *
+ * @property-read HasOne $order
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
@@ -136,6 +140,14 @@ final class Product extends Model
     ];
 
     /**
+     * @return HasOne
+     */
+    public function order(): HasOne
+    {
+        return $this->hasOne(Order::class,'id','order_id');
+    }
+
+    /**
      * @param Builder $query
      *
      * @param string $key
@@ -161,7 +173,8 @@ final class Product extends Model
         return $query->when($filters['search'] ?? null, function (Builder $query, string $search) {
             return $query->where(function (Builder $query) use ($search) {
                 return $query->where('name', 'like', '%' . $search . '%')
-                    ->orWhere('status','like','%'. $search .'%');
+                    ->orWhere('status','like','%'. $search .'%')
+                    ->orWhere('note','like','%'. $search .'%');
             });
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
                 return $query->whereBetween('created_at', $date);
@@ -169,6 +182,18 @@ final class Product extends Model
                 return $query->where('name', 'like', '%'. $name .'%');
         })->when($filters['status'] ?? null, function (Builder $query, string $status) {
             return $query->where('status', 'like', '%' . $status . '%');
+        })->when($filters['order_id'] ?? null, function (Builder $query, integer $orderId) {
+            return $query->where('order_id', '=', $orderId);
+        })->when($filters['quantity'] ?? null, function (Builder $query, array $quantity) {
+            return $query->whereBetween('quantity', $quantity);
+        })->when($filters['price'] ?? null, function (Builder $query, array $price) {
+            return $query->whereBetween('price', $price);
+        })->when($filters['weight'] ?? null, function (Builder $query, array $weight) {
+            return $query->whereBetween('weight', $weight);
+        })->when($filters['type_weight'] ?? null, function (Builder $query, string $typeWeight) {
+            return $query->where('type_weight', $typeWeight);
+        })->when($filters['note'] ?? null, function (Builder $query, string $note) {
+            return $query->where('note', 'like', '%'. $note .'%');
         });
     }
 }
