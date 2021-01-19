@@ -90,6 +90,8 @@ use App\Http\Controllers\Dashboard\Addresses\Controller as DashboardAddressesCon
 
 use App\Http\Controllers\Dashboard\ShipmentStatuses\Controller as DashboardShipmentStatusesController;
 
+use App\Http\Controllers\Dashboard\Products\Controller as DashboardProductsController;
+
 /*
 |--------------------------------------------------------------
 ------------
@@ -240,4 +242,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     Route::apiResource('phones', DashboardPhonesController::class);
 
     Route::apiResource('addresses', DashboardAddressesController::class);
+
+    Route::apiResource('products', DashboardProductsController::class);
 });
