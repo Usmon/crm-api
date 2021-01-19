@@ -182,7 +182,7 @@ final class Product extends Model
                 return $query->where('name', 'like', '%'. $name .'%');
         })->when($filters['status'] ?? null, function (Builder $query, string $status) {
             return $query->where('status', 'like', '%' . $status . '%');
-        })->when($filters['order_id'] ?? null, function (Builder $query, integer $orderId) {
+        })->when($filters['order_id'] ?? null, function (Builder $query, int $orderId) {
             return $query->where('order_id', '=', $orderId);
         })->when($filters['quantity'] ?? null, function (Builder $query, array $quantity) {
             return $query->whereBetween('quantity', $quantity);
