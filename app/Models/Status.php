@@ -65,7 +65,7 @@ final class Status extends Model
 
         'value',
 
-        'parameters'
+        'parameters',
     ];
 
     /**

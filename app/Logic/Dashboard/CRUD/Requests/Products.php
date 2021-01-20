@@ -191,6 +191,10 @@ final class Products extends FormRequest
                     'in:lb,kg'
                 ],
 
+                'image' => [
+                    'string',
+                ],
+
                 'note' => [
                     'required',
 
@@ -255,6 +259,10 @@ final class Products extends FormRequest
                     'required',
 
                     'in:lb,kg'
+                ],
+
+                'image' => [
+                    'string',
                 ],
 
                 'note' => [

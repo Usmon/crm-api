@@ -96,6 +96,8 @@ final class Products
 
                 'type_weight' => $product->type_weight,
 
+                'image' => $product->image,
+
                 'note' => $product->note,
 
                 'created_at' => $product->created_at,
@@ -133,6 +135,8 @@ final class Products
 
             'type_weight' => $product->type_weight,
 
+            'image' => $product->image,
+
             'note' => $product->note,
 
             'created_at' => $product->created_at,
@@ -165,6 +169,8 @@ final class Products
 
             'type_weight' => $request->json('type_weight'),
 
+            'image' => $request->json('image'),
+
             'note' => $request->json('note'),
         ];
     }
@@ -190,6 +196,8 @@ final class Products
             'weight' => $request->json('weight'),
 
             'type_weight' => $request->json('type_weight'),
+
+            'image' => $request->json('image'),
 
             'note' => $request->json('note'),
         ];

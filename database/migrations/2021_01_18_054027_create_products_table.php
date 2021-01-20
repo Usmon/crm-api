@@ -53,6 +53,8 @@ final class CreateProductsTable extends Migration
 
             $table->enum('type_weight',['lb','kg']);
 
+            $table->string('image')->nullable();
+
             $table->string('note')->nullable();
 
             $table->timestamp('created_at')->nullable();
