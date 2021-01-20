@@ -109,6 +109,10 @@ final class Order extends Model
         'pickup_id',
 
         'shipment_id',
+        
+        'sender_id',
+
+        'recipient_id',
 
         'price',
 
@@ -140,6 +144,10 @@ final class Order extends Model
         'pickup_id' => 'integer',
 
         'shipment_id' => 'integer',
+
+        'sender_id' => 'integer',
+
+        'recipient_id' => 'integer',
 
         'price' => 'double',
 
@@ -242,6 +250,30 @@ final class Order extends Model
     public function boxes(): HasMany
     {
         return $this->hasMany(Box::class);
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function sender(): HasOne
+    {
+        return $this->hasOne(Sender::class, 'id', 'sender_id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function recipient(): HasOne
+    {
+        return $this->hasOne(Recipient::class, 'id', 'recipient_id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class, 'order_id', 'id');
     }
 
     /**

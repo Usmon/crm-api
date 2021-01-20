@@ -4,7 +4,8 @@ namespace Database\Factories;
 
 use App\Models\FedexOrder;
 use App\Models\Order;
-
+use App\Models\Sender;
+use App\Models\Recipient;
 use App\Models\Pickup;
 use App\Models\Shipment;
 use App\Models\User;
@@ -31,6 +32,10 @@ final class OrderFactory extends Factory
         $pickupsId = Pickup::all(['id']);
 
         $shipmentsId = Shipment::all(['id']);
+        
+        $sender = Sender::all(['id']);
+
+        $recipient = Recipient::all(['id']);
 
         $status = ['created','picked_up','waiting','pending','shipping','shipped','delivering','delivered','canceled'];
 
@@ -47,6 +52,10 @@ final class OrderFactory extends Factory
             'pickup_id' => $pickupsId->random(),
 
             'shipment_id' => $shipmentsId->random(),
+
+            'sender_id' => $sender->random(),
+
+            'recipient_id' => $recipient->random(),
 
             'price' => random_int(100,10000)/100,
 

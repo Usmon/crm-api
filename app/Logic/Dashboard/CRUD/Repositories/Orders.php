@@ -4,6 +4,8 @@ namespace App\Logic\Dashboard\CRUD\Repositories;
 
 use App\Models\Order;
 
+use App\Models\Product;
+
 use Illuminate\Contracts\Pagination\Paginator;
 
 final class Orders
@@ -28,8 +30,24 @@ final class Orders
     public function storeOrder(array $credentials): Order
     {
         $order = Order::create($credentials);
+        
+        $this->storeProducts($order, $credentials['products']);
 
         return $order;
+    }
+
+    /**
+     * @param Order $order
+     * 
+     * @param array $products
+     * 
+     * @return void
+     */
+    public function storeProducts(Order $order, array $products): void
+    {
+        foreach ($products as $product) {
+            $order->products()->save(new Product($product));
+        }
     }
 
     /**

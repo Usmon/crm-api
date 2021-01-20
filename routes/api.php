@@ -171,7 +171,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
 
     Route::group(['prefix' => 'orders', 'as'=> 'orders.'], function () {
 
-        Route::apiResource('/', DashboardOrdersController::class);
+        Route::apiResource('order', DashboardOrdersController::class);
 
         Route::apiResource('users', DashboardOrderUsersController::class);
 

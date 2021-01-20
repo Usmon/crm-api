@@ -57,6 +57,8 @@ final class OrderObserver
      */
     protected function defaultProperties(Order $order): void
     {
+        $order->staff_id = $order->staff_id ?? auth()->user()->id;
+
         $order->created_at = $order->created_at ?? Carbon::now();
 
         $order->updated_at = $order->updated_at ?? Carbon::now();
