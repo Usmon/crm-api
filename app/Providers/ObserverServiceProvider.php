@@ -37,6 +37,7 @@ use App\Models\Spending;
 
 use App\Models\SpendingCategory;
 
+use App\Models\Status;
 use App\Models\Task;
 
 use App\Models\TaskFile;
@@ -95,6 +96,7 @@ use App\Observers\SpendingCategoryObserver;
 
 use App\Observers\SpendingObserver;
 
+use App\Observers\StatusObserver;
 use App\Observers\TaskFileObserver;
 
 use App\Observers\TaskObserver;
@@ -202,5 +204,7 @@ final class ObserverServiceProvider extends ServiceProvider
         ShipmentStatus::observe(ShipmentStatusObserver::class);
 
         Product::observe(ProductObserver::class);
+
+        Status::observe(StatusObserver::class);
     }
 }
