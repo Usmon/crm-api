@@ -243,6 +243,10 @@ final class Orders extends FormRequest
                     'string',
                 ],
 
+                'products.*.image' => [
+                    'string',
+                ],
+
                 'payment_status' => [
                     'required',
 
