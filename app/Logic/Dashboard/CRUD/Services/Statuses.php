@@ -85,6 +85,8 @@ final class Statuses
 
                 'value' => $status->value,
 
+                'image' => $status->image,
+
                 'parameters' => $status->parameters,
 
                 'created_at' => $status->created_at,
@@ -112,6 +114,8 @@ final class Statuses
 
             'value' => $status->value,
 
+            'image' => $status->image,
+
             'parameters' => $status->parameters,
 
             'created_at' => $status->created_at,
@@ -135,6 +139,8 @@ final class Statuses
             'value' => $request->json('value'),
 
             'parameters' => json_encode($request->json('parameters')),
+
+            'image' => $request->json('image'),
         ];
     }
 
@@ -153,6 +159,8 @@ final class Statuses
             'value' => $request->json('value'),
 
             'parameters' => json_encode($request->json('parameters')),
+
+            'image' => $request->json('image'),
         ];
     }
 

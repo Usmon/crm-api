@@ -31,6 +31,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property string $parameters
  *
+ * @property string $image
+ *
  * @property Carbon|null $created_at
  *
  * @property Carbon|null $updated_at
@@ -65,7 +67,9 @@ final class Status extends Model
 
         'value',
 
-        'parameters'
+        'parameters',
+
+        'image',
     ];
 
     /**
@@ -79,6 +83,8 @@ final class Status extends Model
         'value' => 'string',
 
         'parameters' => 'string',
+
+        'image' => 'string',
 
         'created_at' => 'datetime',
 
