@@ -67,6 +67,24 @@ final class Controller extends Controllers
      *
      * @return JsonResponse
      */
+    public function senderPhoneDisplay(SendersRequest $request): JsonResponse
+    {
+        return Json::sendJsonWith200([
+
+            'sender' => $this->service->getSenders($this->repository->getSenders(
+                $this->service->getOnlyPhone($request),
+
+                $this->service->getOnlySorts($request)
+            )),
+
+        ]);
+    }
+
+    /**
+     * @param SendersRequest $request
+     *
+     * @return JsonResponse
+     */
     public function store(SendersRequest $request): JsonResponse
     {
         return Json::sendJsonWith200([
