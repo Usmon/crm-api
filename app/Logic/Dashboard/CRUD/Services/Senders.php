@@ -26,7 +26,7 @@ final class Senders
 
             'address' => $request->json('address'),
 
-            'customer' => $request->json('customer'),
+            'phone' => $request->json('phone'),
         ];
     }
 
@@ -37,7 +37,17 @@ final class Senders
      */
     public function getOnlyFilters(SendersRequest $request): array
     {
-        return $request->only('search', 'date', 'customer_id', 'address', 'customer');
+        return $request->only('search', 'date', 'customer_id','address');
+    }
+
+    /**
+     * @param SendersRequest $request
+     *
+     * @return array
+     */
+    public function getOnlyPhone(SendersRequest $request): array
+    {
+        return $request->only('phone');
     }
 
     /**
@@ -71,7 +81,7 @@ final class Senders
             return [
                 'id' => $sender->id,
 
-                'customer_id' => $sender->customer_id,
+                'customer'=> $sender->customer()->with(['phones','addresses'])->get(),
 
                 'address' => $sender->address,
 
@@ -79,7 +89,7 @@ final class Senders
 
                 'updated_at' => $sender->updated_at,
 
-                'customer' => $sender->customer,
+
             ];
         });
         return $paginator;
@@ -95,15 +105,13 @@ final class Senders
         return [
             'id' => $sender->id,
 
-            'customer_id' => $sender->customer_id,
+            'customer' => $sender->customer()->with(['phones','addresses'])->get(),
 
             'address' => $sender->address,
 
             'created_at' => $sender->created_at,
 
             'updated_at' => $sender->updated_at,
-
-            'customer' => $sender->customer,
         ];
     }
 

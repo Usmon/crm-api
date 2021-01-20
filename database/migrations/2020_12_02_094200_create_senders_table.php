@@ -31,7 +31,9 @@ final class CreateSendersTable extends Migration
 
             $table->timestamp('deleted_at')->nullable();
 
-            $table->foreign('customer_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('customer_id')->references('id')->on('customers')->onUpdate('cascade')->onDelete('cascade');
+
+
         });
     }
 

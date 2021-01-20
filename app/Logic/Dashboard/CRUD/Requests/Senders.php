@@ -67,10 +67,19 @@ final class Senders extends FormRequest
                     Rule::exists('users','id'),
                 ],
 
-                'customer' => [
+                'sort.*' => [
                     'nullable',
 
-                    'customer',
+                    'string',
+                ],
+
+            ],
+
+            'dashboard.senders.' => [
+                'phone' => [
+                    'nullable',
+
+                    'string'
                 ],
             ],
 
