@@ -37,6 +37,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property string $type_weight
  *
+ * @property string $image
+ *
  * @property string $note
  *
  * @property Carbon|null $created_at
@@ -85,6 +87,8 @@ final class Product extends Model
 
         'type_weight',
 
+        'image',
+
         'note',
 
         'deleted_by'
@@ -127,6 +131,8 @@ final class Product extends Model
         'weight' => 'float',
 
         'type_weight' => 'string',
+
+        'image' => 'string',
 
         'note' => 'string',
 

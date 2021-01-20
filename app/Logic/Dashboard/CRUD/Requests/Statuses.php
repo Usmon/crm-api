@@ -107,10 +107,6 @@ final class Statuses extends FormRequest
                     'required',
                 ],
 
-                'image' => [
-                    'string',
-                ],
-
                 'permissions' => [
                     'required',
 
@@ -147,10 +143,6 @@ final class Statuses extends FormRequest
 
                 'parameters' => [
                     'required',
-                ],
-
-                'string' => [
-                    'string',
                 ],
 
                 'permissions' => [

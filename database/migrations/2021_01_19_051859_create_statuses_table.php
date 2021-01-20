@@ -29,8 +29,6 @@ final class CreateStatusesTable extends Migration
 
             $table->jsonb('parameters');
 
-            $table->string('image')->nullable();
-
             $table->timestamp('created_at')->nullable();
 
             $table->timestamp('updated_at')->nullable();
