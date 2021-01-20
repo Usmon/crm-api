@@ -68,10 +68,10 @@ final class Controller extends Controllers
      */
     public function store(OrdersRequest $request): JsonResponse
     {
-        return Json::sendJsonWith200([
+        return Json::sendJsonWith201([
             'message' => 'The order was successfully created.',
 
-            'order' => $this->repository->storeOrder($this->service->storeCredentials($request)),
+            'order' => $this->service->showOrder($this->repository->storeOrder($this->service->storeCredentials($request))),
         ]);
     }
 

@@ -22,7 +22,7 @@ final class Orders extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'dashboard.orders.index' => [
+            'dashboard.orders.order.index' => [
                 'search' => [
                     'nullable',
 
@@ -160,45 +160,21 @@ final class Orders extends FormRequest
                 ],
             ],
 
-            'dashboard.orders.store' => [
-                'staff_id' => [
+            'dashboard.orders.order.store' => [
+                'sender_id' => [
                     'required',
-
+                    
                     'integer',
 
-                    Rule::exists('users', 'id'),
+                    Rule::exists('senders', 'id')
                 ],
 
-                'customer_id' => [
+                'recipient_id' => [
                     'required',
-
+                    
                     'integer',
 
-                    Rule::exists('users', 'id'),
-                ],
-
-                'fedex_order_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('fedex_orders', 'id'),
-                ],
-
-                'pickup_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('pickups', 'id'),
-                ],
-
-                'shipment_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('shipments', 'id'),
+                    Rule::exists('recipients', 'id')
                 ],
 
                 'price' => [
@@ -225,6 +201,48 @@ final class Orders extends FormRequest
                     'in:created,picked_up,waiting,pending,shipping,shipped,delivering,delivered,canceled'
                 ],
 
+                'products' => [
+                    'required',
+                    
+                    'array',
+                ],
+
+                'products.*.name' => [
+                    'required',
+
+                    'string'
+                ],
+
+                'products.*.quantity' => [
+                    'required',
+
+                    'numeric'
+                ],
+
+                'products.*.price' => [
+                    'required',
+
+                    'numeric'
+                ],
+
+                'products.*.weight' => [
+                    'required',
+
+                    'numeric'
+                ],
+
+                'products.*.type_weight' => [
+                    'required',
+
+                    'string',
+
+                    Rule::in(['lb', 'kg'])
+                ],
+
+                'products.*.note' => [
+                    'string',
+                ],
+
                 'payment_status' => [
                     'required',
 
@@ -233,22 +251,9 @@ final class Orders extends FormRequest
                     'in:payed,debt'
                 ],
 
-                'permissions' => [
-                    'required',
-
-                    'array',
-                ],
-
-                'permissions.*' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('permissions', 'id'),
-                ],
             ],
 
-            'dashboard.orders.update' => [
+            'dashboard.orders.order.update' => [
                 'staff_id' => [
                     'required',
 
@@ -294,7 +299,7 @@ final class Orders extends FormRequest
 
                     'numeric',
 
-                    'min:0',
+                    'min:0'
                 ],
 
                 'payed_price' => [

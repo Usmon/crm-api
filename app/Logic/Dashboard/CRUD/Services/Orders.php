@@ -187,6 +187,12 @@ final class Orders
 
             'boxes' => $order->boxes,
 
+            'products' => $order->products,
+
+            'sender' => $order->sender,
+
+            'recipient' => $order->recipient,
+
             'total_boxes' => $order->total_boxes,
 
             'total_weight_boxes' => $order->total_weight_boxes,
@@ -203,15 +209,11 @@ final class Orders
     public function storeCredentials(OrdersRequest $request): array
     {
         return [
-            'staff_id' => $request->json('staff_id'),
+            'sender_id' => $request->json('sender_id'),
+            
+            'recipient_id' => $request->json('recipient_id'),
 
-            'customer_id' => $request->json('customer_id'),
-
-            'fedex_order_id' => $request->json('fedex_order_id'),
-
-            'pickup_id' => $request->json('pickup_id'),
-
-            'shipment_id' => $request->json('shipment_id'),
+            'products' => $request->json('products'),
 
             'price' => $request->json('price'),
 
