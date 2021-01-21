@@ -26,7 +26,7 @@ final class Recipients
 
             'address' => $request->json('address'),
 
-            'customer' => $request->json('customer'),
+            'phone' => $request->json('phone'),
         ];
     }
 
@@ -37,7 +37,17 @@ final class Recipients
      */
     public function getOnlyFilters(RecipientsRequest $request): array
     {
-        return $request->only('search', 'date', 'customer_id', 'address','customer');
+        return $request->only('search', 'date', 'customer_id', 'address','phone');
+    }
+
+    /**
+     * @param RecipientsRequest $request
+     *
+     * @return array
+     */
+    public function getOnlyPhone(RecipientsRequest $request): array
+    {
+        return $request->only('phone');
     }
 
     /**
@@ -71,7 +81,7 @@ final class Recipients
             return [
                 'id' => $recipient->id,
 
-                'customer_id' => $recipient->customer_id,
+                'customer' => $recipient->customer()->with(['phones','addresses'])->get(),
 
                 'address' => $recipient->address,
 
@@ -79,7 +89,6 @@ final class Recipients
 
                 'updated_at' => $recipient->updated_at,
 
-                'customer' => $recipient->customer,
             ];
         });
 
@@ -96,15 +105,13 @@ final class Recipients
         return [
             'id' => $recipient->id,
 
-            'customer_id' => $recipient->customer_id,
+            'customer' => $recipient->customer()->with(['phones','addresses'])->get(),
 
             'address' => $recipient->address,
 
             'created_at' => $recipient->created_at,
 
             'updated_at' => $recipient->updated_at,
-
-            'customer' => $recipient->customer,
         ];
     }
 
