@@ -84,7 +84,7 @@ final class Address extends Model
     /**
      * @return HasOne
      */
-    protected function customer():HasOne
+    public function customer():HasOne
     {
         return $this->hasOne(Customer::class,'id','customer_id');
     }

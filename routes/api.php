@@ -92,6 +92,8 @@ use App\Http\Controllers\Dashboard\ShipmentStatuses\Controller as DashboardShipm
 
 use App\Http\Controllers\Dashboard\Products\Controller as DashboardProductsController;
 
+use App\Http\Controllers\Dashboard\Drivers\Controller as DashboardDriversController;
+
 /*
 |--------------------------------------------------------------
 ------------
@@ -251,4 +253,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     Route::apiResource('addresses', DashboardAddressesController::class);
 
     Route::apiResource('products', DashboardProductsController::class);
+
+    Route::apiResource('drivers', DashboardDriversController::class);
 });
