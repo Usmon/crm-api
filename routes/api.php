@@ -94,6 +94,10 @@ use App\Http\Controllers\Dashboard\Products\Controller as DashboardProductsContr
 
 use App\Http\Controllers\Dashboard\Drivers\Controller as DashboardDriversController;
 
+use App\Http\Controllers\Password\Forgot as PasswordForgotController;
+
+use App\Http\Controllers\Password\Reset as PasswordResetController;
+
 /*
 |--------------------------------------------------------------
 ------------
@@ -119,6 +123,13 @@ Route::group(['prefix' => 'auth', 'as' => 'auth.'], function () {
     Route::post('logout', AuthLogoutController::class)->name('logout');
 
     Route::post('register', AuthRegisterController::class)->name('register');
+});
+
+//Password routes
+Route::group(['prefix' => 'password', 'as' => 'password'], function () {
+    Route::post('forgot', [PasswordForgotController::class, 'forgot']);
+
+    Route::post('reset', [PasswordResetController::class, 'reset']);
 });
 
 // User routes
