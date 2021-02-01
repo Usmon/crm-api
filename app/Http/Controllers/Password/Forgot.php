@@ -48,11 +48,21 @@ final class Forgot extends Controller
      */
     public function forgot(ForgotPasswordRequest $request): JsonResponse
     {
+        $token = $this->service->createRandomToken();
+
         $this->repository->updateUser(
-            $this->service->getEmail($request), $this->service->createRandomToken(),
+            $this->service->getEmail($request),
+
+            $token,
         );
 
-        //todo: send token to email address
+       $this->service->sendToEmail(
+           $this->service->getEmail($request),
+
+           $this->service->getCustomURL($request),
+
+           $token
+       );
 
         return Json::sendJsonWith200([
             'message' => 'Successfully sent message, please check your email address.',
