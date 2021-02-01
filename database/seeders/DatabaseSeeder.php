@@ -25,13 +25,13 @@ final class DatabaseSeeder extends Seeder
 
         $this->call(PickupSeeder::class);
 
+        $this->call(CustomerSeeder::class);
+
         $this->call(RecipientSeeder::class);
 
         $this->call(SenderSeeder::class);
 
         $this->call(OrderSeeder::class);
-
-        $this->call(CustomerSeeder::class);
 
         $this->call(DeliverySeeder::class);
 
@@ -82,5 +82,7 @@ final class DatabaseSeeder extends Seeder
         $this->call(ProductSeeder::class);
 
         $this->call(StatusSeeder::class);
+
+        $this->call(RegionSeeder::class);
     }
 }
