@@ -25,7 +25,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property integer $customer_id
  *
- * @property string $address
+ * @property string $first_address
+ *
+ * @property string $second_address
  *
  * @property Carbon|null $created_at
  *
@@ -61,7 +63,9 @@ final class Address extends Model
     protected $fillable = [
         'customer_id',
 
-        'address',
+        'first_address',
+
+        'second_address',
     ];
 
     /**
@@ -70,7 +74,9 @@ final class Address extends Model
     protected $casts = [
         'customer_id' => 'integer',
 
-        'address' => 'string',
+        'first_address' => 'string',
+
+        'second_address' => 'string',
 
         'created_at' => 'datetime',
 
@@ -122,12 +128,15 @@ final class Address extends Model
     {
         return $query->when($filters['search'] ?? null, function (Builder $query, string $search) {
             return $query->where(function (Builder $query) use ($search) {
-                return $query->where('phone', 'like', '%' . $search . '%');
+                return $query->where('first_address', 'like', '%' . $search . '%')
+                            ->orWhere('second_address', 'like', '%'.$search.'%');
             });
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
-        })->when($filters['address'] ?? null, function (Builder $query, string $address){
-            return $query->where('phone','like','%'. $address .'%');
+        })->when($filters['first_address'] ?? null, function (Builder $query, string $first_address){
+            return $query->where('first_address','like','%'. $first_address .'%');
+        })->when($filters['second_address'] ?? null, function (Builder $query, string $second_address){
+            return $query->where('second_address','like','%'. $second_address .'%');
         })->when($filters['customer_id'] ?? null, function (Builder $query, int $customer_id){
             return $query->where('customer_id','=', $customer_id);
         })->when($filters['customer'] ?? null, function (Builder $query, string $customer) {

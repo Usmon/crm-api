@@ -24,7 +24,9 @@ final class Addresses
 
             'customer_id' => $request->json('customer_id'),
 
-            'address' => $request->json('address'),
+            'first_address' => $request->json('first_address'),
+
+            'second_address' => $request->json('second_address'),
 
             'customer' => $request->json('customer'),
         ];
@@ -37,7 +39,7 @@ final class Addresses
      */
     public function getOnlyFilters(AddressesRequest $request): array
     {
-        return $request->only('search', 'date', 'customer_id', 'address', 'customer');
+        return $request->only('search', 'date', 'customer_id', 'first_address','second_address','customer');
     }
 
     /**
@@ -73,7 +75,9 @@ final class Addresses
 
                 'customer_id' => $address->customer_id,
 
-                'address' => $address->address,
+                'first_address' => $address->second_address,
+
+                'second_address' => $address->second_address,
 
                 'created_at' => $address->created_at,
 
@@ -98,7 +102,9 @@ final class Addresses
 
             'customer_id' => $address->customer_id,
 
-            'address' => $address->address,
+            'first_address' => $address->first_address,
+
+            'second_address' => $address->second_address,
 
             'created_at' => $address->created_at,
 
@@ -118,7 +124,9 @@ final class Addresses
         return [
             'customer_id' => $request->json('customer_id'),
 
-            'address' => $request->json('address'),
+            'first_address' => $request->json('first_address'),
+
+            'second_address' => $request->json('second_address'),
         ];
     }
 
@@ -132,7 +140,9 @@ final class Addresses
         $credentials = [
             'customer_id' => $request->json('customer_id'),
 
-            'address' => $request->json('address'),
+            'first_address' => $request->json('first_address'),
+
+            'second_address' => $request->json('second_address'),
         ];
 
         return $credentials;

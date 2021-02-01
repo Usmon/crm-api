@@ -23,7 +23,9 @@ final class CreateAddressesTable extends Migration
 
             $table->unsignedBigInteger('customer_id');
 
-            $table->string('address');
+            $table->string('first_address');
+
+            $table->string('second_address');
 
             $table->timestamp('created_at')->nullable();
 
