@@ -98,6 +98,8 @@ use App\Http\Controllers\Password\Forgot as PasswordForgotController;
 
 use App\Http\Controllers\Password\Reset as PasswordResetController;
 
+use App\Http\Controllers\Dashboard\Cities\Controller as DashboardCitiesController;
+
 /*
 |--------------------------------------------------------------
 ------------
@@ -266,4 +268,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     Route::apiResource('products', DashboardProductsController::class);
 
     Route::apiResource('drivers', DashboardDriversController::class);
+
+    Route::apiResource('cities', DashboardCitiesController::class);
 });

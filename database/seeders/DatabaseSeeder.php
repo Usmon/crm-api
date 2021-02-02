@@ -84,5 +84,7 @@ final class DatabaseSeeder extends Seeder
         $this->call(ProductSeeder::class);
 
         $this->call(StatusSeeder::class);
+
+        $this->call(CitySeeder::class);
     }
 }

@@ -3,11 +3,15 @@
 namespace App\Providers;
 
 use App\Models\Address;
+
 use App\Models\Customer;
+
 use App\Models\DeliveryComment;
 
 use App\Models\DeliveryUser;
+
 use App\Models\Driver;
+
 use App\Models\FedexOrderItem;
 
 use App\Models\Feedback;
@@ -17,8 +21,11 @@ use App\Models\Order;
 use App\Models\OrderComment;
 
 use App\Models\OrderUser;
+
 use App\Models\Phone;
+
 use App\Models\Product;
+
 use App\Models\Project;
 
 use App\Models\Recipient;
@@ -30,6 +37,7 @@ use App\Models\Shipment;
 use App\Models\FedexOrder;
 
 use App\Models\ShipmentStatus;
+
 use App\Models\ShipmentUser;
 
 use App\Models\ShipmentComment;
@@ -39,6 +47,7 @@ use App\Models\Spending;
 use App\Models\SpendingCategory;
 
 use App\Models\Status;
+
 use App\Models\Task;
 
 use App\Models\TaskFile;
@@ -66,12 +75,18 @@ use App\Models\Permission;
 
 use App\Models\WarehouseItem;
 
+use App\Models\City;
+
 use App\Observers\AddressObserver;
+
 use App\Observers\CustomerObserver;
+
 use App\Observers\DeliveryCommentObserver;
 
 use App\Observers\DeliveryUserObserver;
+
 use App\Observers\DriverObserver;
+
 use App\Observers\FedexOrderItemObserver;
 
 use App\Observers\FeedbackObserver;
@@ -81,8 +96,11 @@ use App\Observers\OrderCommentObserver;
 use App\Observers\OrderObserver;
 
 use App\Observers\OrderUserObserver;
+
 use App\Observers\PhoneObserver;
+
 use App\Observers\ProductObserver;
+
 use App\Observers\ProjectObserver;
 
 use App\Observers\RecipientObserver;
@@ -90,15 +108,19 @@ use App\Observers\RecipientObserver;
 use App\Observers\SenderObserver;
 
 use App\Observers\ShipmentCommentObserver;
+
 use App\Observers\ShipmentObserver;
 
 use App\Observers\ShipmentStatusObserver;
+
 use App\Observers\ShipmentUserObserver;
+
 use App\Observers\SpendingCategoryObserver;
 
 use App\Observers\SpendingObserver;
 
 use App\Observers\StatusObserver;
+
 use App\Observers\TaskFileObserver;
 
 use App\Observers\TaskObserver;
@@ -108,6 +130,7 @@ use App\Observers\TaskUserObserver;
 use App\Observers\TaskStepObserver;
 
 use App\Observers\TrackingObserver;
+
 use App\Observers\UserObserver;
 
 use App\Observers\RoleObserver;
@@ -127,6 +150,8 @@ use App\Observers\FedexOrderObserver;
 use App\Observers\PermissionObserver;
 
 use App\Observers\WarehouseItemObserver;
+
+use App\Observers\CityObserver;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -210,5 +235,7 @@ final class ObserverServiceProvider extends ServiceProvider
         Product::observe(ProductObserver::class);
 
         Status::observe(StatusObserver::class);
+
+        City::observe(CityObserver::class);
     }
 }

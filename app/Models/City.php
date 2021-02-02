@@ -16,16 +16,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * App\Models\Address
+ * App\Models\City
  *
  * @property integer $id
  *
- * @property integer $customer_id
+ * @property integer $address_id
  *
- * @property string $address
+ * @property string $name
  *
  * @property Carbon|null $created_at
  *
@@ -35,7 +37,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property int|null $deleted_by
  *
- * @property-read HasOne|null $customer
+ * @property-read HasOne|null $address
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
@@ -43,34 +45,37 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @mixin Model
  */
-final class Address extends Model
+
+final class City extends Model
 {
     use Pager;
     use Sorter;
     use HasFactory;
     use SoftDeletes;
 
+
     /**
      * @var string
      */
-    protected $table = 'addresses';
+    protected $table = 'cities';
 
     /**
      * @var array
      */
     protected $fillable = [
-        'customer_id',
+        'address_id',
 
-        'address',
+        'name'
     ];
+
 
     /**
      * @var array
      */
     protected $casts = [
-        'customer_id' => 'integer',
+        'address_id' => 'integer',
 
-        'address' => 'string',
+        'name' => 'string',
 
         'created_at' => 'datetime',
 
@@ -78,23 +83,17 @@ final class Address extends Model
 
         'deleted_at' => 'datetime',
 
-        'deleted_by' => 'integer',
+        'deleted_at' => 'integer',
+
     ];
 
-    /**
-     * @return HasOne
-     */
-    public function customer():HasOne
-    {
-        return $this->hasOne(Customer::class,'id','customer_id');
-    }
 
     /**
-     * @return HasOne
+     * @return BelongsTo
      */
-    public function city():HasOne
+    public function address(): BelongsTo
     {
-        return $this->hasOne(City::class);
+        return $this->belongsTo(Address::class,'address_id');
     }
 
     /**
@@ -122,18 +121,18 @@ final class Address extends Model
     {
         return $query->when($filters['search'] ?? null, function (Builder $query, string $search) {
             return $query->where(function (Builder $query) use ($search) {
-                return $query->where('phone', 'like', '%' . $search . '%');
+                return $query->where('name', 'like', '%' . $search . '%');
             });
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
-        })->when($filters['address'] ?? null, function (Builder $query, string $address){
-            return $query->where('phone','like','%'. $address .'%');
-        })->when($filters['customer_id'] ?? null, function (Builder $query, int $customer_id){
-            return $query->where('customer_id','=', $customer_id);
-        })->when($filters['customer'] ?? null, function (Builder $query, string $customer) {
-            return $query->whereHas('customer', function (Builder $query) use ($customer) {
-                $query->where('passport', 'like', '%' . $customer . '%')
-                    ->orWhere('note', 'like', '%' . $customer . '%');
+        })->when($filters['name'] ?? null, function (Builder $query, string $name){
+            return $query->where('name','like','%'.$name.'%');
+        })->when($filters['address_id'] ?? null, function (Builder $query, int $address_id){
+            return $query->where('address_id','=', $address_id);
+        })->when($filters['address'] ?? null, function (Builder $query, string $address) {
+            return $query->whereHas('address', function (Builder $query) use ($address) {
+                $query->where('first_address', 'like', '%' . $address . '%')
+                    ->orWhere('second_address', 'like', '%' . $address . '%');
             });
         });
     }
