@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\DeliveryComment;
 
 use App\Models\DeliveryUser;
+use App\Models\Driver;
 use App\Models\FedexOrderItem;
 
 use App\Models\Feedback;
@@ -17,6 +18,7 @@ use App\Models\OrderComment;
 
 use App\Models\OrderUser;
 use App\Models\Phone;
+use App\Models\Product;
 use App\Models\Project;
 
 use App\Models\Recipient;
@@ -36,6 +38,7 @@ use App\Models\Spending;
 
 use App\Models\SpendingCategory;
 
+use App\Models\Status;
 use App\Models\Task;
 
 use App\Models\TaskFile;
@@ -68,6 +71,7 @@ use App\Observers\CustomerObserver;
 use App\Observers\DeliveryCommentObserver;
 
 use App\Observers\DeliveryUserObserver;
+use App\Observers\DriverObserver;
 use App\Observers\FedexOrderItemObserver;
 
 use App\Observers\FeedbackObserver;
@@ -78,6 +82,7 @@ use App\Observers\OrderObserver;
 
 use App\Observers\OrderUserObserver;
 use App\Observers\PhoneObserver;
+use App\Observers\ProductObserver;
 use App\Observers\ProjectObserver;
 
 use App\Observers\RecipientObserver;
@@ -93,6 +98,7 @@ use App\Observers\SpendingCategoryObserver;
 
 use App\Observers\SpendingObserver;
 
+use App\Observers\StatusObserver;
 use App\Observers\TaskFileObserver;
 
 use App\Observers\TaskObserver;
@@ -134,6 +140,8 @@ final class ObserverServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
 
         Role::observe(RoleObserver::class);
+
+        Driver::observe(DriverObserver::class);
 
         Pickup::observe(PickupObserver::class);
 
@@ -198,5 +206,9 @@ final class ObserverServiceProvider extends ServiceProvider
         Address::observe(AddressObserver::class);
 
         ShipmentStatus::observe(ShipmentStatusObserver::class);
+
+        Product::observe(ProductObserver::class);
+
+        Status::observe(StatusObserver::class);
     }
 }

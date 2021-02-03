@@ -90,6 +90,14 @@ use App\Http\Controllers\Dashboard\Addresses\Controller as DashboardAddressesCon
 
 use App\Http\Controllers\Dashboard\ShipmentStatuses\Controller as DashboardShipmentStatusesController;
 
+use App\Http\Controllers\Dashboard\Products\Controller as DashboardProductsController;
+
+use App\Http\Controllers\Dashboard\Drivers\Controller as DashboardDriversController;
+
+use App\Http\Controllers\Password\Forgot as PasswordForgotController;
+
+use App\Http\Controllers\Password\Reset as PasswordResetController;
+
 /*
 |--------------------------------------------------------------
 ------------
@@ -115,6 +123,13 @@ Route::group(['prefix' => 'auth', 'as' => 'auth.'], function () {
     Route::post('logout', AuthLogoutController::class)->name('logout');
 
     Route::post('register', AuthRegisterController::class)->name('register');
+});
+
+//Password routes
+Route::group(['prefix' => 'password', 'as' => 'password'], function () {
+    Route::post('forgot', [PasswordForgotController::class, 'forgot']);
+
+    Route::post('reset', [PasswordResetController::class, 'reset']);
 });
 
 // User routes
@@ -174,7 +189,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
 
     Route::group(['prefix' => 'orders', 'as'=> 'orders.'], function () {
 
-        Route::apiResource('/', DashboardOrdersController::class);
+        Route::apiResource('order', DashboardOrdersController::class);
 
         Route::apiResource('users', DashboardOrderUsersController::class);
 
@@ -184,6 +199,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     Route::apiResource('projects', DashboardProjectsController::class);
 
     Route::group(['prefix' => 'status', 'as' => 'status.'], function() {
+        Route::apiResource('statuses', DashboardStatusesController::class);
+
         Route::get('deliveries', [DashboardStatusesController::class, 'statusDeliveries']);
 
         Route::get('orders', [DashboardStatusesController::class, 'statusOrders']);
@@ -250,4 +267,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     Route::apiResource('phones', DashboardPhonesController::class);
 
     Route::apiResource('addresses', DashboardAddressesController::class);
+
+    Route::apiResource('products', DashboardProductsController::class);
+
+    Route::apiResource('drivers', DashboardDriversController::class);
 });

@@ -19,13 +19,17 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * App\Models\Address
+ * App\Models\Status
  *
  * @property integer $id
  *
- * @property integer $customer_id
+ * @property string $model
  *
- * @property string $address
+ * @property string $key
+ *
+ * @property string $value
+ *
+ * @property string $parameters
  *
  * @property Carbon|null $created_at
  *
@@ -33,17 +37,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property Carbon|null $deleted_at
  *
- * @property int|null $deleted_by
- *
- * @property-read HasOne|null $customer
- *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
  * @method static Builder|self filter(array $filters)
  *
  * @mixin Model
  */
-final class Address extends Model
+final class Status extends Model
 {
     use Pager;
     use Sorter;
@@ -53,55 +53,40 @@ final class Address extends Model
     /**
      * @var string
      */
-    protected $table = 'addresses';
+    protected $table = 'statuses';
 
     /**
      * @var array
      */
     protected $fillable = [
-        'customer_id',
+        'model',
 
-        'address',
+        'key',
+
+        'value',
+
+        'parameters',
     ];
 
     /**
      * @var array
      */
     protected $casts = [
-        'customer_id' => 'integer',
+        'model' => 'string',
 
-        'address' => 'string',
+        'key' => 'string',
+
+        'value' => 'string',
+
+        'parameters' => 'string',
 
         'created_at' => 'datetime',
 
         'updated_at' => 'datetime',
 
         'deleted_at' => 'datetime',
-
-        'deleted_by' => 'integer',
     ];
 
-    /**
-     * @return HasOne
-     */
-    public function customer():HasOne
-    {
-        return $this->hasOne(Customer::class,'id','customer_id');
-    }
-
-    /**
-     * @param Builder $query
-     *
-     * @param string $key
-     *
-     * @param string|null $value
-     *
-     * @return Builder
-     */
-    public function scopeFindBy(Builder $query, string $key, string $value = null): Builder
-    {
-        return $query->where($key, '=', $value);
-    }
 
     /**
      * @param Builder $query
@@ -114,19 +99,21 @@ final class Address extends Model
     {
         return $query->when($filters['search'] ?? null, function (Builder $query, string $search) {
             return $query->where(function (Builder $query) use ($search) {
-                return $query->where('phone', 'like', '%' . $search . '%');
+                return $query->where('model', 'like', '%' . $search . '%')
+                    ->orWhere('key', 'like', '%' . $search . '%')
+                    ->orWhere('value', 'like', '%' . $search . '%')
+                    ->orWhere('parameters', 'like', '%' . $search . '%');
             });
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
-        })->when($filters['address'] ?? null, function (Builder $query, string $address){
-            return $query->where('phone','like','%'. $address .'%');
-        })->when($filters['customer_id'] ?? null, function (Builder $query, int $customer_id){
-            return $query->where('customer_id','=', $customer_id);
-        })->when($filters['customer'] ?? null, function (Builder $query, string $customer) {
-            return $query->whereHas('customer', function (Builder $query) use ($customer) {
-                $query->where('passport', 'like', '%' . $customer . '%')
-                    ->orWhere('note', 'like', '%' . $customer . '%');
-            });
+        })->when($filters['model'] ?? null, function (Builder $query, string $model) {
+            return $query->where('model','like','%'. $model .'%');
+        })->when($filters['key'] ?? null, function (Builder $query, string $key) {
+            return $query->where('key', 'like', '%' . $key . '%');
+        })->when($filters['value'] ?? null, function (Builder $query, string $value) {
+            return $query->where('value', 'like', '%' . $value . '%');
+        })->when($filters['parameters'] ?? null, function (Builder $query, string $parameters) {
+            return $query->where('parameters', 'like', '%' . $parameters . '%');
         });
     }
 }

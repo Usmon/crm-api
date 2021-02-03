@@ -6,12 +6,12 @@ use Illuminate\Database\Schema\Blueprint;
 
 use Illuminate\Database\Migrations\Migration;
 
-final class CreateSendersTable extends Migration
+final class CreateStatusesTable extends Migration
 {
     /**
      * @var string
      */
-    protected $table = 'senders';
+    protected $table = 'statuses';
 
     /**
      * @return void
@@ -21,19 +21,19 @@ final class CreateSendersTable extends Migration
         Schema::create($this->table, function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('customer_id');
+            $table->string('model');
 
-            $table->string('address');
+            $table->string('key');
+
+            $table->string('value');
+
+            $table->jsonb('parameters');
 
             $table->timestamp('created_at')->nullable();
 
             $table->timestamp('updated_at')->nullable();
 
             $table->timestamp('deleted_at')->nullable();
-
-            $table->foreign('customer_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-
-
         });
     }
 
