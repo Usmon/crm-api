@@ -61,7 +61,13 @@ final class Addresses extends FormRequest
                     Rule::exists('customers','id'),
                 ],
 
-                'address' => [
+                'first_address' => [
+                    'nullable',
+
+                    'string',
+                ],
+
+                'second_address' => [
                     'nullable',
 
                     'string',
@@ -83,25 +89,19 @@ final class Addresses extends FormRequest
                     Rule::exists('customers', 'id')
                 ],
 
-                'address' => [
+                'first_address' => [
                     'required',
 
                     'string',
                 ],
 
-                'permissions' => [
+                'second_address' => [
                     'required',
 
-                    'array',
+                    'string',
                 ],
 
-                'permissions.*' => [
-                    'required',
 
-                    'integer',
-
-                    Rule::exists('permissions', 'id'),
-                ],
             ],
 
             'dashboard.addresses.update' => [
@@ -113,25 +113,19 @@ final class Addresses extends FormRequest
                     Rule::exists('customers', 'id')
                 ],
 
-                'address' => [
+                'first_address' => [
                     'required',
 
-                    'string'
+                    'string',
                 ],
 
-                'permissions' => [
+                'second_address' => [
                     'required',
 
-                    'array',
+                    'string',
                 ],
 
-                'permissions.*' => [
-                    'required',
 
-                    'integer',
-
-                    Rule::exists('permissions', 'id'),
-                ],
             ],
         ];
 

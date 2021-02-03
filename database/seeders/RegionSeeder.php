@@ -223,6 +223,6 @@ final class RegionSeeder extends Seeder
 
 
 
-        Region::insert($regions);
+
     }
 }
