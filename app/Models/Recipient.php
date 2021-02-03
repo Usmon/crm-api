@@ -82,7 +82,7 @@ final class Recipient extends Model
      */
     public function customer():HasOne
     {
-        return $this->hasOne(User::class,'id', 'customer_id');
+        return $this->hasOne(Customer::class,'id', 'customer_id');
     }
 
     /**
@@ -123,6 +123,12 @@ final class Recipient extends Model
                 $query->orWhere('login', 'like', '%' . $customer . '%')
                     ->orWhere('email', 'like', '%' . $customer . '%')
                     ->orWhere('profile', 'like', '%' . $customer . '%');
+            });
+        })->when($filters['phone'] ?? null, function (Builder $query, string $phone) {
+            return $query->whereHas('customer', function (Builder $query) use ($phone) {
+                    $query->whereHas('phones', function (Builder $query) use ($phone) {
+                        $query->where('phone', 'like', '%' . $phone . '%');
+                });
             });
         });
     }

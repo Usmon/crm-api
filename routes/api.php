@@ -100,6 +100,8 @@ use App\Http\Controllers\Password\Reset as PasswordResetController;
 
 use App\Http\Controllers\Dashboard\Cities\Controller as DashboardCitiesController;
 
+use App\Http\Controllers\Dashboard\Regions\Controller as DashboardRegionsController;
+
 /*
 |--------------------------------------------------------------
 ------------
@@ -163,9 +165,14 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
         Route::get('phones', [DashboardSendersController::class, 'senderPhoneDisplay']);
     });
 
-    Route::apiResource('warehouse-items', DashboardWarehouseItemsController::class);
+    Route::group(['prefix' => 'recipients', 'as' => 'recipients.'], function() {
 
-    Route::apiResource('recipients', DashboardRecipientsController::class);
+        Route::apiResource('/', DashboardRecipientsController::class);
+
+        Route::get('phones', [DashboardRecipientsController::class, 'recipientPhoneDisplay']);
+    });
+
+    Route::apiResource('warehouse-items', DashboardWarehouseItemsController::class);
 
     Route::apiResource('messages', DashboardMessagesController::class);
 
@@ -270,4 +277,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     Route::apiResource('drivers', DashboardDriversController::class);
 
     Route::apiResource('cities', DashboardCitiesController::class);
+
+    Route::apiResource('regions', DashboardRegionsController::class);
 });

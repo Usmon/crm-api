@@ -6,7 +6,7 @@ use Illuminate\Validation\Rule;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-final class Addresses extends FormRequest
+final class Regions extends FormRequest
 {
     /**
      * @return bool
@@ -22,7 +22,7 @@ final class Addresses extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'dashboard.addresses.index' => [
+           'dashboard.regions.index' => [
                 'search' => [
                     'nullable',
 
@@ -53,80 +53,71 @@ final class Addresses extends FormRequest
                     'after:date.from',
                 ],
 
-                'customer_id' => [
-                    'nullable',
-
-                    'integer',
-
-                    Rule::exists('customers','id'),
-                ],
-
-                'first_address' => [
+                'name' => [
                     'nullable',
 
                     'string',
                 ],
 
-                'second_address' => [
-                    'nullable',
-
-                    'string',
-                ],
-
-                'sort.*' => [
+                'zip_code' => [
                     'nullable',
 
                     'string',
                 ],
             ],
 
-            'dashboard.addresses.store' => [
-                'customer_id' => [
+            'dashboard.regions.store' => [
+
+                'address_id' => [
+
                     'required',
 
                     'integer',
 
-                    Rule::exists('customers', 'id')
+                    Rule::exists('addresses','id')
                 ],
 
-                'first_address' => [
+                'name' => [
+
                     'required',
 
                     'string',
                 ],
 
-                'second_address' => [
+                'zip_code' => [
                     'required',
 
                     'string',
                 ],
-
 
             ],
 
-            'dashboard.addresses.update' => [
-                'customer_id' => [
+            'dashboard.regions.update' => [
+
+                'address_id' => [
+
                     'required',
 
                     'integer',
 
-                    Rule::exists('customers', 'id')
+                    Rule::exists('addresses','id')
                 ],
 
-                'first_address' => [
+                'name' => [
+
                     'required',
 
                     'string',
                 ],
 
-                'second_address' => [
+                'zip_code' => [
                     'required',
 
                     'string',
                 ],
-
 
             ],
+
         ];
 
         return $rules[$this->route()->getName()];

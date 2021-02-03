@@ -33,7 +33,7 @@ final class CreateRecipientsTable extends Migration
         });
 
         Schema::table($this->table, function (Blueprint $table) {
-            $table->foreign('customer_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('customer_id')->references('id')->on('customers')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

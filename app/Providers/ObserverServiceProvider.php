@@ -77,6 +77,8 @@ use App\Models\WarehouseItem;
 
 use App\Models\City;
 
+use App\Models\Region;
+
 use App\Observers\AddressObserver;
 
 use App\Observers\CustomerObserver;
@@ -152,6 +154,9 @@ use App\Observers\PermissionObserver;
 use App\Observers\WarehouseItemObserver;
 
 use App\Observers\CityObserver;
+
+use App\Observers\RegionObserver;
+
 
 use Illuminate\Support\ServiceProvider;
 
@@ -237,5 +242,7 @@ final class ObserverServiceProvider extends ServiceProvider
         Status::observe(StatusObserver::class);
 
         City::observe(CityObserver::class);
+      
+        Region::observe(RegionObserver::class);
     }
 }

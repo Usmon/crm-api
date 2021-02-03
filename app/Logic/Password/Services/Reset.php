@@ -4,27 +4,27 @@ namespace App\Logic\Password\Services;
 
 use Illuminate\Support\Facades\Hash;
 
+use App\Logic\Password\Requests\Token as TokenRequest;
+
 use App\Logic\Password\Requests\Reset as ResetPasswordRequest;
 
 final class Reset
 {
     /**
+     * @param TokenRequest $token
+     *
      * @param ResetPasswordRequest $request
      *
-     * @return mixed
+     * @return array
      */
-    public function getToken(ResetPasswordRequest $request): string
+    public function getProperties(TokenRequest $token, ResetPasswordRequest $request): array
     {
-        return $request->token;
-    }
+        return [
+            'token' => $token['token'],
 
-    /**
-     * @param ResetPasswordRequest $request
-     *
-     * @return string
-     */
-    public function getPassword(ResetPasswordRequest $request): string
-    {
-        return Hash::make($request->password);
+            'reset_token' => null,
+
+            'password' => Hash::make($request->password)
+        ];
     }
 }

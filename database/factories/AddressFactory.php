@@ -25,7 +25,9 @@ final class AddressFactory extends Factory
         return [
             'customer_id' => $customers->random(),
 
-            'address' => $this->faker->address,
+            'first_address' => $this->faker->address,
+
+            'second_address' => $this->faker->address,
         ];
     }
 }
