@@ -6,7 +6,7 @@ use Illuminate\Validation\Rule;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-final class Forgot extends FormRequest
+final class Token extends FormRequest
 {
     /**
      * @return bool
@@ -23,18 +23,12 @@ final class Forgot extends FormRequest
     {
         $rules = [
             'password' => [
-                'custom_url' => [
+                'token' => [
                     'required',
 
-                    'string'
-                ],
+                    'string',
 
-                'email' => [
-                    'required',
-
-                    'email',
-
-                    Rule::exists('users', 'email')
+                    Rule::exists('users', 'reset_token')
                 ],
             ],
         ];

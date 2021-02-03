@@ -7,16 +7,16 @@ use App\Models\User;
 final class Reset
 {
     /**
-     * @param string $token
+     * @param array $credentials
      *
-     * @param string $password
+     * @return void
      */
-    public function updateUser(string $token, string $password): void
+    public function updateUser(array $credentials): void
     {
-        User::where('reset_token', '=', $token)->update([
-            'reset_token' => null,
+        User::where('reset_token', '=', $credentials['token'])->update([
+            'reset_token' => $credentials['reset_token'],
 
-            'password' => $password,
+            'password' => $credentials['password'],
         ]);
     }
 }
