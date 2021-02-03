@@ -66,11 +66,16 @@ use App\Models\Permission;
 
 use App\Models\WarehouseItem;
 
+use App\Models\Region;
+
 use App\Observers\AddressObserver;
+
 use App\Observers\CustomerObserver;
+
 use App\Observers\DeliveryCommentObserver;
 
 use App\Observers\DeliveryUserObserver;
+
 use App\Observers\DriverObserver;
 use App\Observers\FedexOrderItemObserver;
 
@@ -127,6 +132,8 @@ use App\Observers\FedexOrderObserver;
 use App\Observers\PermissionObserver;
 
 use App\Observers\WarehouseItemObserver;
+
+use App\Observers\RegionObserver;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -210,5 +217,7 @@ final class ObserverServiceProvider extends ServiceProvider
         Product::observe(ProductObserver::class);
 
         Status::observe(StatusObserver::class);
+
+        Region::observe(RegionObserver::class);
     }
 }

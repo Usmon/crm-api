@@ -90,6 +90,14 @@ final class Address extends Model
     }
 
     /**
+     * @return HasOne
+     */
+    public function region():HasOne
+    {
+        return $this->hasOne(Region::class);
+    }
+
+    /**
      * @param Builder $query
      *
      * @param string $key
