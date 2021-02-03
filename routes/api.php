@@ -92,6 +92,8 @@ use App\Http\Controllers\Dashboard\ShipmentStatuses\Controller as DashboardShipm
 
 use App\Http\Controllers\Dashboard\Products\Controller as DashboardProductsController;
 
+use App\Http\Controllers\Dashboard\Drivers\Controller as DashboardDriversController;
+
 use App\Http\Controllers\Password\Forgot as PasswordForgotController;
 
 use App\Http\Controllers\Password\Reset as PasswordResetController;
@@ -161,9 +163,14 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
         Route::get('phones', [DashboardSendersController::class, 'senderPhoneDisplay']);
     });
 
-    Route::apiResource('warehouse-items', DashboardWarehouseItemsController::class);
+    Route::group(['prefix' => 'recipients', 'as' => 'recipients.'], function() {
 
-    Route::apiResource('recipients', DashboardRecipientsController::class);
+        Route::apiResource('/', DashboardRecipientsController::class);
+
+        Route::get('phones', [DashboardRecipientsController::class, 'recipientPhoneDisplay']);
+    });
+
+    Route::apiResource('warehouse-items', DashboardWarehouseItemsController::class);
 
     Route::apiResource('messages', DashboardMessagesController::class);
 

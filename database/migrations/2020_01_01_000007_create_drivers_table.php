@@ -6,12 +6,12 @@ use Illuminate\Database\Schema\Blueprint;
 
 use Illuminate\Database\Migrations\Migration;
 
-final class CreateRecipientsTable extends Migration
+final class CreateDriversTable extends Migration
 {
     /**
      * @var string
      */
-    protected $table = 'recipients';
+    protected $table = 'drivers';
 
     /**
      * @return void
@@ -21,9 +21,27 @@ final class CreateRecipientsTable extends Migration
         Schema::create($this->table, function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('creator_id');
+
+            $table->string('name');
+
+            $table->string('phone');
+
+            $table->string('email');
+
+            $table->string('region');
+
+            $table->string('city');
+
+            $table->string('zip_or_post_code');
 
             $table->string('address');
+
+            $table->string('car_model')->nullable();
+
+            $table->string('car_number')->nullable();
+
+            $table->string('license')->nullable();
 
             $table->timestamp('created_at')->nullable();
 
@@ -33,7 +51,9 @@ final class CreateRecipientsTable extends Migration
         });
 
         Schema::table($this->table, function (Blueprint $table) {
-            $table->foreign('customer_id')->references('id')->on('customers')->onUpdate('cascade')->onDelete('cascade');
+            $table->unique('email');
+
+            $table->foreign('creator_id')->references('id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 

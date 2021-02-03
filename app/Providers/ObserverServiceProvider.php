@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\DeliveryComment;
 
 use App\Models\DeliveryUser;
+use App\Models\Driver;
 use App\Models\FedexOrderItem;
 
 use App\Models\Feedback;
@@ -75,6 +76,7 @@ use App\Observers\DeliveryCommentObserver;
 
 use App\Observers\DeliveryUserObserver;
 
+use App\Observers\DriverObserver;
 use App\Observers\FedexOrderItemObserver;
 
 use App\Observers\FeedbackObserver;
@@ -145,6 +147,8 @@ final class ObserverServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
 
         Role::observe(RoleObserver::class);
+
+        Driver::observe(DriverObserver::class);
 
         Pickup::observe(PickupObserver::class);
 
