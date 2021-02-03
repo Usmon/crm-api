@@ -89,6 +89,8 @@ final class DatabaseSeeder extends Seeder
 
         $this->call(StatusSeeder::class);
 
+        $this->call(CitySeeder::class);
+
         $this->call(RegionSeeder::class);
     }
 }
