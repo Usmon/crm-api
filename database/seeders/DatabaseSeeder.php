@@ -83,13 +83,13 @@ final class DatabaseSeeder extends Seeder
 
         $this->call(PhoneSeeder::class);
 
+        $this->call(CitySeeder::class);
+
         $this->call(AddressSeeder::class);
 
         $this->call(ProductSeeder::class);
 
         $this->call(StatusSeeder::class);
-
-        $this->call(CitySeeder::class);
 
         $this->call(RegionSeeder::class);
     }

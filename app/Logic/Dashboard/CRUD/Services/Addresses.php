@@ -24,11 +24,15 @@ final class Addresses
 
             'customer_id' => $request->json('customer_id'),
 
+            'city_id' => $request->json('city_id'),
+
             'first_address' => $request->json('first_address'),
 
             'second_address' => $request->json('second_address'),
 
             'customer' => $request->json('customer'),
+
+            'city' => $request->json('city'),
         ];
     }
 
@@ -39,7 +43,7 @@ final class Addresses
      */
     public function getOnlyFilters(AddressesRequest $request): array
     {
-        return $request->only('search', 'date', 'customer_id', 'first_address','second_address','customer');
+        return $request->only('search', 'date', 'customer_id','city_id','first_address','second_address','customer','city');
     }
 
     /**
@@ -75,6 +79,8 @@ final class Addresses
 
                 'customer_id' => $address->customer_id,
 
+                'city_id' => $address->city_id,
+
                 'first_address' => $address->second_address,
 
                 'second_address' => $address->second_address,
@@ -84,6 +90,8 @@ final class Addresses
                 'updated_at' => $address->updated_at,
 
                 'customer' => $address->customer,
+
+                'city' => $address->city,
             ];
         });
 
@@ -102,6 +110,8 @@ final class Addresses
 
             'customer_id' => $address->customer_id,
 
+            'city_id' => $address->city_id,
+
             'first_address' => $address->first_address,
 
             'second_address' => $address->second_address,
@@ -111,6 +121,8 @@ final class Addresses
             'updated_at' => $address->updated_at,
 
             'customer' => $address->customer,
+
+            'city' => $address->city,
         ];
     }
 
@@ -123,6 +135,8 @@ final class Addresses
     {
         return [
             'customer_id' => $request->json('customer_id'),
+
+            'city_id' => $request->json('city_id'),
 
             'first_address' => $request->json('first_address'),
 
@@ -139,6 +153,8 @@ final class Addresses
     {
         $credentials = [
             'customer_id' => $request->json('customer_id'),
+
+            'city_id' => $request->json('city_id'),
 
             'first_address' => $request->json('first_address'),
 

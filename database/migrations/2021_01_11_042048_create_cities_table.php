@@ -21,8 +21,6 @@ final class CreateCitiesTable extends Migration
         Schema::create($this->table, function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('address_id');
-
             $table->string('name');
 
             $table->timestamp('created_at')->nullable();
@@ -32,11 +30,6 @@ final class CreateCitiesTable extends Migration
             $table->timestamp('deleted_at')->nullable();
         });
 
-        Schema::table($this->table, function (Blueprint $table) {
-
-            $table->foreign('address_id')->references('id')->on('addresses')->onUpdate('cascade')->onDelete('cascade');
-
-        });
     }
 
     /**

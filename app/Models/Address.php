@@ -25,6 +25,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property integer $customer_id
  *
+ * @property integer $city_id
+ *
  * @property string $first_address
  *
  * @property string $second_address
@@ -63,6 +65,8 @@ final class Address extends Model
     protected $fillable = [
         'customer_id',
 
+        'city_id',
+
         'first_address',
 
         'second_address',
@@ -73,6 +77,8 @@ final class Address extends Model
      */
     protected $casts = [
         'customer_id' => 'integer',
+
+        'city_id' => 'integer',
 
         'first_address' => 'string',
 
@@ -100,7 +106,7 @@ final class Address extends Model
      */
     public function city():HasOne
     {
-        return $this->hasOne(City::class);
+        return $this->hasOne(City::class,'id','city_id');
     }
 
     /**
@@ -139,10 +145,16 @@ final class Address extends Model
             return $query->where('second_address','like','%'. $second_address .'%');
         })->when($filters['customer_id'] ?? null, function (Builder $query, int $customer_id){
             return $query->where('customer_id','=', $customer_id);
+        })->when($filters['city_id'] ?? null, function (Builder $query, int $city_id){
+            return $query->where('city_id','=', $city_id);
         })->when($filters['customer'] ?? null, function (Builder $query, string $customer) {
             return $query->whereHas('customer', function (Builder $query) use ($customer) {
                 $query->where('passport', 'like', '%' . $customer . '%')
                     ->orWhere('note', 'like', '%' . $customer . '%');
+            });
+        })->when($filters['city'] ?? null, function (Builder $query, string $city) {
+            return $query->whereHas('city', function (Builder $query) use ($city) {
+                $query->where('name', 'like', '%' . $city . '%');
             });
         });
     }

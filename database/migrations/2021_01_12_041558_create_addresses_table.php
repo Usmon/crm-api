@@ -23,6 +23,8 @@ final class CreateAddressesTable extends Migration
 
             $table->unsignedBigInteger('customer_id');
 
+            $table->unsignedBigInteger('city_id');
+
             $table->string('first_address');
 
             $table->string('second_address');
@@ -40,6 +42,9 @@ final class CreateAddressesTable extends Migration
             $table->foreign('customer_id')->references('id')->on('customers')->onUpdate('cascade')->onDelete('cascade');
 
             $table->foreign('deleted_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->foreign('city_id')->references('id')->on('cities')->onUpdate('cascade')->onDelete('cascade');
+
         });
     }
 

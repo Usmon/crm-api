@@ -53,14 +53,6 @@ final class Cities extends FormRequest
                     'after:date.from',
                 ],
 
-                'address_id' => [
-                    'nullable',
-
-                    'integer',
-
-                    Rule::exists('address','id'),
-                ],
-
                 'name' => [
                     'nullable',
 
@@ -75,11 +67,6 @@ final class Cities extends FormRequest
             ],
 
             'dashboard.cities.store' => [
-                'address_id' => [
-                    'required',
-
-                    'integer',
-                ],
 
                 'name' => [
                     'required',
@@ -89,11 +76,6 @@ final class Cities extends FormRequest
             ],
 
             'dashboard.cities.update' => [
-                'address_id' => [
-                    'required',
-
-                    'integer',
-                ],
 
                 'name' => [
                     'required',

@@ -22,8 +22,6 @@ final class Cities
 
             'date' => $request->json('date'),
 
-            'address_id' => $request->json('address_id'),
-
             'name' => $request->json('name'),
 
         ];
@@ -36,7 +34,7 @@ final class Cities
      */
     public function getOnlyFilters(CitiesRequest $request): array
     {
-        return $request->only('search', 'date','address_id', 'name');
+        return $request->only('search', 'date','name');
     }
 
     /**
@@ -70,8 +68,6 @@ final class Cities
             return [
                 'id' => $city->id,
 
-                'address_id' => $city->address_id,
-
                 'name' => $city->name,
 
                 'created_at' => $city->created_at,
@@ -94,8 +90,6 @@ final class Cities
         return [
             'id' => $city->id,
 
-            'address_id' => $city->address_id,
-
             'name' => $city->name,
 
             'created_at' => $city->created_at,
@@ -112,8 +106,6 @@ final class Cities
     public function storeCredentials(CitiesRequest $request): array
     {
         return [
-            'address_id' => $request->json('address_id'),
-
             'name' => $request->json('name'),
         ];
     }
@@ -126,8 +118,6 @@ final class Cities
     public function updateCredentials(CitiesRequest $request): array
     {
         $credentials = [
-            'address_id' => $request->json('address_id'),
-
             'name' => $request->json('name'),
         ];
 
