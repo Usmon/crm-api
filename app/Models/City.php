@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -89,6 +89,15 @@ final class City extends Model
     {
         return $this->belongsTo(Address::class);
     }
+
+    /**
+     * @return BelongsTo
+     */
+    public function region(): HasMany
+    {
+        return $this->hasMany(Region::class);
+    }
+
 
     /**
      * @param Builder $query

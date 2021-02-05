@@ -22,8 +22,6 @@ final class Regions
 
             'date' => $request->json('date'),
 
-            'address_id' => $request->json('address_id'),
-
             'name' => $request->json('name'),
 
             'zip_code' => $request->json('zip_code'),
@@ -37,7 +35,7 @@ final class Regions
      */
     public function getOnlyFilters(RegionsRequest $request): array
     {
-        return $request->only('search', 'date', 'address_id', 'name','zip_code');
+        return $request->only('search', 'date','name','zip_code');
     }
 
     /**
@@ -71,7 +69,7 @@ final class Regions
             return [
                 'id' => $region->id,
 
-                'address_id' => $region->address_id,
+                'city_id' => $region->city_id,
 
                 'name' => $region->name,
 
@@ -98,7 +96,7 @@ final class Regions
         return [
             'id' => $region->id,
 
-            'address_id' => $region->address_id,
+            'city_id' => $region->city_id,
 
             'name' => $region->name,
 
@@ -120,7 +118,7 @@ final class Regions
     public function storeCredentials(RegionsRequest $request): array
     {
         return [
-            'address_id' => $request->json('address_id'),
+            'city_id' => $request->json('city_id'),
 
             'name' => $request->json('name'),
 
@@ -136,7 +134,7 @@ final class Regions
     public function updateCredentials(RegionsRequest $request): array
     {
         $credentials = [
-            'address_id' => $request->json('address_id'),
+            'city_id' => $request->json('city_id'),
 
             'name' => $request->json('name'),
 

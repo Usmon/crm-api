@@ -29,7 +29,7 @@ final class AddressFactory extends Factory
         return [
             'customer_id' => $customers->random(),
 
-            'city_id' => random_int(1,64),
+            'city_id' => random_int(1,65),
 
             'first_address' => $this->faker->address,
 

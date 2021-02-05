@@ -21,7 +21,7 @@ final class CreateRegionsTable extends Migration
         Schema::create($this->table, function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('address_id');
+            $table->unsignedBigInteger('city_id');
 
             $table->string('name');
 
@@ -36,7 +36,7 @@ final class CreateRegionsTable extends Migration
 
         Schema::table($this->table, function (Blueprint $table) {
 
-            $table->foreign('address_id')->references('id')->on('addresses')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('city_id')->references('id')->on('cities')->onUpdate('cascade')->onDelete('cascade');
 
         });
     }

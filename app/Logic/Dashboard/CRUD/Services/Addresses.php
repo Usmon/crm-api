@@ -91,7 +91,7 @@ final class Addresses
 
                 'customer' => $address->customer,
 
-                'city' => $address->city,
+                'city' => $address->city()->with(['region'])->get(),
             ];
         });
 
@@ -122,7 +122,7 @@ final class Addresses
 
             'customer' => $address->customer,
 
-            'city' => $address->city,
+            'city' => $address->city()->with(['region'])->get(),
         ];
     }
 
