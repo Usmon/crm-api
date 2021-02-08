@@ -25,8 +25,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property integer $id
  *
- * @property integer $address_id
- *
  * @property string $name
  *
  * @property Carbon|null $created_at
@@ -63,8 +61,6 @@ final class City extends Model
      * @var array
      */
     protected $fillable = [
-        'address_id',
-
         'name'
     ];
 
@@ -73,8 +69,6 @@ final class City extends Model
      * @var array
      */
     protected $casts = [
-        'address_id' => 'integer',
-
         'name' => 'string',
 
         'created_at' => 'datetime',
@@ -93,7 +87,7 @@ final class City extends Model
      */
     public function address(): BelongsTo
     {
-        return $this->belongsTo(Address::class,'address_id');
+        return $this->belongsTo(Address::class);
     }
 
     /**
@@ -127,13 +121,6 @@ final class City extends Model
             return $query->whereBetween('created_at', $date);
         })->when($filters['name'] ?? null, function (Builder $query, string $name){
             return $query->where('name','like','%'.$name.'%');
-        })->when($filters['address_id'] ?? null, function (Builder $query, int $address_id){
-            return $query->where('address_id','=', $address_id);
-        })->when($filters['address'] ?? null, function (Builder $query, string $address) {
-            return $query->whereHas('address', function (Builder $query) use ($address) {
-                $query->where('first_address', 'like', '%' . $address . '%')
-                    ->orWhere('second_address', 'like', '%' . $address . '%');
-            });
         });
     }
 }

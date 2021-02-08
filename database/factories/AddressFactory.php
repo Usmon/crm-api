@@ -6,6 +6,8 @@ use App\Models\Address;
 
 use App\Models\Customer;
 
+use App\Models\City;
+
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 final class AddressFactory extends Factory
@@ -22,8 +24,12 @@ final class AddressFactory extends Factory
     {
         $customers = Customer::all();
 
+
+
         return [
             'customer_id' => $customers->random(),
+
+            'city_id' => random_int(1,64),
 
             'first_address' => $this->faker->address,
 

@@ -61,6 +61,14 @@ final class Addresses extends FormRequest
                     Rule::exists('customers','id'),
                 ],
 
+                'city_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('cities','id'),
+                ],
+
                 'first_address' => [
                     'nullable',
 
@@ -89,6 +97,14 @@ final class Addresses extends FormRequest
                     Rule::exists('customers', 'id')
                 ],
 
+                'city_id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('cities', 'id')
+                ],
+
                 'first_address' => [
                     'required',
 
@@ -111,6 +127,14 @@ final class Addresses extends FormRequest
                     'integer',
 
                     Rule::exists('customers', 'id')
+                ],
+
+                'city_id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('cities', 'id')
                 ],
 
                 'first_address' => [
