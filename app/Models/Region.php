@@ -23,6 +23,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property integer $id
  *
+ * @property string $city_id
+ *
  * @property string $name
  *
  * @property string $zip_code
@@ -57,7 +59,7 @@ final class Region extends Model
      * @var array
      */
     protected $fillable = [
-        'address_id',
+        'city_id',
 
         'name',
 
@@ -68,7 +70,7 @@ final class Region extends Model
      * @var array
      */
     protected $casts = [
-        'address_id' => 'integer',
+        'city_id' => 'integer',
 
         'name' => 'string',
 
@@ -78,9 +80,9 @@ final class Region extends Model
     /**
      * @return BelongsTo
      */
-    public function address(): BelongsTo
+    public function city(): BelongsTo
     {
-        return $this->belongsTo(Address::class,'address_id');
+        return $this->belongsTo(City::class,'city_id');
     }
 
 

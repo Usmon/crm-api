@@ -74,6 +74,8 @@ final class Cities
 
                 'updated_at' => $city->updated_at,
 
+
+
             ];
         });
 
@@ -95,6 +97,8 @@ final class Cities
             'created_at' => $city->created_at,
 
             'updated_at' => $city->updated_at,
+
+
         ];
     }
 

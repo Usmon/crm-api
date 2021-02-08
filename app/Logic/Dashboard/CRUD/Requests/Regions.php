@@ -68,13 +68,13 @@ final class Regions extends FormRequest
 
             'dashboard.regions.store' => [
 
-                'address_id' => [
+                'city_id' => [
 
                     'required',
 
                     'integer',
 
-                    Rule::exists('addresses','id')
+                    Rule::exists('cities','id')
                 ],
 
                 'name' => [
@@ -94,13 +94,13 @@ final class Regions extends FormRequest
 
             'dashboard.regions.update' => [
 
-                'address_id' => [
+                'city_id' => [
 
                     'required',
 
                     'integer',
 
-                    Rule::exists('addresses','id')
+                    Rule::exists('cities','id')
                 ],
 
                 'name' => [
