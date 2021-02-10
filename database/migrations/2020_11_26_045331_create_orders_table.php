@@ -37,6 +37,8 @@ final class CreateOrdersTable extends Migration
 
             $table->unsignedBigInteger('payment_status_id');
 
+            $table->json('type');
+
             $table->decimal('price',10,2);
 
             $table->decimal('payed_price',10,2)->default(0);

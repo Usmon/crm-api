@@ -41,7 +41,7 @@ use App\Traits\Sort\Sorter;
  *
  * @property float $additional_weight
  *
- * @property string $status
+ * @property int $status_id
  *
  * @property string $box_image
  *
@@ -73,20 +73,13 @@ final class Box extends Model
     protected $fillable = [
         'order_id',
 
-        'customer_id',
-
-        'sender_id',
-
-        'recipient_id',
-
         'weight',
 
         'additional_weight',
 
-        'status',
+        'status_id',
 
         'box_image',
-
     ];
 
     /**
@@ -102,17 +95,11 @@ final class Box extends Model
 
         'order_id' => 'integer',
 
-        'customer_id' => 'integer',
-
-        'sender_id' => 'integer',
-
-        'recipient_id' => 'integer',
-
         'weight' => 'float',
 
         'additional_weight' => 'float',
 
-        'status' => 'string',
+        'status_id' => 'integer',
 
         'box_image' => 'string',
 
@@ -137,30 +124,6 @@ final class Box extends Model
     public function users(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    /**
-     * @return BelongsTo
-     */
-    public function sender(): BelongsTo
-    {
-        return $this->belongsTo(Sender::class);
-    }
-
-    /**
-     * @return BelongsTo
-     */
-    public function recipient(): BelongsTo
-    {
-        return $this->belongsTo(Recipient::class);
-    }
-
-    /**
-     * @return HasOne
-     */
-    public function customer(): HasOne
-    {
-        return $this->hasOne(User::class,'id','customer_id');
     }
 
     /**

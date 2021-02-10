@@ -58,7 +58,7 @@ class BoxObserver
     public function defaultProperties(Box $box): void
     {
 
-        $box->status = $box->status ?? 'pending';
+        $box->status_id = $box->status_id;
 
         $box->created_at = $box->created_at ?? Carbon::now();
 

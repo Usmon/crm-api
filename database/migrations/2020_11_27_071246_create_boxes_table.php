@@ -23,13 +23,13 @@ final class CreateBoxesTable extends Migration
 
             $table->unsignedBigInteger('order_id');
 
+            $table->unsignedBigInteger('status_id');
+
             $table->float('weight');
 
             $table->float('additional_weight');
 
-            $table->string('status');
-
-            $table->string('box_image');
+            $table->string('box_image')->nullable();
 
             $table->timestamp('created_at')->nullable();
 
@@ -41,7 +41,9 @@ final class CreateBoxesTable extends Migration
         Schema::table($this->table, function (Blueprint $table) {
 
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-            
+
+            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
+        
         });
     }
 
