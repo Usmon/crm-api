@@ -67,57 +67,56 @@ final class Regions extends FormRequest
             ],
 
             'dashboard.regions.store' => [
-
-                'city_id' => [
-
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('cities','id')
-                ],
-
                 'name' => [
-
                     'required',
 
                     'string',
                 ],
 
                 'zip_code' => [
-                    'required',
-
                     'string',
                 ],
 
+                'permissions' => [
+                    'required',
+
+                    'array',
+                ],
+
+                'permissions.*' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('permissions', 'id'),
+                ],
             ],
 
             'dashboard.regions.update' => [
-
-                'city_id' => [
-
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('cities','id')
-                ],
-
                 'name' => [
-
                     'required',
 
                     'string',
                 ],
 
                 'zip_code' => [
-                    'required',
-
                     'string',
                 ],
 
-            ],
+                'permissions' => [
+                    'required',
 
+                    'array',
+                ],
+
+                'permissions.*' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('permissions', 'id'),
+                ],
+            ],
         ];
 
         return $rules[$this->route()->getName()];

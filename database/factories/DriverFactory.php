@@ -2,10 +2,14 @@
 
 namespace Database\Factories;
 
+use App\Models\Address;
+use App\Models\City;
 use App\Models\Driver;
 
+use App\Models\Region;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use function Sodium\add;
 
 final class DriverFactory extends Factory
 {
@@ -55,22 +59,24 @@ final class DriverFactory extends Factory
             'L 834 01 F',
         ];
 
+        $region = Region::all(['id'])->random(1)->first();
+
+        $city = City::where('id', $region->id)->get(['id'])->random(1)->first();
+
+        $address = Address::where('id',$city->id)->first(['id']);
+
         return [
             'creator_id' => $users->random(),
 
-            'name' => $this->faker->name,
+            'user_id' => $users->random(),
 
             'phone' => $this->faker->phoneNumber,
 
-            'email' => $this->faker->unique()->email,
+            'region_id' => $region,
 
-            'region' => $this->faker->country,
+            'city_id' => $city,
 
-            'city' => $this->faker->city,
-
-            'zip_or_post_code' => $this->faker->postcode,
-
-            'address' => $this->faker->address,
+            'address_id' => $address,
 
             'car_model' => $carModels[random_int(0, sizeof($carModels)-1)],
 

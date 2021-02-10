@@ -14,9 +14,9 @@ use Illuminate\Database\Eloquent\Builder;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -24,6 +24,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * App\Models\City
  *
  * @property integer $id
+ *
+ * @property integer region_id
  *
  * @property string $name
  *
@@ -35,7 +37,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property int|null $deleted_by
  *
- * @property-read HasOne|null $address
+ * @property-read HasOne $region
+ *
+ * @property-read HasMany $addresses
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
@@ -61,7 +65,9 @@ final class City extends Model
      * @var array
      */
     protected $fillable = [
-        'name'
+        'region_id',
+
+        'name',
     ];
 
 
@@ -69,6 +75,10 @@ final class City extends Model
      * @var array
      */
     protected $casts = [
+        'id' => 'integer',
+
+        'region_id' => 'integer',
+
         'name' => 'string',
 
         'created_at' => 'datetime',
@@ -76,29 +86,23 @@ final class City extends Model
         'updated_at' => 'datetime',
 
         'deleted_at' => 'datetime',
-
-        'deleted_at' => 'integer',
-
     ];
 
-
     /**
-     * @return BelongsTo
+     * @return HasOne
      */
-    public function address(): BelongsTo
+    public function region(): HasOne
     {
-        return $this->belongsTo(Address::class);
+        return $this->hasOne(Region::class,'id','region_id');
     }
 
     /**
-     * @return BelongsTo
+     * @return HasMany
      */
-    public function region(): HasMany
+    public function addresses(): HasMany
     {
-        return $this->hasMany(Region::class);
+        return $this->hasMany(Address::class);
     }
-
-
     /**
      * @param Builder $query
      *
@@ -130,6 +134,13 @@ final class City extends Model
             return $query->whereBetween('created_at', $date);
         })->when($filters['name'] ?? null, function (Builder $query, string $name){
             return $query->where('name','like','%'.$name.'%');
+        })->when($filters['region_id'] ?? null, function (Builder $query, int $region_id){
+            return $query->where('region_id', '=', $region_id);
+        })->when($filters['region'] ?? null, function (Builder $query, string $region) {
+            return $query->whereHas('region', function (Builder $query) use ($region) {
+               return $query->where('name','like','%'. $region .'%')
+                   ->orWhere('zip_code','like','%'. $region .'%');
+            });
         });
     }
 }

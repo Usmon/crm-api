@@ -22,7 +22,7 @@ final class Addresses
 
             'date' => $request->json('date'),
 
-            'customer_id' => $request->json('customer_id'),
+            'user_id' => $request->json('user_id'),
 
             'city_id' => $request->json('city_id'),
 
@@ -30,7 +30,7 @@ final class Addresses
 
             'second_address' => $request->json('second_address'),
 
-            'customer' => $request->json('customer'),
+            'user' => $request->json('user'),
 
             'city' => $request->json('city'),
         ];
@@ -43,7 +43,7 @@ final class Addresses
      */
     public function getOnlyFilters(AddressesRequest $request): array
     {
-        return $request->only('search', 'date', 'customer_id','city_id','first_address','second_address','customer','city');
+        return $request->only('search', 'date', 'user_id', 'city_id', 'first_address', 'second_address', 'user', 'city');
     }
 
     /**
@@ -77,11 +77,11 @@ final class Addresses
             return [
                 'id' => $address->id,
 
-                'customer_id' => $address->customer_id,
+                'user_id' => $address->user_id,
 
                 'city_id' => $address->city_id,
 
-                'first_address' => $address->second_address,
+                'first_address' => $address->first_address,
 
                 'second_address' => $address->second_address,
 
@@ -89,9 +89,9 @@ final class Addresses
 
                 'updated_at' => $address->updated_at,
 
-                'customer' => $address->customer,
+                'user' => $address->user,
 
-                'city' => $address->city()->with(['region'])->get(),
+                'city' => $address->city,
             ];
         });
 
@@ -108,7 +108,7 @@ final class Addresses
         return [
             'id' => $address->id,
 
-            'customer_id' => $address->customer_id,
+            'user_id' => $address->user_id,
 
             'city_id' => $address->city_id,
 
@@ -120,9 +120,9 @@ final class Addresses
 
             'updated_at' => $address->updated_at,
 
-            'customer' => $address->customer,
+            'user' => $address->user,
 
-            'city' => $address->city()->with(['region'])->get(),
+            'city' => $address->city,
         ];
     }
 
@@ -134,7 +134,7 @@ final class Addresses
     public function storeCredentials(AddressesRequest $request): array
     {
         return [
-            'customer_id' => $request->json('customer_id'),
+            'user_id' => $request->json('user_id'),
 
             'city_id' => $request->json('city_id'),
 
@@ -152,7 +152,7 @@ final class Addresses
     public function updateCredentials(AddressesRequest $request): array
     {
         $credentials = [
-            'customer_id' => $request->json('customer_id'),
+            'user_id' => $request->json('user_id'),
 
             'city_id' => $request->json('city_id'),
 

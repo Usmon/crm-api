@@ -40,8 +40,6 @@ final  class CityObserver
         $city->deleted_by = $city->deleted_by ?? Auth::id();
 
         $city->deleted_at = $city->deleted_at ?? Carbon::now();
-
-        $city->update();
     }
 
     /**

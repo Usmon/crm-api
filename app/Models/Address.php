@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property integer $id
  *
- * @property integer $customer_id
+ * @property integer $user_id
  *
  * @property integer $city_id
  *
@@ -39,7 +39,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property int|null $deleted_by
  *
- * @property-read HasOne|null $customer
+ * @property-read HasOne|null $user
+ *
+ * @property-read HasOne|null $city
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
@@ -63,7 +65,7 @@ final class Address extends Model
      * @var array
      */
     protected $fillable = [
-        'customer_id',
+        'user_id',
 
         'city_id',
 
@@ -76,7 +78,7 @@ final class Address extends Model
      * @var array
      */
     protected $casts = [
-        'customer_id' => 'integer',
+        'user_id' => 'integer',
 
         'city_id' => 'integer',
 
@@ -96,17 +98,17 @@ final class Address extends Model
     /**
      * @return HasOne
      */
-    public function customer():HasOne
+    public function user(): HasOne
     {
-        return $this->hasOne(Customer::class,'id','customer_id');
+        return $this->hasOne(User::class,'id','user_id');
     }
 
     /**
      * @return HasOne
      */
-    public function city():HasOne
+    public function city(): HasOne
     {
-        return $this->hasOne(City::class,'id','city_id');
+        return $this->hasOne(City::class,'id','city_id')->with('region');
     }
 
     /**
@@ -143,14 +145,18 @@ final class Address extends Model
             return $query->where('first_address','like','%'. $first_address .'%');
         })->when($filters['second_address'] ?? null, function (Builder $query, string $second_address){
             return $query->where('second_address','like','%'. $second_address .'%');
-        })->when($filters['customer_id'] ?? null, function (Builder $query, int $customer_id){
-            return $query->where('customer_id','=', $customer_id);
+        })->when($filters['user_id'] ?? null, function (Builder $query, int $customer_id){
+            return $query->where('user_id','=', $customer_id);
         })->when($filters['city_id'] ?? null, function (Builder $query, int $city_id){
             return $query->where('city_id','=', $city_id);
-        })->when($filters['customer'] ?? null, function (Builder $query, string $customer) {
-            return $query->whereHas('customer', function (Builder $query) use ($customer) {
-                $query->where('passport', 'like', '%' . $customer . '%')
-                    ->orWhere('note', 'like', '%' . $customer . '%');
+        })->when($filters['user'] ?? null, function (Builder $query, string $user) {
+            return $query->whereHas('user', function (Builder $query) use ($user) {
+                $query->where('login', 'like', '%' . $user . '%')
+                    ->orWhere('email', 'like', '%' . $user . '%')
+                    ->orWhere('profile->first_name', 'like', '%' . $user . '%')
+                    ->orWhere('profile->middle_name', 'like', '%' . $user . '%')
+                    ->orWhere('profile->last_name', 'like', '%' . $user . '%')
+                ;
             });
         })->when($filters['city'] ?? null, function (Builder $query, string $city) {
             return $query->whereHas('city', function (Builder $query) use ($city) {

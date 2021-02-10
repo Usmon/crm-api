@@ -160,7 +160,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
 
     Route::group(['prefix' => 'senders', 'as'=> 'senders.'], function () {
 
-        Route::apiResource('/', DashboardSendersController::class);
+        Route::apiResource('sender', DashboardSendersController::class);
 
         Route::get('phones', [DashboardSendersController::class, 'senderPhoneDisplay']);
     });

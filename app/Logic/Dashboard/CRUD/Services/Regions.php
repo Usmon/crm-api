@@ -69,8 +69,6 @@ final class Regions
             return [
                 'id' => $region->id,
 
-                'city_id' => $region->city_id,
-
                 'name' => $region->name,
 
                 'zip_code' => $region->zip_code,
@@ -79,7 +77,7 @@ final class Regions
 
                 'updated_at' => $region->updated_at,
 
-                'address' => $region->address,
+                'cities' => $region->cities,
             ];
         });
 
@@ -96,8 +94,6 @@ final class Regions
         return [
             'id' => $region->id,
 
-            'city_id' => $region->city_id,
-
             'name' => $region->name,
 
             'zip_code' => $region->zip_code,
@@ -106,7 +102,7 @@ final class Regions
 
             'updated_at' => $region->updated_at,
 
-            'address' => $region->address,
+            'cities' => $region->cities,
         ];
     }
 
@@ -118,8 +114,6 @@ final class Regions
     public function storeCredentials(RegionsRequest $request): array
     {
         return [
-            'city_id' => $request->json('city_id'),
-
             'name' => $request->json('name'),
 
             'zip_code' => $request->json('zip_code'),
@@ -134,8 +128,6 @@ final class Regions
     public function updateCredentials(RegionsRequest $request): array
     {
         $credentials = [
-            'city_id' => $request->json('city_id'),
-
             'name' => $request->json('name'),
 
             'zip_code' => $request->json('zip_code'),
@@ -152,10 +144,7 @@ final class Regions
     public function deleteRegion($id)
     {
         $id = json_decode($id);
+
         return (is_int($id) || array_filter($id,'is_int')===$id) ? $id : 0;
     }
-
-
-
-
 }

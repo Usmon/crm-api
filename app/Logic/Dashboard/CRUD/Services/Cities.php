@@ -22,8 +22,11 @@ final class Cities
 
             'date' => $request->json('date'),
 
+            'region_id' => $request->json('region_id'),
+
             'name' => $request->json('name'),
 
+            'region' => $request->json('region'),
         ];
     }
 
@@ -34,7 +37,7 @@ final class Cities
      */
     public function getOnlyFilters(CitiesRequest $request): array
     {
-        return $request->only('search', 'date','name');
+        return $request->only('search', 'date', 'region_id', 'name', 'region');
     }
 
     /**
@@ -68,14 +71,17 @@ final class Cities
             return [
                 'id' => $city->id,
 
+                'region_id' => $city->region_id,
+
                 'name' => $city->name,
 
                 'created_at' => $city->created_at,
 
                 'updated_at' => $city->updated_at,
 
+                'region' => $city->region,
 
-
+                'addresses' => $city->addresses,
             ];
         });
 
@@ -92,13 +98,15 @@ final class Cities
         return [
             'id' => $city->id,
 
+            'region_id' => $city->region_id,
+
             'name' => $city->name,
 
             'created_at' => $city->created_at,
 
             'updated_at' => $city->updated_at,
 
-
+            'addresses' => $city->addresses,
         ];
     }
 
@@ -110,6 +118,8 @@ final class Cities
     public function storeCredentials(CitiesRequest $request): array
     {
         return [
+            'region_id' => $request->json('region_id'),
+
             'name' => $request->json('name'),
         ];
     }
@@ -122,6 +132,8 @@ final class Cities
     public function updateCredentials(CitiesRequest $request): array
     {
         $credentials = [
+            'region_id' => $request->json('region_id'),
+
             'name' => $request->json('name'),
         ];
 
@@ -133,7 +145,7 @@ final class Cities
      *
      * @return array|int
      */
-    public function deleteCities($id)
+    public function deleteCity($id)
     {
         $id = json_decode($id);
 

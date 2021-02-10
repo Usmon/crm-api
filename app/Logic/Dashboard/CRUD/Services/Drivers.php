@@ -24,17 +24,19 @@ final class Drivers
 
             'creator' => $request->json('creator'),
 
-            'name' => $request->json('name'),
+            'user_id' => $request->json('user_id'),
 
             'phone' => $request->json('phone'),
 
-            'email' => $request->json('email'),
+            'region_id' => $request->json('region_id'),
+
+            'city_id' => $request->json('city_id'),
+
+            'address_id' => $request->json('address_id'),
 
             'region' => $request->json('region'),
 
             'city' => $request->json('city'),
-
-            'zip_or_post_code' => $request->json('zip_or_post_code'),
 
             'address' => $request->json('address'),
 
@@ -53,8 +55,8 @@ final class Drivers
      */
     public function getOnlyFilters(DriversRequest $request): array
     {
-        return $request->only('search', 'date', 'creator', 'name', 'phone', 'email', 'region', 'city',
-                                    'zip_or_post_code', 'address', 'car_model', 'car_number', 'license');
+        return $request->only('search', 'date', 'creator', 'user_id', 'phone', 'region_id',
+            'city_id',  'address_id', 'region', 'city',  'address', 'car_model', 'car_number', 'license');
     }
 
     /**
@@ -88,19 +90,15 @@ final class Drivers
             return [
                 'id' => $driver->id,
 
-                'name' => $driver->name,
+                'user_id' => $driver->user_id,
 
                 'phone' => $driver->phone,
 
-                'email' => $driver->email,
+                'region_id' => $driver->region_id,
 
-                'region' => $driver->region,
+                'city_id' => $driver->city_id,
 
-                'city' => $driver->city,
-
-                'zip_or_post_code' => $driver->zip_or_post_code,
-
-                'address' => $driver->address,
+                'address_id' => $driver->address_id,
 
                 'car_model' => $driver->car_model,
 
@@ -113,6 +111,14 @@ final class Drivers
                 'updated_at' => $driver->updated_at,
 
                 'creator' => $driver->creator,
+
+                'user' => $driver->user,
+
+                'region' => $driver->region,
+
+                'city' => $driver->city,
+
+                'address' => $driver->address,
             ];
         });
 
@@ -129,19 +135,15 @@ final class Drivers
         return [
             'id' => $driver->id,
 
-            'name' => $driver->name,
+            'user_id' => $driver->user_id,
 
             'phone' => $driver->phone,
 
-            'email' => $driver->email,
+            'region_id' => $driver->region_id,
 
-            'region' => $driver->region,
+            'city_id' => $driver->city_id,
 
-            'city' => $driver->city,
-
-            'zip_or_post_code' => $driver->zip_or_post_code,
-
-            'address' => $driver->address,
+            'address_id' => $driver->address_id,
 
             'car_model' => $driver->car_model,
 
@@ -154,6 +156,14 @@ final class Drivers
             'updated_at' => $driver->updated_at,
 
             'creator' => $driver->creator,
+
+            'user' => $driver->user,
+
+            'region' => $driver->region,
+
+            'city' => $driver->city,
+
+            'address' => $driver->address,
         ];
     }
 
@@ -166,19 +176,15 @@ final class Drivers
     public function storeCredentials(DriversRequest $request): array
     {
         return [
-            'name' => $request->json('name'),
+            'user_id' => $request->json('user_id'),
 
             'phone' => $request->json('phone'),
 
-            'email' => $request->json('email'),
+            'region_id' => $request->json('region_id'),
 
-            'region' => $request->json('region'),
+            'city_id' => $request->json('city_id'),
 
-            'city' => $request->json('city'),
-
-            'zip_or_post_code' => $request->json('zip_or_post_code'),
-
-            'address' => $request->json('address'),
+            'address_id' => $request->json('address_id'),
 
             'car_model' => $request->json('car_model'),
 
@@ -196,19 +202,15 @@ final class Drivers
     public function updateCredentials(DriversRequest $request): array
     {
         return [
-            'name' => $request->json('name'),
+            'user_id' => $request->json('user_id'),
 
             'phone' => $request->json('phone'),
 
-            'email' => $request->json('email'),
+            'region_id' => $request->json('region_id'),
 
-            'region' => $request->json('region'),
+            'city_id' => $request->json('city_id'),
 
-            'city' => $request->json('city'),
-
-            'zip_or_post_code' => $request->json('zip_or_post_code'),
-
-            'address' => $request->json('address'),
+            'address_id' => $request->json('address_id'),
 
             'car_model' => $request->json('car_model'),
 
