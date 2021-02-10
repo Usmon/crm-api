@@ -6,12 +6,12 @@ use Illuminate\Database\Schema\Blueprint;
 
 use Illuminate\Database\Migrations\Migration;
 
-final class CreateRegionsTable extends Migration
+final class CreateAddressesTable extends Migration
 {
     /**
      * @var string
      */
-    protected $table = 'regions';
+    protected $table = 'addresses';
 
     /**
      * @return void
@@ -21,23 +21,29 @@ final class CreateRegionsTable extends Migration
         Schema::create($this->table, function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            $table->unsignedBigInteger('user_id');
+
             $table->unsignedBigInteger('city_id');
 
-            $table->string('name');
+            $table->string('first_address');
 
-            $table->string('zip_code');
+            $table->string('second_address');
 
             $table->timestamp('created_at')->nullable();
 
             $table->timestamp('updated_at')->nullable();
 
             $table->timestamp('deleted_at')->nullable();
+
+            $table->unsignedBigInteger('deleted_by')->nullable();
         });
 
         Schema::table($this->table, function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->foreign('deleted_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
 
             $table->foreign('city_id')->references('id')->on('cities')->onUpdate('cascade')->onDelete('cascade');
-
         });
     }
 

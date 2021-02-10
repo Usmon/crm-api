@@ -61,26 +61,16 @@ final class PickupObserver
      */
     public function defaultProperties(Pickup $pickup): void
     {
-        $pickup->note = $pickup->note;
-
-        $pickup->bring_address = $pickup->bring_address;
-
-        $pickup->bring_datetime_start = $pickup->bring_datetime_start;
-
-        $pickup->bring_datetime_end = $pickup->bring_datetime_end;
-
-        $pickup->staff_id = $pickup->staff_id;
-
-        $pickup->driver_id = $pickup->driver_id;
-
-        $pickup->customer_id = $pickup->customer_id;
+        $pickup->creator_id = $pickup->creator_id ?? Auth::id();
 
         $pickup->created_at = $pickup->created_at ?? Carbon::now();
 
         $pickup->updated_at = $pickup->updated_at ?? Carbon::now();
 
+        $pickup->status = $pickup->status ?? 'pending';
+
         $pickup->deleted_at = $pickup->deleted_at ?? null;
+
+        $pickup->deleted_by = $pickup->deleted_by ?? null;
     }
-
-
 }

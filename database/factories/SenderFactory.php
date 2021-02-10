@@ -2,9 +2,16 @@
 
 namespace Database\Factories;
 
+use App\Models\City;
+
+use App\Models\Region;
+
 use App\Models\Sender;
 
-use App\Models\User;
+use App\Models\Address;
+
+use App\Models\Customer;
+
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 final class SenderFactory extends Factory
@@ -19,12 +26,22 @@ final class SenderFactory extends Factory
      */
     public function definition(): array
     {
-        $users = User::all();
+        $customers = Customer::all();
+
+        $region = Region::all(['id'])->random(1)->first();
+
+        $city = City::where('id', $region->id)->get(['id'])->random(1)->first();
+
+        $address = Address::where('id',$city->id)->first(['id']);
 
         return [
-            'customer_id' => $users->random(),
+            'customer_id' => $customers->random(),
 
-            'address' => $this->faker->address
+            'region_id' => $region,
+
+            'city_id' => $city,
+
+            'address_id' => $address,
         ];
     }
 }

@@ -43,7 +43,7 @@ final class Pickups
      *
      * @return Pickup
      */
-    public function updatePickup(Pickup $pickup, array $pickupData)
+    public function updatePickup(Pickup $pickup, array $pickupData): Pickup
     {
         $pickup->update($pickupData);
 
@@ -51,7 +51,7 @@ final class Pickups
     }
 
     /**
-     * @param Pickup $pickup
+     * @param $id
      *
      * @return bool
      */

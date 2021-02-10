@@ -25,19 +25,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property integer $creator_id
  *
- * @property string $name
+ * @property integer $user_id
  *
  * @property string $phone
  *
- * @property string $email
+ * @property integer $city_id
  *
- * @property string $region
+ * @property integer $region_id
  *
- * @property string $city
- *
- * @property string $zip_or_post_code
- *
- * @property string $address
+ * @property integer $address_id
  *
  * @property string $car_model
  *
@@ -52,6 +48,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Carbon|null $deleted_at
  *
  * @property-read HasOne|null $creator
+ *
+ * @property-read HasOne|null $user
+ *
+ * @property-read HasOne|null $region
+ *
+ * @property-read HasOne|null $city
+ *
+ * @property-read HasOne|null $address
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
@@ -77,19 +81,15 @@ final class Driver extends Model
     protected $fillable = [
         'creator_id',
 
-        'name',
+        'user_id',
 
         'phone',
 
-        'email',
+        'city_id',
 
-        'region',
+        'region_id',
 
-        'city',
-
-        'zip_or_post_code',
-
-        'address',
+        'address_id',
 
         'car_model',
 
@@ -104,19 +104,17 @@ final class Driver extends Model
     protected $casts = [
         'creator_id' => 'integer',
 
-        'name' => 'string',
+        'user_id' => 'integer',
 
         'phone' => 'string',
 
         'email' => 'string',
 
-        'region' => 'string',
+        'region_id' => 'integer',
 
-        'city' => 'string',
+        'city_id' => 'integer',
 
-        'zip_or_post_code' => 'string',
-
-        'address' => 'string',
+        'address_id' => 'integer',
 
         'car_model' => 'string',
 
@@ -137,6 +135,38 @@ final class Driver extends Model
     public function creator(): HasOne
     {
         return $this->hasOne(User::class,'id','creator_id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function user(): HasOne
+    {
+        return $this->hasOne(User::class,'id','user_id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function region(): HasOne
+    {
+        return $this->hasOne(Region::class,'id','region_id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function city(): HasOne
+    {
+        return $this->hasOne(City::class,'id','city_id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function address(): HasOne
+    {
+        return $this->hasOne(Address::class,'id','address_id');
     }
 
     /**
@@ -164,23 +194,10 @@ final class Driver extends Model
     {
         return $query->when($filters['search'] ?? null, function (Builder $query, string $search) {
             return $query->where(function (Builder $query) use ($search) {
-                return $query->orWhere('name', 'like', '%' . $search . '%')
-                    ->orWhere('phone', 'like', '%'. $search .'%')
-                    ->orWhere('email', 'like', '%'. $search .'%')
+                return $query->orWhere('phone', 'like', '%'. $search .'%')
                     ->orWhere('car_model', 'like', '%'. $search .'%')
                     ->orWhere('car_number', 'like', '%'. $search .'%')
-                    ->orWhere('license', 'like', '%'. $search .'%')
-                    ->orWhere('region', 'like', '%'. $search .'%')
-                    ->orWhere('city', 'like', '%'. $search .'%')
-                    ->orWhere('zip_or_post_code', 'like', '%'. $search .'%')
-                    ->orWhere('address', 'like', '%'. $search .'%')
-                    ->whereHas('creator', function (Builder $query) use ($search) {
-                        $query->orWhere('login', 'like', '%'. $search .'%')
-                            ->orWhere('email', 'like', '%'. $search .'%')
-                            ->orWhere('profile->first_name', 'like', '%'. $search .'%')
-                            ->orWhere('profile->middle_name', 'like', '%'. $search .'%')
-                            ->orWhere('profile->last_name', 'like', '%'. $search .'%');
-                    });
+                    ->orWhere('license', 'like', '%'. $search .'%');
             });
         })->when($filters['name'] ?? null, function (Builder $query, string $name) {
             return $query->orWhere('name', 'like', '%'. $name .'%');
@@ -194,19 +211,31 @@ final class Driver extends Model
             return $query->orWhere('car_number', 'like', '%' . $carNumber . '%');
         })->when($filters['license'] ?? null, function (Builder $query, string $license) {
             return $query->orWhere('license', 'like', '%' . $license . '%');
+        })->when($filters['region_id'] ?? null, function (Builder $query, int $region_id) {
+            return $query->orWhere('region_id', '=', $region_id);
+        })->when($filters['city_id'] ?? null, function (Builder $query, int $city_id) {
+            return $query->orWhere('city_id', '=', $city_id);
+        })->when($filters['address_id'] ?? null, function (Builder $query, int $address_id) {
+            return $query->orWhere('address', '=', $address_id);
         })->when($filters['region'] ?? null, function (Builder $query, string $region) {
-            return $query->orWhere('region', 'like', '%'. $region .'%');
+            return $query->whereHas('region', function (Builder $query) use ($region) {
+                return $query->orWhere('region', 'like', '%'. $region .'%');
+            });
         })->when($filters['city'] ?? null, function (Builder $query, string $city) {
-            return $query->orWhere('city', 'like', '%'. $city .'%');
-        })->when($filters['zip_or_post_code'] ?? null, function (Builder $query, string $zipOrPostCode) {
-            return $query->orWhere('zip_or_post_code', 'like', '%'. $zipOrPostCode .'%');
+            return $query->whereHas('city', function (Builder $query) use ($city) {
+                return $query->orWhere('city', 'like', '%'. $city .'%');
+            });
         })->when($filters['address'] ?? null, function (Builder $query, string $address) {
-            return $query->orWhere('address', 'like', '%'. $address .'%');
+            return $query->whereHas('address', function (Builder $query) use ($address){
+                return $query->orWhere('address', 'like', '%' . $address . '%');
+            });
         })->when($filters['creator'] ?? null, function (Builder $query, string $creator) {
             return $query->whereHas('creator', function (Builder $query) use ($creator) {
-               return $query->where('login', 'like', '%'. $creator .'%')
-                   ->orWhere('email', 'like', '%'. $creator .'%')
-                   ->orWhere('profile', 'like', '%'. $creator .'%');
+                return $query->where('login', 'like', '%'. $creator .'%')
+                    ->orWhere('email', 'like', '%'. $creator .'%')
+                    ->orWhere('profile->first_name', 'like', '%'. $creator .'%')
+                    ->orWhere('profile->middle_name', 'like', '%'. $creator .'%')
+                    ->orWhere('profile->last_name', 'like', '%'. $creator .'%');
             });
         });
     }

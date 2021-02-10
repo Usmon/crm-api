@@ -12,11 +12,11 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\Builder;
 
-use Illuminate\Database\Eloquent\Collection;
-
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Database\Eloquent\Relations\HasOne;
+
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -25,19 +25,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property int $id
  *
- * @property string $note
+ * @property Carbon $pickup_datetime_start
  *
- * @property string $bring_address
+ * @property Carbon $pickup_datetime_end
  *
- * @property Carbon $bring_datetime_start
+ * @property string $status
  *
- * @property Carbon $bring_datetime_end
+ * @property int $sender_id
  *
- * @property int staff_id
+ * @property int $driver_id
  *
- * @property int driver_id
- *
- * @property int customer_id
+ * @property int $creator_id
  *
  * @property Carbon|null $created_at
  *
@@ -47,15 +45,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property int|null $deleted_by
  *
- * @property-read Collection|User[] $users
- *
- * @property-read Collection|Order[] $orders
- *
- * @property-read HasOne|null $staff
+ * @property-read HasOne|null $sender
  *
  * @property-read HasOne|null $driver
  *
- * @property-read HasOne|null $customer
+ * @property-read HasOne|null $creator
+ *
+ * @property-read HasMany|null $orders
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
@@ -79,21 +75,19 @@ final class Pickup extends Model
      * @var array
      */
     protected $fillable = [
-      'note',
+        'pickup_datetime_start',
 
-      'bring_address',
+        'pickup_datetime_end',
 
-      'bring_datetime_start',
+        'status',
 
-      'bring_datetime_end',
+        'sender_id',
 
-      'staff_id',
+        'driver_id',
 
-      'driver_id',
+        'creator_id',
 
-      'customer_id',
-
-      'deleted_by',
+        'deleted_by',
     ];
 
     /**
@@ -102,19 +96,17 @@ final class Pickup extends Model
     protected $casts = [
         'id' => 'integer',
 
-        'note' => 'string',
+        'pickup_datetime_start' => 'datetime',
 
-        'bring_address' => 'string',
+        'pickup_datetime_end' => 'datetime',
 
-        'bring_datetime_start' => 'datetime',
+        'status' => 'string',
 
-        'bring_datetime_end' => 'datetime',
-
-        'staff_id' => 'integer',
+        'sender_id' => 'integer',
 
         'driver_id' => 'integer',
 
-        'customer_id' => 'integer',
+        'creator_id' => 'integer',
 
         'created_at' => 'datetime',
 
@@ -125,28 +117,20 @@ final class Pickup extends Model
         'deleted_by' => 'integer'
     ];
 
-    /**
-     * @return HasMany
-     */
-    public function orders(): HasMany
-    {
-        return $this->hasMany(Order::class);
-    }
+    const STATUSES = [
+        'pending',
 
-    /**
-     * @return BelongsTo
-     */
-    public function users(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+        'on_the_road',
+
+        'at_the_office',
+    ];
 
     /**
      * @return HasOne
      */
-    public function staff(): HasOne
+    public function sender(): HasOne
     {
-        return $this->hasOne(User::class,'id','staff_id');
+        return $this->hasOne(Sender::class,'id','sender_id');
     }
 
     /**
@@ -154,28 +138,47 @@ final class Pickup extends Model
      */
     public function driver(): HasOne
     {
-        return $this->hasOne(User::class,'id','driver_id');
+        return $this->hasOne(Driver::class,'id','driver_id');
     }
 
     /**
      * @return HasOne
      */
-    public function customer(): HasOne
+    public function creator(): HasOne
     {
-        return $this->hasOne(User::class,'id','customer_id');
+        return $this->hasOne(User::class,'id','creator_id');
     }
+
     /**
-     * @param Builder $query
-     *
-     * @param string $key
-     *
-     * @param string|null $value
-     *
-     * @return Builder
+     * @return HasMany
      */
-    public function scopeFindBy(Builder $query, string $key, string $value = null): Builder
+    public function orders(): HasMany
     {
-        return $query->where($key, '=', $value);
+        return $this->hasMany(Order::class)->with(['boxes']);
+    }
+
+    /**
+     * @return int
+     */
+    public function totalOrders(): int
+    {
+        return $this->orders->count();
+    }
+
+    /**
+     * @return int
+     */
+    public function totalBoxes(): int
+    {
+        return $this->orders->sum('total_boxes');
+    }
+
+    /**
+     * @return int
+     */
+    public function totalDeliveredBoxes(): int
+    {
+        return $this->orders->sum('total_delivered_boxes');
     }
 
     /**
@@ -187,44 +190,6 @@ final class Pickup extends Model
      */
     public function scopeFilter(Builder $query, array $filters): Builder
     {
-        return $query->when($filters['search'] ?? null, function (Builder $query, string $search) {
-            return $query->where(function (Builder $query) use ($search) {
-                return $query->where('note', 'like', '%' . $search . '%');
-            });
-        })->when($filters['date'] ?? null, function (Builder $query, array $date) {
-            return $query->whereBetween('created_at', $date);
-        })->when($filters['note'] ?? null, function (Builder $query, string $note) {
-            return $query->orWhere('note', 'like', '%'. $note .'%');
-        })->when($filters['bring_address'] ?? null, function (Builder $query, string $bringAddress) {
-            return $query->orWhere('bring_address', 'like', '%'. $bringAddress .'%');
-        })->when($filters['bring_datetime_start'] ?? null, function (Builder $query, array $bringDatetimeStart) {
-            return $query->orWhereBetween('bring_datetime_start', $bringDatetimeStart);
-        })->when($filters['bring_datetime_end'] ?? null, function (Builder $query, array $bringDatetimeEnd) {
-            return $query->orWhereBetween('bring_datetime_end', $bringDatetimeEnd);
-        })->when($filters['staff_id'] ?? null, function (Builder $query, int $staff_id) {
-            return $query->orWhere('staff_id', '=', $staff_id);
-        })->when($filters['driver_id'] ?? null, function (Builder $query, int $driver_id) {
-            return $query->orWhere('driver_id', '=', $driver_id);
-        })->when($filters['customer_id'] ?? null, function (Builder $query, int $customer_id) {
-            return $query->orWhere('customer_id', '=', $customer_id);
-        })->when($filters['staff'] ?? null, function (Builder $query, string $customer) {
-            return $query->whereHas('staff', function (Builder $query) use ($customer) {
-                $query->orWhere('login', 'like', '%' . $customer . '%')
-                    ->orWhere('email', 'like', '%' . $customer . '%')
-                    ->orWhere('profile', 'like', '%' . $customer . '%');
-            });
-        })->when($filters['driver'] ?? null, function (Builder $query, string $driver) {
-            return $query->whereHas('driver', function (Builder $query) use ($driver) {
-                $query->orWhere('login', 'like', '%' . $driver . '%')
-                    ->orWhere('email', 'like', '%' . $driver . '%')
-                    ->orWhere('profile', 'like', '%' . $driver . '%');
-            });
-        })->when($filters['customer'] ?? null, function (Builder $query, string $customer) {
-            return $query->whereHas('customer', function (Builder $query) use ($customer) {
-                $query->orWhere('login', 'like', '%' . $customer . '%')
-                    ->orWhere('email', 'like', '%' . $customer . '%')
-                    ->orWhere('profile', 'like', '%' . $customer . '%');
-            });
-        });
+        //todo filter
     }
 }

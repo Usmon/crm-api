@@ -6,12 +6,12 @@ use Illuminate\Database\Schema\Blueprint;
 
 use Illuminate\Database\Migrations\Migration;
 
-final class CreateAddressesTable extends Migration
+final class CreateSendersTable extends Migration
 {
     /**
      * @var string
      */
-    protected $table = 'addresses';
+    protected $table = 'senders';
 
     /**
      * @return void
@@ -25,26 +25,24 @@ final class CreateAddressesTable extends Migration
 
             $table->unsignedBigInteger('city_id');
 
-            $table->string('first_address');
+            $table->unsignedBigInteger('region_id');
 
-            $table->string('second_address');
+            $table->unsignedBigInteger('address_id');
 
             $table->timestamp('created_at')->nullable();
 
             $table->timestamp('updated_at')->nullable();
 
             $table->timestamp('deleted_at')->nullable();
-
-            $table->unsignedBigInteger('deleted_by')->nullable();
         });
-
         Schema::table($this->table, function (Blueprint $table) {
             $table->foreign('customer_id')->references('id')->on('customers')->onUpdate('cascade')->onDelete('cascade');
 
-            $table->foreign('deleted_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('city_id')->references('id')->on('cities')->cascadeOnUpdate()->cascadeOnDelete();
 
-            $table->foreign('city_id')->references('id')->on('cities')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('region_id')->references('id')->on('regions')->cascadeOnUpdate()->cascadeOnDelete();
 
+            $table->foreign('address_id')->references('id')->on('addresses')->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 

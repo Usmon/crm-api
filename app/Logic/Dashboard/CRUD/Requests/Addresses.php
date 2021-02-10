@@ -53,12 +53,12 @@ final class Addresses extends FormRequest
                     'after:date.from',
                 ],
 
-                'customer_id' => [
+                'user_id' => [
                     'nullable',
 
                     'integer',
 
-                    Rule::exists('customers','id'),
+                    Rule::exists('users','id'),
                 ],
 
                 'city_id' => [
@@ -81,6 +81,12 @@ final class Addresses extends FormRequest
                     'string',
                 ],
 
+                'user' => [
+                    'nullable',
+
+                    'string',
+                ],
+
                 'sort.*' => [
                     'nullable',
 
@@ -89,12 +95,12 @@ final class Addresses extends FormRequest
             ],
 
             'dashboard.addresses.store' => [
-                'customer_id' => [
+                'user_id' => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('customers', 'id')
+                    Rule::exists('users', 'id')
                 ],
 
                 'city_id' => [
@@ -121,12 +127,12 @@ final class Addresses extends FormRequest
             ],
 
             'dashboard.addresses.update' => [
-                'customer_id' => [
+                'user_id' => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('customers', 'id')
+                    Rule::exists('users', 'id')
                 ],
 
                 'city_id' => [
@@ -148,8 +154,6 @@ final class Addresses extends FormRequest
 
                     'string',
                 ],
-
-
             ],
         ];
 

@@ -6,12 +6,12 @@ use Illuminate\Database\Schema\Blueprint;
 
 use Illuminate\Database\Migrations\Migration;
 
-final class CreateCitiesTable extends Migration
+final class CreateRegionsTable extends Migration
 {
     /**
      * @var string
      */
-    protected $table = 'cities';
+    protected $table = 'regions';
 
     /**
      * @return void
@@ -23,13 +23,14 @@ final class CreateCitiesTable extends Migration
 
             $table->string('name');
 
+            $table->string('zip_code')->nullable();
+
             $table->timestamp('created_at')->nullable();
 
             $table->timestamp('updated_at')->nullable();
 
             $table->timestamp('deleted_at')->nullable();
         });
-
     }
 
     /**

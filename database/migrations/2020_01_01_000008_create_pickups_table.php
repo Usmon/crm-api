@@ -21,19 +21,17 @@ final class CreatePickupsTable extends Migration
         Schema::create($this->table, function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->text('note');
+            $table->dateTime('pickup_datetime_start');
 
-            $table->string('bring_address');
+            $table->dateTime('pickup_datetime_end');
 
-            $table->dateTime('bring_datetime_start');
+            $table->enum('status',['pending', 'on_the_road', 'at_the_office'])->default('pending');
 
-            $table->dateTime('bring_datetime_end');
-
-            $table->unsignedBigInteger('staff_id');
+            $table->unsignedBigInteger('sender_id');
 
             $table->unsignedBigInteger('driver_id');
 
-            $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('creator_id');
 
             $table->timestamp('created_at')->nullable();
 
@@ -45,11 +43,11 @@ final class CreatePickupsTable extends Migration
         });
 
         Schema::table($this->table, function (Blueprint $table) {
-            $table->foreign('staff_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('sender_id')->references('id')->on('senders')->onUpdate('cascade')->onDelete('cascade');
 
-            $table->foreign('driver_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('driver_id')->references('id')->on('drivers')->onUpdate('cascade')->onDelete('cascade');
 
-            $table->foreign('customer_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('creator_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
 
             $table->foreign('deleted_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });

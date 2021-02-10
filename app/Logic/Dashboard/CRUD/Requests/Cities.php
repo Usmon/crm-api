@@ -53,7 +53,21 @@ final class Cities extends FormRequest
                     'after:date.from',
                 ],
 
+                'region_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('regions','id'),
+                ],
+
                 'name' => [
+                    'nullable',
+
+                    'string',
+                ],
+
+                'region' => [
                     'nullable',
 
                     'string',
@@ -67,20 +81,62 @@ final class Cities extends FormRequest
             ],
 
             'dashboard.cities.store' => [
+                'region_id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('regions','id'),
+                ],
 
                 'name' => [
                     'required',
 
                     'string',
                 ],
+
+                'permissions' => [
+                    'required',
+
+                    'array',
+                ],
+
+                'permissions.*' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('permissions', 'id'),
+                ],
             ],
 
             'dashboard.cities.update' => [
+                'region_id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('regions','id'),
+                ],
 
                 'name' => [
                     'required',
 
                     'string',
+                ],
+
+                'permissions' => [
+                    'required',
+
+                    'array',
+                ],
+
+                'permissions.*' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('permissions', 'id'),
                 ],
             ],
         ];

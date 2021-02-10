@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\Sort\Sorter;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 use App\Traits\Pagination\Pager;
@@ -23,8 +24,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property integer $id
  *
- * @property string $city_id
- *
  * @property string $name
  *
  * @property string $zip_code
@@ -36,6 +35,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Carbon|null $deleted_at
  *
  * @property integer $deleted_by
+ *
+ * @property-read HasMany|null $cities
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
@@ -59,8 +60,6 @@ final class Region extends Model
      * @var array
      */
     protected $fillable = [
-        'city_id',
-
         'name',
 
         'zip_code',
@@ -70,22 +69,18 @@ final class Region extends Model
      * @var array
      */
     protected $casts = [
-        'city_id' => 'integer',
-
         'name' => 'string',
 
         'zip_code' => 'string',
     ];
 
     /**
-     * @return BelongsTo
+     * @return HasMany
      */
-    public function city(): BelongsTo
+    public function cities(): HasMany
     {
-        return $this->belongsTo(City::class,'city_id');
+        return $this->hasMany(City::class);
     }
-
-
 
     /**
      * @param Builder $query
@@ -120,8 +115,8 @@ final class Region extends Model
                 return $query->whereBetween('created_at', $date);
         })->when($filters['name'] ?? null, function (Builder $query, string $name){
                 return $query->where('name', 'like', '%'. $name .'%');
-        })->when($filters['zip_code'] ?? null, function (Builder $query, string $zip_code) {
-            return $query->where('zip_code', 'like', '%' . $status . '%');
+        })->when($filters['zip_code'] ?? null, function (Builder $query, string $zipCode) {
+            return $query->where('zip_code', 'like', '%' . $zipCode . '%');
         });
     }
 }

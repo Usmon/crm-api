@@ -59,16 +59,10 @@ final class Drivers extends FormRequest
                     'string',
                 ],
 
-                'name' => [
+                'user_id' => [
                     'nullable',
 
-                    'string',
-                ],
-
-                'email' => [
-                    'nullable',
-
-                    'string',
+                    'integer',
                 ],
 
                 'phone' => [
@@ -89,16 +83,34 @@ final class Drivers extends FormRequest
                     'string',
                 ],
 
-                'zip_or_post_code' => [
+                'address' => [
                     'nullable',
 
                     'string',
                 ],
 
-                'address' => [
+                'region_id' => [
                     'nullable',
 
-                    'string',
+                    'integer',
+
+                    Rule::exists('regions', 'id'),
+                ],
+
+                'city_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('cities', 'id'),
+                ],
+
+                'address_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('addresses', 'id'),
                 ],
 
                 'car_model' => [
@@ -127,10 +139,10 @@ final class Drivers extends FormRequest
             ],
 
             'dashboard.drivers.store' => [
-                'name' => [
+                'user_id' => [
                     'required',
 
-                    'string',
+                    'integer',
                 ],
 
                 'phone' => [
@@ -139,36 +151,28 @@ final class Drivers extends FormRequest
                     'string',
                 ],
 
-                'email' => [
+                'region_id' => [
                     'required',
 
-                    'email',
+                    'integer',
 
-                    Rule::unique('drivers','email'),
+                    Rule::exists('regions', 'id'),
                 ],
 
-                'region' => [
+                'city_id' => [
                     'required',
 
-                    'string',
+                    'integer',
+
+                    Rule::exists('cities', 'id'),
                 ],
 
-                'city' => [
+                'address_id' => [
                     'required',
 
-                    'string',
-                ],
+                    'integer',
 
-                'zip_or_post_code' => [
-                    'required',
-
-                    'string',
-                ],
-
-                'address' => [
-                    'required',
-
-                    'string',
+                    Rule::exists('addresses', 'id'),
                 ],
 
                 'car_model' => [
@@ -205,10 +209,10 @@ final class Drivers extends FormRequest
             ],
 
             'dashboard.drivers.update' => [
-                'name' => [
+                'user_id' => [
                     'required',
 
-                    'string',
+                    'integer',
                 ],
 
                 'phone' => [
@@ -217,36 +221,28 @@ final class Drivers extends FormRequest
                     'string',
                 ],
 
-                'email' => [
+                'region_id' => [
                     'required',
 
-                    'email',
+                    'regions',
 
-                    Rule::unique('drivers','email'),
+                    Rule::exists('regions', 'id'),
                 ],
 
-                'region' => [
+                'city_id' => [
                     'required',
 
-                    'string',
+                    'integer',
+
+                    Rule::exists('cities', 'id'),
                 ],
 
-                'city' => [
+                'address_id' => [
                     'required',
 
-                    'string',
-                ],
+                    'integer',
 
-                'zip_or_post_code' => [
-                    'required',
-
-                    'string',
-                ],
-
-                'address' => [
-                    'required',
-
-                    'string',
+                    Rule::exists('addresses', 'id'),
                 ],
 
                 'car_model' => [

@@ -23,19 +23,15 @@ final class CreateDriversTable extends Migration
 
             $table->unsignedBigInteger('creator_id');
 
-            $table->string('name');
+            $table->unsignedBigInteger('user_id');
 
             $table->string('phone');
 
-            $table->string('email');
+            $table->unsignedBigInteger('city_id');
 
-            $table->string('region');
+            $table->unsignedBigInteger('region_id');
 
-            $table->string('city');
-
-            $table->string('zip_or_post_code');
-
-            $table->string('address');
+            $table->unsignedBigInteger('address_id');
 
             $table->string('car_model')->nullable();
 
@@ -51,9 +47,15 @@ final class CreateDriversTable extends Migration
         });
 
         Schema::table($this->table, function (Blueprint $table) {
-            $table->unique('email');
-
             $table->foreign('creator_id')->references('id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();
+
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();
+
+            $table->foreign('city_id')->references('id')->on('cities')->cascadeOnUpdate()->cascadeOnDelete();
+
+            $table->foreign('region_id')->references('id')->on('regions')->cascadeOnUpdate()->cascadeOnDelete();
+
+            $table->foreign('address_id')->references('id')->on('addresses')->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 
