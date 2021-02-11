@@ -19,6 +19,8 @@ final class DatabaseSeeder extends Seeder
 
         $this->call(RegionSeeder::class);
 
+        $this->call(PartnerSeeder::class);
+
         $this->call(PermissionSeeder::class);
 
         $this->call(StatusSeeder::class);
