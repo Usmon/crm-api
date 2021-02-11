@@ -40,9 +40,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property double $payed_price
  *
- * @property string $status
+ * @property integer $status_id
  *
- * @property string $payment_status
+ * @property integer $payment_status_id
  *
  * @property integer $total_boxes
  *
@@ -92,6 +92,11 @@ final class Order extends Model
     use SoftDeletes;
 
     /**
+     * @var string STATUS_PAYMENT 
+     */
+    const STATUS_PAYMENT = 'OrderPayment';
+
+    /**
      * @var string
      */
     protected $table = 'orders';
@@ -101,8 +106,6 @@ final class Order extends Model
      */
     protected $fillable = [
         'staff_id',
-
-        'customer_id',
 
         'fedex_order_id',
 
@@ -114,13 +117,15 @@ final class Order extends Model
 
         'recipient_id',
 
+        'type',
+
         'price',
 
         'payed_price',
 
-        'status',
+        'status_id',
 
-        'payment_status',
+        'payment_status_id',
 
         'total_boxes',
 
@@ -137,8 +142,6 @@ final class Order extends Model
 
         'staff_id' => 'integer',
 
-        'customer_id' => 'integer',
-
         'fedex_order_id' => 'integer',
 
         'pickup_id' => 'integer',
@@ -149,13 +152,15 @@ final class Order extends Model
 
         'recipient_id' => 'integer',
 
+        'type' => 'json',
+
         'price' => 'double',
 
         'payed_price' => 'double',
 
-        'status' => 'string',
+        'status_id' => 'integer',
 
-        'payment_status' => 'string',
+        'payment_status_id' => 'integer',
 
         'total_boxes' => 'integer',
 
@@ -297,7 +302,8 @@ final class Order extends Model
      */
     public function getTotalDeliveredBoxesAttribute(): int
     {
-        return $this->boxes()->where('status','=','delivered')->count();
+        //@todo by order id
+        return $this->boxes()->count();
     }
 
     /**

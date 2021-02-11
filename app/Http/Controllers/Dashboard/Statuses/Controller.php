@@ -142,7 +142,7 @@ final class Controller extends Controllers
     public function statusOrders(): JsonResponse
     {
         return Json::sendJsonWith200([
-            'statuses' => $this->service->getStatusOrders(),
+            'statuses' => $this->repository->getStatusesByModel($this->service::ORDER),
         ]);
     }
 
@@ -151,8 +151,10 @@ final class Controller extends Controllers
      */
     public function statusPaymentOrders(): JsonResponse
     {
+        $status = \App\Models\Status::where('model', 'OrderPayment')->get();
         return Json::sendJsonWith200([
-            'payment_statuses' => $this->service->getPaymentStatusOrders(),
+            'payment_statuses' => $status,
+            //'payment_statuses' => $this->service->getPaymentStatusOrders(),
         ]);
     }
 

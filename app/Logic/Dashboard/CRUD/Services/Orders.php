@@ -185,9 +185,7 @@ final class Orders
 
             'shipment' => $order->shipment,
 
-            'boxes' => $order->boxes,
-
-            'products' => $order->products,
+            'boxes' => $order->boxes()->with('items')->get(),
 
             'sender' => $order->sender,
 
@@ -213,15 +211,16 @@ final class Orders
             
             'recipient_id' => $request->json('recipient_id'),
 
-            'products' => $request->json('products'),
+            'status_id' => $request->json('status_id'),
+
+            'payment_status_id' => $request->json('payment_status_id'),
+
+            'type' => $request->json('type'),
+
+            'boxes' => $request->json('boxes'),
 
             'price' => $request->json('price'),
 
-            'payed_price' => $request->json('payed_price'),
-
-            'status' => $request->json('status'),
-
-            'payment_status' => $request->json('payment_status')
         ];
     }
 

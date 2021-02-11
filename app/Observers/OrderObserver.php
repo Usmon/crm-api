@@ -46,7 +46,6 @@ final class OrderObserver
      */
     public function restoring(Order $order): void
     {
-
         $order->deleted_at = null;
     }
 
@@ -57,6 +56,8 @@ final class OrderObserver
      */
     protected function defaultProperties(Order $order): void
     {
+        $order->payed_price = $order->payed_price ?? 0;
+
         $order->staff_id = $order->staff_id ?? auth()->user()->id;
 
         $order->created_at = $order->created_at ?? Carbon::now();

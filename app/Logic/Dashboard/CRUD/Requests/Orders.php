@@ -177,61 +177,87 @@ final class Orders extends FormRequest
                     Rule::exists('recipients', 'id')
                 ],
 
-                'price' => [
+                'status_id' => [
                     'required',
 
-                    'numeric',
+                    'integer',
 
-                    'min:0',
+                    Rule::exists('statuses', 'id')
                 ],
 
-                'payed_price' => [
+                'payment_status_id' => [
                     'required',
 
-                    'numeric',
+                    'integer',
 
-                    'min:0',
+                    Rule::exists('statuses', 'id')
                 ],
 
-                'status' => [
+                'type' => [
+                    'required'
+                ],
+
+                'type.index' => [
+                    'required'
+                ],
+
+                'type.date' => [
+                    'required'
+                ],
+
+                'type.date.from' => [
+                    'required'
+                ],
+
+                'type.date.to' => [
+                    'required'
+                ],
+
+                'type.index' => [
                     'required',
 
                     'string',
 
-                    'in:created,picked_up,waiting,pending,shipping,shipped,delivering,delivered,canceled'
+                    'in:pickup,fedex,self_delivery',
                 ],
 
-                'products' => [
+                'boxes' => [
+                    'required',
+
+                    'array'
+                ],
+
+                'boxes.*.products' => [
                     'required',
                     
                     'array',
                 ],
 
-                'products.*.name' => [
+                'boxes.*.products.*.name' => [
                     'required',
 
                     'string'
                 ],
 
-                'products.*.quantity' => [
+                'boxes.*.products.*.quantity' => [
                     'required',
 
                     'numeric'
                 ],
 
-                'products.*.price' => [
+                'boxes.*.products.*.price' => [
                     'required',
 
                     'numeric'
                 ],
 
-                'products.*.weight' => [
+                'boxes.*.products.*.weight' => [
                     'required',
 
                     'numeric'
                 ],
 
-                'products.*.type_weight' => [
+                'boxes.*.products.*.type_weight' => [
                     'required',
 
                     'string',
@@ -239,20 +265,16 @@ final class Orders extends FormRequest
                     Rule::in(['lb', 'kg'])
                 ],
 
-                'products.*.note' => [
+                'boxes.*.products.*.note' => [
                     'string',
                 ],
 
-                'products.*.image' => [
+                'boxes.*.products.*.image' => [
                     'string',
                 ],
 
-                'payment_status' => [
-                    'required',
-
+                'boxes.*.products.*.image' => [
                     'string',
-
-                    'in:payed,debt'
                 ],
 
             ],

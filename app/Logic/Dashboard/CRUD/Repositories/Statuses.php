@@ -6,6 +6,8 @@ use App\Models\Status;
 
 use Illuminate\Contracts\Pagination\Paginator;
 
+use Illuminate\Support\Collection;
+
 final class Statuses
 {
     /**
@@ -18,6 +20,18 @@ final class Statuses
     public function getStatuses(array $filters, array $sorts): Paginator
     {
         return Status::filter($filters)->sort($sorts)->pager();
+    }
+
+    /**
+     * @param array $filters
+     *
+     * @param array $sorts
+     *
+     * @return Collection
+     */
+    public function getStatusesByModel(string $model_name): Collection
+    {
+        return Status::byModel($model_name)->get();
     }
 
     /**

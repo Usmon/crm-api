@@ -25,23 +25,21 @@ use App\Traits\Pagination\Pager;
  *
  * @property int $id
  *
- * @property int box_id
+ * @property int $box_id
  *
- * @property int warehouse_item_id
+ * @property string $name
  *
- * @property string name
+ * @property int $quantity
  *
- * @property int quantity
+ * @property float $price
  *
- * @property float price
+ * @property float $weight
  *
- * @property float weight
+ * @property string $made_in
  *
- * @property string made_in
+ * @property string $note
  *
- * @property string note
- *
- * @property integer is_additional
+ * @property integer $is_additional
  *
  */
 
@@ -62,8 +60,6 @@ final class BoxItem extends Model
     protected $fillable = [
         'box_id',
 
-        'warehouse_item_id',
-
         'name',
 
         'quantity',
@@ -75,6 +71,8 @@ final class BoxItem extends Model
         'made_in',
 
         'note',
+
+        'image',
 
         'is_additional',
 
@@ -93,8 +91,6 @@ final class BoxItem extends Model
 
         'box_id' => 'integer',
 
-        'warehouse_item_id' => 'integer',
-
         'name' => 'string',
 
         'quantity' => 'integer',
@@ -106,6 +102,8 @@ final class BoxItem extends Model
         'made_in' => 'string',
 
         'note' => 'string',
+
+        'image' => 'string',
 
         'is_additional' => 'integer',
 

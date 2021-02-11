@@ -23,8 +23,6 @@ final class CreateBoxItemsTable extends Migration
 
             $table->unsignedBigInteger('box_id');
 
-            $table->unsignedBigInteger('warehouse_item_id');
-
             $table->string('name');
 
             $table->tinyInteger('quantity');
@@ -33,9 +31,13 @@ final class CreateBoxItemsTable extends Migration
 
             $table->float('weight');
 
-            $table->string('made_in');
+            $table->enum('type_weight',['lb','kg']);
 
-            $table->string('note');
+            $table->string('made_in')->nullable();
+
+            $table->string('note')->nullable();
+
+            $table->string('image')->nullable();
 
             $table->tinyInteger('is_additional')->default(0);
 
@@ -48,7 +50,6 @@ final class CreateBoxItemsTable extends Migration
 
         Schema::table($this->table, function (Blueprint $table){
             $table->foreign('box_id')->references('id')->on('boxes')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('warehouse_item_id')->references('id')->on('warehouse_items')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

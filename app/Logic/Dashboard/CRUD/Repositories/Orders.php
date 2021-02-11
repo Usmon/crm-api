@@ -6,6 +6,10 @@ use App\Models\Order;
 
 use App\Models\Product;
 
+use App\Models\Box;
+
+use App\Models\BoxItem;
+
 use Illuminate\Contracts\Pagination\Paginator;
 
 final class Orders
@@ -31,9 +35,38 @@ final class Orders
     {
         $order = Order::create($credentials);
         
-        $this->storeProducts($order, $credentials['products']);
+        $this->storeBoxes($order, $credentials['boxes']);
 
         return $order;
+    }
+
+    /**
+     * @param Order $order
+     * 
+     * @param array $boxes
+     * 
+     * @return void
+     */
+    public function storeBoxes(Order $order, array $boxes): void
+    {
+        //Need Code optimization BEGIN
+        foreach ($boxes as $box) {
+            $weight = 0;
+            foreach ($box['products'] as $product) {
+                $weight += $product['weight'];
+            }
+
+            $box_ = new Box($box);
+            $box_->weight = $weight;
+            $box_->status_id = $order->status_id;
+            $boxModel = $order->boxes()->save($box_);
+            foreach ($box['products'] as $product) {
+                $product_ = new BoxItem($product);
+                $product_->box_id = $boxModel->id;
+                $product_->save();
+            }
+        }
+        //Need Code optimization END
     }
 
     /**

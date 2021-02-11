@@ -58,7 +58,9 @@ class BoxObserver
     public function defaultProperties(Box $box): void
     {
 
-        $box->status = $box->status ?? 'pending';
+        $box->status_id = $box->status_id;
+
+        $box->additional_weight = $box->additional_weight ?? 0;
 
         $box->created_at = $box->created_at ?? Carbon::now();
 
@@ -104,11 +106,11 @@ class BoxObserver
      */
     public function afterProperties(int $id): void
     {
-        $order = Order::find($id);
+        // $order = Order::find($id);
 
-        $orderObserver = new OrderObserver();
+        // $orderObserver = new OrderObserver();
 
-        $orderObserver->afterAddedOrUpdatedOrDeletedBoxProperties($order);
+        // $orderObserver->afterAddedOrUpdatedOrDeletedBoxProperties($order);
     }
 
 }

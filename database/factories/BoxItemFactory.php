@@ -23,12 +23,9 @@ final class BoxItemFactory extends Factory
     public function definition(): array
     {
         $boxId = Box::all(['id']);
-        $WarehouseItemId = WarehouseItem::all(['id']);
 
         return [
             'box_id' => $boxId->random(),
-
-            'warehouse_item_id' => $WarehouseItemId->random(),
 
             'name' => $this->faker->text(12),
 
@@ -37,6 +34,8 @@ final class BoxItemFactory extends Factory
             'price' => $this->faker->randomFloat(2,100,1000),
 
             'weight' => $this->faker->randomFloat(2,100,1000),
+            
+            'type_weight' => 'kg',
 
             'made_in' => $this->faker->text(20),
 

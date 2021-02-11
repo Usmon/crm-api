@@ -23,19 +23,13 @@ final class CreateBoxesTable extends Migration
 
             $table->unsignedBigInteger('order_id');
 
-            $table->unsignedBigInteger('customer_id');
-
-            $table->unsignedBigInteger('sender_id');
-
-            $table->unsignedBigInteger('recipient_id');
+            $table->unsignedBigInteger('status_id');
 
             $table->float('weight');
 
             $table->float('additional_weight');
 
-            $table->enum('status',['pending','waiting'])->default('pending');
-
-            $table->string('box_image');
+            $table->string('box_image')->nullable();
 
             $table->timestamp('created_at')->nullable();
 
@@ -45,13 +39,11 @@ final class CreateBoxesTable extends Migration
         });
 
         Schema::table($this->table, function (Blueprint $table) {
+
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
 
-            $table->foreign('customer_id')->references('id')->on('users')->onDelete('cascade');
-
-            $table->foreign('sender_id')->references('id')->on('senders')->onDelete('cascade');
-
-            $table->foreign('recipient_id')->references('id')->on('recipients')->onDelete('cascade');
+            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
+        
         });
     }
 

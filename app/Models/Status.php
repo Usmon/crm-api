@@ -87,6 +87,28 @@ final class Status extends Model
         'deleted_at' => 'datetime',
     ];
 
+    /**
+     * @var array
+     */
+    protected $hidden = [
+        'model',
+
+        'created_at',
+
+        'updated_at',
+
+        'deleted_at'
+    ];
+
+    /**
+     * @param string $value
+     * 
+     * @return array
+     */
+    public function getParametersAttribute($value): object
+    {
+        return json_decode($value);
+    }
 
     /**
      * @param Builder $query
@@ -115,5 +137,17 @@ final class Status extends Model
         })->when($filters['parameters'] ?? null, function (Builder $query, string $parameters) {
             return $query->where('parameters', 'like', '%' . $parameters . '%');
         });
+    }
+
+    /**
+     * @param Builder $query
+     *
+     * @param array $filters
+     *
+     * @return Builder
+     */
+    public function scopeByModel(Builder $query, string $model_name): Builder
+    {
+        return $query->where('model', $model_name);
     }
 }
