@@ -22,7 +22,7 @@ final class Senders extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'dashboard.senders.index' => [
+            'dashboard.senders.sender.index' => [
                 'search' => [
                     'nullable',
 
@@ -53,40 +53,87 @@ final class Senders extends FormRequest
                     'after:date.from',
                 ],
 
+                'customer_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('customers','id'),
+                ],
+
+                'region' => [
+                    'nullable',
+
+                    'string',
+                ],
+
+                'city' => [
+                    'nullable',
+
+                    'string',
+                ],
+
                 'address' => [
                     'nullable',
 
                     'string',
                 ],
 
-                'customer_id' => [
+                'region_id' => [
                     'nullable',
 
                     'integer',
 
-                    Rule::exists('users','id'),
+                    Rule::exists('regions','id'),
                 ],
 
-                'customer' => [
+                'city_id' => [
                     'nullable',
 
-                    'customer',
+                    'integer',
+
+                    Rule::exists('cities','id'),
                 ],
+
+                'address_id' => [
+                    'nullable',
+
+                    'string',
+
+                    Rule::exists('addresses','id'),
+                ],
+
+                'sort.*' => [
+                    'nullable',
+
+                    'string',
+                ],
+
             ],
 
-            'dashboard.senders.store' => [
+            'dashboard.senders.sender.store' => [
                 'customer_id' => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('users', 'id'),
+                    Rule::exists('customers', 'id'),
                 ],
 
-                'address' => [
+                'region_id' => [
                     'required',
 
-                    'string'
+                    'integer',
+
+                    Rule::exists('regions','id'),
+                ],
+
+                'city_id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('cities','id'),
                 ],
 
                 'permissions' => [
@@ -104,19 +151,29 @@ final class Senders extends FormRequest
                 ],
             ],
 
-            'dashboard.senders.update' => [
+            'dashboard.senders.sender.update' => [
                 'customer_id' => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('users', 'id'),
+                    Rule::exists('customers', 'id'),
                 ],
 
-                'address' => [
+                'region_id' => [
                     'required',
 
-                    'string'
+                    'integer',
+
+                    Rule::exists('regions','id'),
+                ],
+
+                'city_id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('cities','id'),
                 ],
 
                 'permissions' => [

@@ -21,9 +21,13 @@ final class CreateAddressesTable extends Migration
         Schema::create($this->table, function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('user_id');
 
-            $table->string('address');
+            $table->unsignedBigInteger('city_id');
+
+            $table->string('first_address');
+
+            $table->string('second_address');
 
             $table->timestamp('created_at')->nullable();
 
@@ -35,9 +39,11 @@ final class CreateAddressesTable extends Migration
         });
 
         Schema::table($this->table, function (Blueprint $table) {
-            $table->foreign('customer_id')->references('id')->on('customers')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
 
             $table->foreign('deleted_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->foreign('city_id')->references('id')->on('cities')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

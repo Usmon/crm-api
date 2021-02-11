@@ -53,15 +53,35 @@ final class Addresses extends FormRequest
                     'after:date.from',
                 ],
 
-                'customer_id' => [
+                'user_id' => [
                     'nullable',
 
                     'integer',
 
-                    Rule::exists('customers','id'),
+                    Rule::exists('users','id'),
                 ],
 
-                'address' => [
+                'city_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('cities','id'),
+                ],
+
+                'first_address' => [
+                    'nullable',
+
+                    'string',
+                ],
+
+                'second_address' => [
+                    'nullable',
+
+                    'string',
+                ],
+
+                'user' => [
                     'nullable',
 
                     'string',
@@ -75,62 +95,64 @@ final class Addresses extends FormRequest
             ],
 
             'dashboard.addresses.store' => [
-                'customer_id' => [
+                'user_id' => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('customers', 'id')
+                    Rule::exists('users', 'id')
                 ],
 
-                'address' => [
+                'city_id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('cities', 'id')
+                ],
+
+                'first_address' => [
                     'required',
 
                     'string',
                 ],
 
-                'permissions' => [
+                'second_address' => [
                     'required',
 
-                    'array',
+                    'string',
                 ],
 
-                'permissions.*' => [
-                    'required',
 
-                    'integer',
-
-                    Rule::exists('permissions', 'id'),
-                ],
             ],
 
             'dashboard.addresses.update' => [
-                'customer_id' => [
+                'user_id' => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('customers', 'id')
+                    Rule::exists('users', 'id')
                 ],
 
-                'address' => [
-                    'required',
-
-                    'string'
-                ],
-
-                'permissions' => [
-                    'required',
-
-                    'array',
-                ],
-
-                'permissions.*' => [
+                'city_id' => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('permissions', 'id'),
+                    Rule::exists('cities', 'id')
+                ],
+
+                'first_address' => [
+                    'required',
+
+                    'string',
+                ],
+
+                'second_address' => [
+                    'required',
+
+                    'string',
                 ],
             ],
         ];

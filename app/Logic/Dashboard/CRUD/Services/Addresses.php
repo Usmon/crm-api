@@ -22,11 +22,17 @@ final class Addresses
 
             'date' => $request->json('date'),
 
-            'customer_id' => $request->json('customer_id'),
+            'user_id' => $request->json('user_id'),
 
-            'address' => $request->json('address'),
+            'city_id' => $request->json('city_id'),
 
-            'customer' => $request->json('customer'),
+            'first_address' => $request->json('first_address'),
+
+            'second_address' => $request->json('second_address'),
+
+            'user' => $request->json('user'),
+
+            'city' => $request->json('city'),
         ];
     }
 
@@ -37,7 +43,7 @@ final class Addresses
      */
     public function getOnlyFilters(AddressesRequest $request): array
     {
-        return $request->only('search', 'date', 'customer_id', 'address', 'customer');
+        return $request->only('search', 'date', 'user_id', 'city_id', 'first_address', 'second_address', 'user', 'city');
     }
 
     /**
@@ -71,15 +77,21 @@ final class Addresses
             return [
                 'id' => $address->id,
 
-                'customer_id' => $address->customer_id,
+                'user_id' => $address->user_id,
 
-                'address' => $address->address,
+                'city_id' => $address->city_id,
+
+                'first_address' => $address->first_address,
+
+                'second_address' => $address->second_address,
 
                 'created_at' => $address->created_at,
 
                 'updated_at' => $address->updated_at,
 
-                'customer' => $address->customer,
+                'user' => $address->user,
+
+                'city' => $address->city,
             ];
         });
 
@@ -96,15 +108,21 @@ final class Addresses
         return [
             'id' => $address->id,
 
-            'customer_id' => $address->customer_id,
+            'user_id' => $address->user_id,
 
-            'address' => $address->address,
+            'city_id' => $address->city_id,
+
+            'first_address' => $address->first_address,
+
+            'second_address' => $address->second_address,
 
             'created_at' => $address->created_at,
 
             'updated_at' => $address->updated_at,
 
-            'customer' => $address->customer,
+            'user' => $address->user,
+
+            'city' => $address->city,
         ];
     }
 
@@ -116,9 +134,13 @@ final class Addresses
     public function storeCredentials(AddressesRequest $request): array
     {
         return [
-            'customer_id' => $request->json('customer_id'),
+            'user_id' => $request->json('user_id'),
 
-            'address' => $request->json('address'),
+            'city_id' => $request->json('city_id'),
+
+            'first_address' => $request->json('first_address'),
+
+            'second_address' => $request->json('second_address'),
         ];
     }
 
@@ -130,9 +152,13 @@ final class Addresses
     public function updateCredentials(AddressesRequest $request): array
     {
         $credentials = [
-            'customer_id' => $request->json('customer_id'),
+            'user_id' => $request->json('user_id'),
 
-            'address' => $request->json('address'),
+            'city_id' => $request->json('city_id'),
+
+            'first_address' => $request->json('first_address'),
+
+            'second_address' => $request->json('second_address'),
         ];
 
         return $credentials;

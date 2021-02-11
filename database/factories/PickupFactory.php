@@ -4,6 +4,10 @@ namespace Database\Factories;
 
 use App\Models\User;
 
+use App\Models\Driver;
+
+use App\Models\Sender;
+
 use App\Models\Pickup;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -17,31 +21,29 @@ final class PickupFactory extends Factory
 
     /**
      * @return array
-     *
-     * @throws \Exception
      */
     public function definition(): array
     {
-        $user = User::all();
+        $users = User::all();
 
-        $startingDate = $this->faker->dateTimeThisYear('+1 month');
+        $senders = Sender::all();
 
-        $endingDate   = strtotime('+1 Week', $startingDate->getTimestamp());
+        $drivers = Driver::all();
+
+        $pickupDatetimeStart = $this->faker->dateTimeThisYear('+1 month');
+
+        $pickupDatetimeEnd   = strtotime('+1 Week', $pickupDatetimeStart->getTimestamp());
 
         return [
-            'note' => $this->faker->text(),
+            'pickup_datetime_start' => $pickupDatetimeStart,
 
-            'bring_address' => $this->faker->address,
+            'pickup_datetime_end' => $pickupDatetimeEnd,
 
-            'bring_datetime_start' => $startingDate,
+            'sender_id' => $senders->random(),
 
-            'bring_datetime_end' => $endingDate,
+            'driver_id' => $drivers->random(),
 
-            'staff_id' => $user->random(),
-
-            'driver_id' => $user->random(),
-
-            'customer_id' => $user->random(),
+            'creator_id' => $users->random(),
         ];
     }
 }

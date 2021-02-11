@@ -15,27 +15,41 @@ final class DatabaseSeeder extends Seeder
 
         $this->call(RoleSeeder::class);
 
+//        $this->call(CitySeeder::class);
+
+        $this->call(RegionSeeder::class);
+
         $this->call(PermissionSeeder::class);
 
         $this->call(StatusSeeder::class);
         
+        $this->call(AddressSeeder::class);
+
+        $this->call(DriverSeeder::class);
+
+        $this->call(CustomerSeeder::class);
+
         $this->call(ShipmentStatusSeeder::class);
 
         $this->call(ShipmentSeeder::class);
 
         $this->call(FedexOrderSeeder::class);
 
-        $this->call(PickupSeeder::class);
-
-        $this->call(RecipientSeeder::class);
-
         $this->call(SenderSeeder::class);
 
-        $this->call(OrderSeeder::class);
+        $this->call(PickupSeeder::class);
 
         $this->call(CustomerSeeder::class);
 
+        $this->call(RecipientSeeder::class);
+
+        $this->call(OrderSeeder::class);
+
         $this->call(DeliverySeeder::class);
+
+        $this->call(SenderSeeder::class);
+
+        $this->call(RecipientSeeder::class);
 
         $this->call(WarehouseItemSeeder::class);
 
@@ -78,8 +92,6 @@ final class DatabaseSeeder extends Seeder
         $this->call(TrackingSeeder::class);
 
         $this->call(PhoneSeeder::class);
-
-        $this->call(AddressSeeder::class);
 
         $this->call(ProductSeeder::class);
     }

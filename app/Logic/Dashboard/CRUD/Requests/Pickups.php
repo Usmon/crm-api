@@ -59,30 +59,30 @@ final class Pickups extends FormRequest
                     'string',
                 ],
 
-                'bring_address' => [
+                'pickup_datetime_start' => [
                     'nullable',
 
                     'array',
                 ],
 
-                'bring_datetime_start' => [
+                'pickup_datetime_end' => [
                     'nullable',
 
                     'array',
                 ],
 
-                'bring_datetime_end' => [
+                'status' => [
                     'nullable',
 
-                    'array',
+                    'string',
                 ],
 
-                'staff_id' => [
+                'sender_id' => [
                     'nullable',
 
                     'integer',
 
-                    Rule::exists('users','id'),
+                    Rule::exists('senders', 'id'),
                 ],
 
                 'driver_id' => [
@@ -90,18 +90,18 @@ final class Pickups extends FormRequest
 
                     'integer',
 
-                    Rule::exists('users','id'),
+                    Rule::exists('drivers', 'id'),
                 ],
 
-                'customer_id' => [
+                'creator_id' => [
                     'nullable',
 
                     'integer',
 
-                    Rule::exists('users','id'),
+                    Rule::exists('users', 'id'),
                 ],
 
-                'staff' => [
+                'sender' => [
                     'nullable',
 
                     'string',
@@ -113,57 +113,44 @@ final class Pickups extends FormRequest
                     'string',
                 ],
 
-                'customer' => [
+                'creator' => [
                     'nullable',
 
                     'string',
                 ],
-
             ],
 
             'dashboard.pickups.store' => [
-                'note' => [
-                    'required',
-
-                    'string',
-
-                    'max:255',
-                ],
-                'bring_address' => [
-                    'required',
-
-                    'string',
-                ],
-                'bring_datetime_start' => [
+                'pickup_datetime_start' => [
                     'required',
 
                     'date',
                 ],
-                'bring_datetime_end' => [
+
+                'pickup_datetime_end' => [
                     'required',
 
                     'date',
                 ],
-                'staff_id' => [
+
+                'status' => [
+                    'in:pending,on_the_road,at_the_office',
+                ],
+
+                'sender_id' => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('users', 'id'),
+                    Rule::exists('senders', 'id'),
                 ],
+
                 'driver_id' => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('users', 'id'),
-                ],
-                'customer_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('users', 'id'),
+                    Rule::exists('drivers', 'id'),
                 ],
 
                 'permissions' => [
@@ -179,52 +166,41 @@ final class Pickups extends FormRequest
 
                     Rule::exists('permissions', 'id'),
                 ],
-
             ],
 
             'dashboard.pickups.update' => [
-                'note' => [
-                    'required',
-
-                    'string',
-
-                    'max:255',
-                ],
-                'bring_address' => [
-                    'required',
-
-                    'string',
-                ],
-                'bring_datetime_start' => [
+                'pickup_datetime_start' => [
                     'required',
 
                     'date',
                 ],
-                'bring_datetime_end' => [
+
+                'pickup_datetime_end' => [
                     'required',
 
                     'date',
                 ],
-                'staff_id' => [
+
+                'status' => [
+                    'required',
+
+                    'in:pending,on_the_road,at_the_office',
+                ],
+
+                'sender_id' => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('users', 'id'),
+                    Rule::exists('senders', 'id'),
                 ],
+
                 'driver_id' => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('users', 'id'),
-                ],
-                'customer_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('users', 'id'),
+                    Rule::exists('drivers', 'id'),
                 ],
 
                 'permissions' => [
@@ -240,7 +216,6 @@ final class Pickups extends FormRequest
 
                     Rule::exists('permissions', 'id'),
                 ],
-
             ],
         ];
 

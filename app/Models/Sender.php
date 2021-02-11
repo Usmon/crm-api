@@ -23,9 +23,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property integer $id
  *
- * @property string $address
- *
  * @property integer $customer_id
+ *
+ * @property integer $region_id
+ *
+ * @property integer $city_id
+ *
+ * @property integer $address_id
  *
  * @property Carbon|null $created_at
  *
@@ -34,6 +38,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Carbon|null $deleted_at
  *
  * @property-read HasOne|null $customer
+ *
+ * @property-read HasOne|null $region
+ *
+ * @property-read HasOne|null $city
+ *
+ * @property-read HasOne|null $address
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
@@ -59,7 +69,11 @@ final class Sender extends Model
     protected $fillable = [
         'customer_id',
 
-        'address'
+        'region_id' => 'integer',
+
+        'city_id' => 'integer',
+
+        'address_id' => 'integer',
     ];
 
     /**
@@ -68,7 +82,11 @@ final class Sender extends Model
     protected $casts = [
         'customer_id' => 'integer',
 
-        'address' => 'string',
+        'region_id' => 'integer',
+
+        'city_id' => 'integer',
+
+        'address_id' => 'integer',
 
         'created_at' => 'datetime',
 
@@ -80,9 +98,33 @@ final class Sender extends Model
     /**
      * @return HasOne
      */
-    protected function customer():HasOne
+    public function customer(): HasOne
     {
-        return $this->hasOne(User::class,'id','customer_id');
+        return $this->hasOne(Customer::class,'id','customer_id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function region(): HasOne
+    {
+        return $this->hasOne(Region::class, 'id', 'region_id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function city(): HasOne
+    {
+        return $this->hasOne(City::class,'id','city_id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function address(): HasOne
+    {
+        return $this->hasOne(Address::class,'id','address_id');
     }
 
     /**
@@ -110,20 +152,29 @@ final class Sender extends Model
     {
         return $query->when($filters['search'] ?? null, function (Builder $query, string $search) {
             return $query->where(function (Builder $query) use ($search) {
-                return $query->where('address', 'like', '%' . $search . '%');
+                return $query->where('region', 'like', '%' . $search . '%')
+                    ->orWhere('city', 'like', '%' . $search . '%')
+                    ->orWhere('zip_or_post_code', 'like', '%' . $search . '%');
             });
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
-        })->when($filters['address'] ?? null, function (Builder $query, string $address){
-            return $query->where('address','like','%'. $address .'%');
-        })->when($filters['customer_id'] ?? null, function (Builder $query, int $customer_id){
-            return $query->where('customer_id','=', $customer_id);
+        })->when($filters['customer_id'] ?? null, function (Builder $query, int $customer_id) {
+            return $query->where('customer_id', '=', $customer_id);
         })->when($filters['customer'] ?? null, function (Builder $query, string $customer) {
             return $query->whereHas('customer', function (Builder $query) use ($customer) {
-                $query->orWhere('login', 'like', '%'.$customer.'%')
-                    ->orWhere('email', 'like', '%'.$customer.'%')
-                    ->orWhere('profile', 'like', '%'. $customer.'%');
+                $query->whereHas('user', function (Builder $query) use ($customer) {
+                    $query->where('login', 'like', '%' . $customer . '%')
+                        ->orWhere('email', 'like', '%' . $customer . '%')
+                        ->orWhere('profile', 'like', '%' . $customer . '%');
+                })->orWhere('passport', 'like', '%' . $customer . '%')
+                    ->orWhere('note', 'like', '%' . $customer . '%');
             });
+        })->when($filters['region_id'] ?? null, function (Builder $query, string $regionId) {
+            return $query->where('region_id', '=', $regionId);
+        })->when($filters['city'] ?? null, function (Builder $query, string $cityId) {
+            return $query->where('city_id', '=', $cityId);
+        })->when($filters['address_id'] ?? null, function (Builder $query, int $addressId) {
+            return $query->where('address_id', '=', $addressId);
         });
     }
 }

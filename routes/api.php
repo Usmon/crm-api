@@ -92,6 +92,16 @@ use App\Http\Controllers\Dashboard\ShipmentStatuses\Controller as DashboardShipm
 
 use App\Http\Controllers\Dashboard\Products\Controller as DashboardProductsController;
 
+use App\Http\Controllers\Dashboard\Drivers\Controller as DashboardDriversController;
+
+use App\Http\Controllers\Password\Forgot as PasswordForgotController;
+
+use App\Http\Controllers\Password\Reset as PasswordResetController;
+
+use App\Http\Controllers\Dashboard\Cities\Controller as DashboardCitiesController;
+
+use App\Http\Controllers\Dashboard\Regions\Controller as DashboardRegionsController;
+
 /*
 |--------------------------------------------------------------
 ------------
@@ -119,6 +129,13 @@ Route::group(['prefix' => 'auth', 'as' => 'auth.'], function () {
     Route::post('register', AuthRegisterController::class)->name('register');
 });
 
+//Password routes
+Route::group(['prefix' => 'password', 'as' => 'password'], function () {
+    Route::post('forgot', [PasswordForgotController::class, 'forgot']);
+
+    Route::post('reset', [PasswordResetController::class, 'reset']);
+});
+
 // User routes
 Route::group(['prefix' => 'user', 'middleware' => 'auth:api'], function () {
     Route::get('/', UserController::class)->name('user');
@@ -141,11 +158,21 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
 
     Route::apiResource('pickups', DashboardPickupsController::class);
 
-    Route::apiResource('senders', DashboardSendersController::class);
+    Route::group(['prefix' => 'senders', 'as'=> 'senders.'], function () {
+
+        Route::apiResource('sender', DashboardSendersController::class);
+
+        Route::get('phones', [DashboardSendersController::class, 'senderPhoneDisplay']);
+    });
+
+    Route::group(['prefix' => 'recipients', 'as' => 'recipients.'], function() {
+
+        Route::apiResource('/', DashboardRecipientsController::class);
+
+        Route::get('phones', [DashboardRecipientsController::class, 'recipientPhoneDisplay']);
+    });
 
     Route::apiResource('warehouse-items', DashboardWarehouseItemsController::class);
-
-    Route::apiResource('recipients', DashboardRecipientsController::class);
 
     Route::apiResource('messages', DashboardMessagesController::class);
 
@@ -246,4 +273,10 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     Route::apiResource('addresses', DashboardAddressesController::class);
 
     Route::apiResource('products', DashboardProductsController::class);
+
+    Route::apiResource('drivers', DashboardDriversController::class);
+
+    Route::apiResource('cities', DashboardCitiesController::class);
+
+    Route::apiResource('regions', DashboardRegionsController::class);
 });

@@ -67,10 +67,19 @@ final class Recipients extends FormRequest
                     Rule::exists('users','id'),
                 ],
 
-                'customer' => [
+                'sort.*' => [
                     'nullable',
 
                     'string',
+                ],
+            ],
+
+            'dashboard.recipients.' => [
+
+                'phone' => [
+                    'nullable',
+
+                    'string'
                 ],
             ],
 
