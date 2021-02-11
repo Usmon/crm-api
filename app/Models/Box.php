@@ -72,6 +72,8 @@ final class Box extends Model
      */
     protected $fillable = [
         'order_id',
+        
+        'status_id',
 
         'weight',
 
@@ -94,6 +96,8 @@ final class Box extends Model
         'id' => 'integer',
 
         'order_id' => 'integer',
+
+        'status_od' => 'integer',
 
         'weight' => 'float',
 
@@ -129,7 +133,7 @@ final class Box extends Model
     /**
      * @return HasMany
      */
-    public function box_items(): HasMany
+    public function items(): HasMany
     {
         return $this->hasMany(BoxItem::class);
     }

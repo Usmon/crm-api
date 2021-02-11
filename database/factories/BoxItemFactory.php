@@ -34,6 +34,8 @@ final class BoxItemFactory extends Factory
             'price' => $this->faker->randomFloat(2,100,1000),
 
             'weight' => $this->faker->randomFloat(2,100,1000),
+            
+            'type_weight' => 'kg',
 
             'made_in' => $this->faker->text(20),
 

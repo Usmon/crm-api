@@ -57,7 +57,7 @@ class BoxItemObserver
      */
     public function defaultProperties(BoxItem $boxItem): void
     {
-        $boxItem->box_id = $boxItem->box_id;
+        // $boxItem->box_id = $boxItem->box_id;
         $boxItem->name = $boxItem->name;
         $boxItem->quantity = $boxItem->quantity;
         $boxItem->price = $boxItem->price;

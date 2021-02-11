@@ -31,9 +31,13 @@ final class CreateBoxItemsTable extends Migration
 
             $table->float('weight');
 
-            $table->string('made_in');
+            $table->enum('type_weight',['lb','kg']);
 
-            $table->string('note');
+            $table->string('made_in')->nullable();
+
+            $table->string('note')->nullable();
+
+            $table->string('image')->nullable();
 
             $table->tinyInteger('is_additional')->default(0);
 

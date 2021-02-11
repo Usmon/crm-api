@@ -23,7 +23,7 @@ final class CreateOrdersTable extends Migration
 
             $table->unsignedBigInteger('staff_id');
 
-            $table->unsignedBigInteger('fedex_order_id')->nullabel();
+            $table->unsignedBigInteger('fedex_order_id')->nullable();
 
             $table->unsignedBigInteger('pickup_id')->nullable();
 

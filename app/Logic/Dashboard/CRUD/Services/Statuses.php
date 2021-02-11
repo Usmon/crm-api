@@ -17,6 +17,16 @@ use App\Logic\Dashboard\CRUD\Requests\Statuses as StatusesRequest;
 final class Statuses
 {
     /**
+     * @var string
+     */
+    const ORDER = 'App\\Models\\Order';
+
+    /**
+     * @var string
+     */
+    const ORDER_PAYMENT = 'OrderPayment';
+
+    /**
      * @param StatusesRequest $request
      *
      * @return array
@@ -79,8 +89,6 @@ final class Statuses
             return [
                 'id' => $status->id,
 
-                'model' => $status->model,
-
                 'key' => $status->key,
 
                 'value' => $status->value,
@@ -106,17 +114,9 @@ final class Statuses
         return [
             'id' => $status->id,
 
-            'model' => $status->model,
-
-            'key' => $status->key,
-
-            'value' => $status->value,
+            'name' => $status->value,
 
             'parameters' => $status->parameters,
-
-            'created_at' => $status->created_at,
-
-            'updated_at' => $status->updated_at,
         ];
     }
 

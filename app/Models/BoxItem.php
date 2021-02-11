@@ -72,6 +72,8 @@ final class BoxItem extends Model
 
         'note',
 
+        'image',
+
         'is_additional',
 
     ];
@@ -100,6 +102,8 @@ final class BoxItem extends Model
         'made_in' => 'string',
 
         'note' => 'string',
+
+        'image' => 'string',
 
         'is_additional' => 'integer',
 
