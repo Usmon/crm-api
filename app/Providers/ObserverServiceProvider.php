@@ -79,6 +79,8 @@ use App\Models\City;
 
 use App\Models\Region;
 
+use App\Models\Partner;
+
 use App\Observers\AddressObserver;
 
 use App\Observers\CustomerObserver;
@@ -156,6 +158,8 @@ use App\Observers\WarehouseItemObserver;
 use App\Observers\CityObserver;
 
 use App\Observers\RegionObserver;
+
+use App\Observers\PartnerObserver;
 
 
 use Illuminate\Support\ServiceProvider;
@@ -242,7 +246,9 @@ final class ObserverServiceProvider extends ServiceProvider
         Status::observe(StatusObserver::class);
 
         City::observe(CityObserver::class);
-      
+
         Region::observe(RegionObserver::class);
+
+        Partner::observe(PartnerObserver::class);
     }
 }
