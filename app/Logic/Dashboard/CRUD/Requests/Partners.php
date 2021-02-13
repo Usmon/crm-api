@@ -166,8 +166,6 @@ final class Partners extends FormRequest
         ];
 
 
-        return [
-
-        ];
+        return $rules[$this->route()->getName()];
     }
 }
