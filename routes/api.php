@@ -102,6 +102,9 @@ use App\Http\Controllers\Dashboard\Cities\Controller as DashboardCitiesControlle
 
 use App\Http\Controllers\Dashboard\Regions\Controller as DashboardRegionsController;
 
+use App\Http\Controllers\Dashboard\Partners\Controller as DashboardPartnersController;
+
+
 /*
 |--------------------------------------------------------------
 ------------
@@ -279,4 +282,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     Route::apiResource('cities', DashboardCitiesController::class);
 
     Route::apiResource('regions', DashboardRegionsController::class);
+
+    Route::apiResource('partners', DashboardPartnersController::class);
 });
