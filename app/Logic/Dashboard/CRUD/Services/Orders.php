@@ -32,13 +32,13 @@ final class Orders
 
             'shipment_id' => $request->json('shipment_id'),
 
-            'status' => $request->json('status'),
+            'status_id' => $request->json('status_id'),
 
             'price' => $request->json('price'),
 
             'payed_price' => $request->json('payed_price'),
 
-            'payment_status' => $request->json('payment_status'),
+            'payment_status_id' => $request->json('payment_status_id'),
 
             'staff' => $request->json('staff'),
 
@@ -63,9 +63,25 @@ final class Orders
      */
     public function getOnlyFilters(OrdersRequest $request): array
     {
-        return $request->only('search', 'date', 'staff_id', 'customer_id', 'fedex_order_id', 'pickup_id',
-            'staff_id', 'price','payed_price','status','payment_status', 'staff', 'customer', 'pickup', 'shipment',
-        'total_boxes', 'total_weight_boxes', 'total_delivered_boxes');
+        return $request->only('search', 
+            'date', 
+            'staff_id', 
+            'customer_id', 
+            'fedex_order_id', 
+            'status_id',
+            'payment_status_id',
+            'partner_id',
+            'pickup_id',
+            'staff_id', 
+            'price',
+            'payed_price',
+            'staff', 
+            'customer', 
+            'pickup', 
+            'shipment',
+            'total_boxes', 
+            'total_weight_boxes', 
+            'total_delivered_boxes');
     }
 
     /**
@@ -176,8 +192,6 @@ final class Orders
             'updated_at' => $order->updated_at,
 
             'staff' => $order->staff,
-
-            'customer' => $order->customer,
 
             'fedex_order' => $order->fedex_order,
 

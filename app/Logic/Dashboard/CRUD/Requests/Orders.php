@@ -53,16 +53,28 @@ final class Orders extends FormRequest
                     'after:date.from',
                 ],
 
-                'status' => [
+                'status_id' => [
                     'nullable',
 
-                    'string',
+                    'integer',
+
+                    Rule::exists('statuses', 'id')
                 ],
 
-                'payment_status' => [
+                'payment_status_id' => [
                     'nullable',
 
-                    'string',
+                    'integer',
+
+                    Rule::exists('statuses', 'id')
+                ],
+
+                'partner_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('partners', 'id')
                 ],
 
                 'price' => [

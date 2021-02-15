@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
@@ -282,6 +284,22 @@ final class Order extends Model
     }
 
     /**
+     * @return BelongsTo
+     */
+    public function status(): BelongsTo
+    {
+        return $this->belongsTo(Status::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function payment_status(): BelongsTo
+    {
+        return $this->belongsTo(Status::class);
+    }
+
+    /**
      * @return int
      */
     public function getTotalBoxesAttribute(): int
@@ -344,10 +362,10 @@ final class Order extends Model
             });
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
-        })->when($filters['status'] ?? null, function (Builder $query, string $status){
-            return $query->where('status','like','%'. $status .'%');
-        })->when($filters['payment_status'] ?? null, function (Builder $query, string $payment_status){
-            return $query->where('payment_status','like','%'. $payment_status .'%');
+        })->when($filters['status_id'] ?? null, function (Builder $query, int $status_id){
+            return $query->where('status_id', $status_id);
+        })->when($filters['payment_status_id'] ?? null, function (Builder $query, int $payment_status_id){
+            return $query->where('payment_status_id', $payment_status_id);
         })->when($filters['price'] ?? null, function (Builder $query, array $price){
             return $query->whereBetween('price', $price);
         })->when($filters['payed_price'] ?? null, function (Builder $query, array $payed_price){
@@ -373,6 +391,10 @@ final class Order extends Model
                 $query->where('login', 'like', '%' . $staff . '%')
                     ->orWhere('email', 'like', '%' . $staff . '%')
                     ->orWhere('profile', 'like', '%' . $staff . '%');
+            });
+        })->when($filters['partner_id'] ?? null, function (Builder $query, int $partner_id) {
+            return $query->whereHas('staff', function (Builder $query) use ($partner_id) {
+                $query->where('partner_id', $partner_id);
             });
         })->when($filters['customer'] ?? null, function (Builder $query, string $customer) {
             return $query->whereHas('customer', function (Builder $query) use ($customer) {
