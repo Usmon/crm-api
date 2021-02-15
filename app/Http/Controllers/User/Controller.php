@@ -27,6 +27,8 @@ final class Controller extends Controllers
 
                 'email' => $request->user()->email,
 
+                'partner' => $request->user()->partner,
+
                 'profile' => [
                     'first_name' => $request->user()->profile['first_name'],
 

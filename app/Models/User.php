@@ -14,7 +14,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -24,6 +28,8 @@ use App\Traits\Pagination\Pager;
  * App\Models\User
  *
  * @property int $id
+ * 
+ * @property integer|null $partner_id
  *
  * @property string $login
  *
@@ -44,12 +50,12 @@ use App\Traits\Pagination\Pager;
  * @property Carbon|null $updated_at
  *
  * @property Carbon|null $deleted_at
- *
+ * 
  * @property-read Collection|Role[] $roles
  *
  * @property-read Collection|Token[] $tokens
  *
- * @property-read Collection|Token[] $pickups
+ * @property-read Collection|Pickup[] $pickups
  *
  * @property-read Collection|Phone[] $phones
  *
@@ -81,6 +87,8 @@ final class User extends Auth
         'password',
 
         'profile',
+
+        'partner_id'
     ];
 
     /**
@@ -101,6 +109,8 @@ final class User extends Auth
      */
     protected $casts = [
         'id' => 'integer',
+
+        'partner_id' => 'integer',
 
         'login' => 'string',
 
@@ -135,6 +145,14 @@ final class User extends Auth
 
         'photo' => null,
     ];
+
+    /**
+     * @return BelongsTo
+     */
+    public function partner(): BelongsTo
+    {
+        return $this->belongsTo(Partner::class);
+    }
 
     /**
      * @return BelongsToMany

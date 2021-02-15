@@ -44,7 +44,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property int|null $deleted_by
  *
  * @property-read HasOne|null $city
- *
+ * 
+ * @property-read HasOne|null $user
+ * 
  * @method static Builder|self findBy(string $key, string $value = null)
  *
  * @method static Builder|self filter(array $filters)
@@ -103,9 +105,17 @@ final class Partner extends Model
     /**
      * @return HasOne
      */
-    protected function city(): HasOne
+    public function city(): HasOne
     {
         return $this->hasOne(City::class, 'id', 'city_id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function user(): HasOne
+    {
+        return $this->hasOne(Partner::class);
     }
 
     /**
