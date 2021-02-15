@@ -158,10 +158,23 @@ final class Controller extends Controllers
         ]);
     }
 
+    /**
+     * @return JsonResponse
+     */
     public function statusShipments(): JsonResponse
     {
         return Json::sendJsonWith200([
             'statuses' => $this->service->getStatusShipments(),
+        ]);
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function statusPickups(): JsonResponse
+    {
+        return Json::sendJsonWith200([
+            'statuses' => $this->repository->getStatusesByModel($this->service::PICKUP),
         ]);
     }
 }

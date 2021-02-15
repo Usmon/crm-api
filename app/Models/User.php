@@ -51,6 +51,8 @@ use App\Traits\Pagination\Pager;
  *
  * @property-read Collection|Token[] $pickups
  *
+ * @property-read Collection|Phone[] $phones
+ *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
  * @method static Builder|self filter(array $filters)
@@ -164,6 +166,14 @@ final class User extends Auth
     public function deliveries(): HasMany
     {
         return $this->hasMany(Delivery::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function phones(): HasMany
+    {
+        return $this->hasMany(Phone::class);
     }
 
     /**

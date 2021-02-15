@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 use App\Traits\Pagination\Pager;
@@ -16,6 +15,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Database\Eloquent\Relations\HasOne;
+
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -124,7 +125,7 @@ final class Customer extends Model
      */
     public function user():HasOne
     {
-        return $this->hasOne(User::class, 'id','user_id');
+        return $this->hasOne(User::class, 'id','user_id')->with(['phones']);
     }
 
     /**
@@ -141,14 +142,6 @@ final class Customer extends Model
     public function referral():HasOne
     {
         return $this->hasOne(User::class, 'id','referral_id');
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function phones(): HasMany
-    {
-        return $this->hasMany(Phone::class);
     }
 
     /**
@@ -203,6 +196,12 @@ final class Customer extends Model
             return $query->where('note', 'like', '%'. $note .'%');
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
+        })->when($filters['phone'] ?? null, function (Builder $query, string $phone) {
+            return $query->whereHas('user', function (Builder $query) use ($phone) {
+               return $query->whereHas('phones', function (Builder $query) use ($phone) {
+                   return $query->where('phone', 'like', '%'. $phone .'%');
+               });
+            });
         });
     }
 }

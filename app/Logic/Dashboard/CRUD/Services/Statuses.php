@@ -4,6 +4,8 @@ namespace App\Logic\Dashboard\CRUD\Services;
 
 use App\Models\Order;
 
+use App\Models\Pickup;
+
 use App\Models\Status;
 
 use App\Models\Delivery;
@@ -20,6 +22,11 @@ final class Statuses
      * @var string
      */
     const ORDER = 'App\\Models\\Order';
+
+    /**
+     * @var string
+     */
+    const PICKUP = 'App\\Models\\Pickup';
 
     /**
      * @var string
@@ -198,5 +205,13 @@ final class Statuses
     public function getStatusShipments(): array
     {
         return Shipment::STATUSES;
+    }
+
+    /**
+     * @return array
+     */
+    public function getStatusPickups(): array
+    {
+        return Pickup::STATUSES;
     }
 }

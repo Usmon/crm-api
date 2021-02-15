@@ -22,11 +22,11 @@ final class Phones
 
             'date' => $request->json('date'),
 
-            'customer_id' => $request->json('customer_id'),
+            'user_id' => $request->json('user_id'),
 
             'phone' => $request->json('phone'),
 
-            'customer' => $request->json('customer'),
+            'user' => $request->json('user'),
         ];
     }
 
@@ -37,7 +37,7 @@ final class Phones
      */
     public function getOnlyFilters(PhonesRequest $request): array
     {
-        return $request->only('search', 'date', 'customer_id', 'phone', 'customer');
+        return $request->only('search', 'date', 'user_id', 'phone', 'user');
     }
 
     /**
@@ -71,7 +71,7 @@ final class Phones
             return [
                 'id' => $phone->id,
 
-                'customer_id' => $phone->customer_id,
+                'user_id' => $phone->user_id,
 
                 'phone' => $phone->phone,
 
@@ -79,7 +79,7 @@ final class Phones
 
                 'updated_at' => $phone->updated_at,
 
-                'customer' => $phone->customer,
+                'user' => $phone->user,
             ];
         });
 
@@ -96,7 +96,7 @@ final class Phones
         return [
             'id' => $phone->id,
 
-            'customer_id' => $phone->customer_id,
+            'user_id' => $phone->user_id,
 
             'phone' => $phone->phone,
 
@@ -104,7 +104,7 @@ final class Phones
 
             'updated_at' => $phone->updated_at,
 
-            'customer' => $phone->customer,
+            'user' => $phone->user,
         ];
     }
 
@@ -116,7 +116,7 @@ final class Phones
     public function storeCredentials(PhonesRequest $request): array
     {
         return [
-            'customer_id' => $request->json('customer_id'),
+            'user_id' => $request->json('user_id'),
 
             'phone' => $request->json('phone'),
         ];
@@ -130,7 +130,7 @@ final class Phones
     public function updateCredentials(PhonesRequest $request): array
     {
         $credentials = [
-            'customer_id' => $request->json('customer_id'),
+            'user_id' => $request->json('user_id'),
 
             'phone' => $request->json('phone'),
         ];

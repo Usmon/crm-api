@@ -53,12 +53,12 @@ final class Phones extends FormRequest
                     'after:date.from',
                 ],
 
-                'customer_id' => [
+                'user_id' => [
                     'nullable',
 
                     'integer',
 
-                    Rule::exists('customers','id'),
+                    Rule::exists('users','id'),
                 ],
 
                 'phone' => [
@@ -71,19 +71,17 @@ final class Phones extends FormRequest
                     'nullable',
 
                     'string',
-
-                    // @todo filtering columns in keys
                 ],
 
             ],
 
             'dashboard.phones.store' => [
-                'customer_id' => [
+                'user_id' => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('customers', 'id')
+                    Rule::exists('users', 'id')
                 ],
 
                 'phone' => [
@@ -113,7 +111,7 @@ final class Phones extends FormRequest
 
                     'integer',
 
-                    Rule::exists('customers', 'id')
+                    Rule::exists('users', 'id')
                 ],
 
                 'phone' => [

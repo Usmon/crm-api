@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Pickup;
 use App\Models\Status;
 use App\Models\Order;
 use Illuminate\Database\Seeder;
@@ -24,7 +25,7 @@ final class StatusSeeder extends Seeder
         ],
         [
             'value' => 'At the office',
-            'parameters' => [ 
+            'parameters' => [
                 'color' => [
                     'bg' => '#F6E9ED',
                     'text' => '#C06C84'
@@ -33,7 +34,7 @@ final class StatusSeeder extends Seeder
         ],
         [
             'value' => 'Shipment',
-            'parameters' => [ 
+            'parameters' => [
                 'color' => [
                     'bg' => '#F8EDE2',
                     'text' => '#F8EDE2'
@@ -42,7 +43,7 @@ final class StatusSeeder extends Seeder
         ],
         [
             'value' => 'Transit',
-            'parameters' => [ 
+            'parameters' => [
                 'color' => [
                     'bg' => '#E9E6EB',
                     'text' => '#E9E6EB'
@@ -51,7 +52,7 @@ final class StatusSeeder extends Seeder
         ],
         [
             'value' => 'Customs',
-            'parameters' => [ 
+            'parameters' => [
                 'color' => [
                     'bg' => '#E1E7EC',
                     'text' => '#355C7D'
@@ -96,7 +97,7 @@ final class StatusSeeder extends Seeder
           'parameters' => [
             'color' => [
                 'bg' => '#DDF7ED',
-                'text' => '#1BC585' 
+                'text' => '#1BC585'
             ]
            ]
         ],
@@ -105,12 +106,50 @@ final class StatusSeeder extends Seeder
           'parameters' => [
               'color' => [
                 'bg' => '#FEEAEC',
-                'text' => '#FEEAEC' 
+                'text' => '#FEEAEC'
             ]
           ]
         ],
     ];
 
+
+    public static $pickup = [
+        [
+            'value' => 'Pending',
+
+            'parameters' => [
+                'color' => [
+                    'bg' => 'DDF7ED',
+
+                    'text' => ''
+                ]
+            ]
+        ],
+
+        [
+            'value' => 'On the road',
+
+            'parameters' => [
+                'color' => [
+                    'bg' => 'DDF7ED',
+
+                    'text' => ''
+                ]
+            ]
+        ],
+
+        [
+            'value' => 'At the office',
+
+            'parameters' => [
+                'color' => [
+                    'bg' => 'DDF7ED',
+
+                    'text' => ''
+                ]
+            ]
+        ]
+    ];
     /**
      * @return void
      */
@@ -119,10 +158,14 @@ final class StatusSeeder extends Seeder
         $this->createStatusesForModel(self::$order_payment, 'OrderPayment');
 
         $this->createStatusesForModel(self::$order, Order::class);
+
+        $this->createStatusesForModel(self::$pickup, Pickup::class);
     }
 
     /**
-     * @return void
+     * @param array $items
+     *
+     * @param string $model_key
      */
     public function createStatusesForModel(array $items, string $model_key): void
     {
@@ -132,7 +175,7 @@ final class StatusSeeder extends Seeder
             $item['key'] = Str::slug($item['value']);
 
             $item['parameters'] = json_encode($item['parameters']);
-            
+
             Status::create($item);
         }
     }

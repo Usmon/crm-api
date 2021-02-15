@@ -50,7 +50,7 @@ final class Pickups
     public function getOnlyFilters(PickupsRequest $request): array
     {
         return $request->only('search', 'date', 'pickup_datetime_start', 'pickup_datetime_end',
-            'status', 'sender_id', 'driver_id', 'customer_id', 'sender', 'driver', 'creator');
+            'status', 'driver_id', 'customer_id', 'customer', 'driver', 'creator');
     }
 
     /**
@@ -88,9 +88,9 @@ final class Pickups
 
                 'pickup_datetime_end' => $pickup->pickup_datetime_end,
 
-                'status' => $pickup->status,
+                'status_id' => $pickup->status_id,
 
-                'sender_id' => $pickup->sender_id,
+                'sender_id' => $pickup->customer_id,
 
                 'driver_id' => $pickup->driver_id,
 
@@ -100,7 +100,9 @@ final class Pickups
 
                 'updated_at' => $pickup->updated_at,
 
-                'sender' => $pickup->sender,
+                'status' => $pickup->status,
+
+                'customer' => $pickup->customer,
 
                 'driver' => $pickup->driver,
 
@@ -127,9 +129,9 @@ final class Pickups
 
             'pickup_datetime_end' => $pickup->pickup_datetime_end,
 
-            'status' => $pickup->status,
+            'status_id' => $pickup->status_id,
 
-            'sender_id' => $pickup->sender_id,
+            'customer_id' => $pickup->customer_id,
 
             'driver_id' => $pickup->driver_id,
 
@@ -139,7 +141,9 @@ final class Pickups
 
             'updated_at' => $pickup->updated_at,
 
-            'sender' => $pickup->sender,
+            'status' => $pickup->status,
+
+            'sender' => $pickup->customer,
 
             'driver' => $pickup->driver,
 
@@ -167,9 +171,9 @@ final class Pickups
 
             'pickup_datetime_end' => $request->json('pickup_datetime_end'),
 
-            'status' => $request->json('status'),
+            'status_id' => $request->json('status_id'),
 
-            'sender_id' => $request->json('sender_id'),
+            'customer_id' => $request->json('customer_id'),
 
             'driver_id' => $request->json('driver_id'),
         ];
@@ -187,9 +191,9 @@ final class Pickups
 
             'pickup_datetime_end' => $request->json('pickup_datetime_end'),
 
-            'status' => $request->json('status'),
+            'status_id' => $request->json('status_id'),
 
-            'sender_id' => $request->json('sender_id'),
+            'customer_id' => $request->json('customer_id'),
 
             'driver_id' => $request->json('driver_id'),
         ];

@@ -2,14 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Address;
 use App\Models\City;
-use App\Models\Driver;
+
+use App\Models\User;
 
 use App\Models\Region;
-use App\Models\User;
+
+use App\Models\Driver;
+
+use App\Models\Address;
+
 use Illuminate\Database\Eloquent\Factories\Factory;
-use function Sodium\add;
 
 final class DriverFactory extends Factory
 {
@@ -69,8 +72,6 @@ final class DriverFactory extends Factory
             'creator_id' => $users->random(),
 
             'user_id' => $users->random(),
-
-            'phone' => $this->faker->phoneNumber,
 
             'region_id' => $region,
 

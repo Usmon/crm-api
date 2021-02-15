@@ -2,13 +2,17 @@
 
 namespace Database\Factories;
 
+use App\Models\Status;
+
 use App\Models\User;
 
 use App\Models\Driver;
 
-use App\Models\Sender;
+use App\Models\Customer;
 
 use App\Models\Pickup;
+
+use App\Logic\Dashboard\CRUD\Services\Statuses as StatusService;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -26,9 +30,11 @@ final class PickupFactory extends Factory
     {
         $users = User::all();
 
-        $senders = Sender::all();
+        $customers = Customer::all();
 
         $drivers = Driver::all();
+
+        $statuses = Status::where('model', StatusService::PICKUP)->get(['id']);
 
         $pickupDatetimeStart = $this->faker->dateTimeThisYear('+1 month');
 
@@ -39,7 +45,9 @@ final class PickupFactory extends Factory
 
             'pickup_datetime_end' => $pickupDatetimeEnd,
 
-            'sender_id' => $senders->random(),
+            'status_id' => $statuses->random(),
+
+            'customer_id' => $customers->random(),
 
             'driver_id' => $drivers->random(),
 

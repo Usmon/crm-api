@@ -29,9 +29,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property Carbon $pickup_datetime_end
  *
- * @property string $status
+ * @property int $status_id
  *
- * @property int $sender_id
+ * @property int $customer_id
  *
  * @property int $driver_id
  *
@@ -45,13 +45,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property int|null $deleted_by
  *
- * @property-read HasOne|null $sender
+ * @property-read HasOne|null $customer
  *
  * @property-read HasOne|null $driver
  *
  * @property-read HasOne|null $creator
  *
  * @property-read HasMany|null $orders
+ *
+ * @property-read HasOne|null $status
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
@@ -79,9 +81,9 @@ final class Pickup extends Model
 
         'pickup_datetime_end',
 
-        'status',
+        'status_id',
 
-        'sender_id',
+        'customer_id',
 
         'driver_id',
 
@@ -100,9 +102,9 @@ final class Pickup extends Model
 
         'pickup_datetime_end' => 'datetime',
 
-        'status' => 'string',
+        'status_id' => 'integer',
 
-        'sender_id' => 'integer',
+        'customer_id' => 'integer',
 
         'driver_id' => 'integer',
 
@@ -128,9 +130,9 @@ final class Pickup extends Model
     /**
      * @return HasOne
      */
-    public function sender(): HasOne
+    public function customer(): HasOne
     {
-        return $this->hasOne(Sender::class,'id','sender_id');
+        return $this->hasOne(Customer::class,'id','customer_id')->with(['user']);
     }
 
     /**
@@ -138,7 +140,7 @@ final class Pickup extends Model
      */
     public function driver(): HasOne
     {
-        return $this->hasOne(Driver::class,'id','driver_id');
+        return $this->hasOne(Driver::class,'id','driver_id')->with(['user']);
     }
 
     /**
@@ -155,6 +157,14 @@ final class Pickup extends Model
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class)->with(['boxes']);
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function status(): HasOne
+    {
+        return $this->hasOne(Status::class,'id','status_id');
     }
 
     /**
@@ -190,6 +200,43 @@ final class Pickup extends Model
      */
     public function scopeFilter(Builder $query, array $filters): Builder
     {
-        //todo filter
+        return $query->when($filters['date'] ?? null, function (Builder $query, array $date) {
+            return $query->whereBetween('created_at', $date);
+        })->when($filters['pickup_datetime_start'] ?? null, function (Builder $query, array $pickupDatetimeStart){
+            return $query->whereBetween('pickup_datetime_start', $pickupDatetimeStart);
+        })->when($filters['pickup_datetime_end'] ?? null, function (Builder $query, array $pickupDatetimeEnd) {
+            return $query->whereBetween('pickup_datetime_end', $pickupDatetimeEnd);
+        })->when($filters['status'] ?? null, function (Builder $query, string $status) {
+            return $query->whereHas('status', function (Builder $query) use ($status) {
+                return $query->where('model', 'like', '%'. $status .'%')
+                    ->orWhere('key', 'like', '%'. $status .'%')
+                    ->orWhere('value', 'like', '%'. $status .'%')
+                    ->orWhere('parameters', 'like', '%'. $status .'%');
+            });
+        })->when($filters['sender_id'] ?? null, function (Builder $query, int $senderId) {
+            return $query->where('sender_id', '=', $senderId);
+        })->when($filters['driver_id'] ?? null, function (Builder $query, int $driverId) {
+            return $query->where('driver_id', '=', $driverId);
+        })->when($filters['creator_id'] ?? null, function (Builder $query, int $creatorId) {
+            return $query->where('creator_id', '=', $creatorId);
+        })->when($filters['sender'] ?? null, function (Builder $query, string $sender) {
+               return $query->whereHas('customer', function (Builder $query) use ($sender) {
+                   return $query->whereHas('user', function (Builder $query) use ($sender) {
+                         return $query->whereHas('phones', function (Builder $query) use ($sender) {
+                             return $query->where('phone', 'like', '%'. $sender .'%');
+                         })->orWhere('login', 'like', '%'. $sender .'%')
+                           ->orWhere('email', 'like', '%'. $sender .'%')
+                           ->orWhere('profile', 'like', '%'. $sender .'%');
+                   });
+               });
+        })->when($filters['driver'] ?? null, function (Builder $query, string $driver) {
+            return $query->whereHas('driver', function (Builder $query) use ($driver) {
+                return $query->whereHas('user', function (Builder $query) use ($driver) {
+                    return $query->whereHas('phones', function (Builder $query) use ($driver) {
+                        return $query->where('phone', 'like', '%'. $driver .'%');
+                    });
+                });
+            });
+        });
     }
 }

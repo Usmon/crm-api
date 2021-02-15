@@ -13,6 +13,6 @@ final class PhoneSeeder extends Seeder
      */
     public function run(): void
     {
-        Phone::factory()->times(100)->create();
+        Phone::factory()->times(10)->create();
     }
 }

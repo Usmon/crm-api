@@ -215,6 +215,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
         Route::get('orders/payment', [DashboardStatusesController::class, 'statusPaymentOrders']);
 
         Route::get('shipments', [DashboardStatusesController::class, 'statusShipments']);
+
+        Route::get('pickups', [DashboardStatusesController::class, 'statusPickups']);
     });
 
     Route::group(['prefix' => 'deliveries', 'as' => 'deliveries.'], function(){

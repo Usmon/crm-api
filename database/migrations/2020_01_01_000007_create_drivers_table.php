@@ -25,8 +25,6 @@ final class CreateDriversTable extends Migration
 
             $table->unsignedBigInteger('user_id');
 
-            $table->string('phone');
-
             $table->unsignedBigInteger('city_id');
 
             $table->unsignedBigInteger('region_id');

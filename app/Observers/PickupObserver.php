@@ -67,8 +67,6 @@ final class PickupObserver
 
         $pickup->updated_at = $pickup->updated_at ?? Carbon::now();
 
-        $pickup->status = $pickup->status ?? 'pending';
-
         $pickup->deleted_at = $pickup->deleted_at ?? null;
 
         $pickup->deleted_by = $pickup->deleted_by ?? null;
