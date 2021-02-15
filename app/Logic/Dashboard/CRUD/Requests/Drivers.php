@@ -65,12 +65,6 @@ final class Drivers extends FormRequest
                     'integer',
                 ],
 
-                'phone' => [
-                    'nullable',
-
-                    'string',
-                ],
-
                 'region' => [
                     'nullable',
 
@@ -131,6 +125,12 @@ final class Drivers extends FormRequest
                     'string'
                 ],
 
+                'user' => [
+                    'nullable',
+
+                    'string',
+                ],
+
                 'sort.*' => [
                     'nullable',
 
@@ -143,12 +143,6 @@ final class Drivers extends FormRequest
                     'required',
 
                     'integer',
-                ],
-
-                'phone' => [
-                    'required',
-
-                    'string',
                 ],
 
                 'region_id' => [
@@ -213,12 +207,6 @@ final class Drivers extends FormRequest
                     'required',
 
                     'integer',
-                ],
-
-                'phone' => [
-                    'required',
-
-                    'string',
                 ],
 
                 'region_id' => [

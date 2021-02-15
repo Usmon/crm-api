@@ -27,8 +27,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property integer $user_id
  *
- * @property string $phone
- *
  * @property integer $city_id
  *
  * @property integer $region_id
@@ -83,8 +81,6 @@ final class Driver extends Model
 
         'user_id',
 
-        'phone',
-
         'city_id',
 
         'region_id',
@@ -105,10 +101,6 @@ final class Driver extends Model
         'creator_id' => 'integer',
 
         'user_id' => 'integer',
-
-        'phone' => 'string',
-
-        'email' => 'string',
 
         'region_id' => 'integer',
 
@@ -142,7 +134,7 @@ final class Driver extends Model
      */
     public function user(): HasOne
     {
-        return $this->hasOne(User::class,'id','user_id');
+        return $this->hasOne(User::class,'id','user_id')->with(['phones']);
     }
 
     /**
@@ -194,17 +186,10 @@ final class Driver extends Model
     {
         return $query->when($filters['search'] ?? null, function (Builder $query, string $search) {
             return $query->where(function (Builder $query) use ($search) {
-                return $query->orWhere('phone', 'like', '%'. $search .'%')
-                    ->orWhere('car_model', 'like', '%'. $search .'%')
+                return $query->orWhere('car_model', 'like', '%'. $search .'%')
                     ->orWhere('car_number', 'like', '%'. $search .'%')
                     ->orWhere('license', 'like', '%'. $search .'%');
             });
-        })->when($filters['name'] ?? null, function (Builder $query, string $name) {
-            return $query->orWhere('name', 'like', '%'. $name .'%');
-        })->when($filters['phone'] ?? null, function (Builder $query, string $phone) {
-            return $query->orWhere('phone', 'like', '%' . $phone . '%');
-        })->when($filters['email'] ?? null, function (Builder $query, string $email) {
-            return $query->orWhere('email', 'like', '%' . $email . '%');
         })->when($filters['car_model'] ?? null, function (Builder $query, string $carModel) {
             return $query->orWhere('car_model', 'like', '%' . $carModel . '%');
         })->when($filters['car_number'] ?? null, function (Builder $query, string $carNumber) {
@@ -231,12 +216,22 @@ final class Driver extends Model
             });
         })->when($filters['creator'] ?? null, function (Builder $query, string $creator) {
             return $query->whereHas('creator', function (Builder $query) use ($creator) {
-                return $query->where('login', 'like', '%'. $creator .'%')
+                return $query->orWhere('login', 'like', '%'. $creator .'%')
                     ->orWhere('email', 'like', '%'. $creator .'%')
                     ->orWhere('profile->first_name', 'like', '%'. $creator .'%')
                     ->orWhere('profile->middle_name', 'like', '%'. $creator .'%')
                     ->orWhere('profile->last_name', 'like', '%'. $creator .'%');
             });
+        })->when($filters['user'] ?? null, function (Builder $query, string $user) {
+            return $query->whereHas('user', function (Builder $query) use ($user) {
+                return $query->whereHas('phones', function (Builder $query) use ($user) {
+                    return $query->where('phone', 'like', '%'. $user .'%');
+                })->orWhere('login', 'like', '%'. $user .'%')
+                    ->orWhere('email', 'like', '%'. $user .'%')
+                    ->orWhere('profile->first_name', 'like', '%'. $user .'%')
+                    ->orWhere('profile->middle_name', 'like', '%'. $user .'%')
+                    ->orWhere('profile->last_name', 'like', '%'. $user .'%');
+                });
         });
     }
 }

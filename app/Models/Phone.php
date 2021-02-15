@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property integer $id
  *
- * @property integer $customer_id
+ * @property integer $user_id
  *
  * @property string $phone
  *
@@ -34,7 +34,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property int|null $deleted_by
  *
- * @property-read HasOne|null $customer
+ * @property-read HasOne|null $user
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
@@ -58,7 +58,7 @@ final class Phone extends Model
      * @var array
      */
     protected $fillable = [
-        'customer_id',
+        'user_id',
 
         'phone'
     ];
@@ -67,7 +67,7 @@ final class Phone extends Model
      * @var array
      */
     protected $casts = [
-        'customer_id' => 'integer',
+        'user_id' => 'integer',
 
         'phone' => 'string',
 
@@ -83,9 +83,9 @@ final class Phone extends Model
     /**
      * @return HasOne
      */
-    protected function customer():HasOne
+    protected function user(): HasOne
     {
-        return $this->hasOne(Customer::class,'id','customer_id');
+        return $this->hasOne(Customer::class,'id','user_id');
     }
 
     /**
@@ -119,12 +119,12 @@ final class Phone extends Model
             return $query->whereBetween('created_at', $date);
         })->when($filters['phone'] ?? null, function (Builder $query, string $phone){
             return $query->where('phone','like','%'. $phone .'%');
-        })->when($filters['customer_id'] ?? null, function (Builder $query, int $customer_id){
-            return $query->where('customer_id','=', $customer_id);
-        })->when($filters['customer'] ?? null, function (Builder $query, string $customer) {
-            return $query->whereHas('customer', function (Builder $query) use ($customer) {
-                $query->where('passport', 'like', '%' . $customer . '%')
-                    ->orWhere('note', 'like', '%' . $customer . '%');
+        })->when($filters['user_id'] ?? null, function (Builder $query, int $customer_id){
+            return $query->where('user_id','=', $customer_id);
+        })->when($filters['user'] ?? null, function (Builder $query, string $user) {
+            return $query->whereHas('user', function (Builder $query) use ($user) {
+                $query->where('login', 'like', '%' . $user . '%')
+                    ->orWhere('email', 'like', '%' . $user . '%');
             });
         });
     }

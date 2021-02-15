@@ -105,7 +105,7 @@ final class Controller extends Controllers
     }
 
     /**
-     * @param Pickup $pickup
+     * @param $id
      *
      * @return JsonResponse
      */

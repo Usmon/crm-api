@@ -21,7 +21,7 @@ final class CreatePhonesTable extends Migration
         Schema::create($this->table, function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('user_id');
 
             $table->string('phone');
 
@@ -35,7 +35,7 @@ final class CreatePhonesTable extends Migration
         });
 
         Schema::table($this->table, function (Blueprint $table) {
-            $table->foreign('customer_id')->references('id')->on('customers')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
 
             $table->foreign('deleted_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });

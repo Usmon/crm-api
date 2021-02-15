@@ -26,8 +26,6 @@ final class Drivers
 
             'user_id' => $request->json('user_id'),
 
-            'phone' => $request->json('phone'),
-
             'region_id' => $request->json('region_id'),
 
             'city_id' => $request->json('city_id'),
@@ -45,6 +43,8 @@ final class Drivers
             'car_number' => $request->json('car_number'),
 
             'license' => $request->json('license'),
+
+            'user' => $request->json('user'),
         ];
     }
 
@@ -55,8 +55,8 @@ final class Drivers
      */
     public function getOnlyFilters(DriversRequest $request): array
     {
-        return $request->only('search', 'date', 'creator', 'user_id', 'phone', 'region_id',
-            'city_id',  'address_id', 'region', 'city',  'address', 'car_model', 'car_number', 'license');
+        return $request->only('search', 'date', 'creator', 'user_id', 'region_id',
+            'city_id',  'address_id', 'region', 'city',  'address', 'car_model', 'car_number', 'license', 'user');
     }
 
     /**
@@ -91,8 +91,6 @@ final class Drivers
                 'id' => $driver->id,
 
                 'user_id' => $driver->user_id,
-
-                'phone' => $driver->phone,
 
                 'region_id' => $driver->region_id,
 
@@ -137,8 +135,6 @@ final class Drivers
 
             'user_id' => $driver->user_id,
 
-            'phone' => $driver->phone,
-
             'region_id' => $driver->region_id,
 
             'city_id' => $driver->city_id,
@@ -178,8 +174,6 @@ final class Drivers
         return [
             'user_id' => $request->json('user_id'),
 
-            'phone' => $request->json('phone'),
-
             'region_id' => $request->json('region_id'),
 
             'city_id' => $request->json('city_id'),
@@ -203,8 +197,6 @@ final class Drivers
     {
         return [
             'user_id' => $request->json('user_id'),
-
-            'phone' => $request->json('phone'),
 
             'region_id' => $request->json('region_id'),
 

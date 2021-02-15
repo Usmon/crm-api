@@ -15,8 +15,6 @@ final class DatabaseSeeder extends Seeder
 
         $this->call(RoleSeeder::class);
 
-//        $this->call(CitySeeder::class);
-
         $this->call(RegionSeeder::class);
 
         $this->call(PartnerSeeder::class);
@@ -24,7 +22,7 @@ final class DatabaseSeeder extends Seeder
         $this->call(PermissionSeeder::class);
 
         $this->call(StatusSeeder::class);
-        
+
         $this->call(AddressSeeder::class);
 
         $this->call(DriverSeeder::class);

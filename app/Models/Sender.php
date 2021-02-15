@@ -68,12 +68,6 @@ final class Sender extends Model
      */
     protected $fillable = [
         'customer_id',
-
-        'region_id' => 'integer',
-
-        'city_id' => 'integer',
-
-        'address_id' => 'integer',
     ];
 
     /**
@@ -100,7 +94,7 @@ final class Sender extends Model
      */
     public function customer(): HasOne
     {
-        return $this->hasOne(Customer::class,'id','customer_id');
+        return $this->hasOne(Customer::class,'id','customer_id')->with(['user']);
     }
 
     /**
@@ -150,20 +144,16 @@ final class Sender extends Model
      */
     public function scopeFilter(Builder $query, array $filters): Builder
     {
-        return $query->when($filters['search'] ?? null, function (Builder $query, string $search) {
-            return $query->where(function (Builder $query) use ($search) {
-                return $query->where('region', 'like', '%' . $search . '%')
-                    ->orWhere('city', 'like', '%' . $search . '%')
-                    ->orWhere('zip_or_post_code', 'like', '%' . $search . '%');
-            });
-        })->when($filters['date'] ?? null, function (Builder $query, array $date) {
+        return $query->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
         })->when($filters['customer_id'] ?? null, function (Builder $query, int $customer_id) {
             return $query->where('customer_id', '=', $customer_id);
         })->when($filters['customer'] ?? null, function (Builder $query, string $customer) {
             return $query->whereHas('customer', function (Builder $query) use ($customer) {
                 $query->whereHas('user', function (Builder $query) use ($customer) {
-                    $query->where('login', 'like', '%' . $customer . '%')
+                    $query->whereHas('phones', function (Builder $query) use ($customer) {
+                        return $query->where('phone', 'like', '%'. $customer .'%');
+                    })->orWhere('login', 'like', '%' . $customer . '%')
                         ->orWhere('email', 'like', '%' . $customer . '%')
                         ->orWhere('profile', 'like', '%' . $customer . '%');
                 })->orWhere('passport', 'like', '%' . $customer . '%')

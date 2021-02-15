@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Models\Phone;
+use App\Models\User;
 
-use App\Models\Customer;
+use App\Models\Phone;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,10 +20,10 @@ final class PhoneFactory extends Factory
      */
     public function definition(): array
     {
-        $customers = Customer::all();
+        $users = User::all();
 
         return [
-            'customer_id' => $customers->random(),
+            'user_id' => $users->random(),
 
             'phone' => $this->faker->phoneNumber,
         ];

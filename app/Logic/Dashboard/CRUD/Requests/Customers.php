@@ -99,7 +99,13 @@ final class Customers extends FormRequest
                     'nullable',
 
                     'string',
-                ]
+                ],
+
+                'phone' => [
+                    'nullable',
+
+                    'string',
+                ],
             ],
 
             'dashboard.customers.store' => [

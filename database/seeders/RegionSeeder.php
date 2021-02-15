@@ -640,21 +640,21 @@ final class RegionSeeder extends Seeder
                 ]
             ];
 
-        foreach ($regionsUSA as $regionUSA => $cities)
-        {
-            $region = Region::create([
-                'name' => $regionUSA
-            ]);
-
-            foreach ($cities as $city)
-            {
-                City::create([
-                    'region_id' => $region->id,
-
-                    'name' => $city,
-                ]);
-            }
-        }
+//        foreach ($regionsUSA as $regionUSA => $cities)
+//        {
+//            $region = Region::create([
+//                'name' => $regionUSA
+//            ]);
+//
+//            foreach ($cities as $city)
+//            {
+//                City::create([
+//                    'region_id' => $region->id,
+//
+//                    'name' => $city,
+//                ]);
+//            }
+//        }
 
         $regionsUZB = [
             "Qoraqalpog‘iston Respublikasi" => [

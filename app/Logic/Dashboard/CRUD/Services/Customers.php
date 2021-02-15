@@ -35,6 +35,8 @@ final class Customers
             'birth_date' => $request->json('birth_date'),
 
             'note' => $request->json('note'),
+
+            'phone' => $request->json('phone'),
         ];
     }
 
@@ -46,7 +48,7 @@ final class Customers
     public function getOnlyFilters(CustomersRequest $request): array
     {
         return $request->only('search', 'date', 'user_id', 'creator_id',
-            'referral_id', 'passport', 'balance', 'birth_date', 'note');
+            'referral_id', 'passport', 'balance', 'birth_date', 'note', 'phone');
     }
 
     /**
@@ -83,8 +85,6 @@ final class Customers
                 'creator' => $customer->creator,
 
                 'referral' => $customer->referral,
-
-                'phones' => $customer->phones,
             ];
         });
 
@@ -124,8 +124,6 @@ final class Customers
             'creator' => $customer->creator,
 
             'referral' => $customer->referral,
-
-            'phones' => $customer->phones,
         ];
     }
 
@@ -183,6 +181,7 @@ final class Customers
     public function deleteCustomer($id)
     {
         $id = json_decode($id);
+
         return (is_int($id) || array_filter($id,'is_int')===$id) ? $id : 0;
     }
 }
