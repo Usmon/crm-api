@@ -140,7 +140,7 @@ final class Pickup extends Model
      */
     public function driver(): HasOne
     {
-        return $this->hasOne(Driver::class,'id','driver_id')->with(['user']);
+        return $this->hasOne(Driver::class,'id','driver_id')->with(['user','region','city','address']);
     }
 
     /**
@@ -156,7 +156,7 @@ final class Pickup extends Model
      */
     public function orders(): HasMany
     {
-        return $this->hasMany(Order::class)->with(['boxes']);
+        return $this->hasMany(Order::class)->with(['boxes','sender.customer','shipment','recipient.customer']);
     }
 
     /**

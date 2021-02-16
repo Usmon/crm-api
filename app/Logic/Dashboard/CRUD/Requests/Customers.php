@@ -117,14 +117,6 @@ final class Customers extends FormRequest
                     Rule::exists('users', 'id'),
                 ],
 
-                'creator_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('users', 'id'),
-                ],
-
                 'referral_id' => [
                     'integer',
 
@@ -172,14 +164,6 @@ final class Customers extends FormRequest
 
             'dashboard.customers.update' => [
                 'user_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('users', 'id'),
-                ],
-
-                'creator_id' => [
                     'required',
 
                     'integer',

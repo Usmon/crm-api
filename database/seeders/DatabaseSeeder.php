@@ -39,8 +39,6 @@ final class DatabaseSeeder extends Seeder
 
         $this->call(PickupSeeder::class);
 
-        $this->call(CustomerSeeder::class);
-
         $this->call(RecipientSeeder::class);
 
         $this->call(OrderSeeder::class);

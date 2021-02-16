@@ -82,7 +82,7 @@ final class Recipient extends Model
      */
     public function customer():HasOne
     {
-        return $this->hasOne(Customer::class,'id', 'customer_id');
+        return $this->hasOne(Customer::class,'id', 'customer_id')->with(['user']);
     }
 
     /**
