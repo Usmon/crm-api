@@ -177,6 +177,14 @@ final class User extends Auth
     }
 
     /**
+     * @return HasMany
+     */
+    public function addresses(): HasMany
+    {
+        return $this->hasMany(Address::class)->with(['city']);
+    }
+
+    /**
      * @param Builder $query
      *
      * @param string $key

@@ -125,7 +125,7 @@ final class Customer extends Model
      */
     public function user():HasOne
     {
-        return $this->hasOne(User::class, 'id','user_id')->with(['phones']);
+        return $this->hasOne(User::class, 'id','user_id')->with(['phones','addresses']);
     }
 
     /**
@@ -142,14 +142,6 @@ final class Customer extends Model
     public function referral():HasOne
     {
         return $this->hasOne(User::class, 'id','referral_id');
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function addresses(): HasMany
-    {
-        return $this->hasMany(Address::class);
     }
 
     /**

@@ -119,9 +119,9 @@ final class StatusSeeder extends Seeder
 
             'parameters' => [
                 'color' => [
-                    'bg' => 'DDF7ED',
+                    'bg' => '#FFAA00',
 
-                    'text' => ''
+                    'text' => 'Pending'
                 ]
             ]
         ],
@@ -131,9 +131,9 @@ final class StatusSeeder extends Seeder
 
             'parameters' => [
                 'color' => [
-                    'bg' => 'DDF7ED',
+                    'bg' => '#1FCECB',
 
-                    'text' => ''
+                    'text' => 'On the road'
                 ]
             ]
         ],
@@ -143,9 +143,9 @@ final class StatusSeeder extends Seeder
 
             'parameters' => [
                 'color' => [
-                    'bg' => 'DDF7ED',
+                    'bg' => '#1CD3A1',
 
-                    'text' => ''
+                    'text' => 'At the office'
                 ]
             ]
         ]
