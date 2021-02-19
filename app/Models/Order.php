@@ -94,7 +94,7 @@ final class Order extends Model
     use SoftDeletes;
 
     /**
-     * @var string STATUS_PAYMENT 
+     * @var string STATUS_PAYMENT
      */
     const STATUS_PAYMENT = 'OrderPayment';
 
@@ -114,7 +114,7 @@ final class Order extends Model
         'pickup_id',
 
         'shipment_id',
-        
+
         'sender_id',
 
         'recipient_id',
@@ -357,8 +357,8 @@ final class Order extends Model
     {
         return $query->when($filters['search'] ?? null, function (Builder $query, string $search) {
             return $query->where(function (Builder $query) use ($search) {
-                return $query->where('status', 'like', '%' . $search . '%')
-                    ->orWhere('payment_status', 'like', '%' . $search . '%');
+                return $query->where('status_id', 'like', '%' . $search . '%')
+                    ->orWhere('payment_status_id', 'like', '%' . $search . '%');
             });
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
