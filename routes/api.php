@@ -104,6 +104,8 @@ use App\Http\Controllers\Dashboard\Regions\Controller as DashboardRegionsControl
 
 use App\Http\Controllers\Dashboard\Partners\Controller as DashboardPartnersController;
 
+use App\Http\Controllers\Dashboard\Payment\Type\Controller as PaymentTypeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -285,4 +287,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     Route::apiResource('regions', DashboardRegionsController::class);
 
     Route::apiResource('partners', DashboardPartnersController::class);
+
+    Route::apiResource('payment/types', PaymentTypeController::class);
 });
