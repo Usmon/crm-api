@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Dashboard\Payment\Type;
 use App\Http\Controllers\Controller as Controllers;
 
 use App\Logic\Dashboard\CRUD\Repositories\PaymentTypes as Repository;
+
 use App\Logic\Dashboard\CRUD\Services\PaymentTypes as Service;
-use Illuminate\Http\Request;
+
 use App\Helpers\Json;
 
 /**
@@ -16,12 +17,12 @@ use App\Helpers\Json;
 class Controller extends Controllers
 {
     /**
-     * @var
+     * @var Repository $repository
      */
     protected $repository;
 
     /**
-     * @var
+     * @var Service $service
      */
     protected $service;
 
@@ -57,10 +58,13 @@ class Controller extends Controllers
      * Display the specified resource.
      *
      * @param  int  $id
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(int $id): \Illuminate\Http\JsonResponse
     {
-        //@todo get item
+        return Json::sendJsonWith200([
+            'type' => $this->service->getItem($this->repository->getById($id))
+        ]);
     }
 }
