@@ -16,7 +16,7 @@ class PaymentTypes
      *
      * @return PaymentType[]|\Illuminate\Database\Eloquent\Collection
      */
-    public function getTypes()
+    public function getTypes(): \Illuminate\Database\Eloquent\Collection
     {
         return PaymentType::all();
     }
