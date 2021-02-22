@@ -63,24 +63,24 @@ final class Orders
      */
     public function getOnlyFilters(OrdersRequest $request): array
     {
-        return $request->only('search', 
-            'date', 
-            'staff_id', 
-            'customer_id', 
-            'fedex_order_id', 
+        return $request->only('search',
+            'date',
+            'staff_id',
+            'customer_id',
+            'fedex_order_id',
             'status_id',
             'payment_status_id',
             'partner_id',
             'pickup_id',
-            'staff_id', 
+            'staff_id',
             'price',
             'payed_price',
-            'staff', 
-            'customer', 
-            'pickup', 
+            'staff',
+            'customer',
+            'pickup',
             'shipment',
-            'total_boxes', 
-            'total_weight_boxes', 
+            'total_boxes',
+            'total_weight_boxes',
             'total_delivered_boxes');
     }
 
@@ -115,19 +115,13 @@ final class Orders
             return [
                 'id' => $order->id,
 
-                'staff_id' => $order->staff_id,
+                'total_boxes' => $order->total_boxes,
 
-                'customer_id' => $order->customer_id,
+                'partner' => $order->staff->partner->name,
 
-                'fedex_order_id' => $order->fedex_order_id,
+                'creator' => $order->staff->short_info,
 
-                'pickup_id' => $order->pickup_id,
-
-                'shipment_id' => $order->shipment_id,
-
-                'price' => $order->price,
-
-                'payed_price' => $order->payed_price,
+                'customer' => $order->sender->customer->user->short_info,
 
                 'status' => $order->status,
 
@@ -135,25 +129,6 @@ final class Orders
 
                 'created_at' => $order->created_at,
 
-                'updated_at' => $order->updated_at,
-
-                'staff' => $order->staff,
-
-                'customer' => $order->customer,
-
-                'fedex_order' => $order->fedex_order,
-
-                'pickup' => $order->pickup,
-
-                'shipment' => $order->shipment,
-
-                'boxes' => $order->boxes,
-
-                'total_boxes' => $order->total_boxes,
-
-                'total_weight_boxes' => $order->total_weight_boxes,
-
-                'total_delivered_boxes' => $order->total_delivered_boxes,
             ];
         });
         return $paginator;
@@ -222,7 +197,7 @@ final class Orders
     {
         return [
             'sender_id' => $request->json('sender_id'),
-            
+
             'recipient_id' => $request->json('recipient_id'),
 
             'status_id' => $request->json('status_id'),

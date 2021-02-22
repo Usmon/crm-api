@@ -28,7 +28,7 @@ use App\Traits\Pagination\Pager;
  * App\Models\User
  *
  * @property int $id
- * 
+ *
  * @property integer|null $partner_id
  *
  * @property string $login
@@ -50,7 +50,13 @@ use App\Traits\Pagination\Pager;
  * @property Carbon|null $updated_at
  *
  * @property Carbon|null $deleted_at
- * 
+ *
+ * @property-read string $short_info
+ *
+ * @property-read string $full_name
+ *
+ * @property-read string $avatar
+ *
  * @property-read Collection|Role[] $roles
  *
  * @property-read Collection|Token[] $tokens
@@ -195,11 +201,52 @@ final class User extends Auth
     }
 
     /**
+     * @param int $limit
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getPhonesWithLimit(int $limit = 3): \Illuminate\Support\Collection
+    {
+        return collect($this->phones()->limit($limit)->get(['phone'])->toArray())->flatten();
+    }
+
+    /**
      * @return HasMany
      */
     public function addresses(): HasMany
     {
         return $this->hasMany(Address::class)->with(['city']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullNameAttribute(): string
+    {
+        return $this->profile['first_name'] . ' ' . $this->profile['last_name'] . ' ' . $this->profile['middle_name'];
+    }
+
+    /**
+     * Get image if exists.
+     *
+     * @return string
+     */
+    public function getAvatarAttribute(): string
+    {
+        return $this->profile->image ?? '';
+    }
+
+    public function getShortInfoAttribute()
+    {
+        return [
+            'id' => $this->id,
+
+            'name' => $this->full_name,
+
+            'image' => $this->avatar,
+
+            'phones' => $this->getPhonesWithLimit(3)
+        ];
     }
 
     /**

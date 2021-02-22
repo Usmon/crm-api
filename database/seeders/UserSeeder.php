@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Partner;
 use App\Models\User;
 
 use Illuminate\Database\Seeder;
@@ -31,6 +32,8 @@ final class UserSeeder extends Seeder
 
                 'photo' => null,
             ],
+
+            'partner_id' => Partner::all('id')->random()
         ]);
     }
 }
