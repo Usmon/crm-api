@@ -22,7 +22,7 @@ final class Boxes extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'dashboard.boxes.index' => [
+            'dashboard.boxes.box.index' => [
                 'search' => [
                     'nullable',
 
@@ -61,82 +61,58 @@ final class Boxes extends FormRequest
                     Rule::exists('orders','id'),
                 ],
 
-                'customer_id' => [
+                'status_id' => [
                     'nullable',
 
                     'integer',
 
-                    Rule::exists('users', 'id'),
-                ],
-
-                'sender_id' => [
-                    'nullable',
-
-                    'integer',
-
-                    Rule::exists('senders', 'id'),
-                ],
-
-                'recipient_id' => [
-                    'nullable',
-
-                    'integer',
-
-                    Rule::exists('recipients', 'id'),
+                    Rule::exists('statuses','id'),
                 ],
 
                 'weight' => [
                     'nullable',
 
-                    'numeric',
+                    'array',
+                ],
 
-                    'min:0'
+                'weight.from' => [
+                    'nullable',
+
+                    'numeric',
+                ],
+
+                'weight.to' => [
+                    'nullable',
+
+                    'numeric',
                 ],
 
                 'additional_weight' => [
                     'nullable',
 
+                    'array',
+                ],
+
+                'additional_weight.from' => [
+                    'nullable',
+
                     'numeric',
-
-                    'min:0'
                 ],
 
-                'order' => [
+                'additional_weight.to' => [
                     'nullable',
 
-                    'string',
-                ],
-
-                'customer' => [
-                    'nullable',
-
-                    'string',
-                ],
-
-                'sender' => [
-                    'nullable',
-
-                    'string',
-                ],
-
-                'recipient' => [
-                    'nullable',
-
-                    'string',
+                    'numeric',
                 ],
 
                 'status' => [
                     'nullable',
 
                     'string',
-
-                    'max:255',
                 ],
-
-
             ],
 
-            'dashboard.boxes.store' => [
+            'dashboard.boxes.box.store' => [
                 'order_id' => [
                     'required',
 
@@ -145,28 +121,18 @@ final class Boxes extends FormRequest
                     Rule::exists('orders','id'),
                 ],
 
-                'customer_id' => [
+                'status_id' => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('users', 'id'),
+                    Rule::exists('statuses', 'id'),
                 ],
 
-                'sender_id' => [
-                    'required',
-
+                'delivery_id' => [
                     'integer',
 
-                    Rule::exists('senders', 'id'),
-                ],
-
-                'recipient_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('recipients', 'id'),
+                    Rule::exists('deliveries', 'id'),
                 ],
 
                 'weight' => [
@@ -185,24 +151,14 @@ final class Boxes extends FormRequest
                     'min:0'
                 ],
 
-                'status' => [
-                    'required',
-
-                    'in:pending,waiting',
-
-                    'string',
-                ],
-
                 'box_image' => [
-                    'required',
-
                     'string',
 
                     'max:255'
                 ],
             ],
 
-            'dashboard.boxes.update' => [
+            'dashboard.boxes.box.update' => [
                 'order_id' => [
                     'required',
 
@@ -211,28 +167,18 @@ final class Boxes extends FormRequest
                     Rule::exists('orders','id'),
                 ],
 
-                'customer_id' => [
+                'status_id' => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('users', 'id'),
+                    Rule::exists('statuses', 'id'),
                 ],
 
-                'sender_id' => [
-                    'required',
-
+                'delivery_id' => [
                     'integer',
 
-                    Rule::exists('senders', 'id'),
-                ],
-
-                'recipient_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('recipients', 'id'),
+                    Rule::exists('deliveries', 'id'),
                 ],
 
                 'weight' => [
@@ -251,17 +197,7 @@ final class Boxes extends FormRequest
                     'min:0'
                 ],
 
-                'status' => [
-                    'required',
-
-                    'in:pending,waiting',
-
-                    'string',
-                ],
-
                 'box_image' => [
-                    'required',
-
                     'string',
 
                     'max:255'

@@ -31,11 +31,25 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property int $status_id
  *
- * @property int $customer_id
+ * @property int $sender_id
  *
  * @property int $driver_id
  *
  * @property int $creator_id
+ *
+ * @property string $sender_name
+ *
+ * @property string $driver_name
+ *
+ * @property string $creator_name
+ *
+ * @property string $sender_phone
+ *
+ * @property string $creator_phone
+ *
+ * @property string $driver_phone
+ *
+ * @property string $driver_image
  *
  * @property Carbon|null $created_at
  *
@@ -45,7 +59,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property int|null $deleted_by
  *
- * @property-read HasOne|null $customer
+ * @property-read HasOne|null $sender
  *
  * @property-read HasOne|null $driver
  *
@@ -83,7 +97,7 @@ final class Pickup extends Model
 
         'status_id',
 
-        'customer_id',
+        'sender_id',
 
         'driver_id',
 
@@ -104,7 +118,7 @@ final class Pickup extends Model
 
         'status_id' => 'integer',
 
-        'customer_id' => 'integer',
+        'sender_id' => 'integer',
 
         'driver_id' => 'integer',
 
@@ -130,9 +144,9 @@ final class Pickup extends Model
     /**
      * @return HasOne
      */
-    public function customer(): HasOne
+    public function sender(): HasOne
     {
-        return $this->hasOne(Customer::class,'id','customer_id')->with(['user']);
+        return $this->hasOne(Sender::class,'id','sender_id');
     }
 
     /**
@@ -140,7 +154,7 @@ final class Pickup extends Model
      */
     public function driver(): HasOne
     {
-        return $this->hasOne(Driver::class,'id','driver_id')->with(['user','region','city','address']);
+        return $this->hasOne(Driver::class,'id','driver_id')->with(['user']);
     }
 
     /**
@@ -156,7 +170,7 @@ final class Pickup extends Model
      */
     public function orders(): HasMany
     {
-        return $this->hasMany(Order::class)->with(['boxes','sender.customer','shipment','recipient.customer']);
+        return $this->hasMany(Order::class)->with(['boxes.status','sender.customer','shipment','recipient.customer','staff']);
     }
 
     /**
@@ -190,6 +204,69 @@ final class Pickup extends Model
     {
         return $this->orders->sum('total_delivered_boxes');
     }
+
+    /**
+     * @return string
+     */
+    public function getSenderNameAttribute(): string
+    {
+        return $this->sender->customer->user['profile']['first_name'] .' '. $this->sender->customer->user['profile']['last_name'] .' '. $this->sender->customer->user['profile']['middle_name'];
+    }
+
+    /**
+     * @return string
+     */
+    public function getDriverNameAttribute(): string
+    {
+        return $this->driver['user']['profile']['first_name'].' '.$this->driver['user']['profile']['last_name'].' '.$this->driver['user']['profile']['middle_name'];
+    }
+
+    /**
+     * @return string
+     */
+    public function getCreatorNameAttribute(): string
+    {
+        return $this->creator['profile']['first_name'].' '.$this->creator['profile']['last_name'].' '.$this->creator['profile']['middle_name'];
+    }
+
+    /**
+     * @return array
+     */
+    public function getSenderPhoneAttribute(): array
+    {
+        return collect($this->sender->customer->user()->get()->first()->phones()->latest('id')->limit(3)->get(['phone'])->toArray())
+                ->flatten()
+                ->all();
+    }
+
+    /**
+     * @return array
+     */
+    public function getCreatorPhoneAttribute(): array
+    {
+        return collect($this->creator->phones()->latest('id')->limit(3)->get(['phone'])->toArray())
+            ->flatten()
+            ->all();
+    }
+
+    /**
+     * @return array
+     */
+    public function getDriverPhoneAttribute(): array
+    {
+        return collect($this->driver->user()->get()->first()->phones()->latest('id')->limit(3)->get(['phone'])->toArray())
+            ->flatten()
+            ->all();
+    }
+
+    /**
+     * @return string
+     */
+    public function getDriverImageAttribute()
+    {
+        return $this->driver['user']['profile']['photo'];
+    }
+
 
     /**
      * @param Builder $query

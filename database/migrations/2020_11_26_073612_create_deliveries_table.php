@@ -25,7 +25,7 @@ final class CreateDeliveriesTable extends Migration
 
             $table->unsignedBigInteger('driver_id');
 
-            $table->enum('status', ['pending', 'delivering', 'delivered'])->default('pending');
+            $table->unsignedBigInteger('status_id');
 
             $table->timestamp('created_at')->nullable();
 
@@ -38,6 +38,8 @@ final class CreateDeliveriesTable extends Migration
             $table->foreign('customer_id')->references('id')->on('customers')->onUpdate('cascade')->onDelete('cascade');
 
             $table->foreign('driver_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->foreign('status_id')->references('id')->on('statuses')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

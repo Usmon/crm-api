@@ -5,11 +5,12 @@
 | Notification services URL
 |--------------------------------------------------------------------------
 */
+$url = env('NOTIFICATION_SERVICE_URL');
 
 return [
     'notification_url' => [
-        'sms' => 'https://notifications.silkroadexp.com/dev/send/sms',
+        'sms' => $url . '/sms',
 
-        'email' => 'https://notifications.silkroadexp.com/dev/send/email',
+        'email' => $url . '/email',
     ],
 ];

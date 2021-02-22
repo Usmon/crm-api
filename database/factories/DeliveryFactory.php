@@ -4,6 +4,8 @@ namespace Database\Factories;
 
 use App\Models\User;
 
+use App\Models\Status;
+
 use App\Models\Customer;
 
 use App\Models\Delivery;
@@ -18,15 +20,13 @@ final class DeliveryFactory extends Factory
     protected $model = Delivery::class;
 
     /**
-     *@return array
-     *
-     * @throws \Exception
+     * @return array
      */
     public function definition(): array
     {
-        $status = ['pending', 'delivering', 'delivered'];
-
         $users = User::all();
+
+        $statues = Status::all();
 
         $customers = Customer::all();
 
@@ -35,7 +35,7 @@ final class DeliveryFactory extends Factory
 
             'driver_id' => $users->random(),
 
-            'status' => $status[random_int(0,2)]
+            'status_id' => $statues->random(),
         ];
     }
 }

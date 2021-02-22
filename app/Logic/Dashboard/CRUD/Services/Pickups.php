@@ -2,6 +2,8 @@
 
 namespace App\Logic\Dashboard\CRUD\Services;
 
+use App\Models\Order;
+
 use App\Models\Pickup;
 
 use Illuminate\Contracts\Pagination\Paginator;
@@ -84,31 +86,49 @@ final class Pickups
             return [
                 'id' => $pickup->id,
 
-                'pickup_datetime_start' => $pickup->pickup_datetime_start,
-
-                'pickup_datetime_end' => $pickup->pickup_datetime_end,
-
-                'status_id' => $pickup->status_id,
-
-                'sender_id' => $pickup->customer_id,
-
-                'driver_id' => $pickup->driver_id,
-
-                'creator_id' => $pickup->creator_id,
-
                 'created_at' => $pickup->created_at,
 
-                'updated_at' => $pickup->updated_at,
+                'status' => [
+                    'id' => $pickup->status->id,
 
-                'status' => $pickup->status,
+                    'name' => $pickup->status->value,
 
-                'customer' => $pickup->customer,
+                    'color' => [
+                        'bg' => $pickup->status->parameters->color->bg,
 
-                'driver' => $pickup->driver,
+                        'text' => $pickup->status->parameters->color->text,
+                    ],
+                ],
 
-                'creator' => $pickup->creator,
+                'range' => [
+                    'from' => $pickup->pickup_datetime_start,
 
-                'orders' => $pickup->orders,
+                    'to' => $pickup->pickup_datetime_end
+                ],
+
+                'sender' => [
+                    'name' => $pickup->sender_name,
+
+                    'phone' => $pickup->sender_phone,
+                ],
+
+                'creator' => [
+                    'id' => $pickup->creator->id,
+
+                    'name' => $pickup->creator_name,
+
+                    'phone' => $pickup->creator_phone,
+                ],
+
+                'driver' => [
+                    'id' => $pickup->driver->id,
+
+                    'name' => $pickup->driver_name,
+
+                    'phone' => $pickup->driver_phone,
+
+                    'image' => $pickup->driver_image,
+                ],
             ];
         });
 
@@ -123,39 +143,82 @@ final class Pickups
     public function showPickup(Pickup $pickup): array
     {
         return [
-            'id' => $pickup->id,
+            'total_boxes' => $pickup->orders->sum('total_boxes'),
 
-            'pickup_datetime_start' => $pickup->pickup_datetime_start,
+            'total_orders' => $pickup->orders->count(),
 
-            'pickup_datetime_end' => $pickup->pickup_datetime_end,
+            'total_customers' => $pickup->sender->count(),
 
-            'status_id' => $pickup->status_id,
-
-            'customer_id' => $pickup->customer_id,
-
-            'driver_id' => $pickup->driver_id,
-
-            'creator_id' => $pickup->creator_id,
+            'total_picked_boxes' => 'total_picked_boxes',
 
             'created_at' => $pickup->created_at,
 
-            'updated_at' => $pickup->updated_at,
+            'id' => $pickup->id,
 
-            'status' => $pickup->status,
+            'creator' => [
+                'id' => $pickup->creator->id,
 
-            'sender' => $pickup->customer,
+                'name' => $pickup->creator_name,
+            ],
 
-            'driver' => $pickup->driver,
+            'driver' => [
+                'id' => $pickup->driver->id,
 
-            'creator' => $pickup->creator,
+                'name' => $pickup->driver_name,
 
-            'orders' => $pickup->orders,
+                'phone' => $pickup->driver_phone,
+            ],
 
-            'total_orders' => $pickup->totalOrders(),
+            'status' => [
+                'id' => $pickup->status->id,
 
-            'total_boxes' => $pickup->totalBoxes(),
+                'name' => $pickup->status->value,
 
-            'total_delivered_boxes' => $pickup->totalDeliveredBoxes(),
+                'color' => [
+                    'bg' => $pickup->status->parameters->color->bg,
+
+                    'text' => $pickup->status->parameters->color->text,
+                ],
+            ],
+
+            'orders' => $pickup->orders->transform(function (Order $order) {
+                return [
+                    'id' => $order->id,
+
+                    'total_boxes' => $order->total_boxes,
+
+                    'total_products' => $order->products->count(),
+
+                    'creator' => [
+                        'id' => $order->staff->id,
+
+                        'name' => $order->staff->profile['first_name'].' '.$order->staff->profile['last_name'].' '.$order->staff->profile['middle_name']
+                    ],
+
+                    'sender' => [
+                        'id' => $order->sender->id,
+
+                        'name' => $order->sender->customer->user->profile['first_name'].' '.$order->sender->customer->user->profile['last_name'].' '.$order->sender->customer->user->profile['middle_name'],
+
+                        'address' => $order->sender->customer->user->addresses[0]['first_address'],
+
+                        'phones' => collect($order->sender->customer->user()->get()->first()->phones()->latest('id')->limit(3)->get(['phone'])->toArray())
+                            ->flatten()
+                    ],
+
+                    'status' => [
+                        'id' => $order->status->id,
+
+                        'name' => $order->status->value,
+
+                        'color' => [
+                            'bg' => $order->status->parameters->color->bg,
+
+                            'text' => $order->status->parameters->color->text,
+                        ],
+                    ],
+                ];
+            }),
         ];
     }
 
