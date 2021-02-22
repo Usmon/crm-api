@@ -78,6 +78,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property-read double totalWeightBoxes
  *
+ * @property-read HasOne $status
+ *
+ * @property-read HasOne $payment_status
+ *
+ * @property-read HasOne $sender
+ *
+ * @property-read HasOne $recipient
+ *
  * @property-read int totalDeliveredBoxes
  *
  * @method static Builder|self findBy(string $key, string $value = null)
