@@ -2,21 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Order;
-
-use App\Models\Sender;
-
-use App\Models\Recipient;
-
-use App\Models\User;
-
 use App\Models\Box;
+
+use App\Models\Order;
 
 use App\Models\Status;
 
-use App\Logic\Dashboard\CRUD\Services\Statuses as StatusService;
+use App\Models\Delivery;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+
+use App\Logic\Dashboard\CRUD\Services\Statuses as StatusService;
 
 final class BoxFactory extends Factory
 {
@@ -30,11 +26,11 @@ final class BoxFactory extends Factory
      */
     public function definition(): array
     {
-        $usersId = User::all(['id']);
         $ordersId = Order::all(['id']);
-        $senderId = Sender::all(['id']);
-        $recipientId = Recipient::all(['id']);
+
         $status = Status::where('model', StatusService::ORDER)->get(['id']);
+
+        $deliveryId = [Delivery::all()->random(), null];
 
         return [
             'order_id' => $ordersId->random(),
@@ -44,6 +40,8 @@ final class BoxFactory extends Factory
             'additional_weight' => $this->faker->randomFloat(2, 100, 1000),
 
             'status_id' => $status->random(),
+
+            'delivery_id' => $deliveryId[random_int(0,1)],
         ];
     }
 }

@@ -55,8 +55,6 @@ final class DeliveryObserver
      */
     public function defaultProperties(Delivery $delivery): void
     {
-        $delivery->status = $delivery->status ?? 'pending';
-
         $delivery->created_at = $delivery->created_at ?? Carbon::now();
 
         $delivery->updated_at = $delivery->updated_at ?? Carbon::now();

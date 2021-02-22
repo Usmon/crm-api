@@ -58,7 +58,7 @@ class BoxObserver
     public function defaultProperties(Box $box): void
     {
 
-        $box->status_id = $box->status_id;
+        $box->delivery_id = $box->delivery_id ?? null;
 
         $box->additional_weight = $box->additional_weight ?? 0;
 

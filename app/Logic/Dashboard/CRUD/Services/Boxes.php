@@ -26,25 +26,13 @@ final class Boxes
 
             'order_id' => $request->json('order_id'),
 
-            'customer_id' => $request->json('customer_id'),
-
-            'sender_id' => $request->json('sender_id'),
-
-            'recipient_id' => $request->json('recipient_id'),
-
-            'status' => $request->json('status'),
+            'status_id' => $request->json('status_id'),
 
             'weight' => $request->json('weight'),
 
             'additional_weight' => $request->json('additional_weight'),
 
-            'order' => $request->json('order'),
-
-            'customer' => $request->json('customer'),
-
-            'sender' => $request->json('sender'),
-
-            'recipient' => $request->json('recipient'),
+            'status' => $request->json('status'),
         ];
     }
 
@@ -55,8 +43,8 @@ final class Boxes
      */
     public function getOnlyFilters(BoxesRequest $request): array
     {
-        return $request->only('search', 'date','order_id','customer_id','sender_id',
-        'recipient_id','status', 'weight', 'additional_weight','order','customer','sender','recipient' );
+        return $request->only('search', 'date', 'order_id', 'status_id',
+            'weight', 'additional_weight', 'status');
     }
 
     /**
@@ -93,19 +81,15 @@ final class Boxes
 
                 'order_id' => $box->order_id,
 
-                'customer_id' => $box->customer_id,
-
-                'sender_id' => $box->sender_id,
-
-                'recipient_id' => $box->recipient_id,
+                'status_id' => $box->status_id,
 
                 'weight' => $box->weight,
 
                 'additional_weight' => $box->additional_weight,
 
-                'status' => $box->status,
-
                 'box_image' => $box->box_image,
+
+                'delivery_id' => $box->delivery_id,
 
                 'created_at' => $box->created_at,
 
@@ -113,11 +97,9 @@ final class Boxes
 
                 'order' => $box->order,
 
-                'customer' => $box->customer,
+                'status' => $box->status,
 
-                'sender' => $box->sender,
-
-                'recipient' => $box->recipient,
+                'delivery' => $box->delivery,
             ];
         });
 
@@ -136,19 +118,15 @@ final class Boxes
 
             'order_id' => $box->order_id,
 
-            'customer_id' => $box->customer_id,
-
-            'sender_id' => $box->sender_id,
-
-            'recipient_id' => $box->recipient_id,
+            'status_id' => $box->status_id,
 
             'weight' => $box->weight,
 
             'additional_weight' => $box->additional_weight,
 
-            'status' => $box->status,
-
             'box_image' => $box->box_image,
+
+            'delivery_id' => $box->delivery_id,
 
             'created_at' => $box->created_at,
 
@@ -156,12 +134,9 @@ final class Boxes
 
             'order' => $box->order,
 
-            'customer' => $box->customer,
+            'status' => $box->status,
 
-            'sender' => $box->sender,
-
-            'recipient' => $box->recipient,
-
+            'delivery' => $box->delivery,
         ];
     }
 
@@ -175,19 +150,15 @@ final class Boxes
         return [
             'order_id' => $request->json('order_id'),
 
-            'customer_id' => $request->json('customer_id'),
-
-            'sender_id' => $request->json('sender_id'),
-
-            'recipient_id' => $request->json('recipient_id'),
+            'status_id' => $request->json('status_id'),
 
             'weight' => $request->json('weight'),
 
             'additional_weight' => $request->json('additional_weight'),
 
-            'status' => $request->json('status'),
-
             'box_image' => $request->json('box_image'),
+
+            'delivery_id' => $request->json('delivery_id'),
         ];
     }
 
@@ -198,25 +169,19 @@ final class Boxes
      */
     public function updateBox(BoxesRequest $request): array
     {
-        $boxes = [
+        return [
             'order_id' => $request->json('order_id'),
 
-            'customer_id' => $request->json('customer_id'),
-
-            'sender_id' => $request->json('sender_id'),
-
-            'recipient_id' => $request->json('recipient_id'),
+            'status_id' => $request->json('status_id'),
 
             'weight' => $request->json('weight'),
 
             'additional_weight' => $request->json('additional_weight'),
 
-            'status' => $request->json('status'),
-
             'box_image' => $request->json('box_image'),
-        ];
 
-        return $boxes;
+            'delivery_id' => $request->json('delivery_id'),
+        ];
     }
 
     /**

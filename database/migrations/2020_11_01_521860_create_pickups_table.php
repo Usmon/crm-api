@@ -27,7 +27,7 @@ final class CreatePickupsTable extends Migration
 
             $table->unsignedBigInteger('status_id');
 
-            $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('sender_id');
 
             $table->unsignedBigInteger('driver_id');
 
@@ -45,7 +45,7 @@ final class CreatePickupsTable extends Migration
         Schema::table($this->table, function (Blueprint $table) {
             $table->foreign('status_id')->references('id')->on('statuses')->onUpdate('cascade')->onDelete('cascade');
 
-            $table->foreign('customer_id')->references('id')->on('customers')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('sender_id')->references('id')->on('senders')->onUpdate('cascade')->onDelete('cascade');
 
             $table->foreign('driver_id')->references('id')->on('drivers')->onUpdate('cascade')->onDelete('cascade');
 

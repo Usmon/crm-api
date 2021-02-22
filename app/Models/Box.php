@@ -31,12 +31,6 @@ use App\Traits\Sort\Sorter;
  *
  * @property int $order_id
  *
- * @property int $customer_id
- *
- * @property int $sender_id
- *
- * @property int $recipient_id
- *
  * @property float $weight
  *
  * @property float $additional_weight
@@ -45,6 +39,8 @@ use App\Traits\Sort\Sorter;
  *
  * @property string $box_image
  *
+ * @property int $delivery_id
+ *
  * @property Carbon|null $created_at
  *
  * @property Carbon|null $updated_at
@@ -52,6 +48,12 @@ use App\Traits\Sort\Sorter;
  * @property Carbon|null $deleted_at
  *
  * @property int|null $deleted_by
+ *
+ * @property-read HasOne|null $order
+ *
+ * @property-read HasOne|null $status
+ *
+ * @property-read HasOne|null $delivery
  *
  */
 
@@ -72,16 +74,16 @@ final class Box extends Model
      */
     protected $fillable = [
         'order_id',
-        
+
         'status_id',
 
         'weight',
 
         'additional_weight',
 
-        'status_id',
-
         'box_image',
+
+        'delivery_id',
     ];
 
     /**
@@ -97,15 +99,15 @@ final class Box extends Model
 
         'order_id' => 'integer',
 
-        'status_od' => 'integer',
+        'status_id' => 'integer',
 
         'weight' => 'float',
 
         'additional_weight' => 'float',
 
-        'status_id' => 'integer',
-
         'box_image' => 'string',
+
+        'delivery_id' => 'integer',
 
         'created_at' => 'datetime',
 
@@ -139,6 +141,22 @@ final class Box extends Model
     }
 
     /**
+     * @return HasOne
+     */
+    public function status(): HasOne
+    {
+        return $this->hasOne(Status::class,'id','status_id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function delivery(): HasOne
+    {
+        return $this->hasOne(Delivery::class,'id','delivery_id');
+    }
+
+    /**
      * @param Builder $query
      *
      * @param string $key
@@ -161,48 +179,25 @@ final class Box extends Model
      */
     public function scopeFilter(Builder $query, array $filters): Builder
     {
-        return $query->when($filters['search'] ?? null, function (Builder $query, string $search) {
-            return $query->where(function (Builder $query) use ($search) {
-                return $query->where('status', 'like', '%' . $search . '%');
-            });
-        })->when($filters['date'] ?? null, function (Builder $query, array $date) {
+        return $query->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
-        })->when($filters['order_id'] ?? null, function (Builder $query, int $order_id){
-            return $query->orWhere('order_id', '=', $order_id);
-        })->when($filters['customer_id'] ?? null, function (Builder $query, int $customer_id){
-            return $query->orWhere('customer_id', '=', $customer_id);
-        })->when($filters['sender_id'] ?? null, function (Builder $query, int $sender_id){
-            return $query->orWhere('sender_id', '=', $sender_id);
-        })->when($filters['recipient_id'] ?? null, function (Builder $query, int $recipient_id){
-            return $query->orWhere('recipient_id', '=', $recipient_id);
-        })->when($filters['order'] ?? null, function (Builder $query, string $order){
-            return $query->whereHas('order', function (Builder $query) use ($order){
-                $query->where('status', 'like', '%'. $order. '%')
-                    ->orWhere('payment_status', 'like', '%'. $order.'%');
+        })->when($filters['order_id'] ?? null, function (Builder $query, int $orderId){
+            return $query->where('order_id', '=', $orderId);
+        })->when($filters['status_id'] ?? null, function (Builder $query, int $customerId){
+            return $query->where('customer_id', '=', $customerId);
+        })->when($filters['delivery_id'] ?? null, function (Builder $query, int $customerId){
+            return $query->where('customer_id', '=', $customerId);
+        })->when($filters['status'] ?? null, function (Builder $query, string $status){
+            return $query->whereHas('status', function (Builder $query) use ($status) {
+                return $query->where('model','like','%'. $status .'%')
+                    ->orWhere('key', 'like', '%'. $status .'%')
+                    ->orWhere('value', 'like', '%'. $status .'%')
+                    ->orWhere('parameters', 'like', '%'. $status .'%');
             });
-        })->when($filters['customer'] ?? null, function (Builder $query, string $customer) {
-            return $query->whereHas('customer', function (Builder $query) use ($customer) {
-                    $query->whereHas('user', function (Builder $query) use ($customer) {
-                        $query->where('login', 'like', '%' . $customer . '%')
-                            ->orWhere('email', 'like', '%' . $customer . '%')
-                            ->orWhere('profile', 'like', '%' . $customer . '%');
-                })->orWhere('passport', 'like', '%' . $customer . '%')
-                    ->orWhere('note', 'like', '%' . $customer . '%');
-            });
-        })->when($filters['sender'] ?? null, function (Builder $query, string $sender){
-            return $query->whereHas('sender', function (Builder $query) use ($sender){
-                $query->where('address', 'like', '%'. $sender.'%');
-            });
-        })->when($filters['recipient'] ?? null, function (Builder $query, string $recipient){
-            return $query->whereHas('sender', function (Builder $query) use ($recipient){
-                $query->where('address', 'like', '%'.$recipient.'%');
-            });
-        })->when($filters['status'] ?? null, function (Builder $query, string $search){
-            return $query->where('status','like','%'. $search .'%');
-        })->when($filters['weight'] ?? null, function (Builder $query, float $weight){
-            return $query->where('weight','=',$weight);
-        })->when($filters['additional_weight'] ?? null, function (Builder $query, float $additional_weight){
-            return $query->where('additional_weight','=',$additional_weight);
+        })->when($filters['weight'] ?? null, function (Builder $query, array $weight){
+            return $query->whereBetween('weight', $weight);
+        })->when($filters['additional_weight'] ?? null, function (Builder $query, array $additionalWeight){
+            return $query->whereBetween('additional_weight', $additionalWeight);
         });
     }
 }

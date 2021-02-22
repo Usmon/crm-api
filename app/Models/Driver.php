@@ -231,7 +231,7 @@ final class Driver extends Model
                     ->orWhere('profile->first_name', 'like', '%'. $user .'%')
                     ->orWhere('profile->middle_name', 'like', '%'. $user .'%')
                     ->orWhere('profile->last_name', 'like', '%'. $user .'%');
-                });
+            });
         });
     }
 }

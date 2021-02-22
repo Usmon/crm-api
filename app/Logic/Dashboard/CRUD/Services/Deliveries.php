@@ -26,7 +26,13 @@ final class Deliveries
 
             'customer_id' => $request->json('customer_id'),
 
+            'status_id' => $request->json('status_id'),
+
             'status' => $request->json('status'),
+
+            'customer' => $request->json('customer'),
+
+            'driver' => $request->json('driver'),
         ];
     }
 
@@ -37,7 +43,8 @@ final class Deliveries
      */
     public function getOnlyFilters(DeliveriesRequest $request): array
     {
-        return $request->only('search', 'date', 'driver_id', 'customer_id', 'status');
+        return $request->only('search', 'date', 'driver_id', 'customer_id', 'status_id',
+            'status', 'customer', 'driver');
     }
 
     /**
@@ -70,15 +77,21 @@ final class Deliveries
             return [
                 'id' => $delivery->id,
 
-                'customer'=> $delivery->customer()->with(['phones', 'addresses'])->get(),
+                'customer_id'=> $delivery->customer_id,
 
-                'driver' => $delivery->driver,
+                'driver_id' => $delivery->driver_id,
 
-                'status' => $delivery->status,
+                'status_id' => $delivery->status_id,
 
                 'created_at' => $delivery->created_at,
 
                 'updated_at' => $delivery->updated_at,
+
+                'customer' => $delivery->customer,
+
+                'driver' => $delivery->driver,
+
+                'status' => $delivery->status
             ];
         });
 
@@ -95,15 +108,21 @@ final class Deliveries
         return [
             'id' => $delivery->id,
 
-            'customer'=> $delivery->customer()->with(['phones', 'addresses'])->get(),
+            'customer_id'=> $delivery->customer_id,
 
-            'driver' => $delivery->driver,
+            'driver_id' => $delivery->driver_id,
 
-            'status' => $delivery->status,
+            'status_id' => $delivery->status_id,
 
             'created_at' => $delivery->created_at,
 
             'updated_at' => $delivery->updated_at,
+
+            'customer' => $delivery->customer,
+
+            'driver' => $delivery->driver,
+
+            'status' => $delivery->status,
         ];
     }
 
@@ -119,7 +138,7 @@ final class Deliveries
 
             'driver_id' => $request->json('driver_id'),
 
-            'status' => $request->json('status'),
+            'status_id' => $request->json('status_id'),
         ];
     }
 
@@ -130,15 +149,15 @@ final class Deliveries
      */
     public function updateDelivery(DeliveriesRequest $request): array
     {
-        $deliveries = [
+        $delivery = [
             'customer_id' => $request->json('customer_id'),
 
             'driver_id' => $request->json('driver_id'),
 
-            'status' => $request->json('status'),
+            'status_id' => $request->json('status_id'),
         ];
 
-        return $deliveries;
+        return $delivery;
     }
 
     /**

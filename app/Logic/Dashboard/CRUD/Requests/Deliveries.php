@@ -22,7 +22,7 @@ final class Deliveries extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'dashboard.deliveries.index' => [
+            'dashboard.deliveries.delivery.index' => [
                 'search' => [
                     'nullable',
 
@@ -69,6 +69,26 @@ final class Deliveries extends FormRequest
                     Rule::exists('users','id'),
                 ],
 
+                'status_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('statuses', 'id')
+                ],
+
+                'customer' => [
+                    'nullable',
+
+                    'string',
+                ],
+
+                'driver' => [
+                    'nullable',
+
+                    'string',
+                ],
+
                 'status' => [
                     'nullable',
 
@@ -82,7 +102,7 @@ final class Deliveries extends FormRequest
                 ],
             ],
 
-            'dashboard.deliveries.store' => [
+            'dashboard.deliveries.delivery.store' => [
                 'customer_id' => [
                     'required',
 
@@ -99,16 +119,16 @@ final class Deliveries extends FormRequest
                     Rule::exists('users', 'id'),
                 ],
 
-                'status' => [
+                'status_id' => [
                     'required',
 
-                    'string',
+                    'integer',
 
-                    'in:pending,delivering,delivered'
+                    Rule::exists('statuses', 'id'),
                 ],
             ],
 
-            'dashboard.deliveries.update' => [
+            'dashboard.deliveries.delivery.update' => [
                 'customer_id' => [
                     'required',
 
@@ -125,12 +145,12 @@ final class Deliveries extends FormRequest
                     Rule::exists('users', 'id'),
                 ],
 
-                'status' => [
+                'status_id' => [
                     'required',
 
-                    'string',
+                    'integer',
 
-                    'in:pending,delivering,delivered'
+                    Rule::exists('statuses', 'id'),
                 ],
             ],
 

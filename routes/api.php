@@ -222,7 +222,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
 
     Route::group(['prefix' => 'deliveries', 'as' => 'deliveries.'], function(){
 
-        Route::apiResource('/', DashboardDeliveriesController::class);
+        Route::apiResource('delivery', DashboardDeliveriesController::class);
 
         Route::apiResource('users', DashboardDeliveryUsersController::class);
 
@@ -243,7 +243,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
 
     Route::group(['prefix'=> 'boxes', 'as' => 'boxes.'], function(){
 
-        Route::apiResource('/', DashboardBoxesController::class);
+        Route::apiResource('box', DashboardBoxesController::class);
 
         Route::apiResource('items', DashboardBoxItemsController::class);
     });

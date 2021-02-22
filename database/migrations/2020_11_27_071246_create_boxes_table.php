@@ -25,6 +25,8 @@ final class CreateBoxesTable extends Migration
 
             $table->unsignedBigInteger('status_id');
 
+            $table->unsignedBigInteger('delivery_id')->nullable();
+
             $table->float('weight');
 
             $table->float('additional_weight');
@@ -39,11 +41,11 @@ final class CreateBoxesTable extends Migration
         });
 
         Schema::table($this->table, function (Blueprint $table) {
-
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
 
             $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
-        
+
+            $table->foreign('delivery_id')->references('id')->on('deliveries')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

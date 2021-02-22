@@ -29,7 +29,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property int $driver_id
  *
- * @property string $status
+ * @property int $status_id
  *
  * @property Carbon|null $created_at
  *
@@ -37,11 +37,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property Carbon|null $deleted_at
  *
+ * @const STATUSES
+ *
  * @property-read HasOne|null $customer
  *
- * @property-read BelongsTo|null $driver
+ * @property-read HasOne|null $driver
  *
- * @const STATUSES
+ * @property-read HasOne|null $status
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
@@ -69,7 +71,7 @@ final class Delivery extends Model
 
         'driver_id',
 
-        'status',
+        'status_id',
     ];
 
     /**
@@ -82,7 +84,7 @@ final class Delivery extends Model
 
         'driver_id' => 'integer',
 
-        'status' => 'string',
+        'status_id' => 'integer',
 
         'created_at' => 'datetime',
 
@@ -105,17 +107,24 @@ final class Delivery extends Model
      */
     public function customer(): HasOne
     {
-        return $this->hasOne(Customer::class,'id','customer_id');
+        return $this->hasOne(Customer::class,'id','customer_id')->with(['user']);
     }
 
     /**
-     * @return BelongsTo
+     * @return HasOne
      */
-    public function driver(): BelongsTo
+    public function driver(): HasOne
     {
-        return $this->belongsTo(User::class, 'driver_id');
+        return $this->hasOne(Driver::class, 'id', 'driver_id')->with(['user', 'region', 'city', 'address']);
     }
 
+    /**
+     * @return HasOne
+     */
+    public function status(): HasOne
+    {
+        return $this->hasOne(Status::class, 'id', 'status_id');
+    }
     /**
      * @param Builder $query
      *
@@ -139,18 +148,41 @@ final class Delivery extends Model
      */
     public function scopeFilter(Builder $query, array $filters): Builder
     {
-        return $query->when($filters['search'] ?? null, function (Builder $query, string $search) {
-            return $query->where(function (Builder $query) use ($search) {
-                return $query->where('status', 'like', '%' . $search . '%');
-            });
-        })->when($filters['date'] ?? null, function (Builder $query, array $date) {
+        return $query->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
+        })->when($filters['customer_id'] ?? null, function (Builder $query, int $customerId) {
+            return $query->where('customer_id', '=', $customerId);
+        })->when($filters['driver_id'] ?? null, function (Builder $query, int $driverId) {
+            return $query->where('driver_id', '=', $driverId);
+        })->when($filters['status_id'] ?? null, function (Builder $query, int $driverId) {
+            return $query->where('driver_id', '=', $driverId);
         })->when($filters['status'] ?? null, function (Builder $query, string $status) {
-            return $query->where('status', 'like','%'. $status .'%');
-        })->when($filters['customer_id'] ?? null, function (Builder $query, int $customer_id) {
-            return $query->where('customer_id', '=', $customer_id);
-        })->when($filters['driver_id'] ?? null, function (Builder $query, int $driver_id) {
-            return $query->where('driver_id', '=', $driver_id);
+            return $query->whereHas('status', function (Builder $query) use ($status) {
+                return $query->where('model', 'like', '%'. $status .'%')
+                    ->orWhere('key', 'like', '%'. $status .'%')
+                    ->orWhere('value', 'like', '%'. $status .'%')
+                    ->orWhere('parameters', 'like', '%'. $status .'%');
+            });
+        })->when($filters['driver'] ?? null, function (Builder $query, string $driver) {
+            return $query->whereHas('driver', function (Builder $query) use ($driver) {
+                return $query->whereHas('user', function (Builder $query) use ($driver) {
+                    return $query->whereHas('phones', function (Builder $query) use ($driver) {
+                        return $query->where('phone', 'like', '%' . $driver . '%');
+                    })->orWhere('login', 'like', '%' . $driver . '%')
+                      ->orWhere('email', 'like', '%' . $driver . '%')
+                      ->orWhere('profile', 'like', '%' . $driver . '%');
+                });
+            });
+        })->when($filters['customer'] ?? null, function (Builder $query, string $customer) {
+            return $query->whereHas('customer', function (Builder $query) use ($customer) {
+                return $query->whereHas('user', function (Builder $query) use ($customer){
+                    return $query->whereHas('phones', function (Builder $query) use ($customer) {
+                        return $query->where('phone', 'like', '%'. $customer .'%');
+                    })->orWhere('login', 'like', '%'. $customer .'%')
+                        ->orWhere('email', 'like', '%'. $customer .'%')
+                        ->orWhere('profile', 'like', '%'. $customer .'%');
+                });
+            });
         });
     }
 }

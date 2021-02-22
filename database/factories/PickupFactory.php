@@ -47,7 +47,7 @@ final class PickupFactory extends Factory
 
             'status_id' => $statuses->random(),
 
-            'customer_id' => $customers->random(),
+            'sender_id' => $customers->random(),
 
             'driver_id' => $drivers->random(),
 

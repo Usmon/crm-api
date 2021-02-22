@@ -2,11 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Pickup;
-use App\Models\Status;
 use App\Models\Order;
-use Illuminate\Database\Seeder;
+
+use App\Models\Status;
+
+use App\Models\Pickup;
+
+use App\Models\Delivery;
+
 use Illuminate\Support\Str;
+
+use Illuminate\Database\Seeder;
 
 final class StatusSeeder extends Seeder
 {
@@ -112,7 +118,9 @@ final class StatusSeeder extends Seeder
         ],
     ];
 
-
+    /**
+     * @var array[]
+     */
     public static $pickup = [
         [
             'value' => 'Pending',
@@ -150,6 +158,48 @@ final class StatusSeeder extends Seeder
             ]
         ]
     ];
+
+    /**
+     * @var array[]
+     */
+    public static $delivery = [
+        [
+            'value' => 'Pending',
+
+            'parameters' => [
+                'color' => [
+                    'bg' => '#FFAA00',
+
+                    'text' => 'Pending'
+                ]
+            ]
+        ],
+
+        [
+            'value' => 'Delivering',
+
+            'parameters' => [
+                'color' => [
+                    'bg' => '#1FCECB',
+
+                    'text' => 'Delivering'
+                ]
+            ]
+        ],
+
+        [
+            'value' => 'Delivered',
+
+            'parameters' => [
+                'color' => [
+                    'bg' => '#1CD3A1',
+
+                    'text' => 'Delivered'
+                ]
+            ]
+        ]
+    ];
+
     /**
      * @return void
      */
@@ -160,6 +210,8 @@ final class StatusSeeder extends Seeder
         $this->createStatusesForModel(self::$order, Order::class);
 
         $this->createStatusesForModel(self::$pickup, Pickup::class);
+
+        $this->createStatusesForModel(self::$delivery, Delivery::class);
     }
 
     /**
