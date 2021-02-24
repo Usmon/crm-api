@@ -233,10 +233,15 @@ final class User extends Auth
      */
     public function getAvatarAttribute(): string
     {
-        return $this->profile->image ?? '';
+        return $this->profile['photo'] ?? '';
     }
 
-    public function getShortInfoAttribute()
+    /**
+     * Get short info of user.
+     *
+     * @return array
+     */
+    public function getShortInfoAttribute(): array
     {
         return [
             'id' => $this->id,

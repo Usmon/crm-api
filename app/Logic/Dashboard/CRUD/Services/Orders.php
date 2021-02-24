@@ -162,10 +162,6 @@ final class Orders
 
             'payment_status' => $order->payment_status,
 
-            'created_at' => $order->created_at,
-
-            'updated_at' => $order->updated_at,
-
             'staff' => $order->staff,
 
             'fedex_order' => $order->fedex_order,
@@ -174,17 +170,21 @@ final class Orders
 
             'shipment' => $order->shipment,
 
-            'boxes' => $order->boxes()->with('items')->get(),
+            'sender' => $order->sender->customer->user->short_info,
 
-            'sender' => $order->sender,
-
-            'recipient' => $order->recipient,
+            'recipient' => $order->recipient->customer->user->short_info,
 
             'total_boxes' => $order->total_boxes,
 
             'total_weight_boxes' => $order->total_weight_boxes,
 
             'total_delivered_boxes' => $order->total_delivered_boxes,
+
+            'boxes' => $order->boxes()->with('items')->get(),
+
+            'created_at' => $order->created_at,
+
+            'updated_at' => $order->updated_at,
         ];
     }
 
@@ -220,7 +220,7 @@ final class Orders
      */
     public function updateCredentials(OrdersRequest $request): array
     {
-        $credentials = [
+        return [
             'staff_id' => $request->json('staff_id'),
 
             'customer_id' => $request->json('customer_id'),
@@ -239,8 +239,6 @@ final class Orders
 
             'payment_status' => $request->json('payment_status')
         ];
-
-        return $credentials;
     }
 
     /**
