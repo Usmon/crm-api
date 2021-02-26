@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Traits\Sort\Sorter;
 
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 
 use App\Traits\Pagination\Pager;
