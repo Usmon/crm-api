@@ -31,6 +31,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property string $parameters
  *
+ * @property-read array $for_color
+ *
  * @property Carbon|null $created_at
  *
  * @property Carbon|null $updated_at
@@ -99,6 +101,21 @@ final class Status extends Model
 
         'deleted_at'
     ];
+
+    public function getForColorAttribute(): array
+    {
+        return [
+            'id' => $this->id,
+
+            'name' => $this->value,
+
+            'color' => [
+                'bg' => $this->parameters['color']['bg'],
+
+                'text' => $this->parameters['color']['text'],
+            ],
+        ];
+    }
 
     /**
      * @param Builder $query
