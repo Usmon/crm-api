@@ -125,9 +125,9 @@ final class Orders
 
                 'customer' => $order->sender->customer->user->short_info,
 
-                'status' => $order->status,
+                'status' => $order->status->for_color,
 
-                'payment_status' => $order->payment_status,
+                'payment_status' => $order->payment_status->for_color,
 
                 'created_at' => $order->created_at,
 
@@ -178,9 +178,9 @@ final class Orders
 
             'payment_type' => $order->paymentType->name,
 
-            'status' => $order->status,
+            'status' => $order->status->for_color,
 
-            'payment_status' => $order->payment_status,
+            'payment_status' => $order->payment_status->for_color,
 
             'sender' => $order->sender->customer->user->short_info,
 
@@ -212,7 +212,7 @@ final class Orders
                         'name' => $box->order->staff->full_name
                     ],
 
-                    'status' => $box->status
+                    'status' => $box->status->for_color
                 ];
             }),
 
