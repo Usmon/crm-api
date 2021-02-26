@@ -24,15 +24,19 @@ final class Deliveries
 
             'driver_id' => $request->json('driver_id'),
 
-            'customer_id' => $request->json('customer_id'),
+            'recipient_id' => $request->json('recipient_id'),
 
             'status_id' => $request->json('status_id'),
 
             'status' => $request->json('status'),
 
-            'customer' => $request->json('customer'),
+            'recipient' => $request->json('recipient'),
 
             'driver' => $request->json('driver'),
+
+            'creator_id' => $request->json('creator_id'),
+
+            'creator' => $request->json('creator'),
         ];
     }
 
@@ -43,8 +47,8 @@ final class Deliveries
      */
     public function getOnlyFilters(DeliveriesRequest $request): array
     {
-        return $request->only('search', 'date', 'driver_id', 'customer_id', 'status_id',
-            'status', 'customer', 'driver');
+        return $request->only('search', 'date', 'driver_id', 'recipient_id', 'status_id',
+            'status', 'recipient', 'driver', 'creator_id', 'creator');
     }
 
     /**
@@ -73,25 +77,39 @@ final class Deliveries
      */
     public function getDeliveries(Paginator $paginator): Paginator
     {
-        $paginator->getCollection()->transform( function (Delivery $delivery) {
+        $paginator->getCollection()->transform(function (Delivery $delivery) {
             return [
                 'id' => $delivery->id,
 
-                'customer_id'=> $delivery->customer_id,
+                'total_orders' => $delivery->orders->count(),
 
-                'driver_id' => $delivery->driver_id,
+                'total_delivered_orders' => $delivery->totalDeliveredOrders(),
 
-                'status_id' => $delivery->status_id,
+                'total_products' => $delivery->totalProducts(),
 
                 'created_at' => $delivery->created_at,
 
-                'updated_at' => $delivery->updated_at,
+                'status' => $delivery->status,
 
-                'customer' => $delivery->customer,
+                'creator' => [
+                    'id' => $delivery->creator->id,
 
-                'driver' => $delivery->driver,
+                    'name' => $delivery->creatorName(),
 
-                'status' => $delivery->status
+                    'image' => $delivery->creatorImage(),
+
+                    'phones' => $delivery->creatorPhones(),
+                ],
+
+                'driver' => [
+                    'id' => $delivery->driver->id,
+
+                    'name' => $delivery->driverName(),
+
+                    'image' => $delivery->driverImage(),
+
+                    'phones' => $delivery->driverPhones(),
+                ],
             ];
         });
 
@@ -108,21 +126,35 @@ final class Deliveries
         return [
             'id' => $delivery->id,
 
-            'customer_id'=> $delivery->customer_id,
+            'total_orders' => $delivery->orders->count(),
 
-            'driver_id' => $delivery->driver_id,
+            'total_delivered_orders' => $delivery->totalDeliveredOrders(),
 
-            'status_id' => $delivery->status_id,
+            'total_products' => $delivery->totalProducts(),
 
             'created_at' => $delivery->created_at,
 
-            'updated_at' => $delivery->updated_at,
-
-            'customer' => $delivery->customer,
-
-            'driver' => $delivery->driver,
-
             'status' => $delivery->status,
+
+            'creator' => [
+                'id' => $delivery->creator->id,
+
+                'name' => $delivery->creatorName(),
+
+                'image' => $delivery->creatorImage(),
+
+                'phones' => $delivery->creatorPhones(),
+            ],
+
+            'driver' => [
+                'id' => $delivery->driver->id,
+
+                'name' => $delivery->driverName(),
+
+                'image' => $delivery->driverImage(),
+
+                'phones' => $delivery->driverPhones(),
+            ],
         ];
     }
 
@@ -134,7 +166,7 @@ final class Deliveries
     public function createDelivery(DeliveriesRequest $request): array
     {
         return [
-            'customer_id' => $request->json('customer_id'),
+            'recipient_id' => $request->json('recipient_id'),
 
             'driver_id' => $request->json('driver_id'),
 
@@ -150,7 +182,7 @@ final class Deliveries
     public function updateDelivery(DeliveriesRequest $request): array
     {
         $delivery = [
-            'customer_id' => $request->json('customer_id'),
+            'recipient_id' => $request->json('recipient_id'),
 
             'driver_id' => $request->json('driver_id'),
 

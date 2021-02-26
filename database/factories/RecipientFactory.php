@@ -24,8 +24,6 @@ final class RecipientFactory extends Factory
 
         return [
             'customer_id' => $users->random(),
-
-            'address' => $this->faker->address
         ];
     }
 }

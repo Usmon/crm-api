@@ -24,7 +24,7 @@ final class Recipients
 
             'customer_id' => $request->json('customer_id'),
 
-            'address' => $request->json('address'),
+            'customer' => $request->json('customer'),
 
             'phone' => $request->json('phone'),
         ];
@@ -37,7 +37,7 @@ final class Recipients
      */
     public function getOnlyFilters(RecipientsRequest $request): array
     {
-        return $request->only('search', 'date', 'customer_id', 'address','phone');
+        return $request->only('search', 'date', 'customer_id', 'customer', 'phone');
     }
 
     /**
@@ -81,14 +81,11 @@ final class Recipients
             return [
                 'id' => $recipient->id,
 
-                'customer' => $recipient->customer()->with(['phones','addresses'])->get(),
-
-                'address' => $recipient->address,
+                'customer' => $recipient->customer->user()->with(['phones','addresses'])->get(),
 
                 'created_at' => $recipient->created_at,
 
                 'updated_at' => $recipient->updated_at,
-
             ];
         });
 
@@ -105,9 +102,7 @@ final class Recipients
         return [
             'id' => $recipient->id,
 
-            'customer' => $recipient->customer()->with(['phones','addresses'])->get(),
-
-            'address' => $recipient->address,
+            'customer' => $recipient->customer->user()->with(['phones','addresses'])->get(),
 
             'created_at' => $recipient->created_at,
 
@@ -124,8 +119,6 @@ final class Recipients
     {
         return [
             'customer_id' => $request->json('customer_id'),
-
-            'address' => $request->json('address')
         ];
     }
 
@@ -138,8 +131,6 @@ final class Recipients
     {
         $credentials = [
             'customer_id' => $request->json('customer_id'),
-
-            'address' => $request->json('address')
         ];
 
         return $credentials;
@@ -153,6 +144,7 @@ final class Recipients
     public function deleteRecipient($id)
     {
         $id = json_decode($id);
+
         return (is_int($id) || array_filter($id,'is_int')===$id) ? $id : 0;
     }
 }
