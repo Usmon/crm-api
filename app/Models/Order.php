@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\Sort\Sorter;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 
 use App\Traits\Pagination\Pager;
@@ -62,6 +63,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @const PAYMENT_STATUSES
  *
+ * @property-read BelongsTo $paymentType
+ *
  * @property-read HasOne|null $staff
  *
  * @property-read HasOne|null $customer
@@ -85,6 +88,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property-read HasOne $sender
  *
  * @property-read HasOne $recipient
+ *
+ * @property-read HasMany $histories
  *
  * @property-read int totalDeliveredBoxes
  *
@@ -131,6 +136,20 @@ final class Order extends Model
 
         'price',
 
+        'price_insurance',
+
+        'price_warehouse',
+
+        'price_delivery',
+
+        'price_total',
+
+        'price_debt',
+
+        'weight_rate',
+
+        'payment_type_id',
+
         'payed_price',
 
         'status_id',
@@ -165,6 +184,20 @@ final class Order extends Model
         'type' => 'json',
 
         'price' => 'double',
+
+        'price_insurance' => 'double',
+
+        'price_warehouse' => 'double',
+
+        'price_delivery' => 'double',
+
+        'price_total' => 'double',
+
+        'price_debt' => 'double',
+
+        'weight_rate' => 'integer',
+
+        'payment_type_id' => 'integer',
 
         'payed_price' => 'double',
 
@@ -256,7 +289,7 @@ final class Order extends Model
      */
     public function deliveries(): HasMany
     {
-        return $this->hasMany(Delivery::class);
+        return $this->hasMany(Delivery::class, 'id', 'order_id');
     }
 
     /**
@@ -308,6 +341,22 @@ final class Order extends Model
     }
 
     /**
+     * @return HasMany
+     */
+    public function histories(): HasMany
+    {
+        return $this->hasMany(OrderHistory::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function paymentType(): BelongsTo
+    {
+        return $this->belongsTo(PaymentType::class);
+    }
+
+    /**
      * @return int
      */
     public function getTotalBoxesAttribute(): int
@@ -352,6 +401,41 @@ final class Order extends Model
     public function scopeFindBy(Builder $query, string $key, string $value = null): Builder
     {
         return $query->where($key, '=', $value);
+    }
+
+    /**
+     * @return float
+     */
+    public function getPricePickupAttribute(): float
+    {
+        return (float) 0;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalProductsAttribute(): int
+    {
+        return $this->boxes->map(function(Box $box) {
+            return $box->items->count();
+        })->sum();
+    }
+
+
+    /**
+     * @return float
+     */
+    public function getPriceFedexAttribute(): float
+    {
+        return (float) 0;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPriceDiscountAttribute(): float
+    {
+        return (float) 0;
     }
 
     /**

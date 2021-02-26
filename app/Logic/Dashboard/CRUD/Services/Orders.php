@@ -4,8 +4,10 @@ namespace App\Logic\Dashboard\CRUD\Services;
 
 use App\Logic\Dashboard\CRUD\Requests\Orders as OrdersRequest;
 
+use App\Models\Box;
 use App\Models\Order;
 
+use App\Models\OrderHistory;
 use Illuminate\Contracts\Pagination\Paginator;
 
 final class Orders
@@ -144,43 +146,89 @@ final class Orders
         return [
             'id' => $order->id,
 
-            'staff_id' => $order->staff_id,
+            'total_boxes' => $order->boxes->count(),
 
-            'customer_id' => $order->customer_id,
+            'total_products' => $order->total_products,
 
-            'fedex_order_id' => $order->fedex_order_id,
-
-            'pickup_id' => $order->pickup_id,
-
-            'shipment_id' => $order->shipment_id,
-
-            'price' => $order->price,
+            'price_debt' => $order->price,
 
             'payed_price' => $order->payed_price,
+
+            'price_pickup' => $order->price_pickup,
+
+            'price_delivery' => $order->price_delivery,
+
+            'price_warehouse' => $order->price_warehouse,
+
+            'price_fedex' => $order->price_fedex,
+
+            'price_insurance' => $order->price_insurance,
+
+            'price_total' => $order->price_total,
+
+            'price_payed' => $order->payed_price,
+
+            'price_discount' => $order->price_discount,
+
+            'wight_rate' => $order->weight_rate,
+
+            'total_boxes' => $order->total_boxes,
+
+            'total_weight' => $order->total_weight_boxes,
+
+            'payment_type' => $order->paymentType->name,
 
             'status' => $order->status,
 
             'payment_status' => $order->payment_status,
 
-            'staff' => $order->staff,
-
-            'fedex_order' => $order->fedex_order,
-
-            'pickup' => $order->pickup,
-
-            'shipment' => $order->shipment,
-
             'sender' => $order->sender->customer->user->short_info,
 
             'recipient' => $order->recipient->customer->user->short_info,
 
-            'total_boxes' => $order->total_boxes,
+            'creator' => [
+                'id' => $order->staff_id,
 
-            'total_weight_boxes' => $order->total_weight_boxes,
+                'name' => $order->staff->full_name
+            ],
 
-            'total_delivered_boxes' => $order->total_delivered_boxes,
+            'boxes' => $order->boxes->transform(function(Box $box) {
+                return [
+                    'id' => $box->id,
 
-            'boxes' => $order->boxes()->with('items')->get(),
+                    'total_products' => $box->total_products,
+
+                    'total_weight' => $box->weight,
+
+                    'total_price' => $box->items->sum('price'),
+
+                    'note' => $box->note,
+
+                    'created_at' =>$box->created_at,
+
+                    'creator' => [
+                        'id' => $box->order->staff_id,
+
+                        'name' => $box->order->staff->full_name
+                    ],
+
+                    'status' => $box->status
+                ];
+            }),
+
+            'history' => $order->histories->transform(function(OrderHistory $history) {
+                return [
+                    'id' => $history->id,
+
+                    'seq' => $history->seq,
+
+                    'creator' => [
+                        'id' => $history->creator_id,
+
+                        'name' => $history->creator->full_name,
+                    ],
+                ];
+            }),
 
             'created_at' => $order->created_at,
 

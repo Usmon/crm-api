@@ -8,6 +8,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
+
+/**
+ * Class OrderHistory
+ *
+ * @package App\Models
+ *
+ * @property integer $id
+ *
+ * @property integer $seq
+ *
+ * @property integer $order_id
+ *
+ * @property integer $creator_id
+ *
+ * @property-read User $creator
+ *
+ * @property Order $order
+ */
 final class OrderHistory extends Model
 {
     use HasFactory;
@@ -31,7 +49,9 @@ final class OrderHistory extends Model
     /**
      * @var array
      */
-    protected $hidden = [];
+    protected $hidden = [
+        'deleted_at'
+    ];
 
     /**
      * @var array
@@ -61,6 +81,6 @@ final class OrderHistory extends Model
      */
     public function creator(): HasOne
     {
-        return $this->hasOne(User::class);
+        return $this->hasOne(User::class, 'id', 'creator_id');
     }
 }
