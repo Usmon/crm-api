@@ -226,8 +226,6 @@ final class StatusSeeder extends Seeder
 
             $item['key'] = Str::slug($item['value']);
 
-            $item['parameters'] = json_encode($item['parameters']);
-
             Status::create($item);
         }
     }

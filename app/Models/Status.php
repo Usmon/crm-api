@@ -78,7 +78,7 @@ final class Status extends Model
 
         'value' => 'string',
 
-        'parameters' => 'string',
+        'parameters' => 'array',
 
         'created_at' => 'datetime',
 
@@ -99,16 +99,6 @@ final class Status extends Model
 
         'deleted_at'
     ];
-
-    /**
-     * @param string $value
-     * 
-     * @return array
-     */
-    public function getParametersAttribute($value): object
-    {
-        return json_decode($value);
-    }
 
     /**
      * @param Builder $query

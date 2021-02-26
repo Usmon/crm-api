@@ -157,6 +157,22 @@ final class Box extends Model
     }
 
     /**
+     * @return int
+     */
+    public function getTotalProductsAttribute(): int
+    {
+        return $this->items()->count();
+    }
+
+    /**
+     * @return int
+     */
+    public function getNoteAttribute(): int
+    {
+        return $this->items()->count();
+    }
+
+    /**
      * @param Builder $query
      *
      * @param string $key

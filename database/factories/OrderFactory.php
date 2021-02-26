@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\FedexOrder;
 use App\Models\Order;
+use App\Models\PaymentType;
 use App\Models\Sender;
 use App\Models\Recipient;
 use App\Models\Pickup;
@@ -35,7 +36,7 @@ final class OrderFactory extends Factory
         $pickupsId = Pickup::all(['id']);
 
         $shipmentsId = Shipment::all(['id']);
-        
+
         $sender = Sender::all(['id']);
 
         $recipient = Recipient::all(['id']);
@@ -43,6 +44,8 @@ final class OrderFactory extends Factory
         $status = Status::where('model', StatusService::ORDER)->get(['id']);
 
         $payment_status = Status::where('model', StatusService::ORDER_PAYMENT)->get(['id']);
+
+        $payment_types = PaymentType::all('id');
 
 
         return [
@@ -60,7 +63,21 @@ final class OrderFactory extends Factory
 
             'status_id' => $status->random(),
 
+            'payment_type_id' => $payment_types->random(),
+
             'payment_status_id' => $payment_status->random(),
+
+            'price_insurance' => rand(100, 1000),
+
+            'price_warehouse' => rand(100, 5000),
+
+            'price_delivery' => rand(100, 5000),
+
+            'price_total' => rand(100, 5000),
+
+            'price_debt' => rand(100, 5000),
+
+            'weight_rate' => rand(1, 10),
 
             'type' => json_encode([
                 'index' => 'pickup',
