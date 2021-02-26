@@ -165,11 +165,11 @@ final class Box extends Model
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getNoteAttribute(): int
+    public function getNoteAttribute(): string
     {
-        return $this->items()->count();
+        return '';
     }
 
     /**
