@@ -88,17 +88,7 @@ final class Pickups
 
                 'created_at' => $pickup->created_at,
 
-                'status' => [
-                    'id' => $pickup->status->id,
-
-                    'name' => $pickup->status->value,
-
-                    'color' => [
-                        'bg' => $pickup->status->parameters['color']['bg'],
-
-                        'text' => $pickup->status->parameters['color']['text'],
-                    ],
-                ],
+                'status' => $pickup->status->for_color,
 
                 'range' => [
                     'from' => $pickup->pickup_datetime_start,
@@ -168,18 +158,8 @@ final class Pickups
 
                 'phone' => $pickup->driver_phone,
             ],
-
-            'status' => [
-                'id' => $pickup->status->id,
-
-                'name' => $pickup->status->value,
-
-                'color' => [
-                    'bg' => $pickup->status->parameters['color']['bg'],
-
-                    'text' => $pickup->status->parameters['color']['text'],
-                ],
-            ],
+          
+            'status' => $pickup->status->for_color,
 
             'orders' => $pickup->orders->transform(function (Order $order) {
                 return [
@@ -205,18 +185,8 @@ final class Pickups
                         'phones' => collect($order->sender->customer->user()->get()->first()->phones()->latest('id')->limit(3)->get(['phone'])->toArray())
                             ->flatten()
                     ],
-
-                    'status' => [
-                        'id' => $order->status->id,
-
-                        'name' => $order->status->value,
-
-                        'color' => [
-                            'bg' => $order->status->parameters['color']['bg'],
-
-                            'text' => $order->status->parameters['color']['text'],
-                        ],
-                    ],
+                  
+                    'status' => $order->status->for_color,
                 ];
             }),
         ];
