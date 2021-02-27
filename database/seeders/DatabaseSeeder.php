@@ -43,9 +43,9 @@ final class DatabaseSeeder extends Seeder
 
         $this->call(PaymentTypeSeeder::class);
 
-        $this->call(OrderSeeder::class);
-
         $this->call(DeliverySeeder::class);
+
+        $this->call(OrderSeeder::class);
 
         $this->call(SenderSeeder::class);
 

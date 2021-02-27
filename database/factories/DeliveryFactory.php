@@ -2,11 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Models\Driver;
 use App\Models\User;
 
 use App\Models\Status;
 
-use App\Models\Customer;
+use App\Models\Recipient;
 
 use App\Models\Delivery;
 
@@ -26,16 +27,20 @@ final class DeliveryFactory extends Factory
     {
         $users = User::all();
 
+        $drivers = Driver::all();
+
         $statues = Status::all();
 
-        $customers = Customer::all();
+        $recipients = Recipient::all();
 
         return [
-            'customer_id' => $customers->random(),
+            'recipient_id' => $recipients->random(),
 
-            'driver_id' => $users->random(),
+            'driver_id' => $drivers->random(),
 
             'status_id' => $statues->random(),
+
+            'creator_id' => $users->random(),
         ];
     }
 }

@@ -38,6 +38,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property int $shipment_id
  *
+ * @property int $delivery_id
+ *
  * @property double $price
  *
  * @property double $payed_price
@@ -131,6 +133,8 @@ final class Order extends Model
 
         'recipient_id',
 
+        'delivery_id',
+
         'type',
 
         'price',
@@ -179,6 +183,8 @@ final class Order extends Model
         'sender_id' => 'integer',
 
         'recipient_id' => 'integer',
+
+        'delivery_id' => 'integer',
 
         'type' => 'json',
 

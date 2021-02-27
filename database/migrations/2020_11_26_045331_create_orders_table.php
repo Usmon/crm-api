@@ -37,6 +37,8 @@ final class CreateOrdersTable extends Migration
 
             $table->unsignedBigInteger('payment_status_id');
 
+            $table->unsignedBigInteger('delivery_id')->nullable();
+
             $table->json('type');
 
             $table->decimal('price',10,2);
@@ -62,10 +64,12 @@ final class CreateOrdersTable extends Migration
             $table->foreign('pickup_id')->references('id')->on('pickups')->onDelete('cascade');
 
             $table->foreign('shipment_id')->references('id')->on('shipments')->onDelete('cascade');
-            
+
             $table->foreign('sender_id')->references('id')->on('senders')->onDelete('cascade');
 
             $table->foreign('recipient_id')->references('id')->on('recipients')->onDelete('cascade');
+
+            $table->foreign('delivery_id')->references('id')->on('deliveries')->onDelete('cascade');
         });
     }
 
