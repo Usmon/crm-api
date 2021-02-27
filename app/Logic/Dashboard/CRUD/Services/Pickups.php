@@ -52,7 +52,7 @@ final class Pickups
     public function getOnlyFilters(PickupsRequest $request): array
     {
         return $request->only('search', 'date', 'pickup_datetime_start', 'pickup_datetime_end',
-            'status', 'driver_id', 'customer_id', 'customer', 'driver', 'creator');
+            'status', 'driver_id', 'sender_id', 'sender', 'driver', 'creator');
     }
 
     /**
@@ -158,7 +158,7 @@ final class Pickups
 
                 'phone' => $pickup->driver_phone,
             ],
-
+          
             'status' => $pickup->status->for_color,
 
             'orders' => $pickup->orders->transform(function (Order $order) {
@@ -185,7 +185,7 @@ final class Pickups
                         'phones' => collect($order->sender->customer->user()->get()->first()->phones()->latest('id')->limit(3)->get(['phone'])->toArray())
                             ->flatten()
                     ],
-
+                  
                     'status' => $order->status->for_color,
                 ];
             }),
@@ -206,7 +206,7 @@ final class Pickups
 
             'status_id' => $request->json('status_id'),
 
-            'customer_id' => $request->json('customer_id'),
+            'sender_id' => $request->json('sender_id'),
 
             'driver_id' => $request->json('driver_id'),
         ];
@@ -226,7 +226,7 @@ final class Pickups
 
             'status_id' => $request->json('status_id'),
 
-            'customer_id' => $request->json('customer_id'),
+            'sender_id' => $request->json('sender_id'),
 
             'driver_id' => $request->json('driver_id'),
         ];
