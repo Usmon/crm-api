@@ -16,9 +16,9 @@ final class Images
     public function storeImage(array $credentials)
     {
         if(file_exists($credentials['image'])){
-            $path = Storage::putFile('img/'.$credentials['folder'], new File($credentials['image']));
+            $path = Storage::disk('s3')->putFile($credentials['folder'], new File($credentials['image']));
 
-            return $path;
+            return Storage::disk('s3')->url($path);
         }
 
         return null;

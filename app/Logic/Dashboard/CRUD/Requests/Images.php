@@ -36,20 +36,6 @@ final class Images extends FormRequest
 
                     'mimes:jpeg,png,jpg,svg',
                 ],
-
-                'permissions' => [
-                    'required',
-
-                    'array',
-                ],
-
-                'permissions.*' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('permissions', 'id'),
-                ],
             ],
 
             'dashboard.images.update' => [
@@ -67,19 +53,6 @@ final class Images extends FormRequest
                     'mimes:jpeg,png,jpg,svg'
                 ],
 
-                'permissions' => [
-                    'required',
-
-                    'array',
-                ],
-
-                'permissions.*' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('permissions', 'id'),
-                ],
             ],
         ];
 
