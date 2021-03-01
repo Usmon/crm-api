@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Models\Delivery;
 
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 final class DeliveryObserver
 {
@@ -55,6 +56,8 @@ final class DeliveryObserver
      */
     public function defaultProperties(Delivery $delivery): void
     {
+        $delivery->creator_id = $delivery->creator_id ?? Auth::id();
+
         $delivery->created_at = $delivery->created_at ?? Carbon::now();
 
         $delivery->updated_at = $delivery->updated_at ?? Carbon::now();

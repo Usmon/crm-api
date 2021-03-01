@@ -53,26 +53,16 @@ final class Pickups extends FormRequest
                     'after:date.from'
                 ],
 
+                'note' => [
+                    'nullable',
+
+                    'string',
+                ],
+
                 'pickup_datetime_start' => [
                     'nullable',
 
                     'array',
-                ],
-
-                'pickup_datetime_start.from' => [
-                    'nullable',
-
-                    'date',
-
-                    'before:now',
-                ],
-
-                'pickup_datetime_start.to' => [
-                    'nullable',
-
-                    'date',
-
-                    'after:pickup_datetime_start.from',
                 ],
 
                 'pickup_datetime_end' => [
@@ -81,34 +71,18 @@ final class Pickups extends FormRequest
                     'array',
                 ],
 
-                'pickup_datetime_end.from' => [
-                    'nullable',
-
-                    'date',
-
-                    'before:now',
-                ],
-
-                'pickup_datetime_end.to' => [
-                    'nullable',
-
-                    'date',
-
-                    'after:pickup_datetime_start.from',
-                ],
-
                 'status' => [
                     'nullable',
 
                     'string',
                 ],
 
-                'customer_id' => [
+                'sender_id' => [
                     'nullable',
 
                     'integer',
 
-                    Rule::exists('customers', 'id'),
+                    Rule::exists('senders', 'id'),
                 ],
 
                 'driver_id' => [
@@ -127,7 +101,7 @@ final class Pickups extends FormRequest
                     Rule::exists('users', 'id'),
                 ],
 
-                'customer' => [
+                'sender' => [
                     'nullable',
 
                     'string',
@@ -164,15 +138,15 @@ final class Pickups extends FormRequest
 
                     'integer',
 
-                    Rule::exists('statuses', 'id'),
+                    Rule::exists('statuses','id'),
                 ],
 
-                'customer_id' => [
+                'sender_id' => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('customers', 'id'),
+                    Rule::exists('senders', 'id'),
                 ],
 
                 'driver_id' => [
@@ -181,20 +155,6 @@ final class Pickups extends FormRequest
                     'integer',
 
                     Rule::exists('drivers', 'id'),
-                ],
-
-                'permissions' => [
-                    'required',
-
-                    'array',
-                ],
-
-                'permissions.*' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('permissions', 'id'),
                 ],
             ],
 
@@ -216,15 +176,15 @@ final class Pickups extends FormRequest
 
                     'integer',
 
-                    Rule::exists('statuses', 'id'),
+                    Rule::exists('statuses','id'),
                 ],
 
-                'customer_id' => [
+                'sender_id' => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('customers', 'id'),
+                    Rule::exists('senders', 'id'),
                 ],
 
                 'driver_id' => [
@@ -233,20 +193,6 @@ final class Pickups extends FormRequest
                     'integer',
 
                     Rule::exists('drivers', 'id'),
-                ],
-
-                'permissions' => [
-                    'required',
-
-                    'array',
-                ],
-
-                'permissions.*' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('permissions', 'id'),
                 ],
             ],
         ];

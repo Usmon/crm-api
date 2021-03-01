@@ -61,16 +61,19 @@ final class Recipients extends FormRequest
                     Rule::exists('users','id'),
                 ],
 
-                'customer' => [
-                    'nullable',
-
-                    'string',
-                ],
-
                 'sort.*' => [
                     'nullable',
 
                     'string',
+                ],
+            ],
+
+            'dashboard.recipients.' => [
+
+                'phone' => [
+                    'nullable',
+
+                    'string'
                 ],
             ],
 
@@ -82,6 +85,20 @@ final class Recipients extends FormRequest
 
                     Rule::exists('users', 'id')
                 ],
+
+                'permissions' => [
+                    'required',
+
+                    'array',
+                ],
+
+                'permissions.*' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('permissions', 'id'),
+                ],
             ],
 
             'dashboard.recipients.update' => [
@@ -91,6 +108,20 @@ final class Recipients extends FormRequest
                     'integer',
 
                     Rule::exists('users', 'id')
+                ],
+
+                'permissions' => [
+                    'required',
+
+                    'array',
+                ],
+
+                'permissions.*' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('permissions', 'id'),
                 ],
             ],
         ];

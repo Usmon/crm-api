@@ -61,48 +61,6 @@ final class Senders extends FormRequest
                     Rule::exists('customers','id'),
                 ],
 
-                'region' => [
-                    'nullable',
-
-                    'string',
-                ],
-
-                'city' => [
-                    'nullable',
-
-                    'string',
-                ],
-
-                'address' => [
-                    'nullable',
-
-                    'string',
-                ],
-
-                'region_id' => [
-                    'nullable',
-
-                    'integer',
-
-                    Rule::exists('regions','id'),
-                ],
-
-                'city_id' => [
-                    'nullable',
-
-                    'integer',
-
-                    Rule::exists('cities','id'),
-                ],
-
-                'address_id' => [
-                    'nullable',
-
-                    'string',
-
-                    Rule::exists('addresses','id'),
-                ],
-
                 'sort.*' => [
                     'nullable',
 
@@ -118,22 +76,6 @@ final class Senders extends FormRequest
                     'integer',
 
                     Rule::exists('customers', 'id'),
-                ],
-
-                'region_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('regions','id'),
-                ],
-
-                'city_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('cities','id'),
                 ],
 
                 'permissions' => [
@@ -158,22 +100,6 @@ final class Senders extends FormRequest
                     'integer',
 
                     Rule::exists('customers', 'id'),
-                ],
-
-                'region_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('regions','id'),
-                ],
-
-                'city_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('cities','id'),
                 ],
 
                 'permissions' => [
