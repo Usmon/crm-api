@@ -23,8 +23,6 @@ final class CreateRecipientsTable extends Migration
 
             $table->unsignedBigInteger('customer_id');
 
-            $table->string('address');
-
             $table->timestamp('created_at')->nullable();
 
             $table->timestamp('updated_at')->nullable();

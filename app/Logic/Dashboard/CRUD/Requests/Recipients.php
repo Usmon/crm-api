@@ -53,12 +53,6 @@ final class Recipients extends FormRequest
                     'after:date.from',
                 ],
 
-                'address' => [
-                    'nullable',
-
-                    'string',
-                ],
-
                 'customer_id' => [
                     'nullable',
 
@@ -67,19 +61,16 @@ final class Recipients extends FormRequest
                     Rule::exists('users','id'),
                 ],
 
-                'sort.*' => [
+                'customer' => [
                     'nullable',
 
                     'string',
                 ],
-            ],
 
-            'dashboard.recipients.' => [
-
-                'phone' => [
+                'sort.*' => [
                     'nullable',
 
-                    'string'
+                    'string',
                 ],
             ],
 
@@ -91,26 +82,6 @@ final class Recipients extends FormRequest
 
                     Rule::exists('users', 'id')
                 ],
-
-                'address' => [
-                    'required',
-
-                    'string'
-                ],
-
-                'permissions' => [
-                    'required',
-
-                    'array',
-                ],
-
-                'permissions.*' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('permissions', 'id'),
-                ],
             ],
 
             'dashboard.recipients.update' => [
@@ -120,26 +91,6 @@ final class Recipients extends FormRequest
                     'integer',
 
                     Rule::exists('users', 'id')
-                ],
-
-                'address' => [
-                    'required',
-
-                    'string'
-                ],
-
-                'permissions' => [
-                    'required',
-
-                    'array',
-                ],
-
-                'permissions.*' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('permissions', 'id'),
                 ],
             ],
         ];
