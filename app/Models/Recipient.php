@@ -76,7 +76,7 @@ final class Recipient extends Model
      */
     public function customer(): HasOne
     {
-        return $this->hasOne(Customer::class,'id', 'customer_id');
+        return $this->hasOne(Customer::class,'id', 'customer_id')->with(['user.phones']);
     }
 
     /**
@@ -106,18 +106,14 @@ final class Recipient extends Model
             return $query->whereBetween('created_at', $date);
         })->when($filters['customer_id'] ?? null, function (Builder $query, int $customerId){
             return $query->where('customer_id', '=', $customerId);
-        })->when($filters['customer'] ?? null, function (Builder $query, string $customer) {
+        })->when($filters['customer'] ?? null, function (Builder $query, string $customer){
             return $query->whereHas('customer', function (Builder $query) use ($customer) {
-                return $query->where('login', 'like', '%' . $customer . '%')
-                    ->orWhere('email', 'like', '%' . $customer . '%')
-                    ->orWhere('profile', 'like', '%' . $customer . '%');
-            });
-        })->when($filters['phone'] ?? null, function (Builder $query, string $phone) {
-            return $query->whereHas('customer', function (Builder $query) use ($phone) {
-                return $query->whereHas('user', function (Builder $query) use ($phone) {
-                    return $query->whereHas('phones', function (Builder $query) use ($phone) {
-                        return $query->where('phone', 'like', '%'. $phone .'%');
-                    });
+                return $query->whereHas('user', function (Builder $query) use ($customer) {
+                    return $query->whereHas('phones', function (Builder $query) use ($customer) {
+                        return $query->where('phone', 'like', '%'. $customer .'%');
+                    })->orWhere('login', 'like', '%'. $customer .'%')
+                        ->orWhere('email', 'like', '%'. $customer .'%')
+                        ->orWhere('profile', 'like', '%'. $customer .'%');
                 });
             });
         });
