@@ -42,6 +42,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property double $price
  *
+ * @property double $price_fedex
+ *
  * @property double $payed_price
  *
  * @property integer $status_id
@@ -49,6 +51,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property integer $payment_status_id
  *
  * @property integer $total_boxes
+ * 
+ * @property integer $total_products
+ *
+ * @property double $price_pickup
  *
  * @property double $total_weight_boxes
  *
@@ -375,6 +381,14 @@ final class Order extends Model
     public function getTotalWeightBoxesAttribute(): float
     {
         return $this->boxes()->sum('weight');
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalAdditionalWeightAttribute(): int
+    {
+        return 0;
     }
 
     /**

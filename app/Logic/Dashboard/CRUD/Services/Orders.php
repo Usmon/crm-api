@@ -170,7 +170,7 @@ final class Orders
         return [
             'id' => $order->id,
 
-            'total_boxes' => $order->boxes->count(),
+            'total_boxes' => $order->total_boxes,
 
             'total_products' => $order->total_products,
 
@@ -194,11 +194,11 @@ final class Orders
 
             'price_discount' => $order->price_discount,
 
-            'wight_rate' => $order->weight_rate,
-
-            'total_boxes' => $order->total_boxes,
+            'weight_rate' => $order->weight_rate,
 
             'total_weight' => $order->total_weight_boxes,
+
+            'total_additional_weight' => $order->total_additional_weight,
 
             'payment_type' => $order->paymentType->name,
 
@@ -251,6 +251,8 @@ final class Orders
 
                         'name' => $history->creator->full_name,
                     ],
+
+                    'created_at' => $history->created_at
                 ];
             }),
 
