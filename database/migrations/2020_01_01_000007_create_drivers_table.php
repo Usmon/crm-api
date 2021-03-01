@@ -25,12 +25,6 @@ final class CreateDriversTable extends Migration
 
             $table->unsignedBigInteger('user_id');
 
-            $table->unsignedBigInteger('city_id');
-
-            $table->unsignedBigInteger('region_id');
-
-            $table->unsignedBigInteger('address_id');
-
             $table->string('car_model')->nullable();
 
             $table->string('car_number')->nullable();
@@ -48,12 +42,6 @@ final class CreateDriversTable extends Migration
             $table->foreign('creator_id')->references('id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();
 
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();
-
-            $table->foreign('city_id')->references('id')->on('cities')->cascadeOnUpdate()->cascadeOnDelete();
-
-            $table->foreign('region_id')->references('id')->on('regions')->cascadeOnUpdate()->cascadeOnDelete();
-
-            $table->foreign('address_id')->references('id')->on('addresses')->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 
