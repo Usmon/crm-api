@@ -21,11 +21,13 @@ final class CreateDeliveriesTable extends Migration
         Schema::create($this->table, function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('recipient_id');
 
             $table->unsignedBigInteger('driver_id');
 
             $table->unsignedBigInteger('status_id');
+
+            $table->unsignedBigInteger('creator_id');
 
             $table->timestamp('created_at')->nullable();
 
@@ -35,11 +37,13 @@ final class CreateDeliveriesTable extends Migration
         });
 
         Schema::table($this->table, function (Blueprint $table) {
-            $table->foreign('customer_id')->references('id')->on('customers')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('recipient_id')->references('id')->on('recipients')->onUpdate('cascade')->onDelete('cascade');
 
-            $table->foreign('driver_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('driver_id')->references('id')->on('drivers')->onUpdate('cascade')->onDelete('cascade');
 
             $table->foreign('status_id')->references('id')->on('statuses')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->foreign('creator_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

@@ -2,8 +2,6 @@
 
 namespace App\Logic\Dashboard\CRUD\Requests;
 
-use Illuminate\Validation\Rule;
-
 use Illuminate\Foundation\Http\FormRequest;
 
 final class Drivers extends FormRequest
@@ -65,48 +63,6 @@ final class Drivers extends FormRequest
                     'integer',
                 ],
 
-                'region' => [
-                    'nullable',
-
-                    'string',
-                ],
-
-                'city' => [
-                    'nullable',
-
-                    'string',
-                ],
-
-                'address' => [
-                    'nullable',
-
-                    'string',
-                ],
-
-                'region_id' => [
-                    'nullable',
-
-                    'integer',
-
-                    Rule::exists('regions', 'id'),
-                ],
-
-                'city_id' => [
-                    'nullable',
-
-                    'integer',
-
-                    Rule::exists('cities', 'id'),
-                ],
-
-                'address_id' => [
-                    'nullable',
-
-                    'integer',
-
-                    Rule::exists('addresses', 'id'),
-                ],
-
                 'car_model' => [
                     'nullable',
 
@@ -145,30 +101,6 @@ final class Drivers extends FormRequest
                     'integer',
                 ],
 
-                'region_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('regions', 'id'),
-                ],
-
-                'city_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('cities', 'id'),
-                ],
-
-                'address_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('addresses', 'id'),
-                ],
-
                 'car_model' => [
                     'required',
 
@@ -185,20 +117,6 @@ final class Drivers extends FormRequest
                     'required',
 
                     'string',
-                ],
-
-                'permissions' => [
-                    'required',
-
-                    'array',
-                ],
-
-                'permissions.*' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('permissions', 'id'),
                 ],
             ],
 
@@ -209,30 +127,6 @@ final class Drivers extends FormRequest
                     'integer',
                 ],
 
-                'region_id' => [
-                    'required',
-
-                    'regions',
-
-                    Rule::exists('regions', 'id'),
-                ],
-
-                'city_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('cities', 'id'),
-                ],
-
-                'address_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('addresses', 'id'),
-                ],
-
                 'car_model' => [
                     'required',
 
@@ -249,20 +143,6 @@ final class Drivers extends FormRequest
                     'required',
 
                     'string',
-                ],
-
-                'permissions' => [
-                    'required',
-
-                    'array',
-                ],
-
-                'permissions.*' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('permissions', 'id'),
                 ],
             ],
         ];

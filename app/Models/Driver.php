@@ -27,12 +27,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property integer $user_id
  *
- * @property integer $city_id
- *
- * @property integer $region_id
- *
- * @property integer $address_id
- *
  * @property string $car_model
  *
  * @property string $car_number
@@ -48,12 +42,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property-read HasOne|null $creator
  *
  * @property-read HasOne|null $user
- *
- * @property-read HasOne|null $region
- *
- * @property-read HasOne|null $city
- *
- * @property-read HasOne|null $address
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
@@ -81,12 +69,6 @@ final class Driver extends Model
 
         'user_id',
 
-        'city_id',
-
-        'region_id',
-
-        'address_id',
-
         'car_model',
 
         'car_number',
@@ -101,12 +83,6 @@ final class Driver extends Model
         'creator_id' => 'integer',
 
         'user_id' => 'integer',
-
-        'region_id' => 'integer',
-
-        'city_id' => 'integer',
-
-        'address_id' => 'integer',
 
         'car_model' => 'string',
 
@@ -135,30 +111,6 @@ final class Driver extends Model
     public function user(): HasOne
     {
         return $this->hasOne(User::class,'id','user_id')->with(['phones']);
-    }
-
-    /**
-     * @return HasOne
-     */
-    public function region(): HasOne
-    {
-        return $this->hasOne(Region::class,'id','region_id');
-    }
-
-    /**
-     * @return HasOne
-     */
-    public function city(): HasOne
-    {
-        return $this->hasOne(City::class,'id','city_id');
-    }
-
-    /**
-     * @return HasOne
-     */
-    public function address(): HasOne
-    {
-        return $this->hasOne(Address::class,'id','address_id');
     }
 
     /**
@@ -196,24 +148,6 @@ final class Driver extends Model
             return $query->orWhere('car_number', 'like', '%' . $carNumber . '%');
         })->when($filters['license'] ?? null, function (Builder $query, string $license) {
             return $query->orWhere('license', 'like', '%' . $license . '%');
-        })->when($filters['region_id'] ?? null, function (Builder $query, int $region_id) {
-            return $query->orWhere('region_id', '=', $region_id);
-        })->when($filters['city_id'] ?? null, function (Builder $query, int $city_id) {
-            return $query->orWhere('city_id', '=', $city_id);
-        })->when($filters['address_id'] ?? null, function (Builder $query, int $address_id) {
-            return $query->orWhere('address', '=', $address_id);
-        })->when($filters['region'] ?? null, function (Builder $query, string $region) {
-            return $query->whereHas('region', function (Builder $query) use ($region) {
-                return $query->orWhere('region', 'like', '%'. $region .'%');
-            });
-        })->when($filters['city'] ?? null, function (Builder $query, string $city) {
-            return $query->whereHas('city', function (Builder $query) use ($city) {
-                return $query->orWhere('city', 'like', '%'. $city .'%');
-            });
-        })->when($filters['address'] ?? null, function (Builder $query, string $address) {
-            return $query->whereHas('address', function (Builder $query) use ($address){
-                return $query->orWhere('address', 'like', '%' . $address . '%');
-            });
         })->when($filters['creator'] ?? null, function (Builder $query, string $creator) {
             return $query->whereHas('creator', function (Builder $query) use ($creator) {
                 return $query->orWhere('login', 'like', '%'. $creator .'%')

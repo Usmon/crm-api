@@ -26,18 +26,6 @@ final class Drivers
 
             'user_id' => $request->json('user_id'),
 
-            'region_id' => $request->json('region_id'),
-
-            'city_id' => $request->json('city_id'),
-
-            'address_id' => $request->json('address_id'),
-
-            'region' => $request->json('region'),
-
-            'city' => $request->json('city'),
-
-            'address' => $request->json('address'),
-
             'car_model' => $request->json('car_model'),
 
             'car_number' => $request->json('car_number'),
@@ -55,8 +43,7 @@ final class Drivers
      */
     public function getOnlyFilters(DriversRequest $request): array
     {
-        return $request->only('search', 'date', 'creator', 'user_id', 'region_id',
-            'city_id',  'address_id', 'region', 'city',  'address', 'car_model', 'car_number', 'license', 'user');
+        return $request->only('search', 'date', 'creator', 'user_id', 'car_model', 'car_number', 'license', 'user');
     }
 
     /**
@@ -92,12 +79,6 @@ final class Drivers
 
                 'user_id' => $driver->user_id,
 
-                'region_id' => $driver->region_id,
-
-                'city_id' => $driver->city_id,
-
-                'address_id' => $driver->address_id,
-
                 'car_model' => $driver->car_model,
 
                 'car_number' => $driver->car_number,
@@ -111,12 +92,6 @@ final class Drivers
                 'creator' => $driver->creator,
 
                 'user' => $driver->user,
-
-                'region' => $driver->region,
-
-                'city' => $driver->city,
-
-                'address' => $driver->address,
             ];
         });
 
@@ -135,12 +110,6 @@ final class Drivers
 
             'user_id' => $driver->user_id,
 
-            'region_id' => $driver->region_id,
-
-            'city_id' => $driver->city_id,
-
-            'address_id' => $driver->address_id,
-
             'car_model' => $driver->car_model,
 
             'car_number' => $driver->car_number,
@@ -154,12 +123,6 @@ final class Drivers
             'creator' => $driver->creator,
 
             'user' => $driver->user,
-
-            'region' => $driver->region,
-
-            'city' => $driver->city,
-
-            'address' => $driver->address,
         ];
     }
 
@@ -173,12 +136,6 @@ final class Drivers
     {
         return [
             'user_id' => $request->json('user_id'),
-
-            'region_id' => $request->json('region_id'),
-
-            'city_id' => $request->json('city_id'),
-
-            'address_id' => $request->json('address_id'),
 
             'car_model' => $request->json('car_model'),
 
@@ -197,12 +154,6 @@ final class Drivers
     {
         return [
             'user_id' => $request->json('user_id'),
-
-            'region_id' => $request->json('region_id'),
-
-            'city_id' => $request->json('city_id'),
-
-            'address_id' => $request->json('address_id'),
 
             'car_model' => $request->json('car_model'),
 

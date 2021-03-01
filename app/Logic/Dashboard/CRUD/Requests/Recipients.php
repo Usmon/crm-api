@@ -92,6 +92,7 @@ final class Recipients extends FormRequest
 
                     Rule::exists('users', 'id')
                 ],
+
             ],
         ];
 

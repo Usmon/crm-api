@@ -50,15 +50,15 @@ final class Deliveries extends FormRequest
 
                     'date',
 
-                    'after:date.from'
+                    'after:date.from',
                 ],
 
-                'customer_id' => [
+                'recipient_id' => [
                     'nullable',
 
                     'integer',
 
-                    Rule::exists('customers','id'),
+                    Rule::exists('recipients','id'),
                 ],
 
                 'driver_id' => [
@@ -77,7 +77,7 @@ final class Deliveries extends FormRequest
                     Rule::exists('statuses', 'id')
                 ],
 
-                'customer' => [
+                'recipient' => [
                     'nullable',
 
                     'string',
@@ -95,6 +95,20 @@ final class Deliveries extends FormRequest
                     'string'
                 ],
 
+                'creator_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('users', 'id'),
+                ],
+
+                'creator' => [
+                    'nullable',
+
+                    'string',
+                ],
+
                 'sort.*' => [
                     'nullable',
 
@@ -103,12 +117,12 @@ final class Deliveries extends FormRequest
             ],
 
             'dashboard.deliveries.delivery.store' => [
-                'customer_id' => [
+                'recipient_id' => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('customers', 'id'),
+                    Rule::exists('recipients', 'id'),
                 ],
 
                 'driver_id' => [
@@ -129,12 +143,12 @@ final class Deliveries extends FormRequest
             ],
 
             'dashboard.deliveries.delivery.update' => [
-                'customer_id' => [
+                'recipient_id' => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('customers', 'id'),
+                    Rule::exists('recipients', 'id'),
                 ],
 
                 'driver_id' => [
@@ -153,7 +167,6 @@ final class Deliveries extends FormRequest
                     Rule::exists('statuses', 'id'),
                 ],
             ],
-
         ];
 
         return $rules[$this->route()->getName()];

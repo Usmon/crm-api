@@ -5,11 +5,18 @@ namespace App\Logic\Dashboard\CRUD\Services;
 use App\Logic\Dashboard\CRUD\Requests\Orders as OrdersRequest;
 
 use App\Models\Box;
+
 use App\Models\Order;
 
 use App\Models\OrderHistory;
+
 use Illuminate\Contracts\Pagination\Paginator;
 
+/**
+ * Class Orders
+ *
+ * @package App\Logic\Dashboard\CRUD\Services
+ */
 final class Orders
 {
     /**
@@ -67,22 +74,39 @@ final class Orders
     {
         return $request->only('search',
             'date',
+
             'staff_id',
+
             'customer_id',
+
             'fedex_order_id',
+
             'status_id',
+
             'payment_status_id',
+
             'partner_id',
+
             'pickup_id',
+
             'staff_id',
+
             'price',
+
             'payed_price',
+
             'staff',
+
             'customer',
+
             'pickup',
+
             'shipment',
+
             'total_boxes',
+
             'total_weight_boxes',
+
             'total_delivered_boxes');
     }
 
@@ -125,9 +149,9 @@ final class Orders
 
                 'customer' => $order->sender->customer->user->short_info,
 
-                'status' => $order->status,
+                'status' => $order->status->for_color,
 
-                'payment_status' => $order->payment_status,
+                'payment_status' => $order->payment_status->for_color,
 
                 'created_at' => $order->created_at,
 
@@ -178,9 +202,9 @@ final class Orders
 
             'payment_type' => $order->paymentType->name,
 
-            'status' => $order->status,
+            'status' => $order->status->for_color,
 
-            'payment_status' => $order->payment_status,
+            'payment_status' => $order->payment_status->for_color,
 
             'sender' => $order->sender->customer->user->short_info,
 
@@ -212,7 +236,7 @@ final class Orders
                         'name' => $box->order->staff->full_name
                     ],
 
-                    'status' => $box->status
+                    'status' => $box->status->for_color
                 ];
             }),
 

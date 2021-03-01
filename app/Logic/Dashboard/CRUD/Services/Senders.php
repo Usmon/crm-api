@@ -24,19 +24,7 @@ final class Senders
 
             'customer_id' => $request->json('customer_id'),
 
-            'region_id' => $request->json('region_id'),
-
-            'city_id' => $request->json('city_id'),
-
-            'address_id' => $request->json('address_id'),
-
             'customer' => $request->json('customer'),
-
-            'region' => $request->json('region'),
-
-            'city' => $request->json('city'),
-
-            'address' => $request->json('address'),
         ];
     }
 
@@ -47,8 +35,7 @@ final class Senders
      */
     public function getOnlyFilters(SendersRequest $request): array
     {
-        return $request->only('search', 'date', 'customer_id',
-            'region_id', 'city_id', 'address_id', 'customer', 'region', 'city', 'address');
+        return $request->only('search', 'date', 'customer_id', 'customer',);
     }
 
     /**
@@ -84,23 +71,11 @@ final class Senders
 
                 'customer_id' => $sender->customer_id,
 
-                'region_id' => $sender->region_id,
-
-                'city_id' => $sender->city_id,
-
-                'address_id' => $sender->address_id,
-
                 'created_at' => $sender->created_at,
 
                 'updated_at' => $sender->updated_at,
 
-                'customer' => $sender->customer,
-
-                'region' => $sender->region,
-
-                'city' => $sender->city,
-
-                'address' => $sender->address,
+                'customer' => $sender->customer
             ];
         });
 
@@ -119,23 +94,11 @@ final class Senders
 
             'customer_id' => $sender->customer_id,
 
-            'region_id' => $sender->region_id,
-
-            'city_id' => $sender->city_id,
-
-            'address_id' => $sender->address_id,
-
             'created_at' => $sender->created_at,
 
             'updated_at' => $sender->updated_at,
 
-            'customer' => $sender->customer,
-
-            'region' => $sender->region,
-
-            'city' => $sender->city,
-
-            'address' => $sender->address,
+            'customer' => $sender->customer
         ];
     }
 
@@ -148,12 +111,6 @@ final class Senders
     {
         return [
             'customer_id' => $request->json('customer_id'),
-
-            'region_id' => $request->json('region_id'),
-
-            'city_id' => $request->json('city_id'),
-
-            'address_id' => $request->json('address_id'),
         ];
     }
 
@@ -166,12 +123,6 @@ final class Senders
     {
         return [
             'customer_id' => $request->json('customer_id'),
-
-            'region_id' => $request->json('region_id'),
-
-            'city_id' => $request->json('city_id'),
-
-            'address_id' => $request->json('address_id'),
         ];
     }
 

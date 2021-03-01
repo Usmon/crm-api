@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Traits\Sort\Sorter;
 
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 
 use App\Traits\Pagination\Pager;
@@ -38,6 +37,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property int $pickup_id
  *
  * @property int $shipment_id
+ *
+ * @property int $delivery_id
  *
  * @property double $price
  *
@@ -132,6 +133,8 @@ final class Order extends Model
 
         'recipient_id',
 
+        'delivery_id',
+
         'type',
 
         'price',
@@ -180,6 +183,8 @@ final class Order extends Model
         'sender_id' => 'integer',
 
         'recipient_id' => 'integer',
+
+        'delivery_id' => 'integer',
 
         'type' => 'json',
 

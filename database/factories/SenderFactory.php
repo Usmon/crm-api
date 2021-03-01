@@ -28,20 +28,8 @@ final class SenderFactory extends Factory
     {
         $customers = Customer::all();
 
-        $region = Region::all(['id'])->random(1)->first();
-
-        $city = City::where('id', $region->id)->get(['id'])->random(1)->first();
-
-        $address = Address::where('id',$city->id)->first(['id']);
-
         return [
             'customer_id' => $customers->random(),
-
-            'region_id' => $region,
-
-            'city_id' => $city,
-
-            'address_id' => $address,
         ];
     }
 }
