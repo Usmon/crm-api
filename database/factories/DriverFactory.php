@@ -62,22 +62,10 @@ final class DriverFactory extends Factory
             'L 834 01 F',
         ];
 
-        $region = Region::all(['id'])->random(1)->first();
-
-        $city = City::where('id', $region->id)->get(['id'])->random(1)->first();
-
-        $address = Address::where('id',$city->id)->first(['id']);
-
         return [
             'creator_id' => $users->random(),
 
             'user_id' => $users->random(),
-
-            'region_id' => $region,
-
-            'city_id' => $city,
-
-            'address_id' => $address,
 
             'car_model' => $carModels[random_int(0, sizeof($carModels)-1)],
 
