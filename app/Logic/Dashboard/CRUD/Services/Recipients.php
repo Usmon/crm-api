@@ -45,7 +45,9 @@ final class Recipients
      */
     public function getOnlyPhone(RecipientsRequest $request): array
     {
-        return $request->only('phone');
+        return [
+            'customer' => $request->json('phone')
+        ];
     }
 
     /**

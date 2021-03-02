@@ -166,14 +166,14 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
 
         Route::apiResource('sender', DashboardSendersController::class);
 
-        Route::get('phones', [DashboardSendersController::class, 'senderPhoneDisplay']);
+        Route::get('phones', [DashboardSendersController::class, 'senderPhoneDisplay'])->name('phones');
     });
 
     Route::group(['prefix' => 'recipients', 'as' => 'recipients.'], function() {
 
         Route::apiResource('/', DashboardRecipientsController::class);
 
-        Route::get('phones', [DashboardRecipientsController::class, 'recipientPhoneDisplay']);
+        Route::get('phones', [DashboardRecipientsController::class, 'recipientPhoneDisplay'])->name('phones');
     });
 
     Route::apiResource('warehouse-items', DashboardWarehouseItemsController::class);

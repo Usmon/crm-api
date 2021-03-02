@@ -116,6 +116,15 @@ final class Senders extends FormRequest
                     Rule::exists('permissions', 'id'),
                 ],
             ],
+
+            'dashboard.senders.phones' => [
+                'phone' => [
+                    'required',
+
+                    'string',
+                ],
+            ]
+
         ];
 
         return $rules[$this->route()->getName()];

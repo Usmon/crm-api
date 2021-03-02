@@ -94,6 +94,15 @@ final class Recipients extends FormRequest
                 ],
 
             ],
+
+            'dashboard.recipients.phones' => [
+                'phone' => [
+                    'required',
+
+                    'string',
+                ],
+            ]
+
         ];
 
         return $rules[$this->route()->getName()];

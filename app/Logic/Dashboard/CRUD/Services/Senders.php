@@ -127,6 +127,18 @@ final class Senders
     }
 
     /**
+     * @param SendersRequest $request
+     *
+     * @return array
+     */
+    public function getOnlyPhone(SendersRequest $request): array
+    {
+        return [
+            'customer' => $request->json('phone')
+        ];
+    }
+
+    /**
      * @param $id
      *
      * @return array|int
