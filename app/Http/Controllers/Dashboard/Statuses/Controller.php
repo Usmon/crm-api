@@ -151,10 +151,8 @@ final class Controller extends Controllers
      */
     public function statusPaymentOrders(): JsonResponse
     {
-        $status = \App\Models\Status::where('model', 'OrderPayment')->get();
         return Json::sendJsonWith200([
-            'payment_statuses' => $status,
-            //'payment_statuses' => $this->service->getPaymentStatusOrders(),
+            'statuses' => $this->repository->getStatusesByModel($this->service::ORDER_PAYMENT),
         ]);
     }
 
