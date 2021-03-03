@@ -316,6 +316,34 @@ final class Orders
     }
 
     /**
+     * @param OrdersRequest $request
+     *
+     * @return array
+     */
+    public function updateStatusCredentials(OrdersRequest $request): array
+    {
+        return [
+            'order_id' => $request->json('order_id'),
+
+            'status_id' => $request->json('status_id')
+        ];
+    }
+
+    /**
+     * @param OrdersRequest $request
+     *
+     * @return array
+     */
+    public function updatePaymentStatusCredentials(OrdersRequest $request): array
+    {
+        return [
+            'order_id' => $request->json('order_id'),
+
+            'payment_status_id' => $request->json('payment_status_id')
+        ];
+    }
+
+    /**
      * @param $id
      *
      * @return array|int
