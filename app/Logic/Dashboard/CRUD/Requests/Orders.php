@@ -6,6 +6,8 @@ use Illuminate\Validation\Rule;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+use App\Logic\Dashboard\CRUD\Services\Statuses;
+
 final class Orders extends FormRequest
 {
     /**
@@ -175,7 +177,7 @@ final class Orders extends FormRequest
             'dashboard.orders.order.store' => [
                 'sender_id' => [
                     'required',
-                    
+
                     'integer',
 
                     Rule::exists('senders', 'id')
@@ -183,7 +185,7 @@ final class Orders extends FormRequest
 
                 'recipient_id' => [
                     'required',
-                    
+
                     'integer',
 
                     Rule::exists('recipients', 'id')
@@ -241,7 +243,7 @@ final class Orders extends FormRequest
 
                 'boxes.*.products' => [
                     'required',
-                    
+
                     'array',
                 ],
 
@@ -377,6 +379,42 @@ final class Orders extends FormRequest
 
                     Rule::exists('permissions', 'id'),
                 ],
+            ],
+
+            'dashboard.orders.status-set' => [
+                'status_id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('statuses', 'id')->where('model', Statuses::ORDER)
+                ],
+
+                'order_id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('orders', 'id')
+                ]
+            ],
+
+            'dashboard.orders.status-payment-set' => [
+                'payment_status_id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('statuses', 'id')->where('model', Statuses::ORDER_PAYMENT)
+                ],
+
+                'order_id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('orders', 'id')
+                ]
             ],
         ];
 

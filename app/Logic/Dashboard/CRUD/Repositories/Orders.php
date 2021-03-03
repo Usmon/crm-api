@@ -34,7 +34,7 @@ final class Orders
     public function storeOrder(array $credentials): Order
     {
         $order = Order::create($credentials);
-        
+
         $this->storeBoxes($order, $credentials['boxes']);
 
         return $order;
@@ -42,9 +42,9 @@ final class Orders
 
     /**
      * @param Order $order
-     * 
+     *
      * @param array $boxes
-     * 
+     *
      * @return void
      */
     public function storeBoxes(Order $order, array $boxes): void
@@ -71,9 +71,9 @@ final class Orders
 
     /**
      * @param Order $order
-     * 
+     *
      * @param array $products
-     * 
+     *
      * @return void
      */
     public function storeProducts(Order $order, array $products): void
@@ -95,6 +95,26 @@ final class Orders
         $order->update($credentials);
 
         return $order;
+    }
+
+    /**
+     * @param array $credentials
+     *
+     * @return bool
+     */
+    public function updateOrderStatus(array $credentials): bool
+    {
+        return Order::find($credentials['order_id'])->update(['status_id' => $credentials['status_id']]);
+    }
+
+    /**
+     * @param array $credentials
+     *
+     * @return bool
+     */
+    public function updatePaymentStatus(array $credentials): bool
+    {
+        return Order::find($credentials['order_id'])->update(['payment_status_id' => $credentials['payment_status_id']]);
     }
 
     /**

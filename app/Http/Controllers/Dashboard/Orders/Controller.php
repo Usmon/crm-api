@@ -104,6 +104,34 @@ final class Controller extends Controllers
     }
 
     /**
+     * @param OrdersRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function statusSet(OrdersRequest $request): JsonResponse
+    {
+        return Json::sendJsonWith200([
+            'message' => 'The order was successfully updated.',
+
+            'order' => $this->repository->updateOrderStatus($this->service->updateStatusCredentials($request)),
+        ]);
+    }
+
+    /**
+     * @param OrdersRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function statusPaymentSet(OrdersRequest $request): JsonResponse
+    {
+        return Json::sendJsonWith200([
+            'message' => 'The order was successfully updated.',
+
+            'order' => $this->repository->updatePaymentStatus($this->service->updatePaymentStatusCredentials($request)),
+        ]);
+    }
+
+    /**
      * @param $id
      *
      * @return JsonResponse
