@@ -165,12 +165,13 @@ final class Pickup extends Model
         return $this->hasOne(User::class,'id','creator_id');
     }
 
+
     /**
      * @return HasMany
      */
-    public function orders(): HasMany
+    public function boxes(): HasMany
     {
-        return $this->hasMany(Order::class)->with(['boxes.status','sender.customer','shipment','recipient.customer','staff']);
+        return $this->hasMany(Box::class);
     }
 
     /**
@@ -206,11 +207,25 @@ final class Pickup extends Model
     }
 
     /**
+     * @return int
+     */
+    public function totalPickedBoxes(): int
+    {
+        return $this->boxes->map(function (Box $box) {
+            return $box->whereHas('status', function (Builder $query) {
+                return $query->where('key', '=', 'At the office');
+            })->count();
+        })->sum();
+    }
+
+    /**
      * @return string
      */
     public function getSenderNameAttribute(): string
     {
-        return $this->sender->customer->user['profile']['first_name'] .' '. $this->sender->customer->user['profile']['last_name'] .' '. $this->sender->customer->user['profile']['middle_name'];
+        return $this->sender->customer->user['profile']['first_name']
+            . ' ' . $this->sender->customer->user['profile']['last_name']
+            . ' ' . $this->sender->customer->user['profile']['middle_name'];
     }
 
     /**
@@ -218,7 +233,9 @@ final class Pickup extends Model
      */
     public function getDriverNameAttribute(): string
     {
-        return $this->driver['user']['profile']['first_name'].' '.$this->driver['user']['profile']['last_name'].' '.$this->driver['user']['profile']['middle_name'];
+        return $this->driver['user']['profile']['first_name']
+            . ' ' . $this->driver['user']['profile']['last_name']
+            . ' ' . $this->driver['user']['profile']['middle_name'];
     }
 
     /**
@@ -226,7 +243,9 @@ final class Pickup extends Model
      */
     public function getCreatorNameAttribute(): string
     {
-        return $this->creator['profile']['first_name'].' '.$this->creator['profile']['last_name'].' '.$this->creator['profile']['middle_name'];
+        return $this->creator['profile']['first_name']
+            . ' ' . $this->creator['profile']['last_name']
+            . ' ' . $this->creator['profile']['middle_name'];
     }
 
     /**
@@ -234,9 +253,10 @@ final class Pickup extends Model
      */
     public function getSenderPhoneAttribute(): array
     {
-        return collect($this->sender->customer->user()->get()->first()->phones()->latest('id')->limit(3)->get(['phone'])->toArray())
-                ->flatten()
-                ->all();
+        return collect($this->sender->customer->user()->get()->first()->phones()->latest('id')->limit(3)->get(['phone'])
+            ->toArray())
+            ->flatten()
+            ->all();
     }
 
     /**
@@ -254,7 +274,8 @@ final class Pickup extends Model
      */
     public function getDriverPhoneAttribute(): array
     {
-        return collect($this->driver->user()->get()->first()->phones()->latest('id')->limit(3)->get(['phone'])->toArray())
+        return collect($this->driver->user()->get()->first()->phones()->latest('id')->limit(3)->get(['phone'])
+            ->toArray())
             ->flatten()
             ->all();
     }

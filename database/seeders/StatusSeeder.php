@@ -8,6 +8,8 @@ use App\Models\Status;
 
 use App\Models\Pickup;
 
+use App\Models\Shipment;
+
 use App\Models\Delivery;
 
 use Illuminate\Support\Str;
@@ -201,6 +203,47 @@ final class StatusSeeder extends Seeder
     ];
 
     /**
+     * @var array[]
+     */
+    public static $shipment = [
+        [
+            'value' => 'Pending',
+
+            'parameters' => [
+                'color' => [
+                    'bg' => '#FFAA00',
+
+                    'text' => 'Pending',
+                ]
+            ],
+        ],
+
+        [
+            'value' => 'Transiting',
+
+            'parameters' => [
+                'color' => [
+                    'bg' => '#1FCECB',
+
+                    'text' => 'Transiting',
+                ]
+            ],
+        ],
+
+        [
+            'value' => 'Transported',
+
+            'parameters' => [
+                'color' => [
+                    'bg' =>  '#1CD3A1',
+
+                    'text' => 'Transported',
+                ],
+            ],
+        ]
+    ];
+
+    /**
      * @return void
      */
     public function run(): void
@@ -212,6 +255,8 @@ final class StatusSeeder extends Seeder
         $this->createStatusesForModel(self::$pickup, Pickup::class);
 
         $this->createStatusesForModel(self::$delivery, Delivery::class);
+
+        $this->createStatusesForModel(self::$shipment, Shipment::class);
     }
 
     /**

@@ -29,7 +29,7 @@ use App\Traits\Sort\Sorter;
  *
  * @property int $id
  *
- * @property int $order_id
+ * @property int $pickup_id
  *
  * @property float $weight
  *
@@ -41,6 +41,8 @@ use App\Traits\Sort\Sorter;
  *
  * @property int $delivery_id
  *
+ * @property-read HasOne|null $pickup
+ *
  * @property Carbon|null $created_at
  *
  * @property Carbon|null $updated_at
@@ -49,11 +51,11 @@ use App\Traits\Sort\Sorter;
  *
  * @property int|null $deleted_by
  *
- * @property-read HasOne|null $order
- *
  * @property-read HasOne|null $status
  *
  * @property-read HasOne|null $delivery
+ *
+ * @property-read HasOne|null $creator
  *
  */
 
@@ -73,7 +75,7 @@ final class Box extends Model
      * @var array
      */
     protected $fillable = [
-        'order_id',
+        'pickup_id',
 
         'status_id',
 
@@ -84,6 +86,8 @@ final class Box extends Model
         'box_image',
 
         'delivery_id',
+
+        'creator_id',
     ];
 
     /**
@@ -97,7 +101,7 @@ final class Box extends Model
     protected $casts = [
         'id' => 'integer',
 
-        'order_id' => 'integer',
+        'pickup_id' => 'integer',
 
         'status_id' => 'integer',
 
@@ -109,6 +113,8 @@ final class Box extends Model
 
         'delivery_id' => 'integer',
 
+        'creator_id' => 'integer',
+
         'created_at' => 'datetime',
 
         'updated_at' => 'datetime',
@@ -116,12 +122,18 @@ final class Box extends Model
         'deleted_at' => 'datetime',
     ];
 
-    /**
-     * @return BelongsTo
-     */
-    public function order(): BelongsTo
+//    /**
+//     * @return BelongsTo
+//     */
+//    public function order(): BelongsTo
+//    {
+//        return $this->belongsTo(Order::class);
+//    }
+
+
+    public function pickup(): HasOne
     {
-        return $this->belongsTo(Order::class);
+        return $this->hasOne(Pickup::class, 'id', 'pickup_id');
     }
 
     /**
@@ -173,6 +185,19 @@ final class Box extends Model
     }
 
     /**
+     * @return HasOne
+     */
+    public function creator(): HasOne
+    {
+        return $this->hasOne(User::class, 'id', 'creator_id');
+    }
+
+    public function getTotalWeightAttribute(): float
+    {
+        return $this->weight;
+    }
+
+    /**
      * @param Builder $query
      *
      * @param string $key
@@ -197,8 +222,8 @@ final class Box extends Model
     {
         return $query->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
-        })->when($filters['order_id'] ?? null, function (Builder $query, int $orderId){
-            return $query->where('order_id', '=', $orderId);
+        })->when($filters['pickup_id'] ?? null, function (Builder $query, int $pickupId){
+            return $query->where('box_id', '=', $pickupId);
         })->when($filters['status_id'] ?? null, function (Builder $query, int $customerId){
             return $query->where('customer_id', '=', $customerId);
         })->when($filters['delivery_id'] ?? null, function (Builder $query, int $customerId){

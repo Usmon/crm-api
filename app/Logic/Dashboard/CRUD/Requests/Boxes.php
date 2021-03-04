@@ -53,12 +53,12 @@ final class Boxes extends FormRequest
                     'after:date.from'
                 ],
 
-                'order_id' => [
+                'pickup_id' => [
                     'nullable',
 
                     'integer',
 
-                    Rule::exists('orders','id'),
+                    Rule::exists('pickups','id'),
                 ],
 
                 'status_id' => [
@@ -113,12 +113,12 @@ final class Boxes extends FormRequest
             ],
 
             'dashboard.boxes.box.store' => [
-                'order_id' => [
+                'pickup_id' => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('orders','id'),
+                    Rule::exists('pickups','id'),
                 ],
 
                 'status_id' => [
@@ -159,12 +159,12 @@ final class Boxes extends FormRequest
             ],
 
             'dashboard.boxes.box.update' => [
-                'order_id' => [
+                'pickup_id' => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('orders','id'),
+                    Rule::exists('pickups','id'),
                 ],
 
                 'status_id' => [

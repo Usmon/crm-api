@@ -2,6 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Models\Box;
+
+use App\Models\User;
+
+use App\Models\Status;
+
 use App\Models\Shipment;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -19,10 +25,16 @@ final class ShipmentFactory extends Factory
      */
     public function definition(): array
     {
-        $status = ['pending', 'shipping', 'shipped'];
+        $users = User::all();
+
+        $statuses = Status::all();
+
         return [
-            'name' => $this->faker->text(),
-            'status' => $status[random_int(0,2)]
+            'name' => $this->faker->slug(5),
+
+            'creator_id' => $users->random(),
+
+            'status_id' => $statuses->random(),
         ];
     }
 }

@@ -23,19 +23,25 @@ final class CreateShipmentsTable extends Migration
 
             $table->string('name');
 
-            $table->enum('status',['pending', 'shipping', 'shipped']);
+            $table->unsignedBigInteger('creator_id');
 
-            $table->integer('total_boxes')->default(0);
-
-            $table->double('total_weight_boxes')->default(0);
-
-            $table->double('total_price_orders')->default(0);
+            $table->unsignedBigInteger('status_id');
 
             $table->timestamp('created_at')->nullable();
 
             $table->timestamp('updated_at')->nullable();
 
             $table->timestamp('deleted_at')->nullable();
+
+            $table->unsignedBigInteger('deleted_by')->nullable();
+        });
+
+        Schema::table($this->table, function (Blueprint $table){
+            $table->foreign('creator_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->foreign('status_id')->references('id')->on('statuses')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->foreign('deleted_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

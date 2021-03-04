@@ -3,8 +3,9 @@
 namespace Database\Factories;
 
 use App\Models\Box;
+use App\Models\Pickup;
 
-use App\Models\Order;
+use App\Models\User;
 
 use App\Models\Status;
 
@@ -23,25 +24,30 @@ final class BoxFactory extends Factory
 
     /**
      * @return array
+     * @throws \Exception
      */
     public function definition(): array
     {
-        $ordersId = Order::all(['id']);
+        $pickups = Pickup::all();
 
-        $status = Status::where('model', StatusService::ORDER)->get(['id']);
+        $statuses = Status::where('model', StatusService::ORDER)->get(['id']);
 
         $deliveryId = [Delivery::all()->random(), null];
 
+        $users = User::all();
+
         return [
-            'order_id' => $ordersId->random(),
+            'pickup_id' => $pickups->random(),
 
             'weight' => $this->faker->randomFloat(2, 100, 1000),
 
             'additional_weight' => $this->faker->randomFloat(2, 100, 1000),
 
-            'status_id' => $status->random(),
+            'status_id' => $statuses->random(),
 
             'delivery_id' => $deliveryId[random_int(0,1)],
+
+            'creator_id' => $users->random(),
         ];
     }
 }
