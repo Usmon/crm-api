@@ -31,6 +31,8 @@ use App\Traits\Sort\Sorter;
  *
  * @property int $pickup_id
  *
+ * @property int $order_id
+ *
  * @property float $weight
  *
  * @property float $additional_weight
@@ -57,6 +59,8 @@ use App\Traits\Sort\Sorter;
  *
  * @property-read HasOne|null $creator
  *
+ * @property-read HasOne|null $order
+ *
  */
 
 final class Box extends Model
@@ -76,6 +80,8 @@ final class Box extends Model
      */
     protected $fillable = [
         'pickup_id',
+
+        'order_id',
 
         'status_id',
 
@@ -103,6 +109,8 @@ final class Box extends Model
 
         'pickup_id' => 'integer',
 
+        'order_id' => 'integer',
+
         'status_id' => 'integer',
 
         'weight' => 'float',
@@ -122,15 +130,17 @@ final class Box extends Model
         'deleted_at' => 'datetime',
     ];
 
-//    /**
-//     * @return BelongsTo
-//     */
-//    public function order(): BelongsTo
-//    {
-//        return $this->belongsTo(Order::class);
-//    }
+    /**
+     * @return BelongsTo
+     */
+    public function order(): BelongsTo
+    {
+        return $this->belongsTo(Order::class);
+    }
 
-
+    /**
+     * @return HasOne
+     */
     public function pickup(): HasOne
     {
         return $this->hasOne(Pickup::class, 'id', 'pickup_id');

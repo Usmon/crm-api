@@ -61,6 +61,14 @@ final class Boxes extends FormRequest
                     Rule::exists('pickups','id'),
                 ],
 
+                'order_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('orders','id'),
+                ],
+
                 'status_id' => [
                     'nullable',
 
@@ -114,11 +122,15 @@ final class Boxes extends FormRequest
 
             'dashboard.boxes.box.store' => [
                 'pickup_id' => [
-                    'required',
-
                     'integer',
 
                     Rule::exists('pickups','id'),
+                ],
+
+                'order_id' => [
+                    'integer',
+
+                    Rule::exists('orders','id'),
                 ],
 
                 'status_id' => [
@@ -160,11 +172,15 @@ final class Boxes extends FormRequest
 
             'dashboard.boxes.box.update' => [
                 'pickup_id' => [
-                    'required',
-
                     'integer',
 
                     Rule::exists('pickups','id'),
+                ],
+
+                'order_id' => [
+                    'integer',
+
+                    Rule::exists('orders','id'),
                 ],
 
                 'status_id' => [
