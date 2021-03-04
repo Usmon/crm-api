@@ -197,9 +197,9 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
 
     Route::group(['prefix' => 'orders', 'as'=> 'orders.'], function () {
 
-        Route::post('status-set', [DashboardOrdersController::class, 'statusSet'])->name('status-set');
+        Route::put('status-set', [DashboardOrdersController::class, 'statusSet'])->name('status-set');
 
-        Route::post('status-payment-set', [DashboardOrdersController::class, 'statusPaymentSet'])->name('status-payment-set');
+        Route::put('status-payment-set', [DashboardOrdersController::class, 'statusPaymentSet'])->name('status-payment-set');
 
         Route::apiResource('order', DashboardOrdersController::class);
 
