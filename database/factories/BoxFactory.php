@@ -3,6 +3,9 @@
 namespace Database\Factories;
 
 use App\Models\Box;
+
+use App\Models\Order;
+
 use App\Models\Pickup;
 
 use App\Models\User;
@@ -30,6 +33,8 @@ final class BoxFactory extends Factory
     {
         $pickups = Pickup::all();
 
+        $orders = Order::all();
+
         $statuses = Status::where('model', StatusService::ORDER)->get(['id']);
 
         $deliveryId = [Delivery::all()->random(), null];
@@ -38,6 +43,8 @@ final class BoxFactory extends Factory
 
         return [
             'pickup_id' => $pickups->random(),
+
+            'order_id' => $orders->random(),
 
             'weight' => $this->faker->randomFloat(2, 100, 1000),
 

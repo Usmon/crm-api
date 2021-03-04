@@ -81,6 +81,8 @@ final class Boxes
 
                 'pickup_id' => $box->pickup_id,
 
+                'order_id' => $box->order_id,
+
                 'status_id' => $box->status_id,
 
                 'weight' => $box->weight,
@@ -100,6 +102,8 @@ final class Boxes
                 'status' => $box->status,
 
                 'delivery' => $box->delivery,
+
+                'order' => $box->order
             ];
         });
 
@@ -117,6 +121,8 @@ final class Boxes
             'id' => $box->id,
 
             'pickup_id' => $box->pickup_id,
+
+            'order_id' => $box->order_id,
 
             'status_id' => $box->status_id,
 
@@ -137,6 +143,8 @@ final class Boxes
             'status' => $box->status,
 
             'delivery' => $box->delivery,
+
+            'order' => $box->order
         ];
     }
 
@@ -148,6 +156,8 @@ final class Boxes
     public function createBox(BoxesRequest $request): array
     {
         return [
+            'pickup_id' => $request->json('pickup_id'),
+
             'order_id' => $request->json('order_id'),
 
             'status_id' => $request->json('status_id'),
@@ -170,6 +180,8 @@ final class Boxes
     public function updateBox(BoxesRequest $request): array
     {
         return [
+            'pickup_id' => $request->json('pickup_id'),
+
             'order_id' => $request->json('order_id'),
 
             'status_id' => $request->json('status_id'),
