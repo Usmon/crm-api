@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use App\Traits\Sort\Sorter;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Carbon;
 
 use App\Traits\Pagination\Pager;
@@ -14,6 +15,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -23,7 +26,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property string $name
  *
- * @property string $status
+ * @property integer $creator_id
+ *
+ * @property string $status_id
  *
  * @property integer $total_boxes
  *
@@ -37,9 +42,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property Carbon|null $deleted_at
  *
- * @const STATUSES
+ * @property-read HasOne|null $status
  *
  * @property-read HasMany|null $orders
+ *
+ * @property-read HasOne|null $creator
+ *
+ * @property-read int $total_orders
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
@@ -65,13 +74,13 @@ final class Shipment extends Model
     protected $fillable = [
         'name',
 
-        'status',
+        'box_id',
 
-        'total_boxes',
+        'creator_id',
 
-        'total_weight_boxes',
+        'status_id',
 
-        'total_price_orders',
+        'deleted_by',
     ];
 
     /**
@@ -82,27 +91,17 @@ final class Shipment extends Model
 
         'name' => 'string',
 
-        'status' => 'string',
+        'box_id' => 'integer',
 
-        'total_boxes' => 'integer',
+        'creator_id' => 'integer',
 
-        'total_weight_boxes' => 'float',
-
-        'total_price_orders' => 'double',
+        'status_id' => 'integer',
 
         'created_at' => 'datetime',
 
         'updated_at' => 'datetime',
 
         'deleted_at' => 'datetime',
-    ];
-
-    const STATUSES = [
-        'pending',
-
-        'shipping',
-
-        'shipped',
     ];
 
     /**
@@ -136,6 +135,41 @@ final class Shipment extends Model
     {
         return $this->orders()->sum('price');
     }
+
+    /**
+     * @return HasOne
+     */
+    public function status(): HasOne
+    {
+        return $this->hasOne(Status::class, 'id', 'status_id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function creator(): HasOne
+    {
+        return $this->hasOne(User::class, 'id', 'creator_id');
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalOrdersAttribute(): int
+    {
+        return $this->orders()->count();
+    }
+
+    /**
+     * @return array
+     */
+    public function creatorPhones(): array
+    {
+        return collect($this->creator()->first()->phones()->latest('id')->limit(3)->get(['phone'])->toArray())
+            ->flatten()
+            ->all();
+    }
+
     /**
      * @param Builder $query
      *

@@ -24,7 +24,7 @@ final class Boxes
 
             'date' => $request->json('date'),
 
-            'order_id' => $request->json('order_id'),
+            'pickup_id' => $request->json('pickup_id'),
 
             'status_id' => $request->json('status_id'),
 
@@ -43,7 +43,7 @@ final class Boxes
      */
     public function getOnlyFilters(BoxesRequest $request): array
     {
-        return $request->only('search', 'date', 'order_id', 'status_id',
+        return $request->only('search', 'date', 'pickup_id', 'status_id',
             'weight', 'additional_weight', 'status');
     }
 
@@ -79,7 +79,7 @@ final class Boxes
             return [
                 'id' => $box->id,
 
-                'order_id' => $box->order_id,
+                'pickup_id' => $box->pickup_id,
 
                 'status_id' => $box->status_id,
 
@@ -95,7 +95,7 @@ final class Boxes
 
                 'updated_at' => $box->updated_at,
 
-                'order' => $box->order,
+                'pickup' => $box->pickup,
 
                 'status' => $box->status,
 
@@ -116,7 +116,7 @@ final class Boxes
         return [
             'id' => $box->id,
 
-            'order_id' => $box->order_id,
+            'pickup_id' => $box->pickup_id,
 
             'status_id' => $box->status_id,
 
@@ -132,7 +132,7 @@ final class Boxes
 
             'updated_at' => $box->updated_at,
 
-            'order' => $box->order,
+            'pickup' => $box->pickup,
 
             'status' => $box->status,
 

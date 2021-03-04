@@ -98,21 +98,41 @@ final class Shipments
         return [
             'id' => $shipment->id,
 
-            'name' => $shipment->name,
+            'shipment_name' => $shipment->name,
 
-            'status' => $shipment->status,
+            'total_customers' => 'TOTAL CUSTOMERS',
 
-            'created_at' => $shipment->created_at,
-
-            'updated_at' => $shipment->updated_at,
+            'total_orders' => $shipment->total_orders,
 
             'total_boxes' => $shipment->total_boxes,
 
-            'total_weight_boxes' => $shipment->total_weight_boxes,
+            'total_price' => $shipment->total_price_orders,
 
-            'total_price_orders' => $shipment->total_price_orders,
+            'total_weight' => $shipment->total_weight_boxes,
 
-            'orders' => $shipment->orders,
+            'created_at' => $shipment->created_at,
+
+            'status' => [
+                'id' => $shipment->status->id,
+
+                'name' => $shipment->status->value,
+
+                'color' => [
+                    'bg' => $shipment->status->parameters['color']['bg'],
+
+                    'text' => $shipment->status->parameters['color']['text'],
+                ],
+            ],
+
+            'creator' => [
+                'id' => $shipment->creator->id,
+
+                'name' => $shipment->creator->profile['first_name'] . ' ' . $shipment->creator->profile['last_name'] . ' ' . $shipment->creator->profile['middle_name'],
+
+                'image' => $shipment->creator->profile['photo'],
+
+                'phones' => $shipment->creatorPhones(),
+            ],
         ];
     }
 

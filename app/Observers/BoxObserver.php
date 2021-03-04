@@ -76,7 +76,7 @@ class BoxObserver
      */
     public function created(Box $box): void
     {
-        $this->afterProperties($box->order_id);
+//        $this->afterProperties($box->order_id);
     }
 
     /**
@@ -86,7 +86,7 @@ class BoxObserver
      */
     public function updated(Box $box): void
     {
-        $this->afterProperties($box->order_id);
+//        $this->afterProperties($box->order_id);
     }
 
     /**
@@ -96,7 +96,7 @@ class BoxObserver
      */
     public function deleted(Box $box): void
     {
-        $this->afterProperties($box->order_id);
+//        $this->afterProperties($box->order_id);
     }
 
     /**

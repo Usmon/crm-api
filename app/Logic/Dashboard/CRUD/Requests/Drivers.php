@@ -3,6 +3,7 @@
 namespace App\Logic\Dashboard\CRUD\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 final class Drivers extends FormRequest
 {
@@ -61,6 +62,8 @@ final class Drivers extends FormRequest
                     'nullable',
 
                     'integer',
+
+                    Rule::exists('users', 'id'),
                 ],
 
                 'car_model' => [
@@ -99,6 +102,8 @@ final class Drivers extends FormRequest
                     'required',
 
                     'integer',
+
+                    Rule::exists('users', 'id'),
                 ],
 
                 'car_model' => [
@@ -125,6 +130,8 @@ final class Drivers extends FormRequest
                     'required',
 
                     'integer',
+
+                    Rule::exists('users', 'id'),
                 ],
 
                 'car_model' => [

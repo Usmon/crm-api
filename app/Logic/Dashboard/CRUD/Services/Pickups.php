@@ -2,6 +2,7 @@
 
 namespace App\Logic\Dashboard\CRUD\Services;
 
+use App\Models\Box;
 use App\Models\Order;
 
 use App\Models\Pickup;
@@ -133,16 +134,6 @@ final class Pickups
     public function showPickup(Pickup $pickup): array
     {
         return [
-            'total_boxes' => $pickup->orders->sum('total_boxes'),
-
-            'total_orders' => $pickup->orders->count(),
-
-            'total_customers' => $pickup->sender->count(),
-
-            'total_picked_boxes' => 'total_picked_boxes',
-
-            'created_at' => $pickup->created_at,
-
             'id' => $pickup->id,
 
             'creator' => [
@@ -158,35 +149,48 @@ final class Pickups
 
                 'phone' => $pickup->driver_phone,
             ],
-          
+
+            'total_customers' => $pickup->sender->count(),
+
+            'total_boxes' => $pickup->boxes()->count(),
+
+            'total_picked_boxes' => $pickup->totalPickedBoxes(),
+
+            'created_at' => $pickup->created_at,
+
             'status' => $pickup->status->for_color,
 
-            'orders' => $pickup->orders->transform(function (Order $order) {
+            'boxes' => $pickup->boxes->map(function (Box $box) {
                 return [
-                    'id' => $order->id,
-
-                    'total_boxes' => $order->total_boxes,
-
-                    'total_products' => $order->products->count(),
+                    'id' => $box->id,
 
                     'creator' => [
-                        'id' => $order->staff->id,
+                        'id' => $box->creator['id'],
 
-                        'name' => $order->staff->profile['first_name'].' '.$order->staff->profile['last_name'].' '.$order->staff->profile['middle_name']
+                        'name' => $box->creator['profile']['first_name'] . ' ' . $box->creator['profile']['last_name'] . ' ' . $box->creator['profile']['middle_name']
                     ],
 
-                    'sender' => [
-                        'id' => $order->sender->id,
+                    'total_products' => $box->total_products,
 
-                        'name' => $order->sender->customer->user->profile['first_name'].' '.$order->sender->customer->user->profile['last_name'].' '.$order->sender->customer->user->profile['middle_name'],
+                    'total_weight' => $box->items()->sum('weight'),
 
-                        'address' => $order->sender->customer->user->addresses[0]['first_address'],
+                    'total_price' => $box->items()->sum('price'),
 
-                        'phones' => collect($order->sender->customer->user()->get()->first()->phones()->latest('id')->limit(3)->get(['phone'])->toArray())
-                            ->flatten()
-                    ],
-                  
-                    'status' => $order->status->for_color,
+                    'note' => $box->getNoteAttribute(),
+
+                    'created_at' => $box->created_at,
+
+                    'status' => [
+                        'id' => 1,
+
+                        'name' => $box->status->value,
+
+                        'color' => [
+                            'bg' => $box->status->parameters['color']['bg'],
+
+                            'text' => $box->status->parameters['color']['text'],
+                        ],
+                    ]
                 ];
             }),
         ];

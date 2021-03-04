@@ -21,11 +21,13 @@ final class CreateBoxesTable extends Migration
         Schema::create($this->table, function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('order_id');
+            $table->unsignedBigInteger('pickup_id');
 
             $table->unsignedBigInteger('status_id');
 
             $table->unsignedBigInteger('delivery_id')->nullable();
+
+            $table->unsignedBigInteger('creator_id');
 
             $table->float('weight');
 
@@ -41,11 +43,13 @@ final class CreateBoxesTable extends Migration
         });
 
         Schema::table($this->table, function (Blueprint $table) {
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->foreign('pickup_id')->references('id')->on('pickups')->onDelete('cascade');
 
             $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
 
             $table->foreign('delivery_id')->references('id')->on('deliveries')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->foreign('creator_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
