@@ -2,6 +2,8 @@
 
 namespace App\Logic\Dashboard\CRUD\Services;
 
+use App\Models\Box;
+
 use App\Models\Delivery;
 
 use Illuminate\Contracts\Pagination\Paginator;
@@ -126,24 +128,10 @@ final class Deliveries
         return [
             'id' => $delivery->id,
 
-            'total_orders' => $delivery->orders->count(),
-
-            'total_delivered_orders' => $delivery->totalDeliveredOrders(),
-
-            'total_products' => $delivery->totalProducts(),
-
-            'created_at' => $delivery->created_at,
-
-            'status' => $delivery->status,
-
             'creator' => [
                 'id' => $delivery->creator->id,
 
                 'name' => $delivery->creatorName(),
-
-                'image' => $delivery->creatorImage(),
-
-                'phones' => $delivery->creatorPhones(),
             ],
 
             'driver' => [
@@ -151,10 +139,66 @@ final class Deliveries
 
                 'name' => $delivery->driverName(),
 
-                'image' => $delivery->driverImage(),
-
                 'phones' => $delivery->driverPhones(),
             ],
+
+            'total_customers' => $delivery->recipient()->count(),
+
+            'total_boxes' => $delivery->totalBoxes(),
+
+            'total_delivered_products' => $delivery->totalDeliveredBoxes(),
+
+            'created_at' => $delivery->created_at,
+
+            'status' => [
+                'id' => $delivery->id,
+
+                'name' => $delivery->status->value,
+
+                'color' => [
+                    'bg' => $delivery->status['parameters']['color']['bg'],
+
+                    'color' => $delivery->status['parameters']['color']['text'],
+                ],
+            ],
+
+            'boxes' => $delivery->boxes->map(function (Box $box) {
+                return [
+                    'id' => $box->id,
+
+                    'creator' => [
+                        'id' => $box->creator->id,
+
+                        'name' => $box->creator['profile']['first_name']
+
+                            . ' ' . $box->creator['profile']['last_name']
+
+                            . ' ' . $box->creator['profile']['middle_name']
+                    ],
+
+                    'total_products' => $box->items()->count(),
+
+                    'total_weight' => $box->items()->sum('weight'),
+
+                    'total_price' => $box->items()->sum('price'),
+
+                    'note' => $box->note,
+
+                    'created_at' => $box->created_at,
+
+                    'status' => [
+                        'id' => $box->status->id,
+
+                        'name' => $box->status->value,
+
+                        'color' => [
+                            'bg' => $box->status['parameters']['color']['bg'],
+
+                            'color' => $box->status['parameters']['color']['text'],
+                        ],
+                    ],
+                ];
+            }),
         ];
     }
 
