@@ -6,6 +6,7 @@ use App\Models\Box;
 
 use App\Logic\Dashboard\CRUD\Requests\Boxes as BoxesRequest;
 
+use App\Models\BoxItem;
 use Illuminate\Support\Arr;
 
 use Illuminate\Contracts\Pagination\Paginator;
@@ -120,31 +121,35 @@ final class Boxes
         return [
             'id' => $box->id,
 
-            'pickup_id' => $box->pickup_id,
+            'total_products' => $box->total_products,
 
-            'order_id' => $box->order_id,
+            'total_weight' => $box->weight,
 
-            'status_id' => $box->status_id,
+            'total_price' => $box->total_price,
 
-            'weight' => $box->weight,
-
-            'additional_weight' => $box->additional_weight,
-
-            'box_image' => $box->box_image,
-
-            'delivery_id' => $box->delivery_id,
+            'note' => $box->note,
 
             'created_at' => $box->created_at,
 
-            'updated_at' => $box->updated_at,
+            'creator' => [
+                'id' => $box->creator->id,
 
-            'pickup' => $box->pickup,
+                'name' => $box->creator->full_name
+            ],
 
-            'status' => $box->status,
+            'products' => $box->items->transform(function (BoxItem  $product) {
+                return [
+                    'id' => $product->id,
 
-            'delivery' => $box->delivery,
+                    'name' => $product->name,
 
-            'order' => $box->order
+                    'weight' => $product->weight,
+
+                    'price' => $product->price
+                ];
+            }),
+
+            'status' => $box->status->for_color,
         ];
     }
 
