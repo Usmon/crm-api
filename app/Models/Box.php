@@ -191,11 +191,11 @@ final class Box extends Model
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getNoteAttribute(): string
+    public function getTotalPriceAttribute(): int
     {
-        return '';
+        return $this->items()->sum('price');
     }
 
     /**
