@@ -41,6 +41,8 @@ use App\Traits\Sort\Sorter;
  *
  * @property string $box_image
  *
+ * @property string $note
+ *
  * @property int $delivery_id
  *
  * @property-read HasOne|null $pickup
@@ -84,6 +86,8 @@ final class Box extends Model
         'order_id',
 
         'status_id',
+
+        'note',
 
         'weight',
 
