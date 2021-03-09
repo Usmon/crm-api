@@ -35,6 +35,8 @@ final class CreateBoxesTable extends Migration
 
             $table->float('additional_weight');
 
+            $table->string('note', 255)->nullable();
+
             $table->string('box_image')->nullable();
 
             $table->timestamp('created_at')->nullable();

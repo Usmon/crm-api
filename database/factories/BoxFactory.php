@@ -46,6 +46,8 @@ final class BoxFactory extends Factory
 
             'order_id' => $orders->random(),
 
+            'note' => $this->faker->text(100),
+
             'weight' => $this->faker->randomFloat(2, 100, 1000),
 
             'additional_weight' => $this->faker->randomFloat(2, 100, 1000),
