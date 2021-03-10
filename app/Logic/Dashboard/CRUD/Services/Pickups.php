@@ -176,7 +176,7 @@ final class Pickups
 
                     'total_price' => $box->items()->sum('price'),
 
-                    'note' => $box->getNoteAttribute(),
+                    'note' => $box->note,
 
                     'created_at' => $box->created_at,
 
