@@ -8,6 +8,7 @@ use App\Models\Order;
 
 use App\Models\Pickup;
 
+use App\Models\Shipment;
 use App\Models\User;
 
 use App\Models\Status;
@@ -39,6 +40,8 @@ final class BoxFactory extends Factory
 
         $deliveryId = [Delivery::all()->random(), null];
 
+        $shipmentId = [Shipment::all()->random(), null];
+
         $users = User::all();
 
         return [
@@ -55,6 +58,8 @@ final class BoxFactory extends Factory
             'status_id' => $statuses->random(),
 
             'delivery_id' => $deliveryId[random_int(0,1)],
+
+            'shipment_id' => $shipmentId[random_int(0,1)],
 
             'creator_id' => $users->random(),
         ];

@@ -97,6 +97,8 @@ final class Box extends Model
 
         'delivery_id',
 
+        'shipment_id',
+
         'creator_id',
     ];
 
@@ -124,6 +126,8 @@ final class Box extends Model
         'box_image' => 'string',
 
         'delivery_id' => 'integer',
+
+        'shipment_id' => 'integer',
 
         'creator_id' => 'integer',
 

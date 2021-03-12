@@ -26,8 +26,8 @@ final class StatusSeeder extends Seeder
             'value' => 'Created',
             'parameters' => [
                 'color' => [
-                    'bg' => '#FEF3EF',
-                    'text' => '#EAA78D'
+                    'text' => '#F8B195',
+                    'bg' => '#f9bca4'
                 ]
             ]
         ],
@@ -35,8 +35,8 @@ final class StatusSeeder extends Seeder
             'value' => 'At the office',
             'parameters' => [
                 'color' => [
-                    'bg' => '#F6E9ED',
-                    'text' => '#C06C84'
+                    'text' => '#C06C84',
+                    'bg' => '#c98296'
                 ]
             ]
         ],
@@ -44,8 +44,8 @@ final class StatusSeeder extends Seeder
             'value' => 'Shipment',
             'parameters' => [
                 'color' => [
-                    'bg' => '#F8EDE2',
-                    'text' => '#F8EDE2'
+                    'text' => '#CD853F',
+                    'bg' => '#d4975b'
                 ]
             ]
         ],
@@ -53,8 +53,8 @@ final class StatusSeeder extends Seeder
             'value' => 'Transit',
             'parameters' => [
                 'color' => [
-                    'bg' => '#E9E6EB',
-                    'text' => '#E9E6EB'
+                    'text' => '#6C5B7B',
+                    'bg' => '#826e94'
                 ]
             ]
         ],
@@ -62,8 +62,8 @@ final class StatusSeeder extends Seeder
             'value' => 'Customs',
             'parameters' => [
                 'color' => [
-                    'bg' => '#E1E7EC',
-                    'text' => '#355C7D'
+                    'text' => '#355C7D',
+                    'bg' => '#43759f'
                 ]
             ]
         ],
@@ -71,8 +71,8 @@ final class StatusSeeder extends Seeder
             'value' => 'Tashkent',
             'parameters' => [
                 'color' => [
-                    'bg' => '#DCECEB',
-                    'text' => '#52A19B'
+                    'text' => '#158078',
+                    'bg' => '#1caea3'
                 ]
             ]
         ],
@@ -80,8 +80,8 @@ final class StatusSeeder extends Seeder
             'value' => 'Delivering',
             'parameters' => [
                 'color' => [
-                    'bg' => '#DDF8F7',
-                    'text' => '#1FCECB'
+                    'text' => '#1FCECB',
+                    'bg' => '#35e0dd'
                 ]
             ]
         ],
@@ -89,8 +89,8 @@ final class StatusSeeder extends Seeder
             'value' => 'Delivered',
             'parameters' => [
                 'color' => [
-                    'bg' => '#DDF9F1',
-                    'text' => '#1CD3A1'
+                    'text' => '#1CD3A1',
+                    'bg' => '#33e4b3'
                 ]
             ]
         ],
@@ -129,9 +129,9 @@ final class StatusSeeder extends Seeder
 
             'parameters' => [
                 'color' => [
-                    'bg' => '#FFAA00',
+                    'bg' => '#f9bca4',
 
-                    'text' => 'Pending'
+                    'text' => '#F8B195'
                 ]
             ]
         ],
@@ -141,9 +141,9 @@ final class StatusSeeder extends Seeder
 
             'parameters' => [
                 'color' => [
-                    'bg' => '#1FCECB',
+                    'bg' => '#35e0dd',
 
-                    'text' => 'On the road'
+                    'text' => '#1FCECB'
                 ]
             ]
         ],
@@ -153,9 +153,9 @@ final class StatusSeeder extends Seeder
 
             'parameters' => [
                 'color' => [
-                    'bg' => '#1CD3A1',
+                    'bg' => '#33e4b3',
 
-                    'text' => 'At the office'
+                    'text' => '#1CD3A1'
                 ]
             ]
         ]
@@ -166,15 +166,15 @@ final class StatusSeeder extends Seeder
      */
     public static $delivery = [
         [
-            'value' => 'Pending',
+            'value' => 'Created',
 
             'parameters' => [
                 'color' => [
-                    'bg' => '#FFAA00',
+                    'bg' => '#f9bca4',
 
-                    'text' => 'Pending'
+                    'text' => '#F8B195'
                 ]
-            ]
+            ],
         ],
 
         [
@@ -184,7 +184,7 @@ final class StatusSeeder extends Seeder
                 'color' => [
                     'bg' => '#1FCECB',
 
-                    'text' => 'Delivering'
+                    'text' => '#35e0dd'
                 ]
             ]
         ],
@@ -196,7 +196,7 @@ final class StatusSeeder extends Seeder
                 'color' => [
                     'bg' => '#1CD3A1',
 
-                    'text' => 'Delivered'
+                    'text' => '#33e4b3'
                 ]
             ]
         ]
@@ -207,13 +207,13 @@ final class StatusSeeder extends Seeder
      */
     public static $shipment = [
         [
-            'value' => 'Pending',
+            'value' => 'Created',
 
             'parameters' => [
                 'color' => [
-                    'bg' => '#FFAA00',
+                    'bg' => '#F8B195',
 
-                    'text' => 'Pending',
+                    'text' => '#f9bca4',
                 ]
             ],
         ],
@@ -225,7 +225,7 @@ final class StatusSeeder extends Seeder
                 'color' => [
                     'bg' => '#1FCECB',
 
-                    'text' => 'Transiting',
+                    'text' => '35e0dd',
                 ]
             ],
         ],
@@ -237,7 +237,7 @@ final class StatusSeeder extends Seeder
                 'color' => [
                     'bg' =>  '#1CD3A1',
 
-                    'text' => 'Transported',
+                    'text' => '33e4b3',
                 ],
             ],
         ]
