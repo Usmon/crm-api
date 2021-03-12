@@ -16,8 +16,6 @@ use App\Logic\Dashboard\CRUD\Repositories\BoxItems as BoxItemsRepository;
 
 use Illuminate\Http\JsonResponse;
 
-use Illuminate\Http\Request;
-
 final class Controller extends Controllers
 {
     /**
@@ -83,6 +81,18 @@ final class Controller extends Controllers
         return Json::sendJsonWith200([
             'box_item' => $this->service->showBoxItem($boxItem),
 
+        ]);
+    }
+
+    /**
+     * @param int $box_id
+     *
+     * @return JsonResponse
+     */
+    public function getProducts(int $box_id): JsonResponse
+    {
+        return Json::sendJsonWith200([
+            'products' => $this->service->getProducts($this->repository->getProducts($box_id))
         ]);
     }
 

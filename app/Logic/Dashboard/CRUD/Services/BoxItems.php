@@ -9,6 +9,7 @@ use App\Logic\Dashboard\CRUD\Requests\BoxItems as BoxItemsRequest;
 use Illuminate\Support\Arr;
 
 use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Support\Collection;
 
 final class BoxItems
 {
@@ -114,6 +115,18 @@ final class BoxItems
             'updated_at' => $boxItem->updated_at,
 
         ];
+    }
+
+    /**
+     * @param Collection $products
+     *
+     * @return Collection
+     */
+    public function getProducts(Collection $products): Collection
+    {
+        return $products->transform(function(BoxItem $product) {
+            return $this->showBoxItem($product);
+        });
     }
 
     /**
