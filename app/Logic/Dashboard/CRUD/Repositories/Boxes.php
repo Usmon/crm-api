@@ -2,24 +2,34 @@
 
 namespace App\Logic\Dashboard\CRUD\Repositories;
 
-use Exception;
-
 use App\Models\Box;
 
-use Illuminate\Support\Arr;
-
 use Illuminate\Contracts\Pagination\Paginator;
+
+use Illuminate\Support\Collection;
 
 final class Boxes
 {
     /**
      * @param array $filters
      *
+     * @param array $sorts
+     *
      * @return Paginator
      */
     public function getBoxes(array $filters, array $sorts): Paginator
     {
         return Box::filter($filters)->sort($sorts)->pager();
+    }
+
+    /**
+     * @param int $order_id
+     *
+     * @return Collection
+     */
+    public function getBoxesByOrder(int $order_id): Collection
+    {
+        return Box::where('order_id', $order_id)->get();
     }
 
     /**
@@ -45,7 +55,7 @@ final class Boxes
      *
      * @return Box
      */
-    public function updateBox(Box $box, array $boxData)
+    public function updateBox(Box $box, array $boxData): Box
     {
         $box->update($boxData);
 
