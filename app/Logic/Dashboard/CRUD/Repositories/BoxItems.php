@@ -9,6 +9,7 @@ use App\Models\BoxItem;
 use Illuminate\Support\Arr;
 
 use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Support\Collection;
 
 final class BoxItems
 {
@@ -20,6 +21,16 @@ final class BoxItems
     public function getBoxItems(array $filters): Paginator
     {
         return BoxItem::filter($filters)->orderBy('created_at', 'desc')->pager();
+    }
+
+    /**
+     * @param int $box_id
+     *
+     * @return Collection
+     */
+    public function getProducts(int $box_id): Collection
+    {
+        return BoxItem::where('box_id', $box_id)->get();
     }
 
     /**
