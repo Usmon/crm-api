@@ -246,6 +246,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     });
 
     Route::group(['prefix'=> 'boxes', 'as' => 'boxes.'], function(){
+        Route::get('box/order/{id}', [DashboardBoxesController::class, 'getBoxes']);
 
         Route::apiResource('box', DashboardBoxesController::class);
 

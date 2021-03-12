@@ -7,9 +7,10 @@ use App\Models\Box;
 use App\Logic\Dashboard\CRUD\Requests\Boxes as BoxesRequest;
 
 use App\Models\BoxItem;
-use Illuminate\Support\Arr;
 
 use Illuminate\Contracts\Pagination\Paginator;
+
+use Illuminate\Support\Collection;
 
 final class Boxes
 {
@@ -151,6 +152,18 @@ final class Boxes
 
             'status' => $box->status->for_color,
         ];
+    }
+
+    /**
+     * @param Collection $boxes
+     *
+     * @return Collection
+     */
+    public function showBoxes(Collection $boxes): Collection
+    {
+        return $boxes->transform(function(Box $box) {
+            return $this->showBox($box);
+        });
     }
 
     /**

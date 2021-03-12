@@ -16,8 +16,6 @@ use App\Logic\Dashboard\CRUD\Repositories\Boxes as BoxesRepository;
 
 use Illuminate\Http\JsonResponse;
 
-use Illuminate\Http\Request;
-
 final class Controller extends Controllers
 {
     /**
@@ -94,6 +92,18 @@ final class Controller extends Controllers
     }
 
     /**
+     * @param int $order_id
+     *
+     * @return JsonResponse
+     */
+    public function getBoxes(int $order_id): JsonResponse
+    {
+        return Json::sendJsonWith200([
+            'boxes' => $this->service->showBoxes($this->repository->getBoxesByOrder($order_id))
+        ]);
+    }
+
+    /**
      * @param BoxesRequest $request
      *
      * @param Box $box
@@ -110,7 +120,7 @@ final class Controller extends Controllers
     }
 
     /**
-     * @param Box $box
+     * @param int|int[] $id
      *
      * @return JsonResponse
      */
