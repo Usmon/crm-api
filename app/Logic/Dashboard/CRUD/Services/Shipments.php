@@ -2,6 +2,8 @@
 
 namespace App\Logic\Dashboard\CRUD\Services;
 
+use App\Models\Box;
+use App\Models\Order;
 use App\Models\Shipment;
 
 use Illuminate\Contracts\Pagination\Paginator;
@@ -98,19 +100,35 @@ final class Shipments
         return [
             'id' => $shipment->id,
 
-            'shipment_name' => $shipment->name,
+            'total_boxes' => $shipment->boxes()->count(),
+
+            'name' => $shipment->name,
+
+            'total_products' => $shipment->boxes->map(function (Box $box) {
+                return $box->items()->count();
+            })->sum(),
 
             'total_customers' => 'TOTAL CUSTOMERS',
 
-            'total_orders' => $shipment->total_orders,
+            'total_weight' => $shipment->boxes->map(function (Box $box) {
+                return $box->items()->sum('weight');
+            })->sum(),
 
-            'total_boxes' => $shipment->total_boxes,
+            'price_total' => $shipment->boxes->map(function (Box $box) {
+                return $box->items()->sum('price');
+            })->sum(),
 
-            'total_price' => $shipment->total_price_orders,
-
-            'total_weight' => $shipment->total_weight_boxes,
+            'payment_type' => 'PAYMENT TYPE' ,
 
             'created_at' => $shipment->created_at,
+
+            'updated_at' => $shipment->updated_at,
+
+            'creator' => [
+                'id' => $shipment->creator->id,
+
+                'name' => $shipment->creatorName(),
+            ],
 
             'status' => [
                 'id' => $shipment->status->id,
@@ -118,21 +136,45 @@ final class Shipments
                 'name' => $shipment->status->value,
 
                 'color' => [
-                    'bg' => $shipment->status->parameters['color']['bg'],
+                    'bg' => $shipment->statusColorBg(),
 
-                    'text' => $shipment->status->parameters['color']['text'],
+                    'text' => $shipment->statusColorText(),
                 ],
             ],
 
-            'creator' => [
-                'id' => $shipment->creator->id,
+            'boxes' => $shipment->boxes->map(function (Box $box) {
+                return [
+                    'id' => $box->id,
 
-                'name' => $shipment->creator->profile['first_name'] . ' ' . $shipment->creator->profile['last_name'] . ' ' . $shipment->creator->profile['middle_name'],
+                    'creator' => [
+                        'id' => $box->creator->id,
 
-                'image' => $shipment->creator->profile['photo'],
+                        'name' => $box->creator['profile']['first_name']
+                            . ' ' . $box->creator['profile']['last_name']
+                            . ' ' . $box->creator['profile']['middle_name']
+                    ],
 
-                'phones' => $shipment->creatorPhones(),
-            ],
+                    'total_products' => $box->items()->count(),
+
+                    'total_weight' => $box->items()->sum('weight'),
+
+                    'total_price' => $box->items()->sum('price'),
+
+                    'note' => $box->note,
+
+                    'created_at' => $box->created_at,
+
+                    'status' => [
+                        'id' => $box->status->id,
+
+                        'name' => $box->status->value,
+
+                        'bg' => $box->status['parameters']['color']['bg'],
+
+                        'text' => $box->status['parameters']['color']['text'],
+                    ],
+                ];
+            }),
         ];
     }
 

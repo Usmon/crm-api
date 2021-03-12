@@ -29,6 +29,8 @@ final class CreateBoxesTable extends Migration
 
             $table->unsignedBigInteger('delivery_id')->nullable();
 
+            $table->unsignedBigInteger('shipment_id')->nullable();
+
             $table->unsignedBigInteger('creator_id');
 
             $table->float('weight');
@@ -52,6 +54,8 @@ final class CreateBoxesTable extends Migration
             $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
 
             $table->foreign('delivery_id')->references('id')->on('deliveries')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->foreign('shipment_id')->references('id')->on('shipments')->onUpdate('cascade')->onDelete('cascade');
 
             $table->foreign('creator_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });

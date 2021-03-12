@@ -165,9 +165,39 @@ final class Shipment extends Model
      */
     public function creatorPhones(): array
     {
-        return collect($this->creator()->first()->phones()->latest('id')->limit(3)->get(['phone'])->toArray())
+        return collect($this->creator()->first()->phones()
+            ->latest('id')
+            ->limit(3)
+            ->get(['phone'])
+            ->toArray())
             ->flatten()
             ->all();
+    }
+
+    /**
+     * @return string
+     */
+    public function creatorName(): string
+    {
+        return $this->creator->profile['first_name']
+            . ' ' . $this->creator->profile['last_name']
+            . ' ' . $this->creator->profile['middle_name'];
+    }
+
+    /**
+     * @return string
+     */
+    public function statusColorBg(): string
+    {
+        return $this->status->parameters['color']['bg'];
+    }
+
+    /**
+     * @return string
+     */
+    public function statusColorText(): string
+    {
+        return $this->status->parameters['color']['text'];
     }
 
     /**
@@ -182,6 +212,11 @@ final class Shipment extends Model
     public function scopeFindBy(Builder $query, string $key, string $value = null): Builder
     {
         return $query->where($key, '=', $value);
+    }
+
+    public function boxes(): HasMany
+    {
+        return $this->hasMany(Box::class);
     }
 
     /**

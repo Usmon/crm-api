@@ -167,7 +167,9 @@ final class Pickups
                     'creator' => [
                         'id' => $box->creator['id'],
 
-                        'name' => $box->creator['profile']['first_name'] . ' ' . $box->creator['profile']['last_name'] . ' ' . $box->creator['profile']['middle_name']
+                        'name' => $box->creator['profile']['first_name']
+                            . ' ' . $box->creator['profile']['last_name']
+                            . ' ' . $box->creator['profile']['middle_name']
                     ],
 
                     'total_products' => $box->total_products,
