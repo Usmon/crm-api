@@ -177,9 +177,11 @@ final class Shipments
 
                         'name' => $box->status->value,
 
-                        'bg' => $box->status['parameters']['color']['bg'],
+                        'color' => [
+                            'bg' => $box->status['parameters']['color']['bg'],
 
-                        'text' => $box->status['parameters']['color']['text'],
+                            'text' => $box->status['parameters']['color']['text'],
+                        ]
                     ],
                 ];
             }),
