@@ -23,7 +23,11 @@ final class CreateOrderHistoriesTable extends Migration
 
             $table->unsignedBigInteger('order_id');
 
+            $table->unsignedBigInteger('status_id');
+
             $table->unsignedBigInteger('creator_id');
+
+            $table->string('model');
 
             $table->integer('seq');
 
@@ -37,6 +41,11 @@ final class CreateOrderHistoriesTable extends Migration
                     ->references('id')
                     ->on('orders')
                     ->onDelete('cascade');
+
+            $table->foreign('status_id')
+                ->references('id')
+                ->on('statuses')
+                ->onDelete('cascade');
 
             $table->foreign('creator_id')
                     ->references('id')
