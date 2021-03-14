@@ -51,7 +51,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property integer $payment_status_id
  *
  * @property integer $total_boxes
- * 
+ *
  * @property integer $total_products
  *
  * @property double $price_pickup
@@ -356,7 +356,8 @@ final class Order extends Model
      */
     public function histories(): HasMany
     {
-        return $this->hasMany(OrderHistory::class);
+        return $this->hasMany(OrderHistory::class, 'model_id', 'id')
+                    ->where('model', self::class);
     }
 
     /**

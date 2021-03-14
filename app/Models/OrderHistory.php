@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 
@@ -72,6 +73,16 @@ final class OrderHistory extends Model
     public function order(): HasOne
     {
         return $this->hasOne(Order::class);
+    }
+
+    /**
+     * Relation to status
+     *
+     * @return BelongsTo
+     */
+    public function status(): BelongsTo
+    {
+        return $this->belongsTo(Status::class);
     }
 
     /**
