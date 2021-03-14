@@ -77,20 +77,6 @@ final class Senders extends FormRequest
 
                     Rule::exists('customers', 'id'),
                 ],
-
-                'permissions' => [
-                    'required',
-
-                    'array',
-                ],
-
-                'permissions.*' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('permissions', 'id'),
-                ],
             ],
 
             'dashboard.senders.sender.update' => [
@@ -106,14 +92,6 @@ final class Senders extends FormRequest
                     'required',
 
                     'array',
-                ],
-
-                'permissions.*' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('permissions', 'id'),
                 ],
             ],
 
