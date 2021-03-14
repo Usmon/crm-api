@@ -252,6 +252,8 @@ final class Orders
                         'name' => $history->creator->full_name,
                     ],
 
+                    'status' => $history->status->for_color,
+
                     'created_at' => $history->created_at
                 ];
             }),

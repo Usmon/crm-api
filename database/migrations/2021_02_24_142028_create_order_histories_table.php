@@ -21,7 +21,7 @@ final class CreateOrderHistoriesTable extends Migration
         Schema::create($this->table, function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('order_id');
+            $table->unsignedBigInteger('model_id');
 
             $table->unsignedBigInteger('status_id');
 
@@ -36,11 +36,6 @@ final class CreateOrderHistoriesTable extends Migration
             $table->timestamp('updated_at')->nullable();
 
             $table->timestamp('deleted_at')->nullable();
-
-            $table->foreign('order_id')
-                    ->references('id')
-                    ->on('orders')
-                    ->onDelete('cascade');
 
             $table->foreign('status_id')
                 ->references('id')
