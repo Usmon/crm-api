@@ -8,6 +8,8 @@ use App\Logic\Dashboard\CRUD\Requests\Boxes as BoxesRequest;
 
 use App\Models\BoxItem;
 
+use App\Models\OrderHistory;
+
 use Illuminate\Contracts\Pagination\Paginator;
 
 use Illuminate\Support\Collection;
@@ -151,6 +153,24 @@ final class Boxes
             }),
 
             'status' => $box->status->for_color,
+
+            'history' => $box->histories->transform(function(OrderHistory $history) {
+                return [
+                    'id' => $history->id,
+
+                    'seq' => $history->seq,
+
+                    'creator' => [
+                        'id' => $history->creator_id,
+
+                        'name' => $history->creator->full_name,
+                    ],
+
+                    'status' => $history->status->for_color,
+
+                    'created_at' => $history->created_at
+                ];
+            }),
         ];
     }
 

@@ -216,6 +216,15 @@ final class Box extends Model
     }
 
     /**
+     * @return HasMany
+     */
+    public function histories(): HasMany
+    {
+        return $this->hasMany(OrderHistory::class, 'model_id', 'id')
+            ->where('model', self::class);
+    }
+
+    /**
      * @param Builder $query
      *
      * @param string $key
