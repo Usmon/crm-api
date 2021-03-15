@@ -7,6 +7,7 @@ use App\Models\Box;
 use App\Models\Order;
 
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class BoxObserver
 {
@@ -59,6 +60,8 @@ class BoxObserver
     {
 
         $box->delivery_id = $box->delivery_id ?? null;
+
+        $box->creator_id = $box->creator_id ?? auth()->user()->id;
 
         $box->additional_weight = $box->additional_weight ?? 0;
 
