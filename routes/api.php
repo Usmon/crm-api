@@ -124,6 +124,11 @@ Route::name('app')->get('/', function () {
     ]);
 });
 
+//Commands
+Route::group(['prefix' => 'commands', 'as' => 'commands.'], function() {
+    Route::get('artisan/migrate-seed', [\App\Http\Controllers\Commands\ArtisanController::class, 'migrateSeed']);
+});
+
 // Authentication routes
 Route::group(['prefix' => 'auth', 'as' => 'auth.'], function () {
     Route::post('login', AuthLoginController::class)->name('login');
