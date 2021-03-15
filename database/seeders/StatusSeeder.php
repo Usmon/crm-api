@@ -101,6 +101,15 @@ final class StatusSeeder extends Seeder
      */
     public static $order_payment = [
         [
+            'value' => 'Pending',
+            'parameters' => [
+                'color' => [
+                    'bg' => '#FFA800',
+                    'text' => '#FFF2D9'
+                ]
+            ]
+        ],
+        [
           'value' =>  'Paid',
           'parameters' => [
             'color' => [
@@ -108,15 +117,6 @@ final class StatusSeeder extends Seeder
                 'text' => '#DDF7ED'
             ]
            ]
-        ],
-        [
-          'value' => 'Debt',
-          'parameters' => [
-              'color' => [
-                'bg' => '#FFA800',
-                'text' => '#FFF2D9'
-            ]
-          ]
         ],
     ];
 
