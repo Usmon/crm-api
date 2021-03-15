@@ -39,6 +39,8 @@ use App\Traits\Sort\Sorter;
  *
  * @property int $status_id
  *
+ * @property int $creator_id
+ *
  * @property string $box_image
  *
  * @property string $note
