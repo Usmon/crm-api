@@ -200,7 +200,7 @@ final class Orders
 
             'total_additional_weight' => $order->total_additional_weight,
 
-            'payment_type' => $order->paymentType->name,
+            'payment_type' => $order->paymentType->name ?? '',
 
             'status' => $order->status->for_color,
 
