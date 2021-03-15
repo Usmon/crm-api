@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Artisan;
 class ArtisanController extends Controller
 {
     /**
-     * @return mixed
+     * @return void
      */
-    public function migrateSeed()
+    public function migrateSeed(): void
     {
-        return Artisan::call('migrate:fresh --seed');
+        Artisan::call('migrate:fresh --seed');
     }
 }
