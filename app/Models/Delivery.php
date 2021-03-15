@@ -146,13 +146,13 @@ final class Delivery extends Model
         return $this->hasOne(User::class, 'id', 'creator_id');
     }
 
-//    /**
-//     * @return HasMany
-//     */
-//    public function orders(): HasMany
-//    {
-//        return $this->hasMany(Order::class);
-//    }
+    /**
+     * @return HasMany
+     */
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
     /**
      * @return HasMany
      */
@@ -181,17 +181,15 @@ final class Delivery extends Model
         })->sum();
     }
 
-    /**
-     * @return int
-     */
-    public function totalDeliveredOrders(): int
-    {
-        return $this->orders->map(function (Order $order) {
-            return $order->whereHas('status', function (Builder $query) {
-                return $query->where('key', '=', 'delivered');
-            })->count();
-        })->sum();
-    }
+//    /**
+//     * @return int
+//     */
+//    public function totalDeliveredProducts(): int
+//    {
+//        return $this->boxes->map(function (Box $box) {
+//            return $box->where('value', '=', 'Delivered')->count();
+//        })->sum();
+//    }
 
     /**
      * @return string

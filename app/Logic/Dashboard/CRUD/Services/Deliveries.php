@@ -83,25 +83,17 @@ final class Deliveries
             return [
                 'id' => $delivery->id,
 
-                'total_orders' => $delivery->orders->count(),
-
-                'total_delivered_orders' => $delivery->totalDeliveredOrders(),
+                'total_boxes' => $delivery->boxes->count(),
 
                 'total_products' => $delivery->totalProducts(),
 
+                'total_delivered_boxes' => $delivery->totalDeliveredBoxes(),
+
                 'created_at' => $delivery->created_at,
 
-                'status' => $delivery->status,
+                'status' => $delivery->status->for_color,
 
-                'creator' => [
-                    'id' => $delivery->creator->id,
-
-                    'name' => $delivery->creatorName(),
-
-                    'image' => $delivery->creatorImage(),
-
-                    'phones' => $delivery->creatorPhones(),
-                ],
+                'creator' => $delivery->creator->short_info,
 
                 'driver' => [
                     'id' => $delivery->driver->id,
