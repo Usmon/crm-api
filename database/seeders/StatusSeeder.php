@@ -170,9 +170,9 @@ final class StatusSeeder extends Seeder
 
             'parameters' => [
                 'color' => [
-                    'bg' => '#F8B195',
+                    'bg' => '#FEF3EF',
 
-                    'text' => '#FEF3EF'
+                    'text' => '#F8B195'
                 ]
             ],
         ],
@@ -182,9 +182,9 @@ final class StatusSeeder extends Seeder
 
             'parameters' => [
                 'color' => [
-                    'bg' => '#1FCECB',
+                    'bg' => '#DDF8F7',
 
-                    'text' => '#DDF8F7'
+                    'text' => '#1FCECB'
                 ]
             ]
         ],
@@ -194,9 +194,9 @@ final class StatusSeeder extends Seeder
 
             'parameters' => [
                 'color' => [
-                    'bg' => '#1CD3A1',
+                    'bg' => '#DDF9F1',
 
-                    'text' => '#DDF9F1'
+                    'text' => '#1CD3A1'
                 ]
             ]
         ]
@@ -211,9 +211,9 @@ final class StatusSeeder extends Seeder
 
             'parameters' => [
                 'color' => [
-                    'bg' => '#F8B195',
+                    'bg' => '#FEF3EF',
 
-                    'text' => '#FEF3EF',
+                    'text' => '#F8B195',
                 ]
             ],
         ],
@@ -223,9 +223,9 @@ final class StatusSeeder extends Seeder
 
             'parameters' => [
                 'color' => [
-                    'bg' => '#1FCECB',
+                    'bg' => '#DDF8F7',
 
-                    'text' => '#DDF8F7',
+                    'text' => '#1FCECB',
                 ]
             ],
         ],
@@ -235,9 +235,9 @@ final class StatusSeeder extends Seeder
 
             'parameters' => [
                 'color' => [
-                    'bg' =>  '#1CD3A1',
+                    'bg' =>  '#DDF9F1',
 
-                    'text' => '#DDF9F1',
+                    'text' => '#1CD3A1',
                 ],
             ],
         ]
