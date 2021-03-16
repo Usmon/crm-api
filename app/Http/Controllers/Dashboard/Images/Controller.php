@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Dashboard\Images;
 
 use App\Helpers\Json;
 
-use App\Models\Sender;
-
 use Illuminate\Http\JsonResponse;
 
 use App\Http\Controllers\Controller as Controllers;
@@ -15,6 +13,8 @@ use App\Logic\Dashboard\CRUD\Requests\Images as ImagesRequest;
 use App\Logic\Dashboard\CRUD\Services\Images as ImagesService;
 
 use App\Logic\Dashboard\CRUD\Repositories\Images as ImagesRepository;
+
+use Illuminate\Support\Facades\Storage;
 
 final class Controller extends Controllers
 {
@@ -53,6 +53,29 @@ final class Controller extends Controllers
             'message' => 'The image was successfully saved.',
 
             'path' => $this->repository->storeImage($this->service->storeCredentials($request)),
+        ]);
+    }
+
+    /**
+     * @param ImagesRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function deleteOne(ImagesRequest $request): JsonResponse
+    {
+        return Json::sendJsonWith202([
+            'message' => 'The image was successfully deleted.',
+
+            'result' => $this->repository->delete($this->service->deleteCredentials($request))
+        ]);
+    }
+
+    public function deleteMultiple(ImagesRequest $request)
+    {
+        return Json::sendJsonWith202([
+            'message' => 'The image was successfully deleted.',
+
+            'result' => $this->repository->deleteMultiple($this->service->deleteMultipleCredentials($request))
         ]);
     }
 }
