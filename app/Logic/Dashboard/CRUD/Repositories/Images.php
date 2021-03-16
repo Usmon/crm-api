@@ -23,4 +23,24 @@ final class Images
 
         return null;
     }
+
+    /**
+     * @param string $path
+     *
+     * @return bool
+     */
+    public function delete(string $path): bool
+    {
+        return Storage::disk('s3')->delete($path);
+    }
+
+    /**
+     * @param array $credentials
+     *
+     * @return bool
+     */
+    public function deleteMultiple(array $credentials): bool
+    {
+        return Storage::disk('s3')->delete($credentials);
+    }
 }

@@ -38,21 +38,26 @@ final class Images extends FormRequest
                 ],
             ],
 
-            'dashboard.images.update' => [
-                'folder' => [
+            'dashboard.images.delete' => [
+                'image_url' => [
                     'required',
 
-                    'string',
-                ],
+                    'url'
+                ]
+            ],
 
-                'image' => [
+            'dashboard.images.delete.multiple' => [
+                'image_url' => [
                     'required',
 
-                    'image',
-
-                    'mimes:jpeg,png,jpg,svg'
+                    'array'
                 ],
 
+                'image_url.*' => [
+                    'required',
+
+                    'url'
+                ]
             ],
         ];
 

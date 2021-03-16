@@ -284,6 +284,10 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
 
     Route::apiResource('trackings', DashboardTrackingsController::class);
 
+    Route::delete('images/delete', [DashboardImagesController::class, 'deleteOne'])->name('images.delete');
+
+    Route::delete('images/delete/multiple', [DashboardImagesController::class, 'deleteMultiple'])->name('images.delete.multiple');
+
     Route::apiResource('images', DashboardImagesController::class);
 
     Route::apiResource('phones', DashboardPhonesController::class);
