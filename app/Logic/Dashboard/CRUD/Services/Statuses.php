@@ -34,6 +34,16 @@ final class Statuses
     const ORDER_PAYMENT = 'OrderPayment';
 
     /**
+     * @var string
+     */
+    const SHIPMENT = 'App\\Models\\Shipment';
+
+    /**
+     * @var string
+     */
+    const DELIVERY = 'App\\Models\\Delivery';
+
+    /**
      * @param StatusesRequest $request
      *
      * @return array
