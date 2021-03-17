@@ -19,3 +19,4 @@ If you want to be notified for deployment, just join to our telegram group: <a h
 ```php artisan key:generate``` <br>
 ```php artisan migrate``` <br>
 ```php artisan db:seed``` for development mode <br>
+ 
