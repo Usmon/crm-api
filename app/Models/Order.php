@@ -468,9 +468,29 @@ final class Order extends Model
     public function scopeFilter(Builder $query, array $filters): Builder
     {
         return $query->when($filters['search'] ?? null, function (Builder $query, string $search) {
-            return $query->where(function (Builder $query) use ($search) {
-                return $query->where('status_id', 'like', '%' . $search . '%')
-                    ->orWhere('payment_status_id', 'like', '%' . $search . '%');
+            return $query->whereHas('staff', function (Builder $query) use ($search) {
+                return $query->whereHas('partner', function (Builder $query) use ($search) {
+                    return $query->where('name', 'like', '%'.$search.'%')
+                                 ->orWhere('phone', 'like', '%'.$search.'%');
+                })->orWhere('email', 'like', '%'.$search.'%')
+                  ->orWhere('login', 'like', '%'.$search.'%')
+                  ->filterFullName($search);
+            })->whereHas('sender', function (Builder $query) use ($search) {
+                return $query->whereHas('customer', function (Builder $query) use ($search) {
+                    return $query->whereHas('user', function(Builder $query) use ($search) {
+                        return $query->where('email', 'like', '%'.$search.'%')
+                                     ->orWhere('login', 'like', '%'.$search.'%')
+                                     ->filterFullName($search);
+                    });
+                });
+            })->whereHas('recipient', function (Builder $query) use ($search) {
+                return $query->whereHas('customer', function (Builder $query) use ($search) {
+                    return $query->whereHas('user', function(Builder $query) use ($search) {
+                        return $query->where('email', 'like', '%'.$search.'%')
+                            ->orWhere('login', 'like', '%'.$search.'%')
+                            ->filterFullName($search);
+                    });
+                });
             });
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);

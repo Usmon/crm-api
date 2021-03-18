@@ -69,6 +69,8 @@ use App\Traits\Pagination\Pager;
  *
  * @method static Builder|self filter(array $filters)
  *
+ * @method static Builder|self filterFullName(string $key)
+ *
  * @mixin Auth
  */
 final class User extends Auth
@@ -292,5 +294,17 @@ final class User extends Auth
                 return $query->where('id', '=', $role);
             });
         });
+    }
+
+    /**
+     * @param Builder $query
+     *
+     * @param string $key
+     *
+     * @return Builder
+     */
+    public function scopeFilterFullName(Builder $query, string $key): Builder
+    {
+        return $query->orWhereRaw('CONCAT(JSON_UNQUOTE(JSON_EXTRACT(profile, "$.first_name")), " ", JSON_UNQUOTE(JSON_EXTRACT(profile, "$.last_name")), " ", JSON_UNQUOTE(JSON_EXTRACT(profile, "$.middle_name"))) LIKE ?', '%'.$key.'%');
     }
 }
