@@ -14,8 +14,6 @@ use App\Logic\Dashboard\CRUD\Services\Images as ImagesService;
 
 use App\Logic\Dashboard\CRUD\Repositories\Images as ImagesRepository;
 
-use Illuminate\Support\Facades\Storage;
-
 final class Controller extends Controllers
 {
     /**
@@ -70,7 +68,12 @@ final class Controller extends Controllers
         ]);
     }
 
-    public function deleteMultiple(ImagesRequest $request)
+    /**
+     * @param ImagesRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function deleteMultiple(ImagesRequest $request): JsonResponse
     {
         return Json::sendJsonWith202([
             'message' => 'The image was successfully deleted.',
