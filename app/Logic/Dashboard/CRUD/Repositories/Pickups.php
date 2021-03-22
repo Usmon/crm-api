@@ -2,7 +2,11 @@
 
 namespace App\Logic\Dashboard\CRUD\Repositories;
 
+use App\Models\Box;
+
 use App\Models\Pickup;
+
+use App\Models\BoxItem;
 
 use Illuminate\Contracts\Pagination\Paginator;
 
@@ -21,17 +25,23 @@ final class Pickups
     }
 
     /**
-     * @param array $pickupData
+     * @param array $credentials
      *
      * @return Pickup
      */
-    public function storePickup (array $pickupData): Pickup
+    public function storePickup (array $credentials): Pickup
     {
-        $pickup = new Pickup;
 
-        $pickup->fill($pickupData);
+//        $sumPriceProducts = array_sum(
+//            array_column(
+//                call_user_func_array('array_merge',
+//                    array_values(array_column($credentials['boxes'],
+//                        'products'))),
+//                'price'));
 
-        $pickup->save();
+        $pickup = Pickup::create($credentials);
+
+        $this->createBoxes($pickup, $credentials['boxes']);
 
         return $pickup;
     }
@@ -58,6 +68,37 @@ final class Pickups
     public function deletePickup($id): bool
     {
         return Pickup::destroy($id);
+    }
+
+    /**
+     * @param Pickup $pickup
+     *
+     * @param array $boxes
+     */
+    public function createBoxes(Pickup $pickup, array $boxes): void
+    {
+        foreach ($boxes as $box)
+        {
+
+            $newBox = Box::create([
+                'pickup_id' => $pickup->id,
+
+                'note' => $box['note'],
+
+                'status_id' => 3,
+
+                'weight' => array_sum(array_column($box['products'],'weight')),
+
+                'additional_weight' => array_sum(array_column($box['products'],'is_additional')),
+            ]);
+
+            foreach ($box['products'] as $product)
+            {
+                $product['box_id'] = $newBox->id;
+
+                $newProduct = BoxItem::create($product);
+            }
+        }
     }
 }
 

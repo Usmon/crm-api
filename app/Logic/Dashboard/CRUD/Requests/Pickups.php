@@ -121,13 +121,29 @@ final class Pickups extends FormRequest
             ],
 
             'dashboard.pickups.store' => [
-                'pickup_datetime_start' => [
+                'type' => [
+                    'required',
+                ],
+
+                'type.index' => [
+                    'required',
+
+                    'string',
+                ],
+
+                'type.date' => [
+                    'required',
+
+                    'array',
+                ],
+
+                'type.date.from' => [
                     'required',
 
                     'date',
                 ],
 
-                'pickup_datetime_end' => [
+                'type.date.to' => [
                     'required',
 
                     'date',
@@ -155,6 +171,76 @@ final class Pickups extends FormRequest
                     'integer',
 
                     Rule::exists('drivers', 'id'),
+                ],
+
+                'price' => [
+                    'required',
+
+                    'numeric',
+
+                    'min:0'
+                ],
+
+                'boxes' => [
+                    'required',
+
+                    'array',
+                ],
+
+                'boxes.*.note' => [
+                    'required',
+
+                    'string',
+                ],
+
+                'boxes.*.products' => [
+                    'required',
+
+                    'array',
+                ],
+
+                'boxes.*.products.*.name' => [
+                    'required',
+
+                    'string',
+                ],
+
+                'boxes.*.products.*.quantity' => [
+                    'required',
+
+                    'integer',
+                ],
+
+                'boxes.*.products.*.price' => [
+                    'required',
+
+                    'integer',
+                ],
+
+                'boxes.*.products.*.weight' => [
+                    'required',
+
+                    'numeric',
+                ],
+
+                'boxes.*.products.*.type_weight' => [
+                    'required',
+
+                    'string',
+
+                    'in:lb,kg'
+                ],
+
+                'boxes.*.products.*.note' => [
+                    'required',
+
+                    'string',
+                ],
+
+                'boxes.*.products.*.image' => [
+                    'required',
+
+                    'string',
                 ],
             ],
 
@@ -193,6 +279,14 @@ final class Pickups extends FormRequest
                     'integer',
 
                     Rule::exists('drivers', 'id'),
+                ],
+
+                'price' => [
+                    'required',
+
+                    'numeric',
+
+                    'min:0',
                 ],
             ],
         ];

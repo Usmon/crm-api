@@ -12,8 +12,6 @@ use App\Models\Customer;
 
 use App\Models\Pickup;
 
-use App\Logic\Dashboard\CRUD\Services\Statuses as StatusService;
-
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 final class PickupFactory extends Factory
@@ -34,16 +32,23 @@ final class PickupFactory extends Factory
 
         $drivers = Driver::all();
 
-        $statuses = Status::where('model', StatusService::PICKUP)->get(['id']);
+        $statuses = Status::all();
 
         $pickupDatetimeStart = $this->faker->dateTimeThisYear('+1 month');
 
         $pickupDatetimeEnd   = strtotime('+1 Week', $pickupDatetimeStart->getTimestamp());
 
         return [
-            'pickup_datetime_start' => $pickupDatetimeStart,
+            'type' => json_encode([
+                'index' => 'pickup',
 
-            'pickup_datetime_end' => $pickupDatetimeEnd,
+                'date' => [
+                    'pickup_datetime_start' => now(),
+
+                    'pickup_datetime_end' => now(),
+
+                ],
+            ]),
 
             'status_id' => $statuses->random(),
 
