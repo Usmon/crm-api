@@ -11,6 +11,8 @@ final class Recipients
     /**
      * @param array $filters
      *
+     * @param array $sorts
+     *
      * @return Paginator
      */
     public function getRecipients(array $filters, array $sorts): Paginator
@@ -25,9 +27,7 @@ final class Recipients
      */
     public function storeRecipient(array $credentials): Recipient
     {
-        $recipient = Recipient::create($credentials);
-
-        return $recipient;
+        return Recipient::create($credentials);
     }
 
     /**
@@ -49,8 +49,18 @@ final class Recipients
      *
      * @return int
      */
-    public function deleteRecipient($id)
+    public function deleteRecipient($id): int
     {
         return Recipient::destroy($id);
+    }
+
+    /**
+     * @param string $phone
+     *
+     * @return Recipient
+     */
+    public function checkPhone(string $phone): Recipient
+    {
+        return Recipient::filter(['customer' => $phone])->first();
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\Sort\Sorter;
+
 use Illuminate\Support\Carbon;
 
 use App\Traits\Pagination\Pager;
@@ -85,7 +86,7 @@ final class Phone extends Model
      */
     protected function user(): HasOne
     {
-        return $this->hasOne(Customer::class,'id','user_id');
+        return $this->hasOne(User::class,'id','user_id');
     }
 
     /**

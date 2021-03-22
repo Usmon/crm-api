@@ -49,8 +49,18 @@ final class Senders
      *
      * @return int
      */
-    public function deleteSender($id)
+    public function deleteSender(int $id): int
     {
         return Sender::destroy($id);
+    }
+
+    /**
+     * @param string $phone
+     *
+     * @return Sender
+     */
+    public function checkPhone(string $phone): Sender
+    {
+        return Sender::filter(['customer' => $phone])->first();
     }
 }

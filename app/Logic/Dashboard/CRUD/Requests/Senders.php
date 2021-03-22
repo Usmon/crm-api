@@ -95,11 +95,13 @@ final class Senders extends FormRequest
                 ],
             ],
 
-            'dashboard.senders.phones' => [
+            'dashboard.senders.phone.check' => [
                 'phone' => [
                     'required',
 
                     'string',
+
+                    Rule::exists('phones', 'phone')
                 ],
             ]
 

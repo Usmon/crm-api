@@ -41,13 +41,11 @@ final class Recipients
     /**
      * @param RecipientsRequest $request
      *
-     * @return array
+     * @return string
      */
-    public function getOnlyPhone(RecipientsRequest $request): array
+    public function getOnlyPhone(RecipientsRequest $request): string
     {
-        return [
-            'customer' => $request->json('phone')
-        ];
+        return $request->json('phone');
     }
 
     /**
@@ -104,10 +102,37 @@ final class Recipients
 
             'customer' => $recipient->customer()->with(['phones'])->get(),
 
-
             'created_at' => $recipient->created_at,
 
             'updated_at' => $recipient->updated_at,
+        ];
+    }
+
+    /**
+     * @param Recipient $recipient
+     *
+     * @return array
+     */
+    public function showRecipientPhone(Recipient $recipient): array
+    {
+        return [
+            'id' => $recipient->id,
+
+            'recipient_full_name' => $recipient->customer->user->full_name,
+
+            'recipient_phone' => $recipient->customer->user->phones()->first()->phone,
+
+            'recipient_email' => $recipient->customer->user->email,
+
+            'recipient_region' => $recipient->customer->user->addresses()->first()->city->region->name,
+
+            'recipient_city' => $recipient->customer->user->addresses()->first()->city->name,
+
+            'recipient_zip_code' => '90800', //To be change from model
+
+            'recipient_address_line_1' => $recipient->customer->user->addresses()->first()->first_address,
+
+            'recipient_address_line_2' => $recipient->customer->user->addresses()->first()->second_address
         ];
     }
 
