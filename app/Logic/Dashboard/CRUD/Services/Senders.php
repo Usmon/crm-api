@@ -103,6 +103,34 @@ final class Senders
     }
 
     /**
+     * @param Sender $sender
+     *
+     * @return array
+     */
+    public function showSenderPhone(Sender $sender): array
+    {
+        return [
+            'id' => $sender->id,
+
+            'sender_full_name' => $sender->customer->user->full_name,
+
+            'sender_phone' => $sender->customer->user->phones()->first()->phone,
+
+            'sender_email' => $sender->customer->user->email,
+
+            'sender_region' => $sender->customer->user->addresses()->first()->city->region->name,
+
+            'sender_city' => $sender->customer->user->addresses()->first()->city->name,
+
+            'sender_zip_code' => '90800', //To be change from model
+
+            'sender_address_line_1' => $sender->customer->user->addresses()->first()->first_address,
+
+            'sender_address_line_2' => $sender->customer->user->addresses()->first()->second_address
+        ];
+    }
+
+    /**
      * @param SendersRequest $request
      *
      * @return array
@@ -129,13 +157,11 @@ final class Senders
     /**
      * @param SendersRequest $request
      *
-     * @return array
+     * @return string
      */
-    public function getOnlyPhone(SendersRequest $request): array
+    public function getOnlyPhone(SendersRequest $request): string
     {
-        return [
-            'customer' => $request->json('phone')
-        ];
+        return $request->json('phone');
     }
 
     /**

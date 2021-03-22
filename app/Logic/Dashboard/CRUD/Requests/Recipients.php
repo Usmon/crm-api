@@ -95,11 +95,13 @@ final class Recipients extends FormRequest
 
             ],
 
-            'dashboard.recipients.phones' => [
+            'dashboard.recipients.phone.check' => [
                 'phone' => [
                     'required',
 
                     'string',
+
+                    Rule::exists('phones', 'phone')
                 ],
             ]
 
