@@ -21,9 +21,9 @@ final class CreatePickupsTable extends Migration
         Schema::create($this->table, function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->dateTime('pickup_datetime_start');
+            $table->json('type');
 
-            $table->dateTime('pickup_datetime_end');
+            $table->decimal('price')->default(0);
 
             $table->unsignedBigInteger('status_id');
 

@@ -91,47 +91,47 @@ final class Pickup extends Model
      * @var array
      */
     protected $fillable = [
-        'pickup_datetime_start',
-
-        'pickup_datetime_end',
-
         'status_id',
 
         'sender_id',
 
+        'price',
+
         'driver_id',
+
+        'type',
 
         'creator_id',
 
         'deleted_by',
     ];
 
-    /**
-     * @var array
-     */
-    protected $casts = [
-        'id' => 'integer',
-
-        'pickup_datetime_start' => 'datetime',
-
-        'pickup_datetime_end' => 'datetime',
-
-        'status_id' => 'integer',
-
-        'sender_id' => 'integer',
-
-        'driver_id' => 'integer',
-
-        'creator_id' => 'integer',
-
-        'created_at' => 'datetime',
-
-        'updated_at' => 'datetime',
-
-        'deleted_at' => 'datetime',
-
-        'deleted_by' => 'integer'
-    ];
+//    /**
+//     * @var array
+//     */
+//    protected $casts = [
+//        'id' => 'integer',
+//
+//        'pickup_datetime_start' => 'datetime',
+//
+//        'pickup_datetime_end' => 'datetime',
+//
+//        'status_id' => 'integer',
+//
+//        'sender_id' => 'integer',
+//
+//        'driver_id' => 'integer',
+//
+//        'creator_id' => 'integer',
+//
+//        'created_at' => 'datetime',
+//
+//        'updated_at' => 'datetime',
+//
+//        'deleted_at' => 'datetime',
+//
+//        'deleted_by' => 'integer'
+//    ];
 
     const STATUSES = [
         'pending',

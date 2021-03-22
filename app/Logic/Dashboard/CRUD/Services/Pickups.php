@@ -3,7 +3,6 @@
 namespace App\Logic\Dashboard\CRUD\Services;
 
 use App\Models\Box;
-use App\Models\Order;
 
 use App\Models\Pickup;
 
@@ -205,17 +204,23 @@ final class Pickups
      */
     public function createPickup(PickupsRequest $request): array
     {
-        return [
-            'pickup_datetime_start' => $request->json('pickup_datetime_start'),
-
-            'pickup_datetime_end' => $request->json('pickup_datetime_end'),
+        $credentials = [
+            'type' => json_encode($request->json('type')),
 
             'status_id' => $request->json('status_id'),
 
             'sender_id' => $request->json('sender_id'),
 
             'driver_id' => $request->json('driver_id'),
+
+            'price' => $request->json('price'),
+
+            'boxes' => $request->json('boxes'),
+
+            'products' => $request->json('boxes.*.products'),
         ];
+
+        return $credentials;
     }
 
     /**
@@ -235,6 +240,8 @@ final class Pickups
             'sender_id' => $request->json('sender_id'),
 
             'driver_id' => $request->json('driver_id'),
+
+            'price' => $request->json('price'),
         ];
     }
 

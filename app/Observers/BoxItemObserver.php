@@ -2,9 +2,9 @@
 
 namespace App\Observers;
 
-use App\Models\BoxItem;
+use App\Models\Box;
 
-use Illuminate\Support\Str;
+use App\Models\BoxItem;
 
 use Illuminate\Support\Carbon;
 
@@ -57,16 +57,12 @@ class BoxItemObserver
      */
     public function defaultProperties(BoxItem $boxItem): void
     {
-        // $boxItem->box_id = $boxItem->box_id;
-        $boxItem->name = $boxItem->name;
-        $boxItem->quantity = $boxItem->quantity;
-        $boxItem->price = $boxItem->price;
-        $boxItem->weight = $boxItem->weight;
-        $boxItem->made_in = $boxItem->made_in;
-        $boxItem->note = $boxItem->note;
         $boxItem->is_additional = $boxItem->is_additional ?? 0;
+
         $boxItem->created_at = $box->created_at ?? Carbon::now();
+
         $boxItem->updated_at = $box->updated_at ?? Carbon::now();
+
         $boxItem->deleted_at = $box->deleted_at ?? null;
     }
 }
