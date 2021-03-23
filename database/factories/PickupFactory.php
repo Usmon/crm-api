@@ -34,18 +34,14 @@ final class PickupFactory extends Factory
 
         $statuses = Status::all();
 
-        $pickupDatetimeStart = $this->faker->dateTimeThisYear('+1 month');
-
-        $pickupDatetimeEnd   = strtotime('+1 Week', $pickupDatetimeStart->getTimestamp());
-
         return [
             'type' => json_encode([
                 'index' => 'pickup',
 
                 'date' => [
-                    'pickup_datetime_start' => now(),
+                    'from' => now(),
 
-                    'pickup_datetime_end' => now(),
+                    'to' => now(),
 
                 ],
             ]),
