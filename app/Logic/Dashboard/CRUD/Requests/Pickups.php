@@ -53,12 +53,6 @@ final class Pickups extends FormRequest
                     'after:date.from'
                 ],
 
-                'note' => [
-                    'nullable',
-
-                    'string',
-                ],
-
                 'pickup_datetime_start' => [
                     'nullable',
 
@@ -117,6 +111,12 @@ final class Pickups extends FormRequest
                     'nullable',
 
                     'string',
+                ],
+
+                'index' => [
+                    'nullable',
+
+                    'string'
                 ],
             ],
 
