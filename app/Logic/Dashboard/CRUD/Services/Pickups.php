@@ -41,6 +41,8 @@ final class Pickups
             'driver' => $request->json('driver'),
 
             'creator' => $request->json('creator'),
+
+            'index' => $request->json('index'),
         ];
     }
 
@@ -52,7 +54,7 @@ final class Pickups
     public function getOnlyFilters(PickupsRequest $request): array
     {
         return $request->only('search', 'date', 'pickup_datetime_start', 'pickup_datetime_end',
-            'status', 'driver_id', 'sender_id', 'sender', 'driver', 'creator');
+            'status', 'driver_id', 'sender_id', 'sender', 'driver', 'creator', 'index');
     }
 
     /**

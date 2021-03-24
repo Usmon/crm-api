@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Helpers\Json;
+
 use App\Traits\Sort\Sorter;
 
 use Illuminate\Support\Carbon;
@@ -32,6 +34,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property int $status_id
  *
  * @property int $sender_id
+ *
+ * @property float $price
+ *
+ * @property Json $type
  *
  * @property int $driver_id
  *
@@ -105,33 +111,6 @@ final class Pickup extends Model
 
         'deleted_by',
     ];
-
-//    /**
-//     * @var array
-//     */
-//    protected $casts = [
-//        'id' => 'integer',
-//
-//        'pickup_datetime_start' => 'datetime',
-//
-//        'pickup_datetime_end' => 'datetime',
-//
-//        'status_id' => 'integer',
-//
-//        'sender_id' => 'integer',
-//
-//        'driver_id' => 'integer',
-//
-//        'creator_id' => 'integer',
-//
-//        'created_at' => 'datetime',
-//
-//        'updated_at' => 'datetime',
-//
-//        'deleted_at' => 'datetime',
-//
-//        'deleted_by' => 'integer'
-//    ];
 
     const STATUSES = [
         'pending',
@@ -253,7 +232,14 @@ final class Pickup extends Model
      */
     public function getSenderPhoneAttribute(): array
     {
-        return collect($this->sender->customer->user()->get()->first()->phones()->latest('id')->limit(3)->get(['phone'])
+        return collect($this->sender->customer
+            ->user()
+            ->get()
+            ->first()
+            ->phones()
+            ->latest('id')
+            ->limit(3)
+            ->get(['phone'])
             ->toArray())
             ->flatten()
             ->all();
@@ -300,16 +286,16 @@ final class Pickup extends Model
     {
         return $query->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
-        })->when($filters['pickup_datetime_start'] ?? null, function (Builder $query, array $pickupDatetimeStart){
-            return $query->whereBetween('pickup_datetime_start', $pickupDatetimeStart);
+        })->when($filters['pickup_datetime_start'] ?? null, function (Builder $query, array $pickupDatetimeStart) {
+            return $query->whereBetween('type->date->from', $pickupDatetimeStart);
         })->when($filters['pickup_datetime_end'] ?? null, function (Builder $query, array $pickupDatetimeEnd) {
-            return $query->whereBetween('pickup_datetime_end', $pickupDatetimeEnd);
+            return $query->whereBetween('type->date->to', $pickupDatetimeEnd);
         })->when($filters['status'] ?? null, function (Builder $query, string $status) {
             return $query->whereHas('status', function (Builder $query) use ($status) {
-                return $query->where('model', 'like', '%'. $status .'%')
-                    ->orWhere('key', 'like', '%'. $status .'%')
-                    ->orWhere('value', 'like', '%'. $status .'%')
-                    ->orWhere('parameters', 'like', '%'. $status .'%');
+                return $query->where('model', 'like', '%' . $status . '%')
+                    ->orWhere('key', 'like', '%' . $status . '%')
+                    ->orWhere('value', 'like', '%' . $status . '%')
+                    ->orWhere('parameters', 'like', '%' . $status . '%');
             });
         })->when($filters['sender_id'] ?? null, function (Builder $query, int $senderId) {
             return $query->where('sender_id', '=', $senderId);
@@ -321,20 +307,22 @@ final class Pickup extends Model
                return $query->whereHas('customer', function (Builder $query) use ($sender) {
                    return $query->whereHas('user', function (Builder $query) use ($sender) {
                          return $query->whereHas('phones', function (Builder $query) use ($sender) {
-                             return $query->where('phone', 'like', '%'. $sender .'%');
-                         })->orWhere('login', 'like', '%'. $sender .'%')
-                           ->orWhere('email', 'like', '%'. $sender .'%')
-                           ->orWhere('profile', 'like', '%'. $sender .'%');
+                             return $query->where('phone', 'like', '%' . $sender . '%');
+                         })->orWhere('login', 'like', '%' . $sender . '%')
+                           ->orWhere('email', 'like', '%' . $sender . '%')
+                           ->orWhere('profile', 'like', '%' . $sender . '%');
                    });
                });
         })->when($filters['driver'] ?? null, function (Builder $query, string $driver) {
             return $query->whereHas('driver', function (Builder $query) use ($driver) {
                 return $query->whereHas('user', function (Builder $query) use ($driver) {
                     return $query->whereHas('phones', function (Builder $query) use ($driver) {
-                        return $query->where('phone', 'like', '%'. $driver .'%');
+                        return $query->where('phone', 'like', '%' . $driver . '%');
                     });
                 });
             });
+        })->when($filters['index'] ?? null, function (Builder $query, string $index) {
+            return $query->where('type->index', 'like', '%' . $index . '%');
         });
     }
 }
