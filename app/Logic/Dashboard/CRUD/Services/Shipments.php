@@ -198,7 +198,7 @@ final class Shipments
         return [
             'name' => $request->json('name'),
 
-            'status' => $request->json('status'),
+            'boxes' => $request->json('boxes'),
         ];
     }
 

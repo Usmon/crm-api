@@ -6,6 +6,8 @@ use App\Models\Shipment;
 
 use Illuminate\Support\Carbon;
 
+use Illuminate\Support\Facades\Auth;
+
 final class ShipmentObserver
 {
     /**
@@ -50,6 +52,10 @@ final class ShipmentObserver
         $shipment->updated_at = $shipment->updated_at ?? Carbon::now();
 
         $shipment->deleted_at = $shipment->deleted_at ?? null;
+
+        $shipment->status_id = $shipment->status_id ?? 17;
+
+        $shipment->creator_id = $shipment->creator_id ?? Auth::id();
     }
 
     /**

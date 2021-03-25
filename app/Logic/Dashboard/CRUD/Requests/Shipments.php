@@ -73,26 +73,18 @@ final class Shipments extends FormRequest
                     'string',
                 ],
 
-                'status' => [
-                    'required',
-
-                    'in:pending,shipping,shipped',
-
-                    'max:255',
-                ],
-
-                'permissions' => [
+                'boxes' => [
                     'required',
 
                     'array',
                 ],
 
-                'permissions.*' => [
+                'boxes.*' => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('permissions', 'id'),
+                    Rule::exists('boxes', 'id'),
                 ],
             ],
 
@@ -103,24 +95,18 @@ final class Shipments extends FormRequest
                     'string',
                 ],
 
-                'status' => [
-                    'required',
-
-                    'in:pending,shipping,shipped',
-                ],
-
-                'permissions' => [
+                'boxes' => [
                     'required',
 
                     'array',
                 ],
 
-                'permissions.*' => [
+                'boxes.*' => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('permissions', 'id'),
+                    Rule::exists('boxes', 'id'),
                 ],
             ],
         ];

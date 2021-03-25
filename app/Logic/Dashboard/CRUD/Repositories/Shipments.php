@@ -2,6 +2,7 @@
 
 namespace App\Logic\Dashboard\CRUD\Repositories;
 
+use App\Models\Box;
 use Exception;
 
 use App\Models\Shipment;
@@ -17,7 +18,7 @@ final class Shipments
      *
      * @return Paginator
      */
-    public function getShipments(array $filters, array $sorts):Paginator
+    public function getShipments(array $filters, array $sorts): Paginator
     {
         return Shipment::filter($filters)->sort($sorts)->pager();
     }
@@ -30,6 +31,8 @@ final class Shipments
     public function storeShipment(array $credentials): Shipment
     {
         $shipment = Shipment::create($credentials);
+
+        self::attachBoxes($credentials['boxes'], $shipment->id);
 
         return $shipment;
     }
@@ -63,5 +66,15 @@ final class Shipments
         }
 
         return true;
+    }
+
+    public function attachBoxes(array $boxesId, $shipmentId)
+    {
+        foreach ($boxesId as $id)
+        {
+            Box::find($id)->update([
+                'shipment_id' => $shipmentId,
+            ]);
+        }
     }
 }
