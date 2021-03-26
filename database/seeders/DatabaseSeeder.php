@@ -13,7 +13,7 @@ final class DatabaseSeeder extends Seeder
     {
         $this->call(RoleSeeder::class);
 
-        $this->call(RegionSeeder::class);
+        $this->call(CountrySeeder::class);
 
         $this->call(PartnerSeeder::class);
 

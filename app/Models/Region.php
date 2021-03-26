@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\Sort\Sorter;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
+
 use Illuminate\Support\Carbon;
 
 use App\Traits\Pagination\Pager;
@@ -24,7 +25,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property integer $id
  *
+ * @property integer $country_id
+ *
  * @property string $name
+ *
+ * @property string $code
  *
  * @property string $zip_code
  *
@@ -63,6 +68,10 @@ final class Region extends Model
         'name',
 
         'zip_code',
+
+        'code',
+
+        'country_id'
     ];
 
     /**
@@ -71,7 +80,11 @@ final class Region extends Model
     protected $casts = [
         'name' => 'string',
 
+        'code' => 'string',
+
         'zip_code' => 'string',
+
+        'country_id' => 'int'
     ];
 
     /**
