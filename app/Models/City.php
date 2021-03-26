@@ -29,6 +29,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property string $name
  *
+ * @property array $codes
+ *
  * @property Carbon|null $created_at
  *
  * @property Carbon|null $updated_at
@@ -68,8 +70,9 @@ final class City extends Model
         'region_id',
 
         'name',
-    ];
 
+        'codes'
+    ];
 
     /**
      * @var array
@@ -80,6 +83,8 @@ final class City extends Model
         'region_id' => 'integer',
 
         'name' => 'string',
+
+        'codes' => 'array',
 
         'created_at' => 'datetime',
 
@@ -141,6 +146,8 @@ final class City extends Model
                return $query->where('name','like','%'. $region .'%')
                    ->orWhere('zip_code','like','%'. $region .'%');
             });
+        })->when($filters['code'] ?? null, function (Builder $query, int $code) {
+            return $query->whereJsonContains('codes', $code);
         });
     }
 }

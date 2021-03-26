@@ -20,13 +20,13 @@ final class Cities
         return [
             'search' => $request->json('search'),
 
-            'date' => $request->json('date'),
-
             'region_id' => $request->json('region_id'),
+
+            'region' => $request->json('region'),
 
             'name' => $request->json('name'),
 
-            'region' => $request->json('region'),
+            'code' => $request->json('code')
         ];
     }
 
@@ -37,7 +37,7 @@ final class Cities
      */
     public function getOnlyFilters(CitiesRequest $request): array
     {
-        return $request->only('search', 'date', 'region_id', 'name', 'region');
+        return $request->only('search', 'region', 'region_id', 'name', 'code');
     }
 
     /**
@@ -71,17 +71,15 @@ final class Cities
             return [
                 'id' => $city->id,
 
-                'region_id' => $city->region_id,
+                'region' => [
+                    'id' => $city->region->id,
+
+                    'name' => $city->region->name,
+                ],
 
                 'name' => $city->name,
 
-                'created_at' => $city->created_at,
-
-                'updated_at' => $city->updated_at,
-
-                'region' => $city->region,
-
-                'addresses' => $city->addresses,
+                'codes' => $city->codes
             ];
         });
 
