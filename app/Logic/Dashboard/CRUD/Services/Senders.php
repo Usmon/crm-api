@@ -161,7 +161,7 @@ final class Senders
      */
     public function getOnlyPhone(SendersRequest $request): string
     {
-        return $request->json('phone');
+        return $request->get('phone');
     }
 
     /**
