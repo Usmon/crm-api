@@ -48,6 +48,10 @@ final class Shipments
     {
         $shipment->update($credentials);
 
+        self::removeBoxes($shipment->id);
+
+        self::attachBoxes($credentials['boxes'], $shipment->id);
+
         return $shipment;
     }
 
@@ -68,7 +72,11 @@ final class Shipments
         return true;
     }
 
-    public function attachBoxes(array $boxesId, $shipmentId)
+    /**
+     * @param array $boxesId
+     * @param $shipmentId
+     */
+    public function attachBoxes(array $boxesId, int $shipmentId): void
     {
         foreach ($boxesId as $id)
         {
@@ -76,5 +84,15 @@ final class Shipments
                 'shipment_id' => $shipmentId,
             ]);
         }
+    }
+
+    /**
+     * @param int $shipmentId
+     */
+    public function removeBoxes(int $shipmentId): void
+    {
+         Box::where('shipment_id', '=', $shipmentId)->update([
+             'shipment_id' => null,
+         ]);
     }
 }
