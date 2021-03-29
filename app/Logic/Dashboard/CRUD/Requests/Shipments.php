@@ -89,6 +89,14 @@ final class Shipments extends FormRequest
             ],
 
             'dashboard.shipments.shipment.update' => [
+                'status_id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('statuses', 'id'),
+                ],
+
                 'name' => [
                     'required',
 

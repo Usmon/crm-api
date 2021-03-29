@@ -49,7 +49,11 @@ final class CreateBoxItemsTable extends Migration
         });
 
         Schema::table($this->table, function (Blueprint $table){
-            $table->foreign('box_id')->references('id')->on('boxes')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('box_id')
+                ->references('id')
+                ->on('boxes')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

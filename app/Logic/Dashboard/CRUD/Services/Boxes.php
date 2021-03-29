@@ -83,31 +83,37 @@ final class Boxes
             return [
                 'id' => $box->id,
 
-                'pickup_id' => $box->pickup_id,
+                'creator' => [
+                    'id' => $box->creator->id,
 
-                'order_id' => $box->order_id,
+                    'image' => $box->creator['profile']['photo'],
 
-                'status_id' => $box->status_id,
+                    'name' => $box->creator->full_name,
+                ],
 
-                'weight' => $box->weight,
+                'customer' => [
+                    'id' => $box->order->sender->id,
 
-                'additional_weight' => $box->additional_weight,
+                    'image' => $box->order->sender->customer->user['profile']['photo'],
 
-                'box_image' => $box->box_image,
+                    'name' => $box->order->sender->customer->user->full_name,
+                ],
 
-                'delivery_id' => $box->delivery_id,
+                'total_products' => $box->items()->count(),
+
+                'total_price' => $box->items()->sum('price'),
+
+                'total_weight' =>
+                    $box->items()->where('type_weight', '=', 'lb')->sum('weight')
+                    . 'lb ' .
+                    $box->items()->where('type_weight', '=', 'kg')->sum('weight')
+                    .'kg',
+
+                'status' => $box->status->for_color,
 
                 'created_at' => $box->created_at,
 
                 'updated_at' => $box->updated_at,
-
-                'pickup' => $box->pickup,
-
-                'status' => $box->status,
-
-                'delivery' => $box->delivery,
-
-                'order' => $box->order
             ];
         });
 

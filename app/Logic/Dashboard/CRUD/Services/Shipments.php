@@ -210,9 +210,11 @@ final class Shipments
     public function updateCredentials(ShipmentsRequest $request): array
     {
         $credentials = [
+            'status_id' => $request->json('status_id'),
+
             'name' => $request->json('name'),
 
-            'status' => $request->json('status'),
+            'boxes' => $request->json('boxes'),
         ];
 
         return $credentials;
