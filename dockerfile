@@ -4,6 +4,8 @@ USER root
 
 WORKDIR /var/www/html
 
+COPY . .
+
 RUN apt-get update && apt-get install -y \
         libpng-dev \
         zlib1g-dev \
@@ -16,8 +18,9 @@ RUN apt-get update && apt-get install -y \
         unzip \
     && docker-php-ext-configure gd \
     && docker-php-ext-install -j$(nproc) gd \
-    && docker-php-ext-install pdo_pgsql \
-    && docker-php-ext-install pgsql \
+    && docker-php-ext-install pdo \
+    && docker-php-ext-install pdo_mysql \
+    && docker-php-ext-install mysqli \
     && docker-php-ext-install zip \
     && docker-php-source delete
 
@@ -25,9 +28,8 @@ COPY vhost.conf /etc/apache2/sites-available/000-default.conf
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-COPY . .
-
 RUN composer install
 
 RUN chown -R www-data:www-data /var/www/html \
+    && php artisan storage:link \
     && a2enmod rewrite
