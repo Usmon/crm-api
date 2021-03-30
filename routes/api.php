@@ -172,6 +172,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
         Route::apiResource('sender', DashboardSendersController::class);
 
         Route::get('phone-check', [DashboardSendersController::class, 'senderPhoneCheck'])->name('phone.check');
+
+        Route::get('phone-search', [DashboardSendersController::class, 'phoneSearch'])->name('phone.search');
     });
 
     Route::group(['prefix' => 'recipients', 'as' => 'recipients.'], function() {
