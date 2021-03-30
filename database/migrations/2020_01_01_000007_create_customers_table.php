@@ -21,7 +21,7 @@ final class CreateCustomersTable extends Migration
         Schema::create($this->table, function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->unique();
 
             $table->unsignedBigInteger('creator_id');
 

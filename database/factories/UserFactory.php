@@ -4,6 +4,8 @@ namespace Database\Factories;
 
 use App\Models\User;
 
+use App\Models\Partner;
+
 use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -30,12 +32,14 @@ final class UserFactory extends Factory
             'profile' => [
                 'first_name' => $this->faker->firstName,
 
-                'middle_name' => $this->faker->domainName,
+                'middle_name' => $this->faker->lastName,
 
                 'last_name' => $this->faker->lastName,
 
-                'photo' => null,
+                'photo' => $this->faker->imageUrl(500, 500),
             ],
+
+            'partner_id' => Partner::all('id')->random()
         ];
     }
 }

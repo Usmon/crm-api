@@ -27,11 +27,11 @@ final class CustomerFactory extends Factory
         $users = User::all();
 
         return [
-            'user_id' => $users->random(),
+            'user_id' => $this->faker->unique()->numberBetween($users->first()->id, $users->last()->id),
 
             'creator_id' => $users->random(),
 
-            'passport' => $this->faker->text(),
+            'passport' => $this->faker->unique()->bothify('?? #######'),
 
             'birth_date' => Date::create(random_int(1950,2000), random_int(1,12), random_int(1,27)),
 

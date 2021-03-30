@@ -29,7 +29,7 @@ final class SenderFactory extends Factory
         $customers = Customer::all();
 
         return [
-            'customer_id' => $customers->random(),
+            'customer_id' => $this->faker->unique()->numberBetween($customers->first()->id, $customers->last()->id)
         ];
     }
 }
