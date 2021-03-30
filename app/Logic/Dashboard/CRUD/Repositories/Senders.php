@@ -6,6 +6,8 @@ use App\Models\Sender;
 
 use Illuminate\Contracts\Pagination\Paginator;
 
+use Illuminate\Database\Eloquent\Collection;
+
 final class Senders
 {
     /**
@@ -25,9 +27,7 @@ final class Senders
      */
     public function storeSender(array $credentials): Sender
     {
-        $order = Sender::create($credentials);
-
-        return $order;
+        return Sender::create($credentials);
     }
 
     /**
@@ -45,7 +45,7 @@ final class Senders
     }
 
     /**
-     * @param $id
+     * @param int $id
      *
      * @return int
      */
@@ -62,5 +62,15 @@ final class Senders
     public function checkPhone(string $phone): Sender
     {
         return Sender::filter(['customer' => $phone])->first();
+    }
+
+    /**
+     * @param string $phone
+     *
+     * @return Collection
+     */
+    public function searchByPhone(string $phone): Collection
+    {
+        return Sender::filterPhone($phone)->get();
     }
 }
