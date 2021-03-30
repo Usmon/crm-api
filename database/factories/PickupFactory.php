@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\Sender;
+
 use App\Models\Status;
 
 use App\Models\User;
 
 use App\Models\Driver;
-
-use App\Models\Customer;
 
 use App\Models\Pickup;
 
@@ -28,7 +28,7 @@ final class PickupFactory extends Factory
     {
         $users = User::all();
 
-        $customers = Customer::all();
+        $senders = Sender::all();
 
         $drivers = Driver::all();
 
@@ -48,7 +48,7 @@ final class PickupFactory extends Factory
 
             'status_id' => $statuses->random(),
 
-            'sender_id' => $customers->random(),
+            'sender_id' => $senders->random(),
 
             'driver_id' => $drivers->random(),
 

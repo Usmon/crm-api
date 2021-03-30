@@ -21,7 +21,7 @@ final class CreateSendersTable extends Migration
         Schema::create($this->table, function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('customer_id')->unique();
 
             $table->timestamp('created_at')->nullable();
 

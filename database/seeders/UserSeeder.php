@@ -3,7 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\Partner;
+
 use App\Models\User;
+
+use App\Models\Phone;
 
 use Illuminate\Database\Seeder;
 
@@ -34,6 +37,22 @@ final class UserSeeder extends Seeder
             ],
 
             'partner_id' => Partner::all('id')->random()
-        ]);
+        ])->each(function (User $user) {
+            $this->phoneCreate($user);
+        });
+
+        User::factory()->times(200)->create()->each(function (User $user) {
+            $this->phoneCreate($user);
+        });
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return void
+     */
+    private function phoneCreate(User $user): void
+    {
+        $user->phones()->saveMany(Phone::factory()->times(5)->create());
     }
 }

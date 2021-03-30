@@ -38,6 +38,8 @@ use Ramsey\Collection\Collection;
  *
  * @method static Builder|self filter(array $filters)
  *
+ * @method static Builder|self filterPhone(string $phone)
+ *
  * @mixin Model
  */
 final class Sender extends Model
@@ -117,6 +119,26 @@ final class Sender extends Model
                         ->orWhere('profile', 'like', '%' . $customer . '%');
                 })->orWhere('passport', 'like', '%' . $customer . '%')
                     ->orWhere('note', 'like', '%' . $customer . '%');
+            });
+        });
+    }
+
+    /**
+     * @param Builder $query
+     *
+     * @param string $phone
+     *
+     * @return Builder
+     */
+    public function scopeFilterPhone(Builder $query, string $phone): Builder
+    {
+        return $query->when($phone ?? null, function (Builder $query, string $phone) {
+            return $query->whereHas('customer', function (Builder $query) use ($phone) {
+                $query->whereHas('user', function (Builder $query) use ($phone) {
+                    $query->whereHas('phones', function (Builder $query) use ($phone) {
+                        return $query->where('phone', 'like', '%'. $phone .'%');
+                    });
+                });
             });
         });
     }

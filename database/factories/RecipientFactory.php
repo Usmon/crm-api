@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
+use App\Models\Customer;
 
 use App\Models\Recipient;
 
@@ -20,7 +20,7 @@ final class RecipientFactory extends Factory
      */
     public function definition(): array
     {
-        $users = User::all();
+        $users = Customer::all();
 
         return [
             'customer_id' => $users->random(),

@@ -13,6 +13,6 @@ final class SenderSeeder extends Seeder
      */
     public function run(): void
     {
-        Sender::factory()->times(100)->create();
+        Sender::factory()->times(10)->create();
     }
 }
