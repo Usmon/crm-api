@@ -98,6 +98,8 @@ use App\Http\Controllers\Password\Forgot as PasswordForgotController;
 
 use App\Http\Controllers\Password\Reset as PasswordResetController;
 
+use App\Http\Controllers\Dashboard\Country\Controller as DashboardCountryController;
+
 use App\Http\Controllers\Dashboard\Cities\Controller as DashboardCitiesController;
 
 use App\Http\Controllers\Dashboard\Regions\Controller as DashboardRegionsController;
@@ -299,6 +301,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
     Route::apiResource('products', DashboardProductsController::class);
 
     Route::apiResource('drivers', DashboardDriversController::class);
+
+    Route::get('countries', [DashboardCountryController::class, 'index']);
 
     Route::apiResource('cities', DashboardCitiesController::class);
 
