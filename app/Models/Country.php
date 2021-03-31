@@ -13,6 +13,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @package App\Models
  *
+ * @property string $code
+ *
+ * @property string $name
+ *
+ * @property int $id
+ *
  * @mixin Builder
  */
 final class Country extends Model
