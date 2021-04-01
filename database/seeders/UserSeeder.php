@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Address;
+
 use App\Models\Partner;
 
 use App\Models\User;
@@ -39,10 +41,14 @@ final class UserSeeder extends Seeder
             'partner_id' => Partner::all('id')->random()
         ])->each(function (User $user) {
             $this->phoneCreate($user);
+
+            $this->addressCreate($user);
         });
 
         User::factory()->times(200)->create()->each(function (User $user) {
             $this->phoneCreate($user);
+
+            $this->addressCreate($user);
         });
     }
 
@@ -54,5 +60,15 @@ final class UserSeeder extends Seeder
     private function phoneCreate(User $user): void
     {
         $user->phones()->saveMany(Phone::factory()->times(5)->create());
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return void
+     */
+    private function addressCreate(User $user): void
+    {
+        $user->addresses()->saveMany(Address::factory()->times(1)->create());
     }
 }
