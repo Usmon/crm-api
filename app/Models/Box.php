@@ -189,15 +189,15 @@ final class Box extends Model
     /**
      * @return int
      */
-    public function getTotalProductsAttribute(): int
+    public function getTotalProductsAttribute(): float
     {
         return $this->items()->count();
     }
 
     /**
-     * @return int
+     * @return float
      */
-    public function getTotalPriceAttribute(): int
+    public function getTotalPriceAttribute(): float
     {
         return $this->items()->sum('price');
     }
@@ -210,6 +210,9 @@ final class Box extends Model
         return $this->hasOne(User::class, 'id', 'creator_id');
     }
 
+    /**
+     * @return float
+     */
     public function getTotalWeightAttribute(): float
     {
         return $this->weight;
@@ -252,7 +255,7 @@ final class Box extends Model
         })->when($filters['pickup_id'] ?? null, function (Builder $query, int $pickupId){
             return $query->where('box_id', '=', $pickupId);
         })->when($filters['status_id'] ?? null, function (Builder $query, int $customerId){
-            return $query->where('customer_id', '=', $customerId);
+            return $query->where('status_id', '=', $customerId);
         })->when($filters['delivery_id'] ?? null, function (Builder $query, int $customerId){
             return $query->where('customer_id', '=', $customerId);
         })->when($filters['status'] ?? null, function (Builder $query, string $status){

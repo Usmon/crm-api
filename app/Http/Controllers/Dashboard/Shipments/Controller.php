@@ -65,7 +65,6 @@ final class Controller extends Controllers
 
     /**
      * @param ShipmentsRequest $request
-     *
      * @return JsonResponse
      */
     public function store(ShipmentsRequest $request): JsonResponse

@@ -116,4 +116,13 @@ class BoxObserver
         // $orderObserver->afterAddedOrUpdatedOrDeletedBoxProperties($order);
     }
 
+    public function afterAddedOrUpdatedOrDeletedBoxItemProperties(int $id): void
+    {
+        $box = Box::find($id);
+
+        $box->update([
+            'weight' => $box->items()->sum('weight'),
+        ]);
+    }
+
 }

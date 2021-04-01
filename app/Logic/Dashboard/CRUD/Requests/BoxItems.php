@@ -22,7 +22,7 @@ final class BoxItems extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'dashboard.box-items.index' => [
+            'dashboard.boxes.items.index' => [
                 'search' => [
                     'nullable',
 
@@ -76,7 +76,7 @@ final class BoxItems extends FormRequest
                 ]
             ],
 
-            'dashboard.box-items.store' => [
+            'dashboard.boxes.items.store' => [
                 'box_id' => [
                     'required',
 
@@ -144,7 +144,7 @@ final class BoxItems extends FormRequest
                 ],
             ],
 
-            'dashboard.box-items.update' => [
+            'dashboard.boxes.items.update' => [
                 'box_id' => [
                     'required',
 

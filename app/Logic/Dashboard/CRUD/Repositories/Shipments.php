@@ -2,8 +2,9 @@
 
 namespace App\Logic\Dashboard\CRUD\Repositories;
 
-use App\Models\Box;
 use Exception;
+
+use App\Models\Box;
 
 use App\Models\Shipment;
 
