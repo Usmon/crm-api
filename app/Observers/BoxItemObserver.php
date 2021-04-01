@@ -2,8 +2,6 @@
 
 namespace App\Observers;
 
-use App\Models\Box;
-
 use App\Models\BoxItem;
 
 use Illuminate\Support\Carbon;
@@ -48,6 +46,30 @@ class BoxItemObserver
     public function restoring(BoxItem $boxItem): void
     {
         $boxItem->deleted_at = null;
+    }
+
+    /**
+     * @param BoxItem $boxItem
+     */
+    public function created(BoxItem $boxItem): void
+    {
+        (new BoxObserver())->afterAddedOrUpdatedOrDeletedBoxItemProperties($boxItem->box_id);
+    }
+
+    /**
+     * @param BoxItem $boxItem
+     */
+    public function updated(BoxItem $boxItem): void
+    {
+        (new BoxObserver())->afterAddedOrUpdatedOrDeletedBoxItemProperties($boxItem->box_id);
+    }
+
+    /**
+     * @param BoxItem $boxItem
+     */
+    public function deleted(BoxItem $boxItem): void
+    {
+        (new BoxObserver())->afterAddedOrUpdatedOrDeletedBoxItemProperties($boxItem->box_id);
     }
 
     /**
