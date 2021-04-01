@@ -7,6 +7,7 @@ use App\Models\Sender;
 use Illuminate\Contracts\Pagination\Paginator;
 
 use App\Logic\Dashboard\CRUD\Requests\Senders as SendersRequest;
+
 use Illuminate\Support\Collection;
 
 final class Senders
@@ -136,15 +137,15 @@ final class Senders
      *
      * @return Collection
      */
-    public function getPhones(Collection $senders): Collection
+    public function getPhones(Collection $senders, string $phone): Collection
     {
-        return $senders->transform(function (Sender $sender) {
+        return $senders->transform(function (Sender $sender) use($phone) {
             return [
                 'id' => $sender->id,
 
                 'full_name' => $sender->customer->user->full_name,
 
-                'phone' => $sender->customer->user->phones->first()->phone ?? ''
+                'phone' => $sender->getPhone($phone)
             ];
         });
     }

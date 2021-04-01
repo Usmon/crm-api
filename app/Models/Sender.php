@@ -142,4 +142,14 @@ final class Sender extends Model
             });
         });
     }
+
+    /**
+     * @param string $phone
+     *
+     * @return string
+     */
+    public function getPhone(string $phone): string
+    {
+        return $this->customer->user->phones()->where('phone', 'like', '%'.$phone.'%')->first()->phone;
+    }
 }

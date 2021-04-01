@@ -82,7 +82,7 @@ final class Controller extends Controllers
     public function phoneSearch(SendersRequest $request): JsonResponse
     {
         return Json::sendJsonWith200([
-            'phones' => $this->service->getPhones($this->repository->searchByPhone($this->service->getOnlyPhone($request)))
+            'phones' => $this->service->getPhones($this->repository->searchByPhone($this->service->getOnlyPhone($request)), $this->service->getOnlyPhone($request))
         ]);
     }
 
