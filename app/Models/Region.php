@@ -88,6 +88,14 @@ final class Region extends Model
     ];
 
     /**
+     * @return BelongsTo
+     */
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    /**
      * @return HasMany
      */
     public function cities(): HasMany
@@ -130,6 +138,10 @@ final class Region extends Model
                 return $query->where('name', 'like', '%'. $name .'%');
         })->when($filters['zip_code'] ?? null, function (Builder $query, string $zipCode) {
             return $query->where('zip_code', 'like', '%' . $zipCode . '%');
+        })->when($filters['country_code'] ?? null, function(Builder $query, string $code) {
+            return $query->whereHas('country', function(Builder $query) use ($code) {
+                return $query->where('code', '=', $code);
+            });
         });
     }
 }
