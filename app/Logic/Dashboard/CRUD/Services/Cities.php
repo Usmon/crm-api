@@ -4,9 +4,9 @@ namespace App\Logic\Dashboard\CRUD\Services;
 
 use App\Models\City;
 
-use Illuminate\Contracts\Pagination\Paginator;
-
 use App\Logic\Dashboard\CRUD\Requests\Cities as CitiesRequest;
+
+use Illuminate\Database\Eloquent\Collection;
 
 final class Cities
 {
@@ -61,21 +61,15 @@ final class Cities
     }
 
     /**
-     * @param Paginator $paginator
+     * @param Collection $cities
      *
-     * @return Paginator
+     * @return Collection
      */
-    public function getCities(Paginator $paginator): Paginator
+    public function getCities(Collection $cities): Collection
     {
-        $paginator->getCollection()->transform(function (City $city) {
+        $cities->transform(function (City $city) {
             return [
                 'id' => $city->id,
-
-                'region' => [
-                    'id' => $city->region->id,
-
-                    'name' => $city->region->name,
-                ],
 
                 'name' => $city->name,
 
@@ -83,7 +77,7 @@ final class Cities
             ];
         });
 
-        return $paginator;
+        return $cities;
     }
 
     /**

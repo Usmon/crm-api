@@ -4,7 +4,7 @@ namespace App\Logic\Dashboard\CRUD\Repositories;
 
 use App\Models\City;
 
-use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Database\Eloquent\Collection;
 
 final class Cities
 {
@@ -13,11 +13,11 @@ final class Cities
      *
      * @param array $sorts
      *
-     * @return Paginator
+     * @return Collection
      */
-    public function getCities(array $filters, array $sorts): Paginator
+    public function getCities(array $filters, array $sorts): Collection
     {
-        return City::filter($filters)->sort($sorts)->pager();
+        return City::filter($filters)->sort($sorts)->get();
     }
 
     /**

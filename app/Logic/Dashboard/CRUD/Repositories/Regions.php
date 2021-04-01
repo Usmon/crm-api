@@ -4,7 +4,7 @@ namespace App\Logic\Dashboard\CRUD\Repositories;
 
 use App\Models\Region;
 
-use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Database\Eloquent\Collection;
 
 final class Regions
 {
@@ -13,11 +13,11 @@ final class Regions
      *
      * @param array $sorts
      *
-     * @return Paginator
+     * @return Collection
      */
-    public function getRegions(array $filters, array $sorts): Paginator
+    public function getRegions(array $filters, array $sorts): Collection
     {
-        return Region::filter($filters)->sort($sorts)->pager();
+        return Region::filter($filters)->sort($sorts)->get();
     }
 
     /**
@@ -27,9 +27,7 @@ final class Regions
      */
     public function storeRegion(array $credentials): Region
     {
-        $region = Region::create($credentials);
-
-        return $region;
+        return Region::create($credentials);
     }
 
     /**
@@ -51,7 +49,7 @@ final class Regions
      *
      * @return int
      */
-    public function deleteRegion($id)
+    public function deleteRegion($id): int
     {
         return Region::destroy($id);
     }

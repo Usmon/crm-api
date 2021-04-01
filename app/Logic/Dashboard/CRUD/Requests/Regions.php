@@ -64,6 +64,14 @@ final class Regions extends FormRequest
 
                     'string',
                 ],
+
+               'country_code' => [
+                   'nullable',
+
+                   'string',
+
+                   Rule::exists('countries', 'code')
+               ]
             ],
 
             'dashboard.regions.store' => [

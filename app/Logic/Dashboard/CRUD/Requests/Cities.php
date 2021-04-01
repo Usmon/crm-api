@@ -54,7 +54,7 @@ final class Cities extends FormRequest
                 ],
 
                 'region_id' => [
-                    'nullable',
+                    'required',
 
                     'integer',
 

@@ -4,9 +4,9 @@ namespace App\Logic\Dashboard\CRUD\Services;
 
 use App\Models\Region;
 
-use Illuminate\Contracts\Pagination\Paginator;
-
 use App\Logic\Dashboard\CRUD\Requests\Regions as RegionsRequest;
+
+use Illuminate\Database\Eloquent\Collection;
 
 final class Regions
 {
@@ -25,6 +25,8 @@ final class Regions
             'name' => $request->json('name'),
 
             'zip_code' => $request->json('zip_code'),
+
+            'country_code' => $request->json('country_code')
         ];
     }
 
@@ -35,7 +37,7 @@ final class Regions
      */
     public function getOnlyFilters(RegionsRequest $request): array
     {
-        return $request->only('search', 'date','name','zip_code');
+        return $request->only('search', 'date','name','zip_code', 'country_code');
     }
 
     /**
@@ -59,29 +61,23 @@ final class Regions
     }
 
     /**
-     * @param Paginator $paginator
+     * @param Collection $items
      *
-     * @return Paginator
+     * @return Collection
      */
-    public function getRegions(Paginator $paginator): Paginator
+    public function getRegions(Collection $items): Collection
     {
-        $paginator->getCollection()->transform(function (Region $region) {
+        $items->transform(function (Region $region) {
             return [
                 'id' => $region->id,
 
-                'name' => $region->name,
+                'label' => $region->name,
 
-                'zip_code' => $region->zip_code,
-
-                'created_at' => $region->created_at,
-
-                'updated_at' => $region->updated_at,
-
-                'cities' => $region->cities,
+                'value' => $region->name,
             ];
         });
 
-        return $paginator;
+        return $items;
     }
 
     /**
