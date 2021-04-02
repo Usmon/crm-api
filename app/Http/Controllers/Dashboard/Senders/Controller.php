@@ -70,8 +70,10 @@ final class Controller extends Controllers
     public function senderPhoneCheck(SendersRequest $request): JsonResponse
     {
         return Json::sendJsonWith200([
-            'sender' => $this->service->showSenderPhone($this->repository->checkPhone($this->service->getOnlyPhone($request))),
-        ]);
+            'sender' => $this->service->showSenderPhone(
+                    $this->repository->checkPhone($this->service->getOnlyPhone($request)),
+                    $this->service->getOnlyPhone($request)
+        )]);
     }
 
     /**

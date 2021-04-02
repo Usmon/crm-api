@@ -107,16 +107,18 @@ final class Senders
     /**
      * @param Sender $sender
      *
+     * @param string $phone
+     *
      * @return array
      */
-    public function showSenderPhone(Sender $sender): array
+    public function showSenderPhone(Sender $sender, string $phone): array
     {
         return [
             'id' => $sender->id,
 
             'sender_full_name' => $sender->customer->user->full_name,
 
-            'sender_phone' => $sender->customer->user->phones()->first()->phone,
+            'sender_phone' => $sender->customer->user->phones()->where('phone', '=', $phone)->first()->phone,
 
             'sender_email' => $sender->customer->user->email,
 
