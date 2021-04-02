@@ -303,22 +303,24 @@ final class Pickup extends Model
             return $query->where('driver_id', '=', $driverId);
         })->when($filters['creator_id'] ?? null, function (Builder $query, int $creatorId) {
             return $query->where('creator_id', '=', $creatorId);
-        })->when($filters['sender'] ?? null, function (Builder $query, string $sender) {
-               return $query->whereHas('customer', function (Builder $query) use ($sender) {
-                   return $query->whereHas('user', function (Builder $query) use ($sender) {
-                         return $query->whereHas('phones', function (Builder $query) use ($sender) {
-                             return $query->where('phone', 'like', '%' . $sender . '%');
-                         })->orWhere('login', 'like', '%' . $sender . '%')
-                           ->orWhere('email', 'like', '%' . $sender . '%')
-                           ->orWhere('profile', 'like', '%' . $sender . '%');
-                   });
-               });
+        })->when($filters['sender'] ?? null, function (Builder $query, string $driver) {
+            return $query->whereHas('sender', function (Builder $query) use ($driver) {
+                return $query->whereHas('customer', function (Builder $query) use ($driver) {
+                    return $query->whereHas('user', function (Builder $query) use ($driver) {
+                        return $query->whereHas('phones', function (Builder $query) use ($driver) {
+                            return $query->where('phone', 'like', '%' . $driver . '%');
+                        })->orWhere('email', 'like', '%' . $driver .'%')
+                            ->orWhere('profile', 'like', '%' . $driver . '%');
+                    });
+                });
+            });
         })->when($filters['driver'] ?? null, function (Builder $query, string $driver) {
             return $query->whereHas('driver', function (Builder $query) use ($driver) {
                 return $query->whereHas('user', function (Builder $query) use ($driver) {
                     return $query->whereHas('phones', function (Builder $query) use ($driver) {
                         return $query->where('phone', 'like', '%' . $driver . '%');
-                    });
+                    })->orWhere('email', 'like', '%' . $driver .'%')
+                        ->orWhere('profile', 'like', '%' . $driver . '%');
                 });
             });
         })->when($filters['index'] ?? null, function (Builder $query, string $index) {
