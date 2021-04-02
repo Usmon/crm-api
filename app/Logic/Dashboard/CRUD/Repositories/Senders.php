@@ -61,7 +61,7 @@ final class Senders
      */
     public function checkPhone(string $phone): Sender
     {
-        return Sender::filter(['customer' => $phone])->first();
+        return Sender::filterPhone($phone)->first();
     }
 
     /**
