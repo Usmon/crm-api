@@ -3,7 +3,7 @@
 This project of API for Silkroad express company. <a href="https://laravel.com/docs/8.x" target="_blank">Framework Laravel 8x</a>
 <br />
 If you want to be notified for deployment, just join to our telegram group: <a href="https://t.me/joinchat/F0SDFliVxiagsLZpmakOBA" target="_blank">Silkroad Telegram Group</a>
-
+ 
 ## Technical requirements
 1. PHP 7.3
 2. MySQL 5.6 / Recommended version 8x
