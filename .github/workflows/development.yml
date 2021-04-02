@@ -6,23 +6,71 @@ on:
 
 jobs:
   deploy:
-    name: silkroad-api deployment
+    name: sr-api deploy
     runs-on: ubuntu-latest
+    
+    env:
+      AWS_REGION: ${{ env.AWS_REGION }}
+      EKS_CLUSTER_NAME: dev-silkroad-api-logistics
+      
     steps:
-      - name: Pull Changes and Restart Service
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            cd ~/dev-sr-api
-            git pull origin main
-            sudo systemctl restart sr-api.service
-            
-      - name: Finished deployed, notify
-        run: |
-          curl --data-urlencode "text=${{secrets.BOT_DEV_MESSAGE}}${{ github.event.head_commit.message }}" \
-               --data-urlencode "parse_mode=html" \
-               --data-urlencode "chat_id=${{secrets.CHAT_ID}}" \
-               https://api.telegram.org/bot${{secrets.BOT_TOKEN}}/sendMessage
+    - name: Checkout
+      uses: actions/checkout@v1
+      
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+        
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+      
+    - name: Build, tag, and push image to Amazon ECR
+      id: build-image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: dev-sr-api
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        # Build a docker container and
+        # push it to ECR so that it can
+        # be deployed to EKS.
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+        
+    - name: Setup kubeconfig
+      id: setup-kubeconfig
+      run: |
+        aws eks --region $AWS_REGION update-kubeconfig --name $EKS_CLUSTER_NAME
+        
+    - name: Deploy k8s yaml
+      id: deploy-k8s-yaml
+      env:
+        K8S_YAML_DIR: ./deployment 
+        IMAGE_NAME: ${{ steps.build-image.outputs.image }}
+      run: |
+        # Setup kustomize
+        cd $K8S_YAML_DIR
+        curl -s -o kustomize --location https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
+        chmod u+x ./kustomize
+        ./kustomize edit set image 307856681743.dkr.ecr.us-east-2.amazonaws.com/dev-silkroad-logistics:latest=$IMAGE_NAME
+        ./kustomize build . | kubectl apply -f -
+        # Verify deployment
+        kubectl rollout status deployment/aws-example-octodex
+        # List Public IP of cluster
+        kubectl get services -o wide
+        kubectl get ingress
+      
+      
+      
+      
+      
+      
+  
+  
+  
+  
