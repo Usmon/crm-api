@@ -9,7 +9,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 /**
  * Trait pager for pagination collections
  *
- * @method static Illuminate\Pagination\Paginator pager(int $size)
+ * @method static LengthAwarePaginator pager(Builder $query, int $size)
  */
 trait Pager
 {
