@@ -269,6 +269,21 @@ final class Box extends Model
             return $query->whereBetween('weight', $weight);
         })->when($filters['additional_weight'] ?? null, function (Builder $query, array $additionalWeight){
             return $query->whereBetween('additional_weight', $additionalWeight);
+        })->when($filters['creator'] ?? null, function (Builder $query, string $creator) {
+            return $query->whereHas('creator', function (Builder $query) use ($creator) {
+                return $query->where('email', 'like', '%' . $creator . '%')
+                    ->orWhere('profile', 'like', '%' . $creator . '%');
+            });
+        })->when($filters['customer'] ?? null, function (Builder $query, string $customer) {
+            return $query->whereHas('order', function (Builder $query) use ($customer) {
+                return $query->whereHas('sender', function (Builder $query) use ($customer) {
+                    return $query->whereHas('customer', function (Builder $query) use ($customer) {
+                        return $query->whereHas('user', function (Builder $query) use ($customer) {
+                            return $query->where('profile', 'like', '%' . $customer . '%');
+                        });
+                    });
+                });
+            });
         });
     }
 }
