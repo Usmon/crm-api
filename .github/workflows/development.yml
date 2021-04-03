@@ -60,7 +60,7 @@ jobs:
         ./kustomize edit set image 307856681743.dkr.ecr.us-east-2.amazonaws.com/dev-silkroad-logistics:latest=$IMAGE_NAME
         ./kustomize build . | kubectl apply -f -
         # Verify deployment
-        kubectl rollout status deployment/aws-example-octodex
+        kubectl rollout status deployment/sr-api-deployment
         # List Public IP of cluster
         kubectl get services -o wide
         kubectl get ingress
