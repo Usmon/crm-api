@@ -118,6 +118,18 @@ final class Boxes extends FormRequest
 
                     'string',
                 ],
+
+                'creator' => [
+                    'nullable',
+
+                    'string',
+                ],
+
+                'customer' => [
+                    'nullable',
+
+                    'string',
+                ],
             ],
 
             'dashboard.boxes.box.store' => [

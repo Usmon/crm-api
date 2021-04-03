@@ -37,6 +37,10 @@ final class Boxes
             'additional_weight' => $request->json('additional_weight'),
 
             'status' => $request->json('status'),
+
+            'creator' => $request->json('creator'),
+
+            'customer' => $request->json('customer'),
         ];
     }
 
@@ -48,7 +52,7 @@ final class Boxes
     public function getOnlyFilters(BoxesRequest $request): array
     {
         return $request->only('search', 'date', 'pickup_id', 'status_id',
-            'weight', 'additional_weight', 'status');
+            'weight', 'additional_weight', 'status', 'creator', 'customer');
     }
 
     /**
