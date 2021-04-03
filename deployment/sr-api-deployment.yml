@@ -24,7 +24,7 @@ spec:
       - envFrom:
         - configMapRef:
             name: sr-api-configmap
-        image: 307856681743.dkr.ecr.us-east-2.amazonaws.com/dev-silkroad-logistics:latest
+        image: 307856681743.dkr.ecr.us-east-2.amazonaws.com/dev-sr-api:latest
         imagePullPolicy: Always
         name: sr-api-container
         ports:
