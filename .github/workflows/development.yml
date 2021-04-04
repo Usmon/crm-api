@@ -67,7 +67,7 @@ jobs:
         
     - name: Finished deployed, notify
       run: |
-          curl --data-urlencode "text=${{secrets.BOT_DEV_MESSAGE}}${{ github.event.head_commit.message }}" \
+          curl --data-urlencode "text=${{secrets.BOT_DEV_MESSAGE}}${{ github.event.head_commit.message }} by <b>${{ github.event.pusher.name }}</b>" \
                --data-urlencode "parse_mode=html" \
                --data-urlencode "chat_id=${{secrets.CHAT_ID}}" \
                https://api.telegram.org/bot${{secrets.BOT_TOKEN}}/sendMessage
