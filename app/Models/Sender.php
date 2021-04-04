@@ -16,7 +16,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 use Ramsey\Collection\Collection;
 
 /**
@@ -33,6 +36,8 @@ use Ramsey\Collection\Collection;
  * @property Carbon|null $deleted_at
  *
  * @property-read Collection $customer
+ *
+ * @property-read Collection $orders
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
@@ -80,6 +85,14 @@ final class Sender extends Model
     public function customer(): HasOne
     {
         return $this->hasOne(Customer::class,'id','customer_id')->with(['user.phones']);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
     }
 
     /**

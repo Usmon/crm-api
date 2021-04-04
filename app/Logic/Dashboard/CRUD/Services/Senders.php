@@ -2,6 +2,7 @@
 
 namespace App\Logic\Dashboard\CRUD\Services;
 
+use App\Models\Order;
 use App\Models\Sender;
 
 use Illuminate\Contracts\Pagination\Paginator;
@@ -130,7 +131,29 @@ final class Senders
 
             'sender_address_line_1' => $sender->customer->user->addresses()->first()->first_address,
 
-            'sender_address_line_2' => $sender->customer->user->addresses()->first()->second_address
+            'sender_address_line_2' => $sender->customer->user->addresses()->first()->second_address,
+
+            'histories' => $sender->orders->unique('recipient_id')->transform(function(Order $order) {
+                return [
+                    'id' => $order->recipient->id,
+
+                    'full_name' => $order->recipient->customer->user->full_name,
+
+                    'phone' => $order->recipient->customer->user->phones->first()->phone,
+
+                    'email' => $order->recipient->customer->user->email,
+
+                    'region' => $order->recipient->customer->user->addresses->first()->city->region->name,
+
+                    'city' => $order->recipient->customer->user->addresses->first()->city->name,
+
+                    'zip_code' => $order->recipient->customer->user->addresses->first()->city->codes[0],
+
+                    'address_line_1' => $order->recipient->customer->user->addresses->first()->first_address,
+
+                    'address_line_2' => $order->recipient->customer->user->addresses->first()->second_address,
+                ];
+            })
         ];
     }
 
