@@ -31,7 +31,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property Carbon|null $deleted_at
  *
- * @property-read HasOne|null $customer
+ * @property-read HasOne|Customer $customer
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
