@@ -94,7 +94,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property-read HasOne $sender
  *
- * @property-read HasOne $recipient
+ * @property-read HasOne|Recipient $recipient
  *
  * @property-read HasMany $histories
  *

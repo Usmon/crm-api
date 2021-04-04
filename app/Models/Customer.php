@@ -47,7 +47,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property integer|null $deleted_by
  *
- * @property-read HasOne  $user
+ * @property-read HasOne|User $user
  *
  * @property-read HasOne  $creator
  *
