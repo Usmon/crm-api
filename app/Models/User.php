@@ -203,6 +203,14 @@ final class User extends Auth
     }
 
     /**
+     * @return HasOne
+     */
+    public function customer(): HasOne
+    {
+        return $this->hasOne(Customer::class);
+    }
+
+    /**
      * @param int $limit
      *
      * @return \Illuminate\Support\Collection

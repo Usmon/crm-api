@@ -49,6 +49,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property-read HasOne|User $user
  *
+ * @property-read HasOne|Customer $customer
+ *
  * @property-read HasOne  $creator
  *
  * @property-read HasOne  $referral
@@ -142,6 +144,14 @@ final class Customer extends Model
     public function referral():HasOne
     {
         return $this->hasOne(User::class, 'id','referral_id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function sender(): HasOne
+    {
+        return $this->hasOne(Sender::class);
     }
 
     /**

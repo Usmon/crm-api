@@ -183,7 +183,11 @@ final class Senders
     public function storeCredentials(SendersRequest $request): array
     {
         return [
-            'customer_id' => $request->json('customer_id'),
+            'user' => $request->json('user'),
+
+            'phone' => $request->json('phone'),
+
+            'address' => $request->json('address'),
         ];
     }
 

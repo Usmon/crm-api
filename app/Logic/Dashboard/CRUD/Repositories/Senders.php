@@ -4,6 +4,7 @@ namespace App\Logic\Dashboard\CRUD\Repositories;
 
 use App\Models\Sender;
 
+use App\Models\User;
 use Illuminate\Contracts\Pagination\Paginator;
 
 use Illuminate\Database\Eloquent\Collection;
@@ -27,7 +28,18 @@ final class Senders
      */
     public function storeSender(array $credentials): Sender
     {
-        return Sender::create($credentials);
+        $user = User::create($credentials['user']);
+
+        //Binding sender
+        $user->customer()->create()->sender()->create();
+
+        //Create address for user
+        $user->addresses()->create($credentials['address']);
+
+        //Create phone for user
+        $user->phones()->create(['phone' => $credentials['phone']]);
+
+        return $user->customer->sender;
     }
 
     /**
