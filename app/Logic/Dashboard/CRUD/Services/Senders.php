@@ -126,7 +126,7 @@ final class Senders
 
             'sender_city' => $sender->customer->user->addresses()->first()->city->name,
 
-            'sender_zip_code' => '90800', //To be change from model
+            'sender_zip_code' => $sender->customer->user->addresses()->first()->city->codes[0],
 
             'sender_address_line_1' => $sender->customer->user->addresses()->first()->first_address,
 
