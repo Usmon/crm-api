@@ -31,13 +31,11 @@ final class CreateCustomersTable extends Migration
 
             $table->double('balance')->default(0);
 
-            $table->date('birth_date');
+            $table->date('birth_date')->nullable();
 
-            $table->text('note');
+            $table->text('note')->nullable();
 
-            $table->timestamp('created_at')->nullable();
-
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
 
             $table->timestamp('deleted_at')->nullable();
 
