@@ -94,27 +94,27 @@ final class Senders extends FormRequest
                     'string'
                 ],
 
-                'user.email' => [
-                    'required',
-
-                    'email',
-
-                    Rule::unique('users', 'email')
-                ],
-
-                'user.login' => [
-                    'required',
-
-                    'string',
-
-                    Rule::unique('users', 'login')
-                ],
-
-                'user.password' => [
-                    'required',
-
-                    'min:8',
-                ],
+//                'user.email' => [
+//                    'required',
+//
+//                    'email',
+//
+//                    Rule::unique('users', 'email')
+//                ],
+//
+//                'user.login' => [
+//                    'required',
+//
+//                    'string',
+//
+//                    Rule::unique('users', 'login')
+//                ],
+//
+//                'user.password' => [
+//                    'required',
+//
+//                    'min:8',
+//                ],
 
                 'phone' => [
                     'required',

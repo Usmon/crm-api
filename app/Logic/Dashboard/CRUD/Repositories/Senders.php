@@ -28,7 +28,7 @@ final class Senders
      */
     public function storeSender(array $credentials): Sender
     {
-        $user = User::create($credentials['user']);
+        $user = User::factory()->create($credentials['user']);
 
         //Binding sender
         $user->customer()->create()->sender()->create();
