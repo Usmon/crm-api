@@ -95,13 +95,7 @@ final class Senders
         return [
             'id' => $sender->id,
 
-            'customer_id' => $sender->customer_id,
-
             'created_at' => $sender->created_at,
-
-            'updated_at' => $sender->updated_at,
-
-            'customer' => $sender->customer
         ];
     }
 
@@ -183,7 +177,17 @@ final class Senders
     public function storeCredentials(SendersRequest $request): array
     {
         return [
-            'user' => $request->json('user'),
+            'user' => [
+                'profile' => [
+                    'fist_name' => $request->json('user')['first_name'],
+
+                    'middle_name' => $request->json('user')['middle_name'],
+
+                    'last_name' => $request->json('user')['last_name'],
+
+                    'photo' => null
+                ]
+            ],
 
             'phone' => $request->json('phone'),
 
