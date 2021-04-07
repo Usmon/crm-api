@@ -183,6 +183,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
         Route::apiResource('/', DashboardRecipientsController::class);
 
         Route::get('phone-check', [DashboardRecipientsController::class, 'recipientPhoneCheck'])->name('phone.check');
+
+        Route::get('phone-search', [DashboardRecipientsController::class, 'phoneSearch'])->name('phone.search');
     });
 
     Route::apiResource('warehouse-items', DashboardWarehouseItemsController::class);

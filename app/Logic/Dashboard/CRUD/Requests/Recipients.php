@@ -175,6 +175,14 @@ final class Recipients extends FormRequest
 
                     Rule::exists('phones', 'phone')
                 ],
+            ],
+
+            'dashboard.recipients.phone.search' => [
+                'phone' => [
+                    'required',
+
+                    'string'
+                ],
             ]
 
         ];

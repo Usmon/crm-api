@@ -6,6 +6,8 @@ use App\Models\Order;
 
 use App\Models\Recipient;
 
+use Illuminate\Database\Eloquent\Collection;
+
 use Illuminate\Contracts\Pagination\Paginator;
 
 use App\Logic\Dashboard\CRUD\Requests\Recipients as RecipientsRequest;
@@ -90,6 +92,24 @@ final class Recipients
         });
 
         return $paginator;
+    }
+
+    /**
+     * @param Collection $recipients
+     *
+     * @return Collection
+     */
+    public function getPhones(Collection $recipients, string $phone): Collection
+    {
+        return $recipients->transform(function (Recipient $sender) use($phone) {
+            return [
+                'id' => $sender->id,
+
+                'full_name' => $sender->customer->user->full_name,
+
+                'phone' => $sender->getPhone($phone)
+            ];
+        });
     }
 
     /**
