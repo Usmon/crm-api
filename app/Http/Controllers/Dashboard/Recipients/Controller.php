@@ -84,7 +84,7 @@ final class Controller extends Controllers
         return Json::sendJsonWith200([
             'message' => 'The recipient was successfully created.',
 
-            'recipient' => $this->repository->storeRecipient($this->service->storeCredentials($request)),
+            'recipient' => $this->service->showRecipient($this->repository->storeRecipient($this->service->storeCredentials($request))),
         ]);
     }
 

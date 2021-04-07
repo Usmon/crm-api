@@ -4,6 +4,8 @@ namespace App\Logic\Dashboard\CRUD\Repositories;
 
 use App\Models\Recipient;
 
+use App\Models\User;
+
 use Illuminate\Contracts\Pagination\Paginator;
 
 final class Recipients
@@ -27,7 +29,18 @@ final class Recipients
      */
     public function storeRecipient(array $credentials): Recipient
     {
-        return Recipient::create($credentials);
+        $user = User::factory()->create($credentials['user']);
+
+        //Binding sender
+        $user->customer()->create()->recipient()->create();
+
+        //Create address for user
+        $user->addresses()->create($credentials['address']);
+
+        //Create phone for user
+        $user->phones()->create(['phone' => $credentials['phone']]);
+
+        return $user->customer->recipient;
     }
 
     /**

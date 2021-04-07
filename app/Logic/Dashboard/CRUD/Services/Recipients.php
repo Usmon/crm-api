@@ -100,11 +100,7 @@ final class Recipients
         return [
             'id' => $recipient->id,
 
-            'customer' => $recipient->customer()->with(['phones'])->get(),
-
             'created_at' => $recipient->created_at,
-
-            'updated_at' => $recipient->updated_at,
         ];
     }
 
@@ -144,7 +140,21 @@ final class Recipients
     public function storeCredentials(RecipientsRequest $request): array
     {
         return [
-            'customer_id' => $request->json('customer_id'),
+            'user' => [
+                'profile' => [
+                    'fist_name' => $request->json('user')['first_name'],
+
+                    'middle_name' => $request->json('user')['middle_name'],
+
+                    'last_name' => $request->json('user')['last_name'],
+
+                    'photo' => null
+                ]
+            ],
+
+            'phone' => $request->json('phone'),
+
+            'address' => $request->json('address'),
         ];
     }
 

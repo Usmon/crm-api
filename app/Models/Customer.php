@@ -155,6 +155,14 @@ final class Customer extends Model
     }
 
     /**
+     * @return HasOne
+     */
+    public function recipient(): HasOne
+    {
+        return $this->hasOne(Recipient::class);
+    }
+
+    /**
      * @param Builder $query
      *
      * @param string $key
