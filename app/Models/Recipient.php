@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Traits\Sort\Sorter;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 use Illuminate\Support\Carbon;
 
 use App\Traits\Pagination\Pager;
@@ -77,6 +79,14 @@ final class Recipient extends Model
     public function customer():HasOne
     {
         return $this->hasOne(Customer::class,'id', 'customer_id')->with(['user.phones']);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
     }
 
     /**

@@ -2,6 +2,8 @@
 
 namespace App\Logic\Dashboard\CRUD\Services;
 
+use App\Models\Order;
+
 use App\Models\Recipient;
 
 use Illuminate\Contracts\Pagination\Paginator;
@@ -124,11 +126,33 @@ final class Recipients
 
             'recipient_city' => $recipient->customer->user->addresses()->first()->city->name,
 
-            'recipient_zip_code' => '90800', //To be change from model
+            'recipient_zip_code' => $recipient->customer->user->addresses()->first()->city->codes[0],
 
             'recipient_address_line_1' => $recipient->customer->user->addresses()->first()->first_address,
 
-            'recipient_address_line_2' => $recipient->customer->user->addresses()->first()->second_address
+            'recipient_address_line_2' => $recipient->customer->user->addresses()->first()->second_address,
+
+            'histories' => $recipient->orders->unique('sender_id')->transform(function(Order $order) {
+                return [
+                    'id' => $order->sender->id,
+
+                    'full_name' => $order->sender->customer->user->full_name,
+
+                    'phone' => $order->sender->customer->user->phones->first()->phone,
+
+                    'email' => $order->sender->customer->user->email,
+
+                    'region' => $order->sender->customer->user->addresses->first()->city->region->name,
+
+                    'city' => $order->sender->customer->user->addresses->first()->city->name,
+
+                    'zip_code' => $order->sender->customer->user->addresses->first()->city->codes[0],
+
+                    'address_line_1' => $order->sender->customer->user->addresses->first()->first_address,
+
+                    'address_line_2' => $order->sender->customer->user->addresses->first()->second_address,
+                ];
+            })
         ];
     }
 
