@@ -79,6 +79,18 @@ final class Controller extends Controllers
      *
      * @return JsonResponse
      */
+    public function phoneSearch(RecipientsRequest $request): JsonResponse
+    {
+        return Json::sendJsonWith200([
+            'phones' => $this->service->getPhones($this->repository->searchByPhone($this->service->getOnlyPhone($request)), $this->service->getOnlyPhone($request))
+        ]);
+    }
+
+    /**
+     * @param RecipientsRequest $request
+     *
+     * @return JsonResponse
+     */
     public function store(RecipientsRequest $request): JsonResponse
     {
         return Json::sendJsonWith200([

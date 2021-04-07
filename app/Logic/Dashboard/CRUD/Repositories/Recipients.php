@@ -8,6 +8,8 @@ use App\Models\User;
 
 use Illuminate\Contracts\Pagination\Paginator;
 
+use Illuminate\Database\Eloquent\Collection;
+
 final class Recipients
 {
     /**
@@ -75,5 +77,15 @@ final class Recipients
     public function checkPhone(string $phone): Recipient
     {
         return Recipient::filter(['customer' => $phone])->first();
+    }
+
+    /**
+     * @param string $phone
+     *
+     * @return Collection
+     */
+    public function searchByPhone(string $phone): Collection
+    {
+        return Recipient::filterPhone($phone)->get();
     }
 }
