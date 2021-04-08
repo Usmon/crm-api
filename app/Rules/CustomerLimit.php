@@ -56,10 +56,17 @@ final class CustomerLimit implements Rule
      */
     public function message(): string
     {
-        return 'The :attribute limit out side.';
+        return 'The :attribute out of limit.';
     }
 
-    public function checker($attribute, $value)
+    /**
+     * @param $attribute
+     *
+     * @param $value
+     *
+     * @return bool
+     */
+    public function checker($attribute, $value): bool
     {
         return Order::where($attribute, $value)
                     ->whereBetween('created_at', $this->quarter)
