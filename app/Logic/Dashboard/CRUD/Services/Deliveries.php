@@ -207,6 +207,8 @@ final class Deliveries
             'driver_id' => $request->json('driver_id'),
 
             'status_id' => $request->json('status_id'),
+
+            'boxes' => $request->json('boxes'),
         ];
     }
 
@@ -223,6 +225,8 @@ final class Deliveries
             'driver_id' => $request->json('driver_id'),
 
             'status_id' => $request->json('status_id'),
+
+            'boxes' => $request->json('boxes'),
         ];
 
         return $delivery;
