@@ -108,6 +108,7 @@ use App\Http\Controllers\Dashboard\Partners\Controller as DashboardPartnersContr
 
 use App\Http\Controllers\Dashboard\Payment\Type\Controller as PaymentTypeController;
 
+use App\Http\Controllers\Dashboard\Orders\Limit\Controller as LimitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -216,6 +217,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
         Route::apiResource('users', DashboardOrderUsersController::class);
 
         Route::apiResource('comments', DashboardOrderCommentsController::class);
+
+        Route::get('limit-recipient', [LimitController::class, 'checkSender'])->name('limit-check.recipient');
     });
 
     Route::apiResource('projects', DashboardProjectsController::class);
