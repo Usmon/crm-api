@@ -75,7 +75,6 @@ final class BoxItem extends Model
         'image',
 
         'is_additional',
-
     ];
 
     /**

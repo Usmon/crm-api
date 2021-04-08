@@ -140,6 +140,68 @@ final class Deliveries extends FormRequest
 
                     Rule::exists('statuses', 'id'),
                 ],
+
+                'boxes' => [
+                    'required',
+
+                    'array',
+                ],
+
+                'boxes.*.note' => [
+                    'required',
+
+                    'string',
+                ],
+
+                'boxes.*.products' => [
+                    'required',
+
+                    'array',
+                ],
+
+                'boxes.*.products.*.name' => [
+                    'required',
+
+                    'string',
+                ],
+
+                'boxes.*.products.*.quantity' => [
+                    'required',
+
+                    'integer',
+                ],
+
+                'boxes.*.products.*.price' => [
+                    'required',
+
+                    'integer',
+                ],
+
+                'boxes.*.products.*.weight' => [
+                    'required',
+
+                    'numeric',
+                ],
+
+                'boxes.*.products.*.type_weight' => [
+                    'required',
+
+                    'string',
+
+                    'in:lb,kg',
+                ],
+
+                'boxes.*.products.*.note' => [
+                    'required',
+
+                    'string',
+                ],
+
+                'boxes.*.products.*.image' => [
+                    'required',
+
+                    'string',
+                ],
             ],
 
             'dashboard.deliveries.delivery.update' => [
@@ -165,6 +227,68 @@ final class Deliveries extends FormRequest
                     'integer',
 
                     Rule::exists('statuses', 'id'),
+                ],
+
+                'boxes' => [
+                    'required',
+
+                    'array',
+                ],
+
+                'boxes.*.note' => [
+                    'required',
+
+                    'string',
+                ],
+
+                'boxes.*.products' => [
+                    'required',
+
+                    'array',
+                ],
+
+                'boxes.*.products.*.name' => [
+                    'required',
+
+                    'string',
+                ],
+
+                'boxes.*.products.*.quantity' => [
+                    'required',
+
+                    'integer',
+                ],
+
+                'boxes.*.products.*.price' => [
+                    'required',
+
+                    'integer',
+                ],
+
+                'boxes.*.products.*.weight' => [
+                    'required',
+
+                    'numeric',
+                ],
+
+                'boxes.*.products.*.type_weight' => [
+                    'required',
+
+                    'string',
+
+                    'in:lb,kg',
+                ],
+
+                'boxes.*.products.*.note' => [
+                    'required',
+
+                    'string',
+                ],
+
+                'boxes.*.products.*.image' => [
+                    'required',
+
+                    'string',
                 ],
             ],
         ];
