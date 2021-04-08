@@ -26,7 +26,7 @@ class Controller extends Controllers
     public function checkSender(LimitRequest $request): JsonResponse
     {
         return Json::sendJsonWith200([
-            'message' => 'Check all nice!'
+            'message' => 'The customer quarter checked.'
         ]);
     }
 }
