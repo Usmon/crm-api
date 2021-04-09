@@ -124,4 +124,35 @@ final class Controller extends Controllers
             'message' => 'The driver was successfully deleted.',
         ]);
     }
+
+    /**
+     * @param DriversRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function driverPhoneCheck(DriversRequest $request): JsonResponse
+    {
+        return Json::sendJsonWith200([
+           'driver' => $this->service->showDriverPhone(
+               $this->repository->checkPhone($this->service->getOnlyPhone($request)),
+               $this->service->getOnlyPhone($request)
+           )
+        ]);
+    }
+
+    /**
+     * @param DriversRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function phoneSearch(DriversRequest $request): JsonResponse
+    {
+        {
+            return Json::sendJsonWith200([
+                'phones' => $this->service->getPhones(
+                    $this->repository->searchByPhone
+                    ($this->service->getOnlyPhone($request)), $this->service->getOnlyPhone($request))
+            ]);
+        }
+    }
 }

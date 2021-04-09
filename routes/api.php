@@ -301,7 +301,13 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
 
     Route::apiResource('products', DashboardProductsController::class);
 
-    Route::apiResource('drivers', DashboardDriversController::class);
+    Route::group(['prefix' => 'drivers', 'as' => 'drivers.'], function () {
+        Route::apiResource('driver', DashboardDriversController::class);
+
+        Route::get('phone-check', [DashboardDriversController::class, 'driverPhoneCheck'])->name('phone.check');
+
+        Route::get('phone-search', [DashboardDriversController::class, 'phoneSearch'])->name('phone.search');
+    });
 
     Route::get('countries', [DashboardCountryController::class, 'index']);
 
