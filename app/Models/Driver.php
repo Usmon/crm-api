@@ -168,4 +168,32 @@ final class Driver extends Model
             });
         });
     }
+
+    /**
+     * @param Builder $query
+     *
+     * @param string $phone
+     *
+     * @return Builder
+     */
+    public function scopeFilterPhone(Builder $query, string $phone): Builder
+    {
+        return $query->when($phone ?? null, function (Builder $query, string $phone) {
+                $query->whereHas('user', function (Builder $query) use ($phone) {
+                    $query->whereHas('phones', function (Builder $query) use ($phone) {
+                        return $query->where('phone', 'like', '%'. $phone .'%');
+                });
+            });
+        });
+    }
+
+    /**
+     * @param string $phone
+     *
+     * @return string
+     */
+    public function getPhone(string $phone): string
+    {
+        return $this->user->phones()->where('phone', 'like', '%'.$phone.'%')->first()->phone;
+    }
 }

@@ -7,6 +7,7 @@ use App\Models\Driver;
 use Illuminate\Contracts\Pagination\Paginator;
 
 use App\Logic\Dashboard\CRUD\Requests\Drivers as DriversRequest;
+use Illuminate\Support\Collection;
 
 final class Drivers
 {
@@ -173,5 +174,67 @@ final class Drivers
         $id = json_decode($id);
 
         return (is_int($id) || array_filter($id,'is_int')===$id) ? $id : 0;
+    }
+
+    /**
+     * @param Driver $driver
+     * @param string $phone
+     * @return array
+     */
+    public function showDriverPhone(Driver $driver, string $phone): array
+    {
+        return [
+            'id' => $driver->id,
+
+            'driver_full_name' => $driver->user->full_name,
+
+            'driver_phone' => $driver->user->phones()->where('phone', '=', $phone)->first()->phone,
+
+            'driver_email' => $driver->user->email,
+
+            'driver_region' => $driver->user->addresses()->first()->city->region->name,
+
+            'driver_city' => $driver->user->addresses()->first()->city->name,
+
+            'driver_zip_code' => $driver->user->addresses()->first()->city->codes[0],
+
+            'driver_address_line_1' => $driver->user->addresses()->first()->first_address,
+
+            'driver_address_line_2' => $driver->user->addresses()->first()->second_address,
+
+            'car_number' => $driver->car_number,
+
+            'car_model' => $driver->car_model,
+
+            'license' => $driver->license
+        ];
+    }
+
+    /**
+     * @param DriversRequest $request
+     *
+     * @return string
+     */
+    public function getOnlyPhone(DriversRequest $request): string
+    {
+        return $request->get('phone');
+    }
+
+    /**
+     * @param Collection $drivers
+     *
+     * @return Collection
+     */
+    public function getPhones(Collection $drivers, string $phone): Collection
+    {
+        return $drivers->transform(function (Driver $driver) use($phone) {
+            return [
+                'id' => $driver->id,
+
+                'full_name' => $driver->user->full_name,
+
+                'phone' => $driver->getPhone($phone)
+            ];
+        });
     }
 }

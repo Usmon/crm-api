@@ -152,6 +152,24 @@ final class Drivers extends FormRequest
                     'string',
                 ],
             ],
+
+            'dashboard.drivers.phone.check' => [
+                'phone' => [
+                    'required',
+
+                    'string',
+
+                    Rule::exists('phones', 'phone')
+                ],
+            ],
+
+            'dashboard.drivers.phone.search' => [
+                'phone' => [
+                    'required',
+
+                    'string'
+                ],
+            ],
         ];
 
         return $rules[$this->route()->getName()];

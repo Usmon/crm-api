@@ -5,6 +5,7 @@ namespace App\Logic\Dashboard\CRUD\Repositories;
 use App\Models\Driver;
 
 use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Database\Eloquent\Collection;
 
 final class Drivers
 {
@@ -55,5 +56,25 @@ final class Drivers
     public function deleteDriver($id)
     {
         return Driver::destroy($id);
+    }
+
+    /**
+     * @param string $phone
+     *
+     * @return Driver
+     */
+    public function checkPhone(string $phone): Driver
+    {
+        return Driver::filterPhone($phone)->first();
+    }
+
+    /**
+     * @param string $phone
+     *
+     * @return Collection
+     */
+    public function searchByPhone(string $phone): Collection
+    {
+        return Driver::filterPhone($phone)->get();
     }
 }
