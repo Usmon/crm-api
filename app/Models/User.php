@@ -22,6 +22,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+use App\Traits\Sort\Sorter;
+
 use App\Traits\Pagination\Pager;
 
 /**
@@ -78,6 +80,7 @@ final class User extends Auth
     use HasFactory;
     use SoftDeletes;
     use Pager;
+    use Sorter;
 
     /**
      * @var string

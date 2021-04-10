@@ -8,18 +8,18 @@ use App\Models\User;
 
 use Illuminate\Support\Arr;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Pagination\Paginator;
 
 final class Users
 {
     /**
      * @param array $filters
      *
-     * @return Collection
+     * @return Paginator
      */
-    public function getUsers(array $filters): Collection
+    public function getUsers(array $filters): Paginator
     {
-        return User::filter($filters)->orderBy('created_at', 'desc')->get();
+        return User::filter($filters)->pager();
     }
 
     /**
