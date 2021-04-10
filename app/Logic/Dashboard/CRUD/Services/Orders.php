@@ -12,6 +12,8 @@ use App\Models\OrderHistory;
 
 use Illuminate\Contracts\Pagination\Paginator;
 
+use App\Logic\Dashboard\CRUD\Requests\Limit as LimitRequest;
+
 /**
  * Class Orders
  *
@@ -261,6 +263,30 @@ final class Orders
             'created_at' => $order->created_at,
 
             'updated_at' => $order->updated_at,
+        ];
+    }
+
+    /**
+     * @param LimitRequest $request
+     *
+     * @return int
+     */
+    public function getRecipient(LimitRequest $request): int
+    {
+        return $request->json('recipient_id');
+    }
+
+    /**
+     * @param float $limit
+     *
+     * @return array
+     */
+    public function recipientLimit(float $limit): array
+    {
+        return [
+            'message' => "The customs rate will be charged if the goods exceed $ {$limit}",
+
+            'limit' => $limit
         ];
     }
 
