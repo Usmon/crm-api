@@ -170,15 +170,23 @@ final class Delivery extends Model
     }
 
     /**
+     * @param int $deliveryId
+     *
      * @return int
      */
-    public function totalDeliveredBoxes(): int
+    public function totalDeliveredBoxes(int $deliveryId): int
     {
-        return $this->boxes->map(function (Box $box) {
-            return $box->whereHas('status', function (Builder $query) {
-                return $query->where('key', '=', 'delivered');
-            })->count();
-        })->sum();
+        $boxes = Box::where('delivery_id', $deliveryId)->get();
+        $statuses = $boxes->map(function (Box $box){
+            return $box->status;
+        });
+
+        $count = 0;
+        foreach ($statuses as $status)
+        {
+            $count += $status['key'] == 'delivered';
+        }
+        return $count;
     }
 
 //    /**
