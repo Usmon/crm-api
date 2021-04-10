@@ -2,9 +2,7 @@
 
 namespace App\Rules;
 
-use Carbon\Carbon;
-
-use App\Models\Order;
+use App\Helpers\LimitChecker;
 
 use Illuminate\Contracts\Validation\Rule;
 
@@ -15,29 +13,6 @@ use Illuminate\Contracts\Validation\Rule;
  */
 final class CustomerLimit implements Rule
 {
-    /**
-     * @const integer
-     */
-    const LIMIT = 1000;
-
-    /**
-     * @var array
-     */
-    private $quarter = [];
-
-    /**
-     * @return void
-     */
-    public function __construct()
-    {
-        $carbon = new Carbon;
-
-        $this->quarter = [
-            $carbon->firstOfQuarter()->toDateString(),
-
-            $carbon->lastOfQuarter()->toDateString()
-        ];
-    }
 
     /**
      * @param string $attribute
@@ -48,7 +23,7 @@ final class CustomerLimit implements Rule
      */
     public function passes($attribute, $value): bool
     {
-        return $this->checker($attribute, $value);
+        return (new LimitChecker())->check($attribute, $value);
     }
 
     /**
@@ -59,18 +34,5 @@ final class CustomerLimit implements Rule
         return 'The :attribute out of limit.';
     }
 
-    /**
-     * @param $attribute
-     *
-     * @param $value
-     *
-     * @return bool
-     */
-    public function checker($attribute, $value): bool
-    {
-        return Order::where($attribute, $value)
-                    ->whereBetween('created_at', $this->quarter)
-                    ->sum('price_total')
-                    < self::LIMIT;
-    }
+
 }
