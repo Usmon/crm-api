@@ -6,11 +6,11 @@ use App\Models\User;
 
 use App\Logic\Dashboard\CRUD\Requests\Users as UsersRequest;
 
+use Illuminate\Contracts\Pagination\Paginator;
+
 use Illuminate\Support\Arr;
 
 use Illuminate\Support\Facades\Hash;
-
-use Illuminate\Database\Eloquent\Collection;
 
 final class Users
 {
@@ -41,13 +41,13 @@ final class Users
     }
 
     /**
-     * @param Collection $collection
+     * @param Paginator $paginator
      *
-     * @return Collection
+     * @return Paginator
      */
-    public function getUsers(Collection $collection): Collection
+    public function getUsers(Paginator $paginator): Paginator
     {
-        return $collection->transform(function (User $user) {
+        $paginator->getCollection()->transform(function (User $user) {
             return [
                 'id' => $user->id,
 
@@ -62,6 +62,8 @@ final class Users
                 'updated_at' => $user->updated_at,
             ];
         });
+
+        return $paginator;
     }
 
     /**
