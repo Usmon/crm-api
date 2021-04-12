@@ -87,7 +87,7 @@ final class Deliveries
 
                 'total_products' => $delivery->totalProducts(),
 
-                'total_delivered_boxes' => $delivery->totalDeliveredBoxes(),
+                'total_delivered_boxes' => $delivery->totalDeliveredBoxes($delivery->id),
 
                 'created_at' => $delivery->created_at,
 
