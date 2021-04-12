@@ -273,7 +273,7 @@ final class Orders
      */
     public function getRecipient(LimitRequest $request): int
     {
-        return $request->json('recipient_id');
+        return $request->json('recipient_id') ?? $request->get('recipient_id');
     }
 
     /**
