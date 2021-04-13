@@ -66,6 +66,8 @@ final class LimitChecker
      * @param string $attribute
      *
      * @param int $value
+     *
+     * @return float
      */
     public function sum(string $attribute, int $value): float
     {
