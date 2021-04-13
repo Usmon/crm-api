@@ -152,6 +152,8 @@ final class Recipients
 
             'recipient_address_line_2' => $recipient->customer->user->addresses()->first()->second_address,
 
+            'recipient_limit' => $recipient->limit,
+
             'histories' => $recipient->orders->unique('sender_id')->transform(function(Order $order) {
                 return [
                     'id' => $order->sender->id,

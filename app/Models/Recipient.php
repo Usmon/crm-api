@@ -10,6 +10,8 @@ use Illuminate\Support\Carbon;
 
 use App\Traits\Pagination\Pager;
 
+use App\Helpers\LimitChecker;
+
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -34,6 +36,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Carbon|null $deleted_at
  *
  * @property-read HasOne|Customer $customer
+ *
+ * @property-read float $limit
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
@@ -157,5 +161,13 @@ final class Recipient extends Model
     public function getPhone(string $phone): string
     {
         return $this->customer->user->phones()->where('phone', 'like', '%'.$phone.'%')->first()->phone;
+    }
+
+    /**
+     * @return float
+     */
+    public function getLimitAttribute(): float
+    {
+        return (new LimitChecker())->limit('recipient_id', $this->id);
     }
 }
