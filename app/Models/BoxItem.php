@@ -41,6 +41,12 @@ use App\Traits\Pagination\Pager;
  *
  * @property integer $is_additional
  *
+ * @property Carbon $created_at
+ *
+ * @property Carbon $updated_at
+ *
+ * @property Carbon $deleted
+ *
  */
 
 final class BoxItem extends Model

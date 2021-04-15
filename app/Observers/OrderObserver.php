@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Models\Order;
 
 use App\Models\Shipment;
+
 use Illuminate\Support\Carbon;
 
 final class OrderObserver

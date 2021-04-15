@@ -294,24 +294,8 @@ final class Orders extends FormRequest
             ],
 
             'dashboard.orders.order.update' => [
-                'staff_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('users', 'id'),
-                ],
-
-                'customer_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('users', 'id'),
-                ],
-
                 'fedex_order_id' => [
-                    'required',
+                    'nullable',
 
                     'integer',
 
@@ -319,7 +303,7 @@ final class Orders extends FormRequest
                 ],
 
                 'pickup_id' => [
-                    'required',
+                    'nullable',
 
                     'integer',
 
@@ -327,57 +311,79 @@ final class Orders extends FormRequest
                 ],
 
                 'shipment_id' => [
-                    'required',
+                    'nullable',
 
                     'integer',
 
                     Rule::exists('shipments', 'id'),
                 ],
 
-                'price' => [
-                    'required',
-
-                    'numeric',
-
-                    'min:0'
-                ],
-
-                'payed_price' => [
-                    'required',
-
-                    'numeric',
-
-                    'min:0',
-                ],
-
-                'status' => [
-                    'required',
-
-                    'string',
-
-                    'in:created,picked_up,waiting,pending,shipping,shipped,delivering,delivered,canceled'
-                ],
-
-                'payment_status' => [
-                    'required',
-
-                    'string',
-
-                    'in:payed,debt'
-                ],
-
-                'permissions' => [
-                    'required',
-
-                    'array',
-                ],
-
-                'permissions.*' => [
+                'sender_id' => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('permissions', 'id'),
+                    Rule::exists('senders', 'id')
+                ],
+
+                'recipient_id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('recipients', 'id')
+                ],
+
+                'status_id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('statuses', 'id')
+                ],
+
+                'payment_status_id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('statuses', 'id')
+                ],
+
+                'type' => [
+                    'required'
+                ],
+
+                'type.date' => [
+                    'required'
+                ],
+
+                'type.date.from' => [
+                    'required',
+
+                    'date_format:Y-m-d H:i:s'
+                ],
+
+                'type.date.to' => [
+                    'required',
+
+                    'date_format:Y-m-d H:i:s'
+                ],
+
+                'type.index' => [
+                    'required',
+
+                    'string',
+
+                    'in:pickup,fedex,self_delivery',
+                ],
+
+                'payment_type_id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('payment_types', 'id'),
                 ],
             ],
 

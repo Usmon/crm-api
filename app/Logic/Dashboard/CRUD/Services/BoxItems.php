@@ -56,8 +56,6 @@ final class BoxItems
 
                 'box_id' => $boxItem->box_id,
 
-                'warehouse_item_id' => $boxItem->warehouse_item_id,
-
                 'name' => $boxItem->name,
 
                 'quantity' => $boxItem->quantity,
@@ -75,7 +73,6 @@ final class BoxItems
                 'created_at' => $boxItem->created_at,
 
                 'updated_at' => $boxItem->updated_at,
-
             ];
         });
 
@@ -87,33 +84,30 @@ final class BoxItems
      *
      * @return array
      */
-    public function showBoxItem(BoxItem $boxItem): array
+    public function showBoxItem(BoxItem $item): array
     {
         return [
-            'id' => $boxItem->id,
+            'id' => $item->id,
 
-            'box_id' => $boxItem->box_id,
+            'box_id' => $item->box_id,
 
-            'warehouse_item_id' => $boxItem->warehouse_item_id,
+            'name' => $item->name,
 
-            'name' => $boxItem->name,
+            'quantity' => $item->quantity,
 
-            'quantity' => $boxItem->quantity,
+            'price' => $item->price,
 
-            'price' => $boxItem->price,
+            'weight' => $item->weight,
 
-            'weight' => $boxItem->weight,
+            'made_in' => $item->made_in,
 
-            'made_in' => $boxItem->made_in,
+            'note' => $item->note,
 
-            'note' => $boxItem->note,
+            'is_additional' => $item->is_additional,
 
-            'is_additional' => $boxItem->is_additional,
+            'created_at' => $item->created_at,
 
-            'created_at' => $boxItem->created_at,
-
-            'updated_at' => $boxItem->updated_at,
-
+            'updated_at' => $item->updated_at,
         ];
     }
 
@@ -138,8 +132,6 @@ final class BoxItems
     {
         return [
             'box_id' => $request->json('box_id'),
-
-            'warehouse_item_id' => $request->json('warehouse_item_id'),
 
             'name' => $request->json('name'),
 
