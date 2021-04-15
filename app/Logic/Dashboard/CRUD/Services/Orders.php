@@ -323,23 +323,25 @@ final class Orders
     public function updateCredentials(OrdersRequest $request): array
     {
         return [
-            'staff_id' => $request->json('staff_id'),
-
-            'customer_id' => $request->json('customer_id'),
-
             'fedex_order_id' => $request->json('fedex_order_id'),
 
             'pickup_id' => $request->json('pickup_id'),
 
             'shipment_id' => $request->json('shipment_id'),
 
-            'price' => $request->json('price'),
+            'sender_id' => $request->json('sender_id'),
 
-            'payed_price' => $request->json('payed_price'),
+            'recipient_id' => $request->json('recipient_id'),
 
-            'status' => $request->json('status'),
+            'status_id' => $request->json('status_id'),
 
-            'payment_status' => $request->json('payment_status')
+            'payment_status_id' => $request->json('payment_status_id'),
+
+            'delivery_id' => $request->json('delivery_id'),
+
+            'type' => $request->json('type'),
+
+            'payment_type_id' => $request->json('payment_type_id'),
         ];
     }
 

@@ -2,14 +2,11 @@
 
 namespace App\Logic\Dashboard\CRUD\Repositories;
 
-use Exception;
-
 use App\Models\BoxItem;
 
-use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 
 use Illuminate\Contracts\Pagination\Paginator;
-use Illuminate\Support\Collection;
 
 final class BoxItems
 {
@@ -50,21 +47,21 @@ final class BoxItems
     }
 
     /**
-     * @param BoxItem $boxItem
+     * @param BoxItem $item
      *
      * @param array $boxData
      *
      * @return BoxItem
      */
-    public function updateBoxItem(BoxItem $boxItem, array $boxData)
+    public function updateBoxItem(BoxItem $item, array $boxData): BoxItem
     {
-        $boxItem->update($boxData);
+        $item->update($boxData);
 
-        return $boxItem;
+        return $item;
     }
 
     /**
-     * @param BoxItem $boxItem
+     * @param $id
      *
      * @return bool
      */

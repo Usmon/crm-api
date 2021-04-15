@@ -273,7 +273,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth:api', 'as' => 'dash
         Route::apiResource('categories', DashboardSpendingCategoriesController::class);
 
         Route::apiResource('spending', DashboardSpendingsController::class);
-
     });
 
     Route::group(['prefix' => 'tasks', 'as' => 'tasks.'], function(){

@@ -76,11 +76,10 @@ final class Controller extends Controllers
      *
      * @return JsonResponse
      */
-    public function show(BoxItem $boxItem): JsonResponse
+    public function show(BoxItem $item): JsonResponse
     {
         return Json::sendJsonWith200([
-            'box_item' => $this->service->showBoxItem($boxItem),
-
+            'box_item' => $this->service->showBoxItem($item),
         ]);
     }
 
@@ -99,16 +98,16 @@ final class Controller extends Controllers
     /**
      * @param BoxItemsRequest $request
      *
-     * @param BoxItem $boxItem
+     * @param BoxItem $item
      *
      * @return JsonResponse
      */
-    public function update(BoxItemsRequest $request, BoxItem $boxItem): JsonResponse
+    public function update(BoxItemsRequest $request, BoxItem $item): JsonResponse
     {
         return Json::sendJsonWith200([
             'message' => 'The box item was successfully updated.',
 
-            'box_item' => $this->repository->updateBoxItem($boxItem, $this->service->updateBoxItem($request)),
+            'box_item' => $this->repository->updateBoxItem($item, $this->service->updateBoxItem($request)),
         ]);
     }
 

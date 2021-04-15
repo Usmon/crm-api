@@ -85,14 +85,6 @@ final class BoxItems extends FormRequest
                     Rule::exists('boxes','id'),
                 ],
 
-                'warehouse_item_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('warehouse_items', 'id'),
-                ],
-
                 'name' => [
                     'required',
 
@@ -151,14 +143,6 @@ final class BoxItems extends FormRequest
                     'integer',
 
                     Rule::exists('boxes','id'),
-                ],
-
-                'warehouse_item_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('warehouse_items', 'id'),
                 ],
 
                 'name' => [
