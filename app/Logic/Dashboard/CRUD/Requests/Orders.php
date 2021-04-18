@@ -211,10 +211,6 @@ final class Orders extends FormRequest
                     'required'
                 ],
 
-                'type.index' => [
-                    'required'
-                ],
-
                 'type.date' => [
                     'required'
                 ],
@@ -285,11 +281,7 @@ final class Orders extends FormRequest
 
                 'boxes.*.products.*.image' => [
                     'string',
-                ],
-
-                'boxes.*.products.*.image' => [
-                    'string',
-                ],
+                ]
 
             ],
 
