@@ -22,6 +22,8 @@ spec:
     spec:
       containers:
       - envFrom:
+        - secretRef:
+            name: sr-api-secrets
         - configMapRef:
             name: sr-api-configmap
         image: 307856681743.dkr.ecr.us-east-2.amazonaws.com/dev-sr-api:latest
