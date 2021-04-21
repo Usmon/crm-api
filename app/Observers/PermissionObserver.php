@@ -57,7 +57,7 @@ final class PermissionObserver
      */
     protected function defaultProperties(Permission $permission): void
     {
-        $permission->slug = $permission->slug !== Str::slug($permission->name) ? Str::slug($permission->name) : $permission->slug;
+//        $permission->slug = $permission->slug !== Str::slug($permission->name) ? Str::slug($permission->name) : $permission->slug;
 
         $permission->description = $permission->description ?? null;
 

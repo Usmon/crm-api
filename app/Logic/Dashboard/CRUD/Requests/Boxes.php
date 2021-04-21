@@ -134,101 +134,197 @@ final class Boxes extends FormRequest
 
             'dashboard.boxes.box.store' => [
                 'pickup_id' => [
+                    'nullable',
+
                     'integer',
 
-                    Rule::exists('pickups','id'),
+                    Rule::exists('pickups', 'id'),
                 ],
 
                 'order_id' => [
-                    'integer',
-
-                    Rule::exists('orders','id'),
-                ],
-
-                'status_id' => [
-                    'required',
+                    'nullable',
 
                     'integer',
 
-                    Rule::exists('statuses', 'id'),
+                    Rule::exists('orders', 'id'),
                 ],
 
                 'delivery_id' => [
+                    'nullable',
+
                     'integer',
 
                     Rule::exists('deliveries', 'id'),
                 ],
 
-                'weight' => [
-                    'required',
+                'shipment_id' => [
+                    'nullable',
 
-                    'numeric',
+                    'integer',
 
-                    'min:0'
+                    Rule::exists('shipments', 'id'),
                 ],
 
                 'additional_weight' => [
-                    'required',
+                    'nullable',
 
                     'numeric',
 
-                    'min:0'
+                    'min:0',
                 ],
 
-                'box_image' => [
+                'note' => [
+                    'required',
+
+                    'string',
+                ],
+
+                'products' => [
+                    'required',
+
+                    'array',
+                ],
+
+                'products.*.name' => [
+                    'required',
+
+                    'string',
+                ],
+
+                'products.*.quantity' => [
+                    'required',
+
+                    'integer',
+                ],
+
+                'products.*.price' => [
+                    'required',
+
+                    'integer',
+                ],
+
+                'products.*.weight' => [
+                    'required',
+
+                    'numeric',
+                ],
+
+                'products.*.type_weight' => [
+                    'required',
+
                     'string',
 
-                    'max:255'
+                    'in:lb,kg',
+                ],
+
+                'products.*.note' => [
+                    'required',
+
+                    'string',
+                ],
+
+                'products.*.image' => [
+                    'required',
+
+                    'string',
                 ],
             ],
 
             'dashboard.boxes.box.update' => [
                 'pickup_id' => [
+                    'nullable',
+
                     'integer',
 
-                    Rule::exists('pickups','id'),
+                    Rule::exists('pickups', 'id'),
                 ],
 
                 'order_id' => [
-                    'integer',
-
-                    Rule::exists('orders','id'),
-                ],
-
-                'status_id' => [
-                    'required',
+                    'nullable',
 
                     'integer',
 
-                    Rule::exists('statuses', 'id'),
+                    Rule::exists('orders', 'id'),
                 ],
 
                 'delivery_id' => [
+                    'nullable',
+
                     'integer',
 
                     Rule::exists('deliveries', 'id'),
                 ],
 
-                'weight' => [
-                    'required',
+                'shipment_id' => [
+                    'nullable',
 
-                    'numeric',
+                    'integer',
 
-                    'min:0'
+                    Rule::exists('shipments', 'id'),
                 ],
 
                 'additional_weight' => [
-                    'required',
+                    'nullable',
 
                     'numeric',
 
-                    'min:0'
+                    'min:0',
                 ],
 
-                'box_image' => [
+                'note' => [
+                    'required',
+
+                    'string',
+                ],
+
+                'products' => [
+                    'required',
+
+                    'array',
+                ],
+
+                'products.*.name' => [
+                    'required',
+
+                    'string',
+                ],
+
+                'products.*.quantity' => [
+                    'required',
+
+                    'integer',
+                ],
+
+                'products.*.price' => [
+                    'required',
+
+                    'integer',
+                ],
+
+                'products.*.weight' => [
+                    'required',
+
+                    'numeric',
+                ],
+
+                'products.*.type_weight' => [
+                    'required',
+
                     'string',
 
-                    'max:255'
+                    'in:lb,kg',
+                ],
+
+                'products.*.note' => [
+                    'required',
+
+                    'string',
+                ],
+
+                'products.*.image' => [
+                    'required',
+
+                    'string',
                 ],
             ],
         ];
