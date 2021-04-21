@@ -4,9 +4,11 @@ namespace App\Logic\Dashboard\CRUD\Repositories;
 
 use App\Models\Box;
 
-use Illuminate\Contracts\Pagination\Paginator;
+use App\Models\BoxItem;
 
 use Illuminate\Support\Collection;
+
+use Illuminate\Contracts\Pagination\Paginator;
 
 final class Boxes
 {
@@ -45,6 +47,8 @@ final class Boxes
 
         $box->save();
 
+        $this->createProducts($box->id, $boxData['products']);
+
         return $box;
     }
 
@@ -59,16 +63,44 @@ final class Boxes
     {
         $box->update($boxData);
 
+
+        $this->deleteProducts($box->id);
+
+        $this->createProducts($box->id, $boxData['products']);
+
         return $box;
     }
 
     /**
-     * @param Box $box
+     * @param $id
      *
      * @return bool
      */
     public function deleteBox($id): bool
     {
         return Box::destroy($id);
+    }
+
+    /**
+     * @param int $boxId
+     *
+     * @param array $products
+     */
+    public function createProducts(int $boxId, array $products)
+    {
+        foreach ($products as $product)
+        {
+            $product['box_id'] = $boxId;
+
+            BoxItem::create($product);
+        }
+    }
+
+    /**
+     * @param int $boxId
+     */
+    public function deleteProducts(int $boxId)
+    {
+        BoxItem::where('box_id', '=', $boxId)->delete();
     }
 }

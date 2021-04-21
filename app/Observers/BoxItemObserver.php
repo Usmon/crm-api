@@ -48,29 +48,29 @@ class BoxItemObserver
         $boxItem->deleted_at = null;
     }
 
-    /**
-     * @param BoxItem $boxItem
-     */
-    public function created(BoxItem $boxItem): void
-    {
-        (new BoxObserver())->afterAddedOrUpdatedOrDeletedBoxItemProperties($boxItem->box_id);
-    }
-
-    /**
-     * @param BoxItem $boxItem
-     */
-    public function updated(BoxItem $boxItem): void
-    {
-        (new BoxObserver())->afterAddedOrUpdatedOrDeletedBoxItemProperties($boxItem->box_id);
-    }
-
-    /**
-     * @param BoxItem $boxItem
-     */
-    public function deleted(BoxItem $boxItem): void
-    {
-        (new BoxObserver())->afterAddedOrUpdatedOrDeletedBoxItemProperties($boxItem->box_id);
-    }
+//    /**
+//     * @param BoxItem $boxItem
+//     */
+//    public function created(BoxItem $boxItem): void
+//    {
+//        (new BoxObserver())->afterAddedOrUpdatedOrDeletedBoxItemProperties($boxItem->box_id);
+//    }
+//
+//    /**
+//     * @param BoxItem $boxItem
+//     */
+//    public function updated(BoxItem $boxItem): void
+//    {
+//        (new BoxObserver())->afterAddedOrUpdatedOrDeletedBoxItemProperties($boxItem->box_id);
+//    }
+//
+//    /**
+//     * @param BoxItem $boxItem
+//     */
+//    public function deleted(BoxItem $boxItem): void
+//    {
+//        (new BoxObserver())->afterAddedOrUpdatedOrDeletedBoxItemProperties($boxItem->box_id);
+//    }
 
     /**
      * @param BoxItem $boxItem

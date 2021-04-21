@@ -208,15 +208,17 @@ final class Boxes
 
             'order_id' => $request->json('order_id'),
 
-            'status_id' => $request->json('status_id'),
-
-            'weight' => $request->json('weight'),
+            'weight' => array_sum(array_column($request->json('products'),'weight')),
 
             'additional_weight' => $request->json('additional_weight'),
 
-            'box_image' => $request->json('box_image'),
-
             'delivery_id' => $request->json('delivery_id'),
+
+            'shipment_id' => $request->json('shipment_id'),
+
+            'note' => $request->json('note'),
+
+            'products' => $request->json('products'),
         ];
     }
 
@@ -232,15 +234,17 @@ final class Boxes
 
             'order_id' => $request->json('order_id'),
 
-            'status_id' => $request->json('status_id'),
-
-            'weight' => $request->json('weight'),
+            'weight' => array_sum(array_column($request->json('products'),'weight')),
 
             'additional_weight' => $request->json('additional_weight'),
 
-            'box_image' => $request->json('box_image'),
-
             'delivery_id' => $request->json('delivery_id'),
+
+            'shipment_id' => $request->json('shipment_id'),
+
+            'note' => $request->json('note'),
+
+            'products' => $request->json('products'),
         ];
     }
 

@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Http\Middleware\Auth;
 
+use App\Http\Middleware\CheckPermission;
 use App\Http\Middleware\Guest;
 
 use App\Http\Middleware\TrimStrings;
@@ -63,5 +64,7 @@ final class Kernel extends Http
         'guest' => Guest::class,
 
         'bindings' => SubstituteBindings::class,
+
+        'checkPermission' => CheckPermission::class,
     ];
 }

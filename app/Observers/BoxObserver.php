@@ -65,6 +65,8 @@ class BoxObserver
 
         $box->additional_weight = $box->additional_weight ?? 0;
 
+        $box->status_id = $box->status_id ?? 3;
+
         $box->created_at = $box->created_at ?? Carbon::now();
 
         $box->updated_at = $box->updated_at ?? Carbon::now();
@@ -116,13 +118,13 @@ class BoxObserver
         // $orderObserver->afterAddedOrUpdatedOrDeletedBoxProperties($order);
     }
 
-    public function afterAddedOrUpdatedOrDeletedBoxItemProperties(int $id): void
-    {
-        $box = Box::find($id);
-
-        $box->update([
-            'weight' => $box->items()->sum('weight'),
-        ]);
-    }
+//    public function afterAddedOrUpdatedOrDeletedBoxItemProperties(int $id): void
+//    {
+//        $box = Box::find($id);
+//
+//        $box->update([
+//            'weight' => $box->items()->sum('weight'),
+//        ]);
+//    }
 
 }
