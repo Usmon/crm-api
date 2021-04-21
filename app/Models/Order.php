@@ -84,7 +84,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property-read HasMany|null $boxes
  *
- * @property-read int totalBoxes
+ * @property-read int $totalBoxes
  *
  * @property-read double totalWeightBoxes
  *
@@ -98,7 +98,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property-read HasMany $histories
  *
- * @property-read int totalDeliveredBoxes
+ * @property-read int $totalDeliveredBoxes
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
