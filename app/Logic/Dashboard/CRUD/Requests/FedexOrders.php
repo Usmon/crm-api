@@ -189,6 +189,28 @@ final class FedexOrders extends FormRequest
                     Rule::exists('permissions', 'id'),
                 ],
             ],
+
+            'dashboard.fedex-orders.rate' => [
+                'address_id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('addresses', 'id')
+                ],
+
+                'boxes' => [
+                    'required',
+
+                    'array'
+                ],
+
+                'boxes.*.weight.value' => [
+                    'required',
+
+                    'integer',
+                ]
+            ]
         ];
 
         return $rules[$this->route()->getName()];

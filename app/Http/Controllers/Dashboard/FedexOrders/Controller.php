@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard\FedexOrders;
 
 use App\Helpers\Json;
 
+use App\Models\Address;
 use App\Models\FedexOrder;
 
 use App\Http\Controllers\Controller as Controllers;
@@ -15,6 +16,9 @@ use App\Logic\Dashboard\CRUD\Services\FedexOrders as FedexOrdersService;
 use App\Logic\Dashboard\CRUD\Repositories\FedexOrders as FedexOrdersRepository;
 
 use Illuminate\Http\JsonResponse;
+
+use App\Integrations\Fedex\Rate as FedexRate;
+use Illuminate\Http\Request;
 
 final class Controller extends Controllers
 {
@@ -107,6 +111,63 @@ final class Controller extends Controllers
 
         return Json::sendJsonWith200([
             'message' => 'The fedex-order was successfully deleted.',
+        ]);
+    }
+
+    /**
+     * @param FedexOrdersRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function rate(FedexOrdersRequest $request): JsonResponse
+    {
+        //@TODO Need code refactoring
+
+        //Prepare data
+        $address = Address::findOrFail($request->json('address_id'));
+
+        $request_data = [
+            "shipper" => [
+                "contact" => [
+                    "name" => $address->user->full_name,
+                    "company" => "Silkroad",
+                    "phone" => $address->user->phones->first()->phone,
+                ],
+                "address" => [
+                    "streetLines" => [
+                        $address->first_address,
+                        $address->second_address
+                    ],
+                    "city" => $address->city->name,
+                    "provinceCode" => $address->city->region->code,
+                    "postalCode" => $address->city->codes[0]
+                ]
+            ],
+            "packages" => $request->json('boxes')
+        ];
+
+//        dd($request_data);/
+
+        $fedex_request = new FedexRate();
+
+        $resp = $fedex_request->getResult($request_data);
+
+        if ($result = $resp['RateReplyDetails']) {
+            $result = collect($result);
+        }
+
+        return Json::sendJsonWith200([
+            'rates' => $result->transform(function (array $item) {
+                return [
+                    'service_type' => $item['ServiceType'],
+
+                    'title' => ucfirst(strtolower(str_replace('_', ' ', $item['ServiceType']))),
+
+                    'price' => $item['RatedShipmentDetails'][0]['ShipmentRateDetail']['TotalNetFedExCharge'],
+
+                    'freight_price' => $item['RatedShipmentDetails'][0]['ShipmentRateDetail']['TotalNetFreight'],
+                ];
+            })->toArray()
         ]);
     }
 }
