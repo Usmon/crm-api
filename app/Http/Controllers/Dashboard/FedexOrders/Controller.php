@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Dashboard\FedexOrders;
 
 use App\Helpers\Json;
 
-use App\Models\Address;
+use App\Models\Sender;
+
 use App\Models\FedexOrder;
 
 use App\Http\Controllers\Controller as Controllers;
@@ -17,8 +18,7 @@ use App\Logic\Dashboard\CRUD\Repositories\FedexOrders as FedexOrdersRepository;
 
 use Illuminate\Http\JsonResponse;
 
-use App\Integrations\Fedex\Rate as FedexRate;
-use Illuminate\Http\Request;
+use App\Integrations\Fedex\Rate as FedexRate;use function Symfony\Component\String\u;
 
 final class Controller extends Controllers
 {
@@ -124,7 +124,9 @@ final class Controller extends Controllers
         //@TODO Need code refactoring
 
         //Prepare data
-        $address = Address::findOrFail($request->json('address_id'));
+        $sender = Sender::findOrFail($request->json('sender_id'));
+
+        $address = $sender->customer->user->addresses()->first();
 
         $request_data = [
             "shipper" => [
@@ -145,8 +147,6 @@ final class Controller extends Controllers
             ],
             "packages" => $request->json('boxes')
         ];
-
-//        dd($request_data);/
 
         $fedex_request = new FedexRate();
 

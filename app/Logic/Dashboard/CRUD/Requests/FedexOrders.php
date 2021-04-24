@@ -191,12 +191,12 @@ final class FedexOrders extends FormRequest
             ],
 
             'dashboard.fedex-orders.rate' => [
-                'address_id' => [
+                'sender_id' => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('addresses', 'id')
+                    Rule::exists('senders', 'id')
                 ],
 
                 'boxes' => [
