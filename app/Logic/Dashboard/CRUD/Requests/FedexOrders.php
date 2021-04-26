@@ -210,6 +210,28 @@ final class FedexOrders extends FormRequest
 
                     'integer',
                 ]
+            ],
+
+            'dashboard.fedex-orders.ship' => [
+                'sender_id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('senders', 'id')
+                ],
+
+                'boxes' => [
+                    'required',
+
+                    'array'
+                ],
+
+                'boxes.*.weight.value' => [
+                    'required',
+
+                    'integer',
+                ]
             ]
         ];
 

@@ -80,6 +80,8 @@ final class FedexOrderItem extends Model
 
         'service_price',
 
+        'service_discount_price',
+
         'label_file_name',
 
         'barcode',
@@ -102,6 +104,8 @@ final class FedexOrderItem extends Model
         'length' => 'integer',
 
         'service_price' => 'double',
+
+        'service_discount_price' => 'double',
 
         'label_file_name' => 'string',
 
