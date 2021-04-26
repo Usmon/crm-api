@@ -199,8 +199,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth:api','checkPermiss
     Route::apiResource('customers', DashboardCustomersController::class);
 
     Route::group(['prefix' => 'fedex-orders', 'as' => 'fedex-orders.'], function () {
-
-        Route::apiResource('/', DashboardFedexOrdersController::class);
+        Route::apiResource('order', DashboardFedexOrdersController::class);
 
         Route::apiResource('items', DashboardFedexOrderItemsController::class);
 

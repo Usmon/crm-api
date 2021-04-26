@@ -22,7 +22,7 @@ final class FedexOrders extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'dashboard.fedex-orders.index' => [
+            'dashboard.fedex-orders.order.index' => [
                 'search' => [
                     'nullable',
 
