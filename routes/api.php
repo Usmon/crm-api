@@ -205,6 +205,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth:api','checkPermiss
         Route::apiResource('items', DashboardFedexOrderItemsController::class);
 
         Route::post('rate', [DashboardFedexOrdersController::class, 'rate'])->name('rate');
+
+        Route::post('ship', [DashboardFedexOrdersController::class, 'ship'])->name('ship');
     });
 
     Route::apiResource('feedbacks', DashboardFeedbacksController::class);

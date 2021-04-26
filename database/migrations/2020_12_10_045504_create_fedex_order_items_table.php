@@ -25,13 +25,15 @@ final class CreateFedexOrderItemsTable extends Migration
 
             $table->double('weight',10,2);
 
-            $table->integer('width');
+            $table->integer('width')->nullable();
 
-            $table->integer('height');
+            $table->integer('height')->nullable();
 
-            $table->integer('length');
+            $table->integer('length')->nullable();
 
             $table->double('service_price',10,2);
+
+            $table->double('service_discount_price',10,2);
 
             $table->string('label_file_name');
 

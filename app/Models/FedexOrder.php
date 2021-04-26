@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 use App\Traits\Pagination\Pager;
@@ -15,6 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 /**
  *
  * App\Models\FedexOrder
@@ -131,6 +133,14 @@ final class FedexOrder extends Model
     public function customer():HasOne
     {
         return $this->hasOne(User::class,'id','customer_id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function items(): HasMany
+    {
+        return $this->hasMany(FedexOrderItem::class);
     }
 
     /**

@@ -6,6 +6,8 @@ use App\Models\FedexOrder;
 
 use Illuminate\Support\Carbon;
 
+use Illuminate\Support\Facades\Auth;
+
 final class FedexOrderObserver
 {
     /**
@@ -59,6 +61,8 @@ final class FedexOrderObserver
         $fedex_order->created_at = $fedex_order->created_at ?? Carbon::now();
 
         $fedex_order->service_type = $fedex_order->service_type ? $fedex_order->service_type : 'ground';
+
+        $fedex_order->staff_id = Auth::user()->id ?? 1;
 
         $fedex_order->status = $fedex_order->status ? $fedex_order->status : 'pending';
 
