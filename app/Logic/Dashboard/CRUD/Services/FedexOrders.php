@@ -117,6 +117,8 @@ final class FedexOrders
             'customer' => $fedexOrder->customer,
 
             'staff' => $fedexOrder->staff,
+
+            'items' => $fedexOrder->items
         ];
     }
 

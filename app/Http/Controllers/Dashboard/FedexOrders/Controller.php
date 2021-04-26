@@ -80,10 +80,10 @@ final class Controller extends Controllers
      * @param FedexOrder $fedexOrder
      * @return JsonResponse
      */
-    public function show(FedexOrder $fedexOrder): JsonResponse
+    public function show(FedexOrder $order): JsonResponse
     {
         return Json::sendJsonWith200([
-            'fedex-order' => $this->service->showFedexOrder($fedexOrder),
+            'fedex-order' => $this->service->showFedexOrder($order),
         ]);
     }
 
