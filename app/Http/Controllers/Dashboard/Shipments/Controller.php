@@ -15,6 +15,7 @@ use App\Logic\Dashboard\CRUD\Requests\Shipments as ShipmentsRequest;
 use App\Logic\Dashboard\CRUD\Services\Shipments as ShipmentsService;
 
 use App\Logic\Dashboard\CRUD\Repositories\Shipments as ShipmentsRepository;
+use Illuminate\Support\Facades\Gate;
 
 
 final class Controller extends Controllers
@@ -50,6 +51,12 @@ final class Controller extends Controllers
      */
     public function index(ShipmentsRequest $request): JsonResponse
     {
+        if(! Gate::check('Shipments')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         return Json::sendJsonWith200([
             'filters' => $this->service->getAllFilters($request),
 
@@ -69,6 +76,12 @@ final class Controller extends Controllers
      */
     public function store(ShipmentsRequest $request): JsonResponse
     {
+        if(! Gate::check('Shipments')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         return Json::sendJsonWith200([
             'message' => 'The shipment was successfully created.',
 
@@ -83,6 +96,12 @@ final class Controller extends Controllers
      */
     public function show(Shipment $shipment): JsonResponse
     {
+        if(! Gate::check('Shipments')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         return Json::sendJsonWith200([
             'shipment' => $this->service->showShipment($shipment),
         ]);
@@ -97,6 +116,12 @@ final class Controller extends Controllers
      */
     public function update(ShipmentsRequest $request, Shipment $shipment): JsonResponse
     {
+        if(! Gate::check('Shipments')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         return Json::sendJsonWith200([
             'message' => 'The shipment was successfully updated.',
 
@@ -111,6 +136,12 @@ final class Controller extends Controllers
      */
     public function destroy($id): JsonResponse
     {
+        if(! Gate::check('Shipments')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         if (! $this->repository->deleteShipment($id)) {
             return Json::sendJsonWith409([
                 'message' => 'Failed to delete shipment, please try again later.',

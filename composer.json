@@ -4,7 +4,7 @@
     "license": "MIT",
     "description": "The private project.",
     "require": {
-        "php": "^7.3",
+        "php": "^8.0",
         "ext-json": "*",
         "ext-pdo": "*",
         "doctrine/dbal": "^3.0",
@@ -15,7 +15,8 @@
         "jenssegers/agent": "^2.6",
         "laravel/framework": "^8.15",
         "laravel/tinker": "^2.5",
-        "league/flysystem-aws-s3-v3": "^1.0"
+        "league/flysystem-aws-s3-v3": "^1.0",
+        "spatie/laravel-permission": "^4.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

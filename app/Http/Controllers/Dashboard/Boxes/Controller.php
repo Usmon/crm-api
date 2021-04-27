@@ -15,6 +15,7 @@ use App\Logic\Dashboard\CRUD\Services\Boxes as BoxesService;
 use App\Logic\Dashboard\CRUD\Repositories\Boxes as BoxesRepository;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Gate;
 
 final class Controller extends Controllers
 {
@@ -49,6 +50,12 @@ final class Controller extends Controllers
      */
     public function index(BoxesRequest $request): JsonResponse
     {
+        if(! Gate::check('Boxes')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         return Json::sendJsonWith200([
             'filters' => $this->service->getAllFilters($request),
 
@@ -61,7 +68,6 @@ final class Controller extends Controllers
             ))
 
         ]);
-
     }
 
     /**
@@ -71,6 +77,12 @@ final class Controller extends Controllers
      */
     public function store(BoxesRequest $request): JsonResponse
     {
+        if(! Gate::check('Boxes')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         return Json::sendJsonWith200([
             'message' => 'The box was successfully created.',
 
@@ -85,6 +97,12 @@ final class Controller extends Controllers
      */
     public function show(Box $box): JsonResponse
     {
+        if(! Gate::check('Boxes')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         return Json::sendJsonWith200([
             'box' => $this->service->showBox($box),
 
@@ -112,6 +130,12 @@ final class Controller extends Controllers
      */
     public function update(BoxesRequest $request, Box $box): JsonResponse
     {
+        if(! Gate::check('Boxes')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         return Json::sendJsonWith200([
             'message' => 'The box was successfully updated.',
 
@@ -126,6 +150,12 @@ final class Controller extends Controllers
      */
     public function destroy($id): JsonResponse
     {
+        if(! Gate::check('Boxes')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         $id = $this->service->deleteBox($id);
 
         if(!$id)

@@ -173,7 +173,7 @@ final class ObserverServiceProvider extends ServiceProvider
     {
         User::observe(UserObserver::class);
 
-        Role::observe(RoleObserver::class);
+//        Role::observe(RoleObserver::class);
 
         Driver::observe(DriverObserver::class);
 
@@ -185,7 +185,7 @@ final class ObserverServiceProvider extends ServiceProvider
 
         FedexOrder::observe(FedexOrderObserver::class);
 
-        Permission::observe(PermissionObserver::class);
+//        Permission::observe(PermissionObserver::class);
 
         Shipment::observe(ShipmentObserver::class);
 

@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Role;
-
-use Illuminate\Support\Str;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 use Illuminate\Database\Seeder;
 
@@ -15,12 +14,12 @@ final class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        Role::factory()->create([
+        $role = Role::create([
             'name' => 'Administrator',
-
-            'slug' => Str::slug('Administrator'),
-
-            'description' => 'Administrator role description.',
-        ],);
+        ]);
+        $permissionsId = Permission::all()->map(function ($data){
+            return $data->id;
+        });
+        $role->givePermissionTo($permissionsId);
     }
 }

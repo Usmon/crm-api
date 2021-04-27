@@ -15,6 +15,7 @@ use App\Logic\Dashboard\CRUD\Requests\Orders as OrdersRequest;
 use App\Logic\Dashboard\CRUD\Services\Orders as OrdersService;
 
 use App\Logic\Dashboard\CRUD\Repositories\Orders as OrdersRepository;
+use Illuminate\Support\Facades\Gate;
 
 final class Controller extends Controllers
 {
@@ -49,6 +50,12 @@ final class Controller extends Controllers
      */
     public function index(OrdersRequest $request): JsonResponse
     {
+        if(! Gate::check('Orders')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         return Json::sendJsonWith200([
             'filters' => $this->service->getAllFilters($request),
 
@@ -68,6 +75,12 @@ final class Controller extends Controllers
      */
     public function store(OrdersRequest $request): JsonResponse
     {
+        if(! Gate::check('Orders')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         return Json::sendJsonWith201([
             'message' => 'The order was successfully created.',
 
@@ -82,6 +95,12 @@ final class Controller extends Controllers
      */
     public function show(Order $order): JsonResponse
     {
+        if(! Gate::check('Orders')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         return Json::sendJsonWith200([
             'order' => $this->service->showOrder($order),
         ]);
@@ -96,6 +115,12 @@ final class Controller extends Controllers
      */
     public function update(OrdersRequest $request, Order $order): JsonResponse
     {
+        if(! Gate::check('Orders')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         return Json::sendJsonWith200([
             'message' => 'The order was successfully updated.',
 
@@ -138,6 +163,12 @@ final class Controller extends Controllers
      */
     public function destroy($id): JsonResponse
     {
+        if(! Gate::check('Orders')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         $id = $this->service->deleteOrder($id);
 
         if(!$id){

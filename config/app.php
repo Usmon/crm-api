@@ -162,6 +162,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         App\Providers\ObserverServiceProvider::class,
+
+        Spatie\Permission\PermissionServiceProvider::class,
     ],
 
     /*

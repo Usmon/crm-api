@@ -61,22 +61,8 @@ final class Roles extends FormRequest
                     'string',
 
                     'max:255',
-                ],
 
-                'slug' => [
-                    'required',
-
-                    'string',
-
-                    'max:255',
-
-                    Rule::unique('roles', 'slug'),
-                ],
-
-                'description' => [
-                    'required',
-
-                    'string',
+                    Rule::unique('roles', 'name'),
                 ],
 
                 'permissions' => [
@@ -101,22 +87,8 @@ final class Roles extends FormRequest
                     'string',
 
                     'max:255',
-                ],
 
-                'slug' => [
-                    'required',
-
-                    'string',
-
-                    'max:255',
-
-                    Rule::unique('roles', 'slug')->ignore($this->route('role')),
-                ],
-
-                'description' => [
-                    'required',
-
-                    'string',
+                    Rule::unique('roles', 'name')->ignore($this->route('roles')),
                 ],
 
                 'permissions' => [
