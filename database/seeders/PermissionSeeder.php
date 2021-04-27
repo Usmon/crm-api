@@ -26,7 +26,7 @@ final class PermissionSeeder extends Seeder
         ]);
 
         $shipments = \Spatie\Permission\Models\Permission::create([
-            'name' => 'Shipment',
+            'name' => 'Shipments',
         ]);
 
         $shipments = \Spatie\Permission\Models\Permission::create([
