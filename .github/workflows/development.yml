@@ -74,4 +74,4 @@ jobs:
     - name: Notify Discord
       run: |
           curl --header "Content-Type: application/json" --request POST \
-               --data '{"content":"Successfully deployed\nhttps://dev-api.silkroadexp.com\n${{ github.event.head_commit.message }}\nFixed bug. by **${{ github.event.pusher.name }}**"}' ${{secrets.BOT_DISCORD_TOKEN}}  
+               --data '{"content":"Successfully deployed\nhttps://dev-api.silkroadexp.com\n${{ github.event.head_commit.message }} by **${{ github.event.pusher.name }}**"}' ${{secrets.BOT_DISCORD_TOKEN}}  
