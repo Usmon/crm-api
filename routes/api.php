@@ -22,6 +22,8 @@ use App\Http\Controllers\User\Sessions\Controller as UserSessionsController;
 
 use App\Http\Controllers\Dashboard\Users\Controller as DashboardUsersController;
 
+use App\Http\Controllers\Dashboard\Permissions\Controller as DashboardPermissionsController;
+
 use App\Http\Controllers\Dashboard\Roles\Controller as DashboardRolesController;
 
 use App\Http\Controllers\Dashboard\Pickups\Controller as DashboardPickupsController;
@@ -165,6 +167,8 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:api'], function () {
 // Dashboard routes
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth:api','checkPermission'], 'as' => 'dashboard.'], function () {
     Route::apiResource('users', DashboardUsersController::class);
+
+    Route::apiResource('permissions', DashboardPermissionsController::class);
 
     Route::apiResource('roles', DashboardRolesController::class);
 
