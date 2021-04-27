@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Traits\Sort\Sorter;
 
 use App\Traits\Pagination\Pager;
+use Spatie\Permission\Traits\HasRoles;
 
 /**
  * App\Models\User
@@ -59,8 +60,6 @@ use App\Traits\Pagination\Pager;
  *
  * @property-read string $avatar
  *
- * @property-read Collection|Role[] $roles
- *
  * @property-read Collection|Token[] $tokens
  *
  * @property-read Collection|Pickup[] $pickups
@@ -81,6 +80,7 @@ final class User extends Auth
     use SoftDeletes;
     use Pager;
     use Sorter;
+    use HasRoles;
 
     /**
      * @var string
@@ -163,14 +163,6 @@ final class User extends Auth
     public function partner(): BelongsTo
     {
         return $this->belongsTo(Partner::class);
-    }
-
-    /**
-     * @return BelongsToMany
-     */
-    public function roles(): BelongsToMany
-    {
-        return $this->belongsToMany(Role::class, 'user_role');
     }
 
     /**
@@ -300,10 +292,6 @@ final class User extends Auth
             });
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
-        })->when($filters['role'] ?? null, function (Builder $query, int $role) {
-            return $query->whereHas('roles', function (Builder $query) use ($role) {
-                return $query->where('id', '=', $role);
-            });
         });
     }
 

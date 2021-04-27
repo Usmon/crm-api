@@ -4,7 +4,7 @@ namespace App\Logic\Dashboard\CRUD\Repositories;
 
 use Exception;
 
-use App\Models\Role;
+use Spatie\Permission\Models\Role;
 
 use Illuminate\Support\Arr;
 

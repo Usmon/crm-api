@@ -24,6 +24,7 @@ use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
 use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance;
 
 use Fruitcake\Cors\HandleCors;
+use Spatie\Permission\Middlewares\PermissionMiddleware;
 
 final class Kernel extends Http
 {
@@ -66,5 +67,11 @@ final class Kernel extends Http
         'bindings' => SubstituteBindings::class,
 
         'checkPermission' => CheckPermission::class,
+
+        'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+
+        'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+
+        'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
     ];
 }

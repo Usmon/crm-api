@@ -21,7 +21,7 @@ final class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
+        $user = User::factory()->create([
             'login' => 'axel',
 
             'email' => 'axel@silkroadexp.com',
@@ -43,6 +43,8 @@ final class UserSeeder extends Seeder
             $this->phoneCreate($user);
 
             $this->addressCreate($user);
+
+            $user->assignRole('Administrator');
         });
 
         User::factory()->times(200)->create()->each(function (User $user) {

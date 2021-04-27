@@ -15,6 +15,7 @@ use App\Logic\Dashboard\CRUD\Services\BoxItems as BoxItemsService;
 use App\Logic\Dashboard\CRUD\Repositories\BoxItems as BoxItemsRepository;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Gate;
 
 final class Controller extends Controllers
 {
@@ -49,6 +50,12 @@ final class Controller extends Controllers
      */
     public function index(BoxItemsRequest $request): JsonResponse
     {
+        if(! Gate::check('Products')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         return Json::sendJsonWith200([
             'filters' => $this->service->getAllFilters($request),
 
@@ -64,6 +71,12 @@ final class Controller extends Controllers
      */
     public function store(BoxItemsRequest $request): JsonResponse
     {
+        if(! Gate::check('Products')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         return Json::sendJsonWith200([
             'message' => 'The box item was successfully created.',
 
@@ -78,6 +91,12 @@ final class Controller extends Controllers
      */
     public function show(BoxItem $item): JsonResponse
     {
+        if(! Gate::check('Products')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         return Json::sendJsonWith200([
             'box_item' => $this->service->showBoxItem($item),
         ]);
@@ -90,6 +109,12 @@ final class Controller extends Controllers
      */
     public function getProducts(int $box_id): JsonResponse
     {
+        if(! Gate::check('Products')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         return Json::sendJsonWith200([
             'products' => $this->service->getProducts($this->repository->getProducts($box_id))
         ]);
@@ -104,6 +129,12 @@ final class Controller extends Controllers
      */
     public function update(BoxItemsRequest $request, BoxItem $item): JsonResponse
     {
+        if(! Gate::check('Products')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         return Json::sendJsonWith200([
             'message' => 'The box item was successfully updated.',
 
@@ -118,6 +149,12 @@ final class Controller extends Controllers
      */
     public function destroy($id): JsonResponse
     {
+        if(! Gate::check('Products')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         $id = $this->service->deleteBoxItem($id);
 
         if(!$id)

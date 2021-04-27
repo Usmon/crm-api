@@ -11,6 +11,8 @@ final class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(PermissionSeeder::class);
+
         $this->call(RoleSeeder::class);
 
         $this->call(CountrySeeder::class);
@@ -18,8 +20,6 @@ final class DatabaseSeeder extends Seeder
         $this->call(PartnerSeeder::class);
 
         $this->call(UserSeeder::class);
-
-        $this->call(PermissionSeeder::class);
 
         $this->call(StatusSeeder::class);
 

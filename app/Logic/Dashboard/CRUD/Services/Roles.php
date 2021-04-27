@@ -2,13 +2,9 @@
 
 namespace App\Logic\Dashboard\CRUD\Services;
 
-use App\Models\Role;
+use Spatie\Permission\Models\Role;
 
 use App\Logic\Dashboard\CRUD\Requests\Roles as RolesRequest;
-
-use Illuminate\Support\Arr;
-
-use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Database\Eloquent\Collection;
 
@@ -100,7 +96,7 @@ final class Roles
 
             'description' => $request->json('description'),
 
-            // 'permissions' => $request->json('permissions'),
+            'permissions' => $request->json('permissions'),
         ];
     }
 
