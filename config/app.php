@@ -164,6 +164,8 @@ return [
         App\Providers\ObserverServiceProvider::class,
 
         Spatie\Permission\PermissionServiceProvider::class,
+
+        GrofGraf\LaravelPDFMerger\Providers\PDFMergerServiceProvider::class
     ],
 
     /*
@@ -240,6 +242,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
 
         'View' => Illuminate\Support\Facades\View::class,
+
+        'PDFMerger' => GrofGraf\LaravelPDFMerger\Facades\PDFMergerFacade::class
     ],
 
 ];

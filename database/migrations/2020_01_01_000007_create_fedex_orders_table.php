@@ -29,6 +29,8 @@ final class CreateFedexOrdersTable extends Migration
 
             $table->string('tracking_number')->nullable();
 
+            $table->string('label_file')->nullable();
+
             $table->string('transit_time')->nullable();
 
             $table->enum('status', ['pending', 'arrived'])->default('pending');
