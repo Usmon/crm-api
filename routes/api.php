@@ -168,7 +168,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:api'], function () {
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth:api','checkPermission'], 'as' => 'dashboard.'], function () {
     Route::apiResource('users', DashboardUsersController::class);
 
-    Route::apiResource('permissions', DashboardPermissionsController::class);
+//    Route::apiResource('permissions', DashboardPermissionsController::class);
 
     Route::apiResource('roles', DashboardRolesController::class);
 

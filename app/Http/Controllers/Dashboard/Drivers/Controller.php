@@ -15,6 +15,7 @@ use App\Logic\Dashboard\CRUD\Requests\Drivers as DriversRequest;
 use App\Logic\Dashboard\CRUD\Services\Drivers as DriversService;
 
 use App\Logic\Dashboard\CRUD\Repositories\Drivers as DriversRepository;
+use Illuminate\Support\Facades\Gate;
 
 final class Controller extends Controllers
 {
@@ -49,6 +50,12 @@ final class Controller extends Controllers
      */
     public function index(DriversRequest $request): JsonResponse
     {
+        if(! Gate::check('Drivers')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         return Json::sendJsonWith200([
             'filters' => $this->service->getAllFilters($request),
 
@@ -68,6 +75,12 @@ final class Controller extends Controllers
      */
     public function store(DriversRequest $request): JsonResponse
     {
+        if(! Gate::check('Drivers')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         return Json::sendJsonWith200([
             'message' => 'The driver was successfully created.',
 
@@ -82,6 +95,12 @@ final class Controller extends Controllers
      */
     public function show(Driver $driver): JsonResponse
     {
+        if(! Gate::check('Drivers')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         return Json::sendJsonWith200([
             'driver' => $this->service->showDriver($driver),
         ]);
@@ -96,6 +115,12 @@ final class Controller extends Controllers
      */
     public function update(DriversRequest $request, Driver $driver): JsonResponse
     {
+        if(! Gate::check('Drivers')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         return Json::sendJsonWith200([
             'message' => 'The driver was successfully updated.',
 
@@ -110,6 +135,12 @@ final class Controller extends Controllers
      */
     public function destroy($id): JsonResponse
     {
+        if(! Gate::check('Drivers')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         $id = $this->service->deleteDriver($id);
 
         if(!$id){

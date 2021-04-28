@@ -4,8 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-use Spatie\Permission\Models\Role;
-
 final class PermissionSeeder extends Seeder
 {
     /**
@@ -13,40 +11,37 @@ final class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        $orders = \Spatie\Permission\Models\Permission::create([
+        \Spatie\Permission\Models\Permission::create([
             'name' => 'Orders',
         ]);
 
-        $pickups = \Spatie\Permission\Models\Permission::create([
+        \Spatie\Permission\Models\Permission::create([
             'name' => 'Pickups',
         ]);
 
-        $deliveries = \Spatie\Permission\Models\Permission::create([
+        \Spatie\Permission\Models\Permission::create([
             'name' => 'Deliveries',
         ]);
 
-        $shipments = \Spatie\Permission\Models\Permission::create([
+        \Spatie\Permission\Models\Permission::create([
             'name' => 'Shipments',
         ]);
 
-        $shipments = \Spatie\Permission\Models\Permission::create([
+        \Spatie\Permission\Models\Permission::create([
             'name' => 'Boxes',
         ]);
 
-        $shipments = \Spatie\Permission\Models\Permission::create([
+        \Spatie\Permission\Models\Permission::create([
             'name' => 'Products',
         ]);
 
+        \Spatie\Permission\Models\Permission::create([
+            'name' => 'Customers',
+        ]);
 
+        \Spatie\Permission\Models\Permission::create([
+            'name' => 'Drivers',
+        ]);
 
-//        Role::findById(1)->givePermissionTo([
-//            $orders,
-//
-//            $pickups,
-//
-//            $deliveries,
-//
-//            $shipments,
-//        ]);
     }
 }
