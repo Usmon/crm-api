@@ -146,20 +146,6 @@ final class Customers extends FormRequest
 
                     'string'
                 ],
-
-                'permissions' => [
-                    'required',
-
-                    'array',
-                ],
-
-                'permissions.*' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('permissions', 'id'),
-                ],
             ],
 
             'dashboard.customers.update' => [
@@ -199,20 +185,6 @@ final class Customers extends FormRequest
                     'required',
 
                     'string'
-                ],
-
-                'permissions' => [
-                    'required',
-
-                    'array',
-                ],
-
-                'permissions.*' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('permissions', 'id'),
                 ],
             ],
         ];
