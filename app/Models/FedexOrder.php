@@ -33,6 +33,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property string $transit_time
  *
+ * @property string $label_file
+ *
  * @property array $status
  *
  * @property Carbon|null $created_at
@@ -74,6 +76,8 @@ final class FedexOrder extends Model
 
         'tracking_number',
 
+        'label_file',
+
         'transit_time',
 
         'status',
@@ -94,6 +98,8 @@ final class FedexOrder extends Model
         'service_type' => 'string',
 
         'tracking_number' => 'string',
+
+        'label_file' => 'string',
 
         'transit_time' => 'string',
 

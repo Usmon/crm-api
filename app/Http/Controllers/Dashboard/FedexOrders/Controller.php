@@ -212,6 +212,8 @@ final class Controller extends Controllers
 
         $box_items = [];
 
+        $merger_paths = [];
+
         foreach ($boxes as $box) {
             $request_data['packages'] = [$box];
 
@@ -220,13 +222,15 @@ final class Controller extends Controllers
             $resp = $fedex_request->getResult($request_data);
 
             if ($resp['HighestSeverity'] === 'SUCCESS') {
-                $decoded = $resp['CompletedShipmentDetail']['CompletedPackageDetails'][0]['Label']['Parts'][0]['Image'];
+                $decoded = base64_decode($resp['CompletedShipmentDetail']['CompletedPackageDetails'][0]['Label']['Parts'][0]['Image']);
 
                 $file_name = 'files/'. md5(time()).'.pdf';
 
-                Storage::disk('s3')->put($file_name, base64_decode($decoded).'pdf');
+                Storage::disk('s3')->put($file_name, $decoded);
 
-                $url_to_file = Storage::disk('s3')->url($file_name);
+                Storage::disk('local')->put($file_name, $decoded);
+
+                $merger_paths[] = Storage::disk('local')->path($file_name);
 
                 $box_items[] = [
                     'tracking_number' => $resp['CompletedShipmentDetail']['MasterTrackingId']['TrackingNumber'],
@@ -235,7 +239,7 @@ final class Controller extends Controllers
 
                     'service_discount_price' => $resp['CompletedShipmentDetail']['ShipmentRating']['ShipmentRateDetails'][0]['TotalNetFreight']['Amount'],
 
-                    'label_file_name' => $url_to_file,
+                    'label_file_name' => Storage::disk('s3')->url($file_name),
 
                     'barcode' => $resp['CompletedShipmentDetail']['CompletedPackageDetails'][0]['OperationalDetail']['Barcodes']['StringBarcodes'][0]['Value'],
 
@@ -247,6 +251,25 @@ final class Controller extends Controllers
             sleep(1);
         }
 
+        $merger = \PDFMerger::init();
+
+        foreach ($merger_paths as $index => $path) {
+            if (!$index) {
+                $merger->addPathToPDF($path, 'all', 'P');
+            }
+            else {
+                $merger->addPDFString(file_get_contents($path), 'all', 'P');
+            }
+
+            Storage::disk('local')->delete($path);
+        }
+
+        $merger->merge();
+
+        $merged_file = 'files/'.sha1(time()).'.pdf';
+
+        Storage::disk('s3')->put($merged_file, $merger->string());
+
         $prices = collect($box_items);
 
         $order = FedexOrder::create([
@@ -254,7 +277,9 @@ final class Controller extends Controllers
 
             'discount_price' => $prices->sum('service_discount_price'),
 
-            'customer_id' => $sender->customer_id
+            'customer_id' => $sender->customer_id,
+
+            'label_file' =>  Storage::disk('s3')->url($merged_file)
         ]);
 
         $order->items()->createMany($box_items);
