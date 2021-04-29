@@ -1,5 +1,9 @@
 FROM php:8.0-apache
 
+USER root
+
+WORKDIR /var/www/html
+
 RUN apt-get update && apt-get install -y \
         libpng-dev \
         zlib1g-dev \
@@ -17,10 +21,6 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install mysqli \
     && docker-php-ext-install zip \
     && docker-php-source delete
-
-USER www-data
-
-WORKDIR /var/www/html
 
 COPY . .
 
