@@ -75,5 +75,4 @@ jobs:
       run: |
           curl --location --request POST '${{secrets.BOT_DISCORD_TOKEN}}' \
                --header 'Content-Type: application/json' \
-               --header 'Cookie: __cfduid=dad2c79c7b35cc9c2463048574268f2531619499762; __dcfduid=13f343290065462881ca0c89a0853751' \
                --data-raw '{"content": "Successfully deployed\nhttps://dev-api.silkroadexp.com\n${{ github.event.head_commit.message }} by **${{ github.event.pusher.name }}**"}'
