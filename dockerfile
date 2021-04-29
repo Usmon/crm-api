@@ -1,12 +1,6 @@
 FROM php:8.0-apache
 
-USER www-data
-
-WORKDIR /var/www/html
-
-COPY . .
-
-RUN sudo apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y \
         libpng-dev \
         zlib1g-dev \
         libxml2-dev \
@@ -23,6 +17,12 @@ RUN sudo apt-get update && apt-get install -y \
     && docker-php-ext-install mysqli \
     && docker-php-ext-install zip \
     && docker-php-source delete
+
+USER www-data
+
+WORKDIR /var/www/html
+
+COPY . .
 
 COPY vhost.conf /etc/apache2/sites-available/000-default.conf
 
