@@ -1,12 +1,12 @@
 FROM php:8.0-apache
 
-USER root
+USER www-data
 
 WORKDIR /var/www/html
 
 COPY . .
 
-RUN apt-get update && apt-get install -y \
+RUN sudo apt-get update && apt-get install -y \
         libpng-dev \
         zlib1g-dev \
         libxml2-dev \
@@ -33,5 +33,3 @@ RUN composer install
 RUN chown -R www-data:www-data /var/www/html \
     && php artisan storage:link \
     && a2enmod rewrite
-    
-USER www-data
