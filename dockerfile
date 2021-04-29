@@ -1,6 +1,6 @@
 FROM php:8.0-apache
 
-USER root
+USER www-data
 
 WORKDIR /var/www/html
 
