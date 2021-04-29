@@ -75,4 +75,4 @@ jobs:
       run: |
           curl --location --request POST '${{secrets.BOT_DISCORD_TOKEN}}' \
                --header 'Content-Type: application/json' \
-               --data-raw '{"content": "Successfully deployed\nhttps://dev-api.silkroadexp.com\n${{ github.event.head_commit.message }} by **${{ github.event.pusher.name }}**"}'
+               --data-raw '{"content": "Successfully deployed\nhttps://dev-api.silkroadexp.com\n${{ github.event.head_commit.message }}"}'
