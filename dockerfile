@@ -1,6 +1,6 @@
 FROM php:8.0-apache
 
-USER www-data
+USER root
 
 WORKDIR /var/www/html
 
@@ -33,3 +33,5 @@ RUN composer install
 RUN chown -R www-data:www-data /var/www/html \
     && php artisan storage:link \
     && a2enmod rewrite
+    
+USER www-data
