@@ -242,11 +242,9 @@ final class Orders
                 ];
             }),
 
-            'history' => $order->histories->transform(function(OrderHistory $history) {
+            'history' => $order->histories->transform(function(OrderHistory $history, int $index) {
                 return [
-                    'id' => $history->id,
-
-                    'seq' => $history->seq,
+                    'seq' => ++$index,
 
                     'creator' => [
                         'id' => $history->creator_id,
@@ -258,7 +256,7 @@ final class Orders
 
                     'created_at' => $history->created_at
                 ];
-            }),
+            })->reverse()->values(),
 
             'created_at' => $order->created_at,
 

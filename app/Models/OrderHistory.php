@@ -44,6 +44,10 @@ final class OrderHistory extends Model
 
         'order_id',
 
+        'status_id',
+
+        'model',
+
         'creator_id'
     ];
 
@@ -61,6 +65,10 @@ final class OrderHistory extends Model
         'seq' => 'integer',
 
         'order_id' => 'integer',
+
+        'model' => 'string',
+
+        'status_id' => 'integer',
 
         'creator_id' => 'integer'
     ];
