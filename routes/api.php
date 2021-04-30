@@ -268,6 +268,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth:api','checkPermiss
     Route::group(['prefix'=> 'boxes', 'as' => 'boxes.'], function(){
         Route::get('order/{id}', [DashboardBoxesController::class, 'getBoxes']);
 
+        Route::put('set-status', [DashboardBoxesController::class, 'setStatus'])->name('set-status');
+
         Route::apiResource('box', DashboardBoxesController::class);
 
         Route::get('products/{id}', [DashboardBoxItemsController::class, 'getProducts']);

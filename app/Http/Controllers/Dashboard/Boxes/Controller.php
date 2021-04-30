@@ -171,4 +171,34 @@ final class Controller extends Controllers
             'message' => 'The box deleted successfully.',
         ]);
     }
+
+    /**
+     * @param BoxesRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function setStatus(BoxesRequest $request): JsonResponse
+    {
+        $box = Box::find($request->json('box_id'));
+
+        $box->update([
+            'status_id' => $request->json('status_id')
+        ]);
+
+        $box->histories()->create([
+            'model_id' => $box->id,
+
+            'status_id' => $box->status_id,
+
+            'seq' => 0,
+
+            'model' => Box::class,
+
+            'creator_id' => auth()->user()->id
+        ]);
+
+        return Json::sendJsonWith200([
+            'message' => 'The box successfully updated.',
+        ]);
+    }
 }
