@@ -2,6 +2,8 @@
 
 namespace App\Logic\Dashboard\CRUD\Requests;
 
+use App\Models\Order;
+
 use Illuminate\Validation\Rule;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -326,6 +328,24 @@ final class Boxes extends FormRequest
 
                     'string',
                 ],
+            ],
+
+            'dashboard.boxes.set-status' => [
+                'status_id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('statuses', 'id')->where('model', Order::class)
+                ],
+
+                'box_id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('orders', 'id')
+                ]
             ],
         ];
 

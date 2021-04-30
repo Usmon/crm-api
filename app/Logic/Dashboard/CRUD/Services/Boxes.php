@@ -164,11 +164,9 @@ final class Boxes
 
             'status' => $box->status->for_color,
 
-            'history' => $box->histories->transform(function(OrderHistory $history) {
+            'history' => $box->histories->transform(function(OrderHistory $history, int $index) {
                 return [
-                    'id' => $history->id,
-
-                    'seq' => $history->seq,
+                    'seq' => ++$index,
 
                     'creator' => [
                         'id' => $history->creator_id,
@@ -180,7 +178,7 @@ final class Boxes
 
                     'created_at' => $history->created_at
                 ];
-            }),
+            })->reverse()->values(),
         ];
     }
 
