@@ -28,6 +28,18 @@ final class OrderObserver
     public function updating(Order $order): void
     {
         $this->defaultProperties($order);
+
+        $order->histories()->create([
+            'model_id' => $order->id,
+
+            'status_id' => $order->status_id,
+
+            'seq' => 0,
+
+            'model' => Order::class,
+
+            'creator_id' => auth()->user()->id
+        ]);
     }
 
     /**
