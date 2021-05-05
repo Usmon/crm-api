@@ -49,7 +49,7 @@ final class Recipients
      */
     public function getOnlyPhone(RecipientsRequest $request): string
     {
-        return $request->get('phone');
+        return $request->get('phone') ?? $request->json('phone');
     }
 
     /**
@@ -131,14 +131,14 @@ final class Recipients
      *
      * @return array
      */
-    public function showRecipientPhone(Recipient $recipient): array
+    public function showRecipientPhone(Recipient $recipient, string $phone): array
     {
         return [
             'id' => $recipient->id,
 
             'recipient_full_name' => $recipient->customer->user->full_name,
 
-            'recipient_phone' => $recipient->customer->user->phones()->first()->phone,
+            'recipient_phone' => $recipient->customer->user->phones()->where('phone', '=', $phone)->first()->phone,
 
             'recipient_email' => $recipient->customer->user->email,
 
