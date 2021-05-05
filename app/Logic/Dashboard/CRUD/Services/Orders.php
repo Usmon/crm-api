@@ -436,7 +436,21 @@ final class Orders
 
             'boxes' => $order->boxes->map(function (Box $box) {
                 return[
+                    'id' => $box->id,
+
+                    'creator' => $box->creator->full_name,
+
+                    'created_at' => $box->created_at,
+
+                    'total_weight' => $box->weight,
+
+                    'total_products' => $box->items()->count(),
+
+                    'total_price' => $box->items()->sum('price'),
+
                     'note' => $box->note,
+
+                    'status' => $box->status->for_color,
 
                     'products' => $box->items->map(function (BoxItem $boxItem) {
                         return[
