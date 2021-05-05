@@ -23,6 +23,7 @@ final class Orders extends FormRequest
      */
     public function rules(): array
     {
+//        dd($this->route()->parameter('id'));
         $rules = [
             'dashboard.orders.order.index' => [
                 'search' => [
@@ -415,7 +416,7 @@ final class Orders extends FormRequest
                 ]
             ],
         ];
-
+//        dd($this->route()->getName());
         return $rules[$this->route()->getName()];
     }
 }

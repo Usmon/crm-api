@@ -183,4 +183,12 @@ final class Controller extends Controllers
             'message' => 'The order was successfully deleted.',
         ]);
     }
+
+    public function updateShow(int $id)
+    {
+//        dd($id);
+        return Json::sendJsonWith200([
+            'order' => $this->service->updateShow($this->repository->updateShow($id)),
+        ]);
+    }
 }

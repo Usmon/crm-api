@@ -168,7 +168,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:api'], function () {
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth:api','checkPermission'], 'as' => 'dashboard.'], function () {
     Route::apiResource('users', DashboardUsersController::class);
 
-//    Route::apiResource('permissions', DashboardPermissionsController::class);
+    Route::apiResource('permissions', DashboardPermissionsController::class)->only(['index']);
 
     Route::apiResource('roles', DashboardRolesController::class);
 
@@ -224,6 +224,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth:api','checkPermiss
         Route::apiResource('users', DashboardOrderUsersController::class);
 
         Route::apiResource('comments', DashboardOrderCommentsController::class);
+
+        Route::get('update/show/{id}', [DashboardOrdersController::class, 'updateShow']);
 
         Route::get('limit-recipient', [LimitController::class, 'checkSender'])->name('limit-check.recipient');
     });
