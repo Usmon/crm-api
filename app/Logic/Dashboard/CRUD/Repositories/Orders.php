@@ -126,4 +126,9 @@ final class Orders
     {
         return Order::destroy($id);
     }
+
+    public function updateShow(int $id)
+    {
+        return Order::findOrFail($id);
+    }
 }

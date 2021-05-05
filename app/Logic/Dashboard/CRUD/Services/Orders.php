@@ -6,6 +6,7 @@ use App\Logic\Dashboard\CRUD\Requests\Orders as OrdersRequest;
 
 use App\Models\Box;
 
+use App\Models\BoxItem;
 use App\Models\Order;
 
 use App\Models\OrderHistory;
@@ -380,5 +381,82 @@ final class Orders
     {
         $id = json_decode($id);
         return (is_int($id) || array_filter($id,'is_int')===$id) ? $id : 0;
+    }
+
+    public function updateShow(Order $order)
+    {
+        return [
+            'id' => $order->id,
+
+            'sender' => [
+                'sender_full_name' => $order->sender->customer->user->full_name,
+
+                'sender_phone' => $order->sender->customer->user->phones[0]['phone'],
+
+                'sender_email' => $order->sender->customer->user->email,
+
+                'sender_region' => $order->sender->customer->user->addresses[0]['city']['region']['name'],
+
+                'sender_city' => $order->sender->customer->user->addresses[0]['city']['name'],
+
+                'sender_zip_code' => $order->sender->customer->user->addresses[0]['city']['region']['zip_code'],
+
+                'sender_address_line_1' => $order->sender->customer->user->addresses[0]['first_address'],
+
+                'sender_address_line_2' => $order->sender->customer->user->addresses[0]['second_address'],
+            ],
+
+            'recipient' => [
+                'recipient_full_name' => $order->recipient->customer->user->full_name,
+
+                'recipient_phone' => $order->recipient->customer->user->phones[0]['phone'],
+
+                'recipient_email' => $order->recipient->customer->user->email,
+
+                'recipient_region' => $order->recipient->customer->user->addresses[0]['city']['region']['name'],
+
+                'recipient_city' => $order->recipient->customer->user->addresses[0]['city']['name'],
+
+                'recipient_zip_code' => $order->recipient->customer->user->addresses[0]['city']['region']['zip_code'],
+
+                'recipient_address_line_1' => $order->recipient->customer->user->addresses[0]['first_address'],
+
+                'recipient_address_line_2' => $order->recipient->customer->user->addresses[0]['second_address'],
+            ],
+
+            'type' => [
+                'index' => json_decode($order->type)->index,
+
+                'date' => [
+                    'from' =>  json_decode($order->type)->date->from,
+
+                    'to' =>  json_decode($order->type)->date->to,
+                ],
+            ],
+
+            'boxes' => $order->boxes->map(function (Box $box) {
+                return[
+                    'note' => $box->note,
+
+                    'products' => $box->items->map(function (BoxItem $boxItem) {
+                        return[
+                            'name' => $boxItem->name,
+
+                            'quantity' => $boxItem->quantity,
+
+                            'price' => $boxItem->price,
+
+                            'weight' => $boxItem->weight,
+
+                            'type_weight' => $boxItem->type_weight,
+
+                            'note' => $boxItem->note,
+
+                            'image' => $boxItem->image,
+                        ];
+                    }),
+                ];
+            }),
+        ];
     }
 }
