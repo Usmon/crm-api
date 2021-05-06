@@ -61,6 +61,8 @@ final class BoxFactory extends Factory
 
             'shipment_id' => $shipmentId[random_int(0,1)],
 
+            'box_image' => $this->faker->imageUrl(100,100),
+
             'creator_id' => $users->random(),
         ];
     }
