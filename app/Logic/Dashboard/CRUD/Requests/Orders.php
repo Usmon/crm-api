@@ -192,21 +192,21 @@ final class Orders extends FormRequest
                     Rule::exists('recipients', 'id')
                 ],
 
-                'status_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('statuses', 'id')
-                ],
-
-                'payment_status_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('statuses', 'id')
-                ],
+//                'status_id' => [
+//                    'required',
+//
+//                    'integer',
+//
+//                    Rule::exists('statuses', 'id')
+//                ],
+//
+//                'payment_status_id' => [
+//                    'required',
+//
+//                    'integer',
+//
+//                    Rule::exists('statuses', 'id')
+//                ],
 
                 'type' => [
                     'required'
@@ -327,21 +327,21 @@ final class Orders extends FormRequest
                     Rule::exists('recipients', 'id')
                 ],
 
-                'status_id' => [
-                    'required',
+//                'status_id' => [
+//                    'required',
+//
+//                    'integer',
+//
+//                    Rule::exists('statuses', 'id')
+//                ],
 
-                    'integer',
-
-                    Rule::exists('statuses', 'id')
-                ],
-
-                'payment_status_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('statuses', 'id')
-                ],
+//                'payment_status_id' => [
+//                    'required',
+//
+//                    'integer',
+//
+//                    Rule::exists('statuses', 'id')
+//                ],
 
                 'type' => [
                     'required'
@@ -371,13 +371,13 @@ final class Orders extends FormRequest
                     'in:pickup,fedex,self_delivery',
                 ],
 
-                'payment_type_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('payment_types', 'id'),
-                ],
+//                'payment_type_id' => [
+//                    'required',
+//
+//                    'integer',
+//
+//                    Rule::exists('payment_types', 'id'),
+//                ],
             ],
 
             'dashboard.orders.status-set' => [

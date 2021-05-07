@@ -301,9 +301,9 @@ final class Orders
 
             'recipient_id' => $request->json('recipient_id'),
 
-            'status_id' => $request->json('status_id'),
+//            'status_id' => $request->json('status_id'),
 
-            'payment_status_id' => $request->json('payment_status_id'),
+//            'payment_status_id' => $request->json('payment_status_id'),
 
             'type' => $request->json('type'),
 
@@ -332,15 +332,15 @@ final class Orders
 
             'recipient_id' => $request->json('recipient_id'),
 
-            'status_id' => $request->json('status_id'),
-
-            'payment_status_id' => $request->json('payment_status_id'),
+//            'status_id' => $request->json('status_id'),
+//
+//            'payment_status_id' => $request->json('payment_status_id'),
 
             'delivery_id' => $request->json('delivery_id'),
 
             'type' => $request->json('type'),
 
-            'payment_type_id' => $request->json('payment_type_id'),
+//            'payment_type_id' => $request->json('payment_type_id'),
         ];
     }
 

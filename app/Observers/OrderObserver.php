@@ -77,6 +77,10 @@ final class OrderObserver
 
         $order->updated_at = $order->updated_at ?? Carbon::now();
 
+        $order->status_id = $order->status_id ?? 3;
+
+        $order->payment_status_id = $order->payment_status_id ?? 1;
+
         $order->deleted_at = $order->deleted_at ?? null;
     }
 
