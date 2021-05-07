@@ -70,6 +70,8 @@ final class BoxItems
 
                 'is_additional' => $boxItem->is_additional,
 
+                'image' => $boxItem->image,
+
                 'created_at' => $boxItem->created_at,
 
                 'updated_at' => $boxItem->updated_at,
@@ -104,6 +106,8 @@ final class BoxItems
             'note' => $item->note,
 
             'is_additional' => $item->is_additional,
+
+            'image' => $item->image,
 
             'created_at' => $item->created_at,
 

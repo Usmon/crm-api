@@ -157,6 +157,8 @@ final class Customers extends FormRequest
                     'integer',
 
                     Rule::exists('users', 'id'),
+
+                    Rule::unique('customers', 'user_id'),
                 ],
 
                 'referral_id' => [

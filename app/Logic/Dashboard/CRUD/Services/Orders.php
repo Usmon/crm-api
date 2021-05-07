@@ -454,6 +454,8 @@ final class Orders
 
                     'products' => $box->items->map(function (BoxItem $boxItem) {
                         return[
+                            'id' => $boxItem->id,
+
                             'name' => $boxItem->name,
 
                             'quantity' => $boxItem->quantity,
