@@ -429,12 +429,12 @@ final class Orders
             ],
 
             'type' => [
-                'index' => json_decode($order->type)->index,
+                'index' => $order->type['index'],
 
                 'date' => [
-                    'from' =>  json_decode($order->type)->date->from,
+                    'from' =>  $order->type['date']['from'],
 
-                    'to' =>  json_decode($order->type)->date->to,
+                    'to' =>  $order->type['date']['to'],
                 ],
             ],
 
