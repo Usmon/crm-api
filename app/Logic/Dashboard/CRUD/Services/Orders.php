@@ -389,6 +389,8 @@ final class Orders
             'id' => $order->id,
 
             'sender' => [
+                'id' => $order->sender->id,
+
                 'sender_full_name' => $order->sender->customer->user->full_name,
 
                 'sender_phone' => $order->sender->customer->user->phones[0]['phone'],
@@ -407,6 +409,8 @@ final class Orders
             ],
 
             'recipient' => [
+                'id' => $order->recipient->id,
+
                 'recipient_full_name' => $order->recipient->customer->user->full_name,
 
                 'recipient_phone' => $order->recipient->customer->user->phones[0]['phone'],
