@@ -202,7 +202,7 @@ final class Boxes extends FormRequest
                 'products.*.price' => [
                     'required',
 
-                    'integer',
+                    'numeric',
                 ],
 
                 'products.*.weight' => [
@@ -300,7 +300,7 @@ final class Boxes extends FormRequest
                 'products.*.price' => [
                     'required',
 
-                    'integer',
+                    'numeric',
                 ],
 
                 'products.*.weight' => [

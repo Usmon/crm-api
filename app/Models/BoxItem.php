@@ -111,7 +111,6 @@ final class BoxItem extends Model
         'image' => 'string',
 
         'is_additional' => 'integer',
-
     ];
 
     /**
