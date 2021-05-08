@@ -79,7 +79,7 @@ final class OrderFactory extends Factory
 
             'weight_rate' => rand(1, 10),
 
-            'type' => json_encode([
+            'type' => ([
                 'index' => 'pickup',
 
                 'date' => [
