@@ -292,6 +292,12 @@ final class Deliveries
                 'driver_address_line_1' => $delivery->driver->user->addresses[0]['first_address'],
 
                 'driver_address_line_2' => $delivery->driver->user->addresses[0]['second_address'],
+
+                'car_number' => $delivery->driver->car_number,
+
+                'car_model' => $delivery->driver->car_model,
+
+                'license' => $delivery->driver->license,
             ],
 
 //            'type' => [
