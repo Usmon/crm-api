@@ -474,21 +474,21 @@ final class Order extends Model
                                  ->orWhere('phone', 'like', '%'.$search.'%');
                 })->orWhere('email', 'like', '%'.$search.'%')
                   ->orWhere('login', 'like', '%'.$search.'%')
-                  ->filterFullName($search);
-            })->whereHas('sender', function (Builder $query) use ($search) {
+                  ->orWhere('full_name', 'like', '%'.$search.'%');
+            })->orWhereHas('sender', function (Builder $query) use ($search) {
                 return $query->whereHas('customer', function (Builder $query) use ($search) {
                     return $query->whereHas('user', function(Builder $query) use ($search) {
                         return $query->where('email', 'like', '%'.$search.'%')
                                      ->orWhere('login', 'like', '%'.$search.'%')
-                                     ->filterFullName($search);
+                                     ->orWhere('full_name', 'like', '%'.$search.'%');
                     });
                 });
-            })->whereHas('recipient', function (Builder $query) use ($search) {
+            })->orWhereHas('recipient', function (Builder $query) use ($search) {
                 return $query->whereHas('customer', function (Builder $query) use ($search) {
                     return $query->whereHas('user', function(Builder $query) use ($search) {
                         return $query->where('email', 'like', '%'.$search.'%')
                             ->orWhere('login', 'like', '%'.$search.'%')
-                            ->filterFullName($search);
+                            ->orWhere('full_name', 'like', '%'.$search.'%');
                     });
                 });
             });

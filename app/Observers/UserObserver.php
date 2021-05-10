@@ -68,5 +68,17 @@ final class UserObserver
         $user->updated_at = $user->updated_at ?? Carbon::now();
 
         $user->deleted_at = $user->deleted_at ?? null;
+
+        $user->full_name = $this->makeFullName($user);
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return string
+     */
+    public function makeFullName(User $user): string
+    {
+        return implode(' ', [$user->profile['first_name'], $user->profile['last_name'], $user->profile['middle_name']]);
     }
 }
