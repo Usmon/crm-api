@@ -27,6 +27,8 @@ final class CreateUsersTable extends Migration
 
             $table->string('password');
 
+            $table->string('full_name');
+
             $table->jsonb('profile');
 
             $table->string('reset_token', 100)->nullable();

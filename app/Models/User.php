@@ -56,7 +56,7 @@ use Spatie\Permission\Traits\HasRoles;
  *
  * @property-read string $short_info
  *
- * @property-read string $full_name
+ * @property string $full_name
  *
  * @property-read string $avatar
  *
@@ -99,7 +99,9 @@ final class User extends Auth
 
         'profile',
 
-        'partner_id'
+        'partner_id',
+
+        'full_name'
     ];
 
     /**
@@ -128,6 +130,8 @@ final class User extends Auth
         'email' => 'string',
 
         'password' => 'string',
+
+        'full_name' => 'string',
 
         'profile' => 'array',
 
@@ -224,14 +228,6 @@ final class User extends Auth
     }
 
     /**
-     * @return string
-     */
-    public function getFullNameAttribute(): string
-    {
-        return $this->profile['first_name'] . ' ' . $this->profile['last_name'] . ' ' . $this->profile['middle_name'];
-    }
-
-    /**
      * Get image if exists.
      *
      * @return string
@@ -293,17 +289,5 @@ final class User extends Auth
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
         });
-    }
-
-    /**
-     * @param Builder $query
-     *
-     * @param string $key
-     *
-     * @return Builder
-     */
-    public function scopeFilterFullName(Builder $query, string $key): Builder
-    {
-        return $query->orWhereRaw('CONCAT(JSON_UNQUOTE(JSON_EXTRACT(profile, "$.first_name")), " ", JSON_UNQUOTE(JSON_EXTRACT(profile, "$.last_name")), " ", JSON_UNQUOTE(JSON_EXTRACT(profile, "$.middle_name"))) LIKE ?', '%'.$key.'%');
     }
 }
