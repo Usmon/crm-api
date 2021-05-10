@@ -254,6 +254,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth:api','checkPermiss
 
         Route::apiResource('comments', DashboardDeliveryCommentsController::class);
 
+        Route::get('update/show/{id}', [DashboardDeliveriesController::class, 'updateShow']);
     });
 
     Route::group(['prefix' => 'shipments', 'as' => 'shipments.'], function(){

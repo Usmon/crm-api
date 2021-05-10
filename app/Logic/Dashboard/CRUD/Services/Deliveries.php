@@ -4,6 +4,7 @@ namespace App\Logic\Dashboard\CRUD\Services;
 
 use App\Models\Box;
 
+use App\Models\BoxItem;
 use App\Models\Delivery;
 
 use Illuminate\Contracts\Pagination\Paginator;
@@ -242,5 +243,106 @@ final class Deliveries
         $id = json_decode($id);
 
         return (is_int($id) || array_filter($id,'is_int') === $id) ? $id : 0;
+    }
+
+
+    public function updateShow(Delivery $delivery)
+    {
+//        dd($delivery->recipient);
+        return [
+            'id' => $delivery->id,
+
+            'recipient' => [
+                'id' => $delivery->recipient->id,
+
+                'recipient_full_name' => $delivery->recipient->customer->user->full_name,
+
+                'recipient_phone' => $delivery->recipient->customer->user->phones[0]['phone'],
+
+                'recipient_email' => $delivery->recipient->customer->user->email,
+
+                'recipient_region' => $delivery->recipient->customer->user->addresses[0]['city']['region']['name'],
+
+                'recipient_city' => $delivery->recipient->customer->user->addresses[0]['city']['name'],
+
+                'recipient_zip_code' => $delivery->recipient->customer->user->addresses[0]['city']['region']['zip_code'],
+
+                'recipient_address_line_1' => $delivery->recipient->customer->user->addresses[0]['first_address'],
+
+                'recipient_address_line_2' => $delivery->recipient->customer->user->addresses[0]['second_address'],
+
+                'recipient_limit' => $delivery->recipient->limit,
+            ],
+
+            'driver' => [
+                'id' => $delivery->driver->id,
+
+                'driver_full_name' => $delivery->driver->user->full_name,
+
+                'driver_phone' => $delivery->driver->user->phones[0]['phone'],
+
+                'driver_email' => $delivery->driver->user->email,
+
+                'driver_region' => $delivery->driver->user->addresses[0]['city']['region']['name'],
+
+                'driver_city' => $delivery->driver->user->addresses[0]['city']['name'],
+
+                'driver_zip_code' => $delivery->driver->user->addresses[0]['city']['region']['zip_code'],
+
+                'driver_address_line_1' => $delivery->driver->user->addresses[0]['first_address'],
+
+                'driver_address_line_2' => $delivery->driver->user->addresses[0]['second_address'],
+            ],
+
+//            'type' => [
+//                'index' => $delivery->type['index'],
+//
+//                'date' => [
+//                    'from' =>  $delivery->type['date']['from'],
+//
+//                    'to' =>  $delivery->type['date']['to'],
+//                ],
+//            ],
+
+            'boxes' => $delivery->boxes->map(function (Box $box) {
+                return[
+                    'id' => $box->id,
+
+                    'creator' => $box->creator->full_name,
+
+                    'created_at' => $box->created_at,
+
+                    'total_weight' => $box->weight,
+
+                    'total_products' => $box->items()->count(),
+
+                    'total_price' => $box->items()->sum('price'),
+
+                    'note' => $box->note,
+
+                    'status' => $box->status->for_color,
+
+                    'products' => $box->items->map(function (BoxItem $boxItem) {
+                        return[
+                            'id' => $boxItem->id,
+
+                            'name' => $boxItem->name,
+
+                            'quantity' => $boxItem->quantity,
+
+                            'price' => $boxItem->price,
+
+                            'weight' => $boxItem->weight,
+
+                            'type_weight' => $boxItem->type_weight,
+
+                            'note' => $boxItem->note,
+
+                            'image' => $boxItem->image,
+                        ];
+                    }),
+                ];
+            }),
+        ];
     }
 }

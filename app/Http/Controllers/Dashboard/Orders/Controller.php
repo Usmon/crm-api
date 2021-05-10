@@ -184,9 +184,13 @@ final class Controller extends Controllers
         ]);
     }
 
+    /**
+     * @param int $id
+     *
+     * @return JsonResponse
+     */
     public function updateShow(int $id)
     {
-//        dd($id);
         return Json::sendJsonWith200([
             'order' => $this->service->updateShow($this->repository->updateShow($id)),
         ]);

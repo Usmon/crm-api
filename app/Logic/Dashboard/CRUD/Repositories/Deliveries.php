@@ -126,4 +126,9 @@ final class Deliveries
             BoxItem::create($product);
         }
     }
+
+    public function updateShow(int $id)
+    {
+        return Delivery::findOrFail($id);
+    }
 }
