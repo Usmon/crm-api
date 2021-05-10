@@ -119,7 +119,7 @@ final class Delivery extends Model
      */
     public function recipient(): HasOne
     {
-        return $this->hasOne(Recipient::class,'id','customer_id')->with(['customer.user']);
+        return $this->hasOne(Recipient::class,'id','recipient_id')->with(['customer.user']);
     }
 
     /**

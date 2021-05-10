@@ -159,4 +159,16 @@ final class Controller extends Controllers
             'message' => 'The delivery deleted successfully.',
         ]);
     }
+
+    /**
+     * @param int $id
+     *
+     * @return JsonResponse
+     */
+    public function updateShow(int $id)
+    {
+        return Json::sendJsonWith200([
+            'delivery' => $this->service->updateShow($this->repository->updateShow($id)),
+        ]);
+    }
 }
