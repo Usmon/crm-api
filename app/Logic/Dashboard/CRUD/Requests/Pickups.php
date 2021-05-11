@@ -174,7 +174,7 @@ final class Pickups extends FormRequest
                 ],
 
                 'price' => [
-                    'required',
+//                    'required',
 
                     'numeric',
 
@@ -182,7 +182,7 @@ final class Pickups extends FormRequest
                 ],
 
                 'boxes' => [
-                    'required',
+//                    'required',
 
                     'array',
                 ],
@@ -282,7 +282,7 @@ final class Pickups extends FormRequest
                 ],
 
                 'price' => [
-                    'required',
+//                    'required',
 
                     'numeric',
 

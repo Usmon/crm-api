@@ -216,7 +216,7 @@ final class Pickups
 
             'driver_id' => $request->json('driver_id'),
 
-            'price' => $request->json('price'),
+            'price' => $request->json('price') ?? 0,
 
             'boxes' => $request->json('boxes'),
 
@@ -244,7 +244,7 @@ final class Pickups
 
             'driver_id' => $request->json('driver_id'),
 
-            'price' => $request->json('price'),
+            'price' => $request->json('price') ?? 0,
         ];
     }
 
@@ -264,6 +264,8 @@ final class Pickups
     {
         return [
             'id' => $pickup->id,
+
+            'status_id' => $pickup->status_id,
 
             'sender' => [
                 'id' => $pickup->sender->id,
@@ -315,9 +317,9 @@ final class Pickups
                 'index' => json_decode($pickup->type)->index,
 
                 'date' => [
-                    'from' =>  $pickup->type['date']['from'],
+                    'from' =>  json_decode($pickup->type)->date->from,
 
-                    'to' =>  $pickup->type['date']['to'],
+                    'to' =>  json_decode($pickup->type)->date->to,
                 ],
             ],
 
