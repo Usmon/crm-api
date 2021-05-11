@@ -41,7 +41,10 @@ final class Pickups
 
         $pickup = Pickup::create($credentials);
 
-        $this->createBoxes($pickup, $credentials['boxes']);
+        if($credentials['boxes'])
+        {
+            $this->createBoxes($pickup, $credentials['boxes']);
+        }
 
         return $pickup;
     }
