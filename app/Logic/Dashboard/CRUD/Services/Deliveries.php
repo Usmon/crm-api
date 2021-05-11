@@ -245,12 +245,16 @@ final class Deliveries
         return (is_int($id) || array_filter($id,'is_int') === $id) ? $id : 0;
     }
 
-
+    /**
+     * @param Delivery $delivery
+     * @return array
+     */
     public function updateShow(Delivery $delivery)
     {
-//        dd($delivery->recipient);
         return [
             'id' => $delivery->id,
+
+            'status_id' => $delivery->status_id,
 
             'recipient' => [
                 'id' => $delivery->recipient->id,
@@ -299,16 +303,6 @@ final class Deliveries
 
                 'license' => $delivery->driver->license,
             ],
-
-//            'type' => [
-//                'index' => $delivery->type['index'],
-//
-//                'date' => [
-//                    'from' =>  $delivery->type['date']['from'],
-//
-//                    'to' =>  $delivery->type['date']['to'],
-//                ],
-//            ],
 
             'boxes' => $delivery->boxes->map(function (Box $box) {
                 return[

@@ -100,5 +100,14 @@ final class Pickups
             }
         }
     }
+
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    public function updateShow(int $id)
+    {
+        return Pickup::findOrFail($id);
+    }
 }
 

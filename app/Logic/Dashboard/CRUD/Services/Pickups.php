@@ -4,6 +4,7 @@ namespace App\Logic\Dashboard\CRUD\Services;
 
 use App\Models\Box;
 
+use App\Models\BoxItem;
 use App\Models\Pickup;
 
 use Illuminate\Contracts\Pagination\Paginator;
@@ -257,5 +258,108 @@ final class Pickups
         $id = json_decode($id);
 
         return (is_int($id) || array_filter($id,'is_int')===$id) ? $id : 0;
+    }
+
+    public function updateShow(Pickup $pickup)
+    {
+        return [
+            'id' => $pickup->id,
+
+            'sender' => [
+                'id' => $pickup->sender->id,
+
+                'sender_full_name' => $pickup->sender->customer->user->full_name,
+
+                'sender_phone' => $pickup->sender->customer->user->phones[0]['phone'],
+
+                'sender_email' => $pickup->sender->customer->user->email,
+
+                'sender_region' => $pickup->sender->customer->user->addresses[0]['city']['region']['name'],
+
+                'sender_city' => $pickup->sender->customer->user->addresses[0]['city']['name'],
+
+                'sender_zip_code' => $pickup->sender->customer->user->addresses[0]['city']['region']['zip_code'],
+
+                'sender_address_line_1' => $pickup->sender->customer->user->addresses[0]['first_address'],
+
+                'sender_address_line_2' => $pickup->sender->customer->user->addresses[0]['second_address'],
+            ],
+
+            'driver' => [
+                'id' => $pickup->driver->id,
+
+                'driver_full_name' => $pickup->driver->user->full_name,
+
+                'driver_phone' => $pickup->driver->user->phones[0]['phone'],
+
+                'driver_email' => $pickup->driver->user->email,
+
+                'driver_region' => $pickup->driver->user->addresses[0]['city']['region']['name'],
+
+                'driver_city' => $pickup->driver->user->addresses[0]['city']['name'],
+
+                'driver_zip_code' => $pickup->driver->user->addresses[0]['city']['region']['zip_code'],
+
+                'driver_address_line_1' => $pickup->driver->user->addresses[0]['first_address'],
+
+                'driver_address_line_2' => $pickup->driver->user->addresses[0]['second_address'],
+
+                'car_number' => $pickup->driver->car_number,
+
+                'car_model' => $pickup->driver->car_model,
+
+                'license' => $pickup->driver->license,
+            ],
+
+            'type' => [
+                'index' => json_decode($pickup->type)->index,
+
+                'date' => [
+                    'from' =>  $pickup->type['date']['from'],
+
+                    'to' =>  $pickup->type['date']['to'],
+                ],
+            ],
+
+            'boxes' => $pickup->boxes->map(function (Box $box) {
+                return[
+                    'id' => $box->id,
+
+                    'creator' => $box->creator->full_name,
+
+                    'created_at' => $box->created_at,
+
+                    'total_weight' => $box->weight,
+
+                    'total_products' => $box->items()->count(),
+
+                    'total_price' => $box->items()->sum('price'),
+
+                    'note' => $box->note,
+
+                    'status' => $box->status->for_color,
+
+                    'products' => $box->items->map(function (BoxItem $boxItem) {
+                        return[
+                            'id' => $boxItem->id,
+
+                            'name' => $boxItem->name,
+
+                            'quantity' => $boxItem->quantity,
+
+                            'price' => $boxItem->price,
+
+                            'weight' => $boxItem->weight,
+
+                            'type_weight' => $boxItem->type_weight,
+
+                            'note' => $boxItem->note,
+
+                            'image' => $boxItem->image,
+                        ];
+                    }),
+                ];
+            }),
+        ];
     }
 }

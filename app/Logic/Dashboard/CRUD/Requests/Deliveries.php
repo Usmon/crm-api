@@ -230,7 +230,7 @@ final class Deliveries extends FormRequest
                 ],
 
                 'boxes' => [
-                    'required',
+//                    'required',
 
                     'array',
                 ],
