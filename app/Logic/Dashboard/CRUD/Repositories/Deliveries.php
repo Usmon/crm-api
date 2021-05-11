@@ -55,10 +55,11 @@ final class Deliveries
     {
         $delivery->update($deliveryData);
 
-        self::removeBoxes($delivery->id);
+        if($deliveryData['boxes']) {
+            self::removeBoxes($delivery->id);
 
-        self::createBoxes($delivery->id, $deliveryData['boxes']);
-
+            self::createBoxes($delivery->id, $deliveryData['boxes']);
+        }
         return $delivery;
     }
 

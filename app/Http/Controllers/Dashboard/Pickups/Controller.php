@@ -157,4 +157,11 @@ final class Controller extends Controllers
             'message' => 'The pickup deleted successfully',
         ]);
     }
+
+    public function updateShow(int $id)
+    {
+        return Json::sendJsonWith200([
+            'pickup' => $this->service->updateShow($this->repository->updateShow($id)),
+        ]);
+    }
 }

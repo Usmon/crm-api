@@ -174,6 +174,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth:api','checkPermiss
 
     Route::apiResource('pickups', DashboardPickupsController::class);
 
+    Route::get('pickups/update/show/{id}', [DashboardPickupsController::class, 'updateShow']);
+
     Route::group(['prefix' => 'senders', 'as'=> 'senders.'], function () {
 
         Route::apiResource('sender', DashboardSendersController::class);
