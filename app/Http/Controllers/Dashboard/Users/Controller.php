@@ -8,6 +8,8 @@ use App\Helpers\Json;
 
 use Illuminate\Http\JsonResponse;
 
+use Illuminate\Support\Facades\Gate;
+
 use App\Http\Controllers\Controller as Controllers;
 
 use App\Logic\Dashboard\CRUD\Requests\Users as UsersRequest;
@@ -49,6 +51,12 @@ final class Controller extends Controllers
      */
     public function index(UsersRequest $request): JsonResponse
     {
+        if(! Gate::check('Users')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         return Json::sendJsonWith200([
             'filters' => $this->service->getAllFilters($request),
 
@@ -63,6 +71,12 @@ final class Controller extends Controllers
      */
     public function store(UsersRequest $request): JsonResponse
     {
+        if(! Gate::check('Users')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         return Json::sendJsonWith200([
             'message' => 'The user was successfully created.',
 
@@ -77,6 +91,12 @@ final class Controller extends Controllers
      */
     public function show(User $user): JsonResponse
     {
+        if(! Gate::check('Users')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         return Json::sendJsonWith200([
             'user' => $this->service->showUser($user),
         ]);
@@ -91,6 +111,12 @@ final class Controller extends Controllers
      */
     public function update(UsersRequest $request, User $user): JsonResponse
     {
+        if(! Gate::check('Users')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         return Json::sendJsonWith200([
             'message' => 'The user was successfully updated.',
 
@@ -105,6 +131,12 @@ final class Controller extends Controllers
      */
     public function destroy(User $user): JsonResponse
     {
+        if(! Gate::check('Users')){
+            return Json::sendJsonWith403([
+                'message' =>  'Permission denied.'
+            ]);
+        }
+
         if (! $this->repository->deleteUser($user)) {
             return Json::sendJsonWith409([
                 'message' => 'Failed to delete user, please try again later.',

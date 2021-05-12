@@ -43,5 +43,8 @@ final class PermissionSeeder extends Seeder
             'name' => 'Drivers',
         ]);
 
+        \Spatie\Permission\Models\Permission::create([
+            'name' => 'Users',
+        ]);
     }
 }
