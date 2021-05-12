@@ -35,6 +35,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property double $balance
  *
+ * @property double $debt
+ *
  * @property Date $birth_date
  *
  * @property string $note
@@ -56,6 +58,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property-read HasOne  $referral
  *
  * @property-read HasMany $phones
+ *
+ * @property-read HasOne $sender
+ *
+ * @property-read HasOne $recipient
  *
  * @property-read HasMany $addresses
  *
@@ -88,6 +94,10 @@ final class Customer extends Model
 
         'passport',
 
+        'balance',
+
+        'debt',
+
         'birth_date',
 
         'note',
@@ -110,6 +120,10 @@ final class Customer extends Model
         'passport' => 'string',
 
         'birth_date' => 'date',
+
+        'balance' => 'double',
+
+        'debt' => 'double',
 
         'note' => 'string',
 
@@ -189,6 +203,11 @@ final class Customer extends Model
             return $query->where(function (Builder $query) use ($search) {
                 return $query->where('passport', 'like', '%' . $search . '%')
                     ->orWhere('note', 'like', '%' . $search . '%');
+            })->orWhereHas('user', function(Builder $query) use ($search) {
+                return $query->where('full_name', 'like', '%'.$search.'%')
+                        ->orWhereHas('phones', function (Builder $query) use($search) {
+                            return $query->where('phone', 'like', '%'.$search.'%');
+                        });
             });
         })->when($filters['user_id'] ?? null, function (Builder $query, int $user_id) {
             return $query->where('user_id', '=', $user_id);
@@ -200,6 +219,8 @@ final class Customer extends Model
             return $query->where('passport', 'like', '%'. $passport .'%');
         })->when($filters['balance'] ?? null, function (Builder $query, array $balance) {
             return $query->whereBetween('balance', $balance);
+        })->when($filters['debt'] ?? null, function (Builder $query, array $debt) {
+            return $query->whereBetween('debt', $debt);
         })->when($filters['birth_date'] ?? null, function (Builder $query, array $birthDate) {
             return $query->whereBetween('birth_date', $birthDate);
         })->when($filters['note'] ?? null, function (Builder $query, string $note) {

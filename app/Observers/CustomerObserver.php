@@ -51,6 +51,10 @@ final class CustomerObserver
      */
     protected function defaultProperties(Customer $customer): void
     {
+        $customer->balance = $customer->balance ?? 0;
+
+        $customer->debt = $customer->debt ?? 0;
+
         $customer->deleted_at = $customer->deleted_at ?? null;
 
         $customer->deleted_by = $customer->deleted_by ?? null;

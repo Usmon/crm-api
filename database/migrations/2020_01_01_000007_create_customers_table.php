@@ -31,6 +31,8 @@ final class CreateCustomersTable extends Migration
 
             $table->double('balance')->default(0);
 
+            $table->double('debt')->default(0);
+
             $table->date('birth_date')->nullable();
 
             $table->text('note')->nullable();
