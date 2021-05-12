@@ -89,6 +89,12 @@ final class Customers extends FormRequest
                     'array',
                 ],
 
+                'debt' => [
+                    'nullable',
+
+                    'array',
+                ],
+
                 'birth_date' => [
                     'nullable',
 

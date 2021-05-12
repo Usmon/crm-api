@@ -15,7 +15,7 @@ final class Customers
      */
     public function getCustomers(array $filters): Paginator
     {
-        return Customer::with(['user','creator','referral'])->filter($filters)->orderBy('created_at', 'desc')->pager();
+        return Customer::with(['user','creator','referral'])->filter($filters)->orderBy('id', 'desc')->pager();
     }
 
     /**
@@ -25,9 +25,7 @@ final class Customers
      */
     public function storeCustomer(array $credentials): Customer
     {
-        $customer = Customer::create($credentials);
-
-        return $customer;
+        return Customer::create($credentials);
     }
 
     /**

@@ -32,6 +32,8 @@ final class Customers
 
             'balance' => $request->json('balance'),
 
+            'debt' => $request->json('debt'),
+
             'birth_date' => $request->json('birth_date'),
 
             'note' => $request->json('note'),
@@ -48,7 +50,7 @@ final class Customers
     public function getOnlyFilters(CustomersRequest $request): array
     {
         return $request->only('search', 'date', 'user_id', 'creator_id',
-            'referral_id', 'passport', 'balance', 'birth_date', 'note', 'phone');
+            'referral_id', 'passport', 'balance', 'debt', 'birth_date', 'note', 'phone');
     }
 
     /**
@@ -62,29 +64,23 @@ final class Customers
             return [
                 'id' => $customer->id,
 
-                'user_id' => $customer->user_id,
+                'is_recipient' => (bool) $customer->recipient,
 
-                'creator_id' => $customer->creator_id,
+                'user' => [
+                    'full_name' => $customer->user->full_name,
 
-                'referral_id' => $customer->referral_id,
+                    'phone' => $customer->user->getPhonesWithLimit(),
 
-                'passport' => $customer->passport,
+                    'photo' => $customer->user->profile['photo'],
+                ],
 
                 'balance' => $customer->balance,
 
-                'birth_date' => $customer->birth_date,
-
-                'note' => $customer->note,
+                'debt' => $customer->debt,
 
                 'created_at' => $customer->created_at,
 
                 'updated_at' => $customer->updated_at,
-
-                'user' => $customer->user,
-
-                'creator' => $customer->creator,
-
-                'referral' => $customer->referral,
             ];
         });
 
