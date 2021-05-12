@@ -8,6 +8,8 @@ use App\Models\Order;
 
 use Illuminate\Http\JsonResponse;
 
+use Illuminate\Support\Facades\Gate;
+
 use App\Http\Controllers\Controller as Controllers;
 
 use App\Logic\Dashboard\CRUD\Requests\Orders as OrdersRequest;
@@ -15,7 +17,6 @@ use App\Logic\Dashboard\CRUD\Requests\Orders as OrdersRequest;
 use App\Logic\Dashboard\CRUD\Services\Orders as OrdersService;
 
 use App\Logic\Dashboard\CRUD\Repositories\Orders as OrdersRepository;
-use Illuminate\Support\Facades\Gate;
 
 final class Controller extends Controllers
 {
