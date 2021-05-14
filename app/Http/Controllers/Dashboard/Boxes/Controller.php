@@ -201,4 +201,11 @@ final class Controller extends Controllers
             'message' => 'The box successfully updated.',
         ]);
     }
+
+    public function getShipments(int $id)
+    {
+        return Json::sendJsonWith200([
+            'boxes' => $this->service->getShipments($this->repository->getShipments($id)),
+        ]);
+    }
 }

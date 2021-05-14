@@ -103,4 +103,9 @@ final class Boxes
     {
         BoxItem::where('box_id', '=', $boxId)->delete();
     }
+
+    public function getShipments(int $id)
+    {
+        return Box::where('shipment_id', '=', $id)->pager();
+    }
 }

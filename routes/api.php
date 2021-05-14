@@ -280,6 +280,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth:api','checkPermiss
         Route::get('products/{id}', [DashboardBoxItemsController::class, 'getProducts']);
 
         Route::apiResource('items', DashboardBoxItemsController::class);
+
+        Route::get('shipments/{id}', [DashboardBoxesController::class, 'getShipments']);
     });
 
     Route::group(['prefix' => 'spendings', 'as' => 'spendings.'], function(){

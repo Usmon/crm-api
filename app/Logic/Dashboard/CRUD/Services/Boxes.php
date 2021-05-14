@@ -255,4 +255,47 @@ final class Boxes
 
         return (is_int($id) || array_filter($id,'is_int') === $id) ? $id : 0;
     }
+
+    public function getShipments(Paginator $paginator): Paginator
+    {
+        $paginator->getCollection()->transform( function (Box $box) {
+            return [
+                'id' => $box->id,
+
+                'creator' => [
+                    'id' => $box->creator->id,
+
+                    'image' => $box->creator['profile']['photo'],
+
+                    'name' => $box->creator->full_name,
+                ],
+
+                'customer' => [
+                    'id' => $box->order->sender->id,
+
+                    'image' => $box->order->sender->customer->user['profile']['photo'],
+
+                    'name' => $box->order->sender->customer->user->full_name,
+                ],
+
+                'total_products' => $box->items()->count(),
+
+                'total_price' => $box->items()->sum('price'),
+
+                'total_weight' =>
+                    $box->items()->where('type_weight', '=', 'lb')->sum('weight')
+                    . 'lb ' .
+                    $box->items()->where('type_weight', '=', 'kg')->sum('weight')
+                    .'kg',
+
+                'status' => $box->status->for_color,
+
+                'created_at' => $box->created_at,
+
+                'updated_at' => $box->updated_at,
+            ];
+        });
+
+        return $paginator;
+    }
 }
