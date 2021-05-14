@@ -187,6 +187,8 @@ final class Recipients
     {
         return [
             'user' => [
+                'full_name' => $request->json('user')['full_name'],
+
                 'profile' => [
                     'fist_name' => $request->json('user')['first_name'],
 
