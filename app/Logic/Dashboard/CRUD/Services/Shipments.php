@@ -149,42 +149,6 @@ final class Shipments
                     'text' => $shipment->statusColorText(),
                 ],
             ],
-
-            'boxes' => $shipment->boxes->map(function (Box $box) {
-                return [
-                    'id' => $box->id,
-
-                    'creator' => [
-                        'id' => $box->creator->id,
-
-                        'name' => $box->creator['profile']['first_name']
-                            . ' ' . $box->creator['profile']['last_name']
-                            . ' ' . $box->creator['profile']['middle_name']
-                    ],
-
-                    'total_products' => $box->items()->count(),
-
-                    'total_weight' => $box->items()->sum('weight'),
-
-                    'total_price' => $box->items()->sum('price'),
-
-                    'note' => $box->note,
-
-                    'created_at' => $box->created_at,
-
-                    'status' => [
-                        'id' => $box->status->id,
-
-                        'name' => $box->status->value,
-
-                        'color' => [
-                            'bg' => $box->status['parameters']['color']['bg'],
-
-                            'text' => $box->status['parameters']['color']['text'],
-                        ]
-                    ],
-                ];
-            }),
         ];
     }
 

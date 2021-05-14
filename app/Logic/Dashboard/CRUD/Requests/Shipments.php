@@ -72,20 +72,6 @@ final class Shipments extends FormRequest
 
                     'string',
                 ],
-
-                'boxes' => [
-                    'required',
-
-                    'array',
-                ],
-
-                'boxes.*' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('boxes', 'id'),
-                ],
             ],
 
             'dashboard.shipments.shipment.update' => [
@@ -101,20 +87,6 @@ final class Shipments extends FormRequest
                     'required',
 
                     'string',
-                ],
-
-                'boxes' => [
-                    'required',
-
-                    'array',
-                ],
-
-                'boxes.*' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('boxes', 'id'),
                 ],
             ],
         ];
