@@ -79,6 +79,6 @@ final class UserObserver
      */
     public function makeFullName(User $user): string
     {
-        return implode(' ', [$user->profile['first_name'], $user->profile['last_name'], $user->profile['middle_name']]);
+        return implode(' ', [$user->profile['first_name'] ?? null, $user->profile['last_name'] ?? null, $user->profile['middle_name'] ?? null]);
     }
 }

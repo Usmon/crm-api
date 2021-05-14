@@ -76,20 +76,26 @@ final class Senders extends FormRequest
                     'array',
                 ],
 
-                'user.first_name' => [
+                'user.full_name' => [
                     'required',
+
+                    'string'
+                ],
+
+                'user.first_name' => [
+                    'nullable',
 
                     'string'
                 ],
 
                 'user.last_name' => [
-                    'required',
+                    'nullable',
 
                     'string'
                 ],
 
                 'user.middle_name' => [
-                    'required',
+                    'nullable',
 
                     'string'
                 ],
