@@ -39,6 +39,8 @@ final class Customers
             'note' => $request->json('note'),
 
             'phone' => $request->json('phone'),
+
+            'only_recipient' => $request->json('only_recipient'),
         ];
     }
 
@@ -50,7 +52,7 @@ final class Customers
     public function getOnlyFilters(CustomersRequest $request): array
     {
         return $request->only('search', 'date', 'user_id', 'creator_id',
-            'referral_id', 'passport', 'balance', 'debt', 'birth_date', 'note', 'phone');
+            'referral_id', 'passport', 'balance', 'debt', 'birth_date', 'note', 'phone', 'only_recipient');
     }
 
     /**

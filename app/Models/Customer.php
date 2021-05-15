@@ -235,4 +235,19 @@ final class Customer extends Model
             });
         });
     }
+
+    /**
+     * @param Builder $query
+     *
+     * @param bool $is_recipient
+     *
+     * @return Builder
+     */
+    public function scopeSenderOrRecipient(Builder $query, bool $is_recipient): Builder
+    {
+        if ($is_recipient)
+            return $query->has('recipient');
+
+        return $query->has('sender');
+    }
 }
