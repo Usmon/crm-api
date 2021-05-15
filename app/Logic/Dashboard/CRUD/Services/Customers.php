@@ -18,29 +18,29 @@ final class Customers
     public function getAllFilters(CustomersRequest $request): array
     {
         return [
-            'search' => $request->json('search'),
+            'search' => $request->json('search') ?? $request->get('search'),
 
-            'date' => $request->json('date'),
+            'date' => $request->json('date') ?? $request->get('date'),
 
-            'user_id' => $request->json('user_id'),
+            'user_id' => $request->json('user_id') ?? $request->get('user_id'),
 
-            'creator_id' => $request->json('creator_id'),
+            'creator_id' => $request->json('creator_id') ?? $request->get('created_id'),
 
-            'referral_id' => $request->json('referral_id'),
+            'referral_id' => $request->json('referral_id') ?? $request->get('referral_id'),
 
-            'passport' => $request->json('passport'),
+            'passport' => $request->json('passport') ?? $request->get('passport'),
 
-            'balance' => $request->json('balance'),
+            'balance' => $request->json('balance') ?? $request->get('balance'),
 
-            'debt' => $request->json('debt'),
+            'debt' => $request->json('debt') ?? $request->get('debt'),
 
-            'birth_date' => $request->json('birth_date'),
+            'birth_date' => $request->json('birth_date') ?? $request->get('birth_date'),
 
-            'note' => $request->json('note'),
+            'note' => $request->json('note') ?? $request->get('note'),
 
-            'phone' => $request->json('phone'),
+            'phone' => $request->json('phone') ?? $request->get('phone'),
 
-            'only_recipient' => $request->json('only_recipient'),
+            'only_recipient' => $request->json('only_recipient') ?? $request->get('only_recipient') ?? false,
         ];
     }
 
