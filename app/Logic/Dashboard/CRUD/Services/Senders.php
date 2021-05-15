@@ -154,6 +154,8 @@ final class Senders
     /**
      * @param Collection $senders
      *
+     * @param string $phone
+     *
      * @return Collection
      */
     public function getPhones(Collection $senders, string $phone): Collection
@@ -181,11 +183,11 @@ final class Senders
                 'full_name' => $request->json('user')['full_name'],
 
                 'profile' => [
-                    'fist_name' => $request->json('user')['first_name'],
+                    'fist_name' => $request->json('user')['first_name'] ?? null,
 
-                    'middle_name' => $request->json('user')['middle_name'],
+                    'middle_name' => $request->json('user')['middle_name'] ?? null,
 
-                    'last_name' => $request->json('user')['last_name'],
+                    'last_name' => $request->json('user')['last_name'] ?? null,
 
                     'photo' => null
                 ]

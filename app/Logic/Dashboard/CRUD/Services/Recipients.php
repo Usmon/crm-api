@@ -190,11 +190,11 @@ final class Recipients
                 'full_name' => $request->json('user')['full_name'],
 
                 'profile' => [
-                    'fist_name' => $request->json('user')['first_name'],
+                    'fist_name' => $request->json('user')['first_name'] ?? null,
 
-                    'middle_name' => $request->json('user')['middle_name'],
+                    'middle_name' => $request->json('user')['middle_name'] ?? null,
 
-                    'last_name' => $request->json('user')['last_name'],
+                    'last_name' => $request->json('user')['last_name'] ?? null,
 
                     'photo' => null
                 ]
