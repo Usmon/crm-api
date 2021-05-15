@@ -15,7 +15,7 @@ final class Customers
      */
     public function getCustomers(array $filters): Paginator
     {
-        return Customer::with(['user','creator','referral'])->filter($filters)->orderBy('id', 'desc')->pager();
+        return Customer::with(['user','creator','referral'])->filter($filters)->senderOrRecipient($filters['only_recipient'])->orderBy('id', 'desc')->pager();
     }
 
     /**

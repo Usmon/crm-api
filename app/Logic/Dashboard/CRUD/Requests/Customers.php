@@ -112,6 +112,12 @@ final class Customers extends FormRequest
 
                     'string',
                 ],
+
+                'only_recipient' => [
+                    'nullable',
+
+                    'bool'
+                ]
             ],
 
             'dashboard.customers.store' => [
