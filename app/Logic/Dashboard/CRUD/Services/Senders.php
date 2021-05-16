@@ -127,6 +127,12 @@ final class Senders
 
             'sender_address_line_2' => $sender->customer->user->addresses()->first()->second_address,
 
+            'limit' => $sender->customer->limit,
+
+            'balance' => $sender->customer->balance,
+
+            'debt' => $sender->customer->debt,
+
             'histories' => $sender->orders->unique('recipient_id')->transform(function(Order $order) {
                 return [
                     'id' => $order->recipient->id,

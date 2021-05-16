@@ -33,6 +33,8 @@ final class CreateCustomersTable extends Migration
 
             $table->double('debt')->default(0);
 
+            $table->double('limit')->default(1000);
+
             $table->date('birth_date')->nullable();
 
             $table->text('note')->nullable();

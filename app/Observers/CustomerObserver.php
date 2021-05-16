@@ -55,6 +55,8 @@ final class CustomerObserver
 
         $customer->debt = $customer->debt ?? 0;
 
+        $customer->limit = $customer->limit ?? 1000;
+
         $customer->deleted_at = $customer->deleted_at ?? null;
 
         $customer->deleted_by = $customer->deleted_by ?? null;

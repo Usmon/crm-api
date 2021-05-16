@@ -37,6 +37,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property double $debt
  *
+ * @property double $limit
+ *
  * @property Date $birth_date
  *
  * @property string $note
@@ -98,6 +100,8 @@ final class Customer extends Model
 
         'debt',
 
+        'limit',
+
         'birth_date',
 
         'note',
@@ -124,6 +128,8 @@ final class Customer extends Model
         'balance' => 'double',
 
         'debt' => 'double',
+
+        'limit' => 'double',
 
         'note' => 'string',
 
