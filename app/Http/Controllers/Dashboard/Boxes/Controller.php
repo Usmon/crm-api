@@ -208,4 +208,11 @@ final class Controller extends Controllers
             'boxes' => $this->service->getShipments($this->repository->getShipments($id)),
         ]);
     }
+
+    public function boxesFree()
+    {
+        return Json::sendJsonWith200([
+            'boxes' => $this->service->boxesFree($this->repository->boxesFree()),
+        ]);
+    }
 }

@@ -104,8 +104,20 @@ final class Boxes
         BoxItem::where('box_id', '=', $boxId)->delete();
     }
 
+    /**
+     * @param int $id
+     * @return mixed
+     */
     public function getShipments(int $id)
     {
         return Box::where('shipment_id', '=', $id)->pager();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function boxesFree()
+    {
+        return Box::where('shipment_id', null)->pager();
     }
 }
