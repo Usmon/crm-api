@@ -95,7 +95,29 @@ final class Senders
         return [
             'id' => $sender->id,
 
+            'full_name' => $sender->customer->user->full_name,
+
+            'phone' => $sender->customer->user->phones()->first()->phone,
+
+            'email' => $sender->customer->user->email,
+
+            'city' => $sender->customer->user->addresses()->first()->city,
+
+            'zip_code' => $sender->customer->user->addresses()->first()->city->codes[0],
+
+            'address_line_1' => $sender->customer->user->addresses()->first()->first_address,
+
+            'address_line_2' => $sender->customer->user->addresses()->first()->second_address,
+
+            'limit' => $sender->customer->limit,
+
+            'balance' => $sender->customer->balance,
+
+            'debt' => $sender->customer->debt,
+
             'created_at' => $sender->created_at,
+
+            'updated_at' => $sender->updated_at,
         ];
     }
 
