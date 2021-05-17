@@ -126,7 +126,7 @@ final class Controller extends Controllers
         return Json::sendJsonWith200([
             'message' => 'The sender was successfully updated.',
 
-            'sender' => $this->repository->updateSender($sender, $this->service->updateCredentials($request)),
+            'sender' => $this->service->showSender($this->repository->updateSender($sender, $this->service->updateCredentials($request))),
         ]);
     }
 
