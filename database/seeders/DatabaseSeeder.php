@@ -29,25 +29,23 @@ final class DatabaseSeeder extends Seeder
 
         $this->call(CustomerSeeder::class);
 
+        $this->call(SenderSeeder::class);
+
+        $this->call(RecipientSeeder::class);
+
         $this->call(ShipmentStatusSeeder::class);
 
         $this->call(ShipmentSeeder::class);
 
         $this->call(FedexOrderSeeder::class);
 
-        $this->call(SenderSeeder::class);
-
         $this->call(PickupSeeder::class);
-
-        $this->call(RecipientSeeder::class);
 
         $this->call(PaymentTypeSeeder::class);
 
         $this->call(DeliverySeeder::class);
 
         $this->call(OrderSeeder::class);
-
-        $this->call(SenderSeeder::class);
 
         $this->call(RecipientSeeder::class);
 
