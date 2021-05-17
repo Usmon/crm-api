@@ -33,7 +33,7 @@ final class Shipments
     {
         $shipment = Shipment::create($credentials);
 
-        self::attachBoxes($credentials['boxes'], $shipment->id);
+//        self::attachBoxes($credentials['boxes'], $shipment->id);
 
         return $shipment;
     }
@@ -49,9 +49,9 @@ final class Shipments
     {
         $shipment->update($credentials);
 
-        self::removeBoxes($shipment->id);
+//        self::removeBoxes($shipment->id);
 
-        self::attachBoxes($credentials['boxes'], $shipment->id);
+//        self::attachBoxes($credentials['boxes'], $shipment->id);
 
         return $shipment;
     }
@@ -73,27 +73,27 @@ final class Shipments
         return true;
     }
 
-    /**
-     * @param array $boxesId
-     * @param $shipmentId
-     */
-    public function attachBoxes(array $boxesId, int $shipmentId): void
-    {
-        foreach ($boxesId as $id)
-        {
-            Box::find($id)->update([
-                'shipment_id' => $shipmentId,
-            ]);
-        }
-    }
+//    /**
+//     * @param array $boxesId
+//     * @param $shipmentId
+//     */
+//    public function attachBoxes(array $boxesId, int $shipmentId): void
+//    {
+//        foreach ($boxesId as $id)
+//        {
+//            Box::find($id)->update([
+//                'shipment_id' => $shipmentId,
+//            ]);
+//        }
+//    }
 
-    /**
-     * @param int $shipmentId
-     */
-    public function removeBoxes(int $shipmentId): void
-    {
-         Box::where('shipment_id', '=', $shipmentId)->update([
-             'shipment_id' => null,
-         ]);
-    }
+//    /**
+//     * @param int $shipmentId
+//     */
+//    public function removeBoxes(int $shipmentId): void
+//    {
+//         Box::where('shipment_id', '=', $shipmentId)->update([
+//             'shipment_id' => null,
+//         ]);
+//    }
 }

@@ -162,7 +162,7 @@ final class Shipments
         return [
             'name' => $request->json('name'),
 
-            'boxes' => $request->json('boxes'),
+//            'boxes' => $request->json('boxes'),
         ];
     }
 
@@ -178,7 +178,7 @@ final class Shipments
 
             'name' => $request->json('name'),
 
-            'boxes' => $request->json('boxes'),
+//            'boxes' => $request->json('boxes'),
         ];
 
         return $credentials;
