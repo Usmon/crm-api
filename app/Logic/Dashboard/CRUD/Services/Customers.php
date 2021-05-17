@@ -64,7 +64,7 @@ final class Customers
     {
         $paginator->getCollection()->transform(function (Customer $customer) {
             return [
-                'id' => $customer->id,
+                'id' => $customer->sender->id ?? $customer->recipient->id,
 
                 'is_recipient' => (bool) $customer->recipient,
 
