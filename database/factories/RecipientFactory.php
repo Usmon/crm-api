@@ -6,6 +6,7 @@ use App\Models\Customer;
 
 use App\Models\Recipient;
 
+use App\Models\Sender;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 final class RecipientFactory extends Factory
@@ -20,7 +21,7 @@ final class RecipientFactory extends Factory
      */
     public function definition(): array
     {
-        $users = Customer::all();
+        $users = Customer::whereNotIn('id', Sender::get()->pluck('customer_id'))->get();
 
         return [
             'customer_id' => $users->random(),
