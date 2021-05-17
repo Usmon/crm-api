@@ -2,6 +2,10 @@
 
 namespace App\Logic\Dashboard\CRUD\Requests;
 
+use App\Models\Phone;
+
+use App\Models\Sender;
+
 use Illuminate\Validation\Rule;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -158,18 +162,94 @@ final class Senders extends FormRequest
             ],
 
             'dashboard.senders.sender.update' => [
-                'customer_id' => [
+                'user' => [
+                    'required',
+
+                    'array',
+                ],
+
+                'user.full_name' => [
+                    'required',
+
+                    'string'
+                ],
+
+                'user.first_name' => [
+                    'nullable',
+
+                    'string'
+                ],
+
+                'user.last_name' => [
+                    'nullable',
+
+                    'string'
+                ],
+
+                'user.middle_name' => [
+                    'nullable',
+
+                    'string'
+                ],
+
+                'user.email' => [
+                    'required',
+
+                    'email',
+
+                    Rule::unique('users', 'email')->ignore($this->route('sender')->customer->user_id)
+                ],
+
+                'phone' => [
+                    'required',
+
+                    'string',
+
+                    Rule::unique('phones', 'phone')->ignore(Phone::where('phone', $this->post('phone'))->first()->id ?? 0)
+                ],
+
+                'address' => [
+                    'required',
+
+                    'array'
+                ],
+
+                "address.city_id" => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('customers', 'id'),
+                    Rule::exists('cities', 'id')
                 ],
 
-                'permissions' => [
+                'address.first_address' => [
                     'required',
 
-                    'array',
+                    'string'
+                ],
+
+                'address.second_address' => [
+                    'nullable',
+
+                    'string'
+                ],
+
+                'limit' => [
+                    'required',
+
+                    'numeric'
+                ],
+
+                'debt' => [
+                    'required',
+
+                    'numeric'
+                ],
+
+                'balance' => [
+                    'required',
+
+                    'numeric'
                 ],
             ],
 

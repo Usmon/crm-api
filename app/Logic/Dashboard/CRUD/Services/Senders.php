@@ -235,7 +235,33 @@ final class Senders
     public function updateCredentials(SendersRequest $request): array
     {
         return [
-            'customer_id' => $request->json('customer_id'),
+            'customer' => [
+                'limit' => $request->json('limit'),
+
+                'balance' => $request->json('balance'),
+
+                'debt' => $request->json('debt')
+            ],
+
+            'user' => [
+                'full_name' => $request->json('user')['full_name'],
+
+                'email' => $request->json('user')['email'],
+
+                'profile' => [
+                    'fist_name' => $request->json('user')['first_name'] ?? null,
+
+                    'middle_name' => $request->json('user')['middle_name'] ?? null,
+
+                    'last_name' => $request->json('user')['last_name'] ?? null,
+
+                    'photo' => null
+                ]
+            ],
+
+            'phone' => $request->json('phone'),
+
+            'address' => $request->json('address'),
         ];
     }
 

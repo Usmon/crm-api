@@ -51,9 +51,18 @@ final class Senders
      */
     public function updateSender(Sender $sender, array $credentials): Sender
     {
+
+        $sender->customer()->update($credentials['customer']);
+
+        $sender->customer->user()->update($credentials['user']);
+
+        $sender->customer->user->phones()->first()->update(['phone' => $credentials['phone']]);
+
+        $sender->customer->user->addresses()->first()->update($credentials['address']);
+
         $sender->update($credentials);
 
-        return $sender;
+        return $sender->refresh();
     }
 
     /**
