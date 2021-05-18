@@ -89,6 +89,38 @@ final class Shipments extends FormRequest
                     'string',
                 ],
             ],
+
+            'dashboard.shipments.attach-boxes' => [
+                'id' => [
+                    'required',
+
+                    'array',
+                ],
+
+                'id.*' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('boxes', 'id')->where('shipment_id', null),
+                ],
+            ],
+
+            'dashboard.shipments.unattach-boxes' => [
+                'id' => [
+                    'required',
+
+                    'array',
+                ],
+
+                'id.*' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('boxes', 'id')->whereNot('shipment_id', null),
+                ],
+            ],
         ];
 
         return $rules[$this->route()->getName()];

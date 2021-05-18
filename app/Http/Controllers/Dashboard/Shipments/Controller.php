@@ -152,4 +152,27 @@ final class Controller extends Controllers
             'message' => 'The shipment was successfully deleted.',
         ]);
     }
+
+    /**
+     * @param int $shipmentId
+     * @param ShipmentsRequest $request
+     * @return JsonResponse
+     */
+    public function attachBoxes(int $shipmentId, ShipmentsRequest $request)
+    {
+        $this->repository->attachBoxes($this->service->attachBoxes($request), $shipmentId);
+
+        return Json::sendJsonWith200([
+            'message' => 'The boxes was successfully attached to shipment.',
+        ]);
+    }
+
+    public function unAttachBoxes(int $shipmentId, ShipmentsRequest $request)
+    {
+        $this->repository->unAttachBoxes($this->service->unAttachBoxes($request), $shipmentId);
+
+        return Json::sendJsonWith200([
+            'message' => 'The boxes was successfully unattached from shipment.',
+        ]);
+    }
 }

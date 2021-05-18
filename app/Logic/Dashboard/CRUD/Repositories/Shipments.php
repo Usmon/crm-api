@@ -73,27 +73,28 @@ final class Shipments
         return true;
     }
 
-//    /**
-//     * @param array $boxesId
-//     * @param $shipmentId
-//     */
-//    public function attachBoxes(array $boxesId, int $shipmentId): void
-//    {
-//        foreach ($boxesId as $id)
-//        {
-//            Box::find($id)->update([
-//                'shipment_id' => $shipmentId,
-//            ]);
-//        }
-//    }
+    /**
+     * @param array $boxesId
+     * @param $shipmentId
+     */
+    public function attachBoxes(array $boxesId, int $shipmentId): void
+    {
+        $shipment = Shipment::findOrFail($shipmentId);
 
-//    /**
-//     * @param int $shipmentId
-//     */
-//    public function removeBoxes(int $shipmentId): void
-//    {
-//         Box::where('shipment_id', '=', $shipmentId)->update([
-//             'shipment_id' => null,
-//         ]);
-//    }
+        Box::query()->whereIn('id', $boxesId)->update([
+            'shipment_id' => $shipmentId,
+        ]);
+    }
+
+    /**
+     * @param int $shipmentId
+     */
+    public function unAttachBoxes(array $boxesId, int $shipmentId): void
+    {
+        $shipment = Shipment::findOrFail($shipmentId);
+
+        Box::query()->whereIn('id', $boxesId)->update([
+            'shipment_id' => null,
+        ]);
+    }
 }
