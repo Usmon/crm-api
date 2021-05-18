@@ -56,11 +56,11 @@ final class Senders
 
         $sender->customer->user()->update($credentials['user']);
 
-        $sender->customer->user->phones()->first()->update(['phone' => $credentials['phone']]);
-
         $sender->customer->user->addresses()->first()->update($credentials['address']);
 
-        $sender->update($credentials);
+        $sender->customer->user->phones()->delete();
+
+        $sender->customer->user->phones()->createMany($credentials['phones']);
 
         return $sender->refresh();
     }

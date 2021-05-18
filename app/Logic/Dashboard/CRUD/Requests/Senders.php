@@ -200,12 +200,16 @@ final class Senders extends FormRequest
                     Rule::unique('users', 'email')->ignore($this->route('sender')->customer->user_id)
                 ],
 
-                'phone' => [
+                'phones' => [
+                    'required',
+
+                    'array'
+                ],
+
+                'phones.*' => [
                     'required',
 
                     'string',
-
-                    Rule::unique('phones', 'phone')->ignore(Phone::where('phone', $this->post('phone'))->first()->id ?? 0)
                 ],
 
                 'address' => [
