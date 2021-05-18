@@ -187,7 +187,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth:api','checkPermiss
 
     Route::group(['prefix' => 'recipients', 'as' => 'recipients.'], function() {
 
-        Route::apiResource('/', DashboardRecipientsController::class);
+        Route::apiResource('recipient', DashboardRecipientsController::class);
 
         Route::get('phone-check', [DashboardRecipientsController::class, 'recipientPhoneCheck'])->name('phone.check');
 

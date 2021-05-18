@@ -101,13 +101,13 @@ final class Recipients
      */
     public function getPhones(Collection $recipients, string $phone): Collection
     {
-        return $recipients->transform(function (Recipient $sender) use($phone) {
+        return $recipients->transform(function (Recipient $recipient) use($phone) {
             return [
-                'id' => $sender->id,
+                'id' => $recipient->id,
 
-                'full_name' => $sender->customer->user->full_name,
+                'full_name' => $recipient->customer->user->full_name,
 
-                'phone' => $sender->getPhone($phone)
+                'phone' => $recipient->getPhone($phone)
             ];
         });
     }
@@ -122,12 +122,32 @@ final class Recipients
         return [
             'id' => $recipient->id,
 
+            'full_name' => $recipient->customer->user->full_name,
+
+            'email' => $recipient->customer->user->email,
+
+            'city' => $recipient->customer->user->addresses()->first()->city,
+
+            'zip_code' => $recipient->customer->user->addresses()->first()->city->codes[0],
+
+            'address_line_1' => $recipient->customer->user->addresses()->first()->first_address,
+
+            'address_line_2' => $recipient->customer->user->addresses()->first()->second_address,
+
+            'passport' => $recipient->customer->passport,
+
             'created_at' => $recipient->created_at,
+
+            'updated_at' => $recipient->updated_at,
+
+            'phones' => $recipient->customer->user->getPhonesWithLimit(10)
         ];
     }
 
     /**
      * @param Recipient $recipient
+     *
+     * @param string $phone
      *
      * @return array
      */
@@ -213,11 +233,33 @@ final class Recipients
      */
     public function updateCredentials(RecipientsRequest $request): array
     {
-        $credentials = [
-            'customer_id' => $request->json('customer_id'),
-        ];
+        return [
+            'customer' => [
+                'passport' => $request->json('passport')
+            ],
 
-        return $credentials;
+            'user' => [
+                'full_name' => $request->json('user')['full_name'],
+
+                'email' => $request->json('user')['email'],
+
+                'profile' => [
+                    'fist_name' => $request->json('user')['first_name'] ?? null,
+
+                    'middle_name' => $request->json('user')['middle_name'] ?? null,
+
+                    'last_name' => $request->json('user')['last_name'] ?? null,
+
+                    'photo' => null
+                ]
+            ],
+
+            'phones' => collect($request->json('phones'))->transform(function (string $phone) {
+                return ['phone' => $phone];
+            }),
+
+            'address' => $request->json('address'),
+        ];
     }
 
     /**
