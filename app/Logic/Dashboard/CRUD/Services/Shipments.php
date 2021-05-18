@@ -183,4 +183,14 @@ final class Shipments
 
         return $credentials;
     }
+
+    public function attachBoxes(ShipmentsRequest $request)
+    {
+        return $request->json('id');
+    }
+
+    public function unAttachBoxes(ShipmentsRequest $request)
+    {
+        return $request->json('id');
+    }
 }
