@@ -22,7 +22,7 @@ final class Recipients extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'dashboard.recipients.index' => [
+            'dashboard.recipients.recipient.index' => [
                 'search' => [
                     'nullable',
 
@@ -74,7 +74,7 @@ final class Recipients extends FormRequest
                 ],
             ],
 
-            'dashboard.recipients.store' => [
+            'dashboard.recipients.recipient.store' => [
                 'user' => [
                     'required',
 
@@ -162,7 +162,7 @@ final class Recipients extends FormRequest
                 ]
             ],
 
-            'dashboard.recipients.update' => [
+            'dashboard.recipients.recipient.update' => [
                 'customer_id' => [
                     'required',
 
