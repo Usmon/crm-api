@@ -101,13 +101,13 @@ final class Recipients
      */
     public function getPhones(Collection $recipients, string $phone): Collection
     {
-        return $recipients->transform(function (Recipient $sender) use($phone) {
+        return $recipients->transform(function (Recipient $recipient) use($phone) {
             return [
-                'id' => $sender->id,
+                'id' => $recipient->id,
 
-                'full_name' => $sender->customer->user->full_name,
+                'full_name' => $recipient->customer->user->full_name,
 
-                'phone' => $sender->getPhone($phone)
+                'phone' => $recipient->getPhone($phone)
             ];
         });
     }
@@ -122,7 +122,25 @@ final class Recipients
         return [
             'id' => $recipient->id,
 
+            'full_name' => $recipient->customer->user->full_name,
+
+            'phone' => $recipient->customer->user->phones()->first()->phone,
+
+            'email' => $recipient->customer->user->email,
+
+            'city' => $recipient->customer->user->addresses()->first()->city,
+
+            'zip_code' => $recipient->customer->user->addresses()->first()->city->codes[0],
+
+            'address_line_1' => $recipient->customer->user->addresses()->first()->first_address,
+
+            'address_line_2' => $recipient->customer->user->addresses()->first()->second_address,
+
+            'passport' => $recipient->customer->passport,
+
             'created_at' => $recipient->created_at,
+
+            'updated_at' => $recipient->updated_at,
         ];
     }
 
