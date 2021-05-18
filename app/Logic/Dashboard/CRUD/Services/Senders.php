@@ -97,8 +97,6 @@ final class Senders
 
             'full_name' => $sender->customer->user->full_name,
 
-            'phone' => $sender->customer->user->phones()->first()->phone,
-
             'email' => $sender->customer->user->email,
 
             'city' => $sender->customer->user->addresses()->first()->city,
@@ -118,6 +116,8 @@ final class Senders
             'created_at' => $sender->created_at,
 
             'updated_at' => $sender->updated_at,
+
+            'phones' => $sender->customer->user->getPhonesWithLimit(10),
         ];
     }
 
@@ -259,7 +259,9 @@ final class Senders
                 ]
             ],
 
-            'phone' => $request->json('phone'),
+            'phones' => collect($request->json('phones'))->transform(function (string $phone) {
+                return ['phone' => $phone];
+            }),
 
             'address' => $request->json('address'),
         ];
