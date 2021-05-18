@@ -4,6 +4,8 @@ namespace App\Logic\Dashboard\CRUD\Requests;
 
 use Illuminate\Validation\Rule;
 
+use App\Models\Phone;
+
 use Illuminate\Foundation\Http\FormRequest;
 
 final class Recipients extends FormRequest
@@ -163,14 +165,87 @@ final class Recipients extends FormRequest
             ],
 
             'dashboard.recipients.recipient.update' => [
-                'customer_id' => [
+                'user' => [
+                    'required',
+
+                    'array',
+                ],
+
+                'user.full_name' => [
+                    'required',
+
+                    'string'
+                ],
+
+                'user.first_name' => [
+                    'nullable',
+
+                    'string'
+                ],
+
+                'user.last_name' => [
+                    'nullable',
+
+                    'string'
+                ],
+
+                'user.middle_name' => [
+                    'nullable',
+
+                    'string'
+                ],
+
+                'user.email' => [
+                    'required',
+
+                    'email',
+
+                    Rule::unique('users', 'email')->ignore($this->route('recipient')->customer->user_id)
+                ],
+
+                'phones' => [
+                    'required',
+
+                    'array'
+                ],
+
+                'phones.*' => [
+                    'required',
+
+                    'string',
+                ],
+
+                'address' => [
+                    'required',
+
+                    'array'
+                ],
+
+                "address.city_id" => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('users', 'id')
+                    Rule::exists('cities', 'id')
                 ],
 
+                'address.first_address' => [
+                    'required',
+
+                    'string'
+                ],
+
+                'address.second_address' => [
+                    'nullable',
+
+                    'string'
+                ],
+
+                'passport' => [
+                    'required',
+
+                    'string'
+                ]
             ],
 
             'dashboard.recipients.phone.check' => [

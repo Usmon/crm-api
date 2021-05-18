@@ -124,8 +124,6 @@ final class Recipients
 
             'full_name' => $recipient->customer->user->full_name,
 
-            'phone' => $recipient->customer->user->phones()->first()->phone,
-
             'email' => $recipient->customer->user->email,
 
             'city' => $recipient->customer->user->addresses()->first()->city,
@@ -141,11 +139,15 @@ final class Recipients
             'created_at' => $recipient->created_at,
 
             'updated_at' => $recipient->updated_at,
+
+            'phones' => $recipient->customer->user->getPhonesWithLimit(10)
         ];
     }
 
     /**
      * @param Recipient $recipient
+     *
+     * @param string $phone
      *
      * @return array
      */
@@ -231,11 +233,33 @@ final class Recipients
      */
     public function updateCredentials(RecipientsRequest $request): array
     {
-        $credentials = [
-            'customer_id' => $request->json('customer_id'),
-        ];
+        return [
+            'customer' => [
+                'passport' => $request->json('passport')
+            ],
 
-        return $credentials;
+            'user' => [
+                'full_name' => $request->json('user')['full_name'],
+
+                'email' => $request->json('user')['email'],
+
+                'profile' => [
+                    'fist_name' => $request->json('user')['first_name'] ?? null,
+
+                    'middle_name' => $request->json('user')['middle_name'] ?? null,
+
+                    'last_name' => $request->json('user')['last_name'] ?? null,
+
+                    'photo' => null
+                ]
+            ],
+
+            'phones' => collect($request->json('phones'))->transform(function (string $phone) {
+                return ['phone' => $phone];
+            }),
+
+            'address' => $request->json('address'),
+        ];
     }
 
     /**

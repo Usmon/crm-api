@@ -54,9 +54,17 @@ final class Recipients
      */
     public function updateRecipient(Recipient $recipient, array $credentials): Recipient
     {
-        $recipient->update($credentials);
+        $recipient->customer()->update($credentials['customer']);
 
-        return $recipient;
+        $recipient->customer->user()->update($credentials['user']);
+
+        $recipient->customer->user->addresses()->first()->update($credentials['address']);
+
+        $recipient->customer->user->phones()->delete();
+
+        $recipient->customer->user->phones()->createMany($credentials['phones']);
+
+        return $recipient->refresh();
     }
 
     /**
