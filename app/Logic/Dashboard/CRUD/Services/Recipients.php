@@ -206,6 +206,10 @@ final class Recipients
     public function storeCredentials(RecipientsRequest $request): array
     {
         return [
+            'customer' => [
+                'passport' => $request->json('passport')
+            ],
+
             'user' => [
                 'full_name' => $request->json('user')['full_name'],
 

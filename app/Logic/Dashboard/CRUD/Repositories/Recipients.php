@@ -34,7 +34,7 @@ final class Recipients
         $user = User::factory()->create($credentials['user']);
 
         //Binding sender
-        $user->customer()->create()->recipient()->create();
+        $user->customer()->create($credentials['customer'])->recipient()->create();
 
         //Create address for user
         $user->addresses()->create($credentials['address']);
