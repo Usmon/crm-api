@@ -51,6 +51,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property integer|null $deleted_by
  *
+ * @property-read array $passport_serialize
+ *
  * @property-read HasOne|User $user
  *
  * @property-read HasOne|Customer $customer
@@ -255,5 +257,17 @@ final class Customer extends Model
             return $query->has('recipient');
 
         return $query->has('sender');
+    }
+
+    /**
+     * @return array
+     */
+    public function getPassportSerializeAttribute(): array
+    {
+        return [
+            'serial' => strtoupper(substr($this->passport, '0', 2)),
+
+            'number' => (int) substr($this->passport, '2'),
+        ];
     }
 }

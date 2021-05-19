@@ -342,4 +342,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth:api','checkPermiss
     Route::apiResource('partners', DashboardPartnersController::class);
 
     Route::apiResource('payment/types', PaymentTypeController::class);
+
+    Route::group(['prefix' => 'export', 'as' => 'export.'], function () {
+        Route::get('boxes', [\App\Http\Controllers\ExportController::class, 'boxes'])->name('boxes');
+    });
 });
