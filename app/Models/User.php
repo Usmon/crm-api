@@ -60,6 +60,8 @@ use Spatie\Permission\Traits\HasRoles;
  *
  * @property-read string $avatar
  *
+ * @property-read string $split_name
+ *
  * @property-read Collection|Token[] $tokens
  *
  * @property-read Collection|Pickup[] $pickups
@@ -289,5 +291,21 @@ final class User extends Auth
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
         });
+    }
+
+    /**
+     * @return array
+     */
+    public function getSplitNameAttribute(): array
+    {
+        $result = explode(' ', $this->full_name);
+
+        return [
+            'first_name' => $result[0] ?? '',
+
+            'middle_name' => $result[1] ?? '',
+
+            'last_name' => $result[2] ?? '',
+        ];
     }
 }
