@@ -2,6 +2,7 @@
 
 namespace App\Logic\Dashboard\CRUD\Services;
 
+use Illuminate\Contracts\Pagination\Paginator;
 use Spatie\Permission\Models\Role;
 
 use App\Logic\Dashboard\CRUD\Requests\Roles as RolesRequest;
@@ -41,17 +42,13 @@ final class Roles
      *
      * @return Collection
      */
-    public function getRoles(Collection $collection): Collection
+    public function getRoles(Paginator $collection)
     {
-        return $collection->transform(function (Role $role) {
+        return $collection->getCollection()->transform(function (Role $role) {
             return [
                 'id' => $role->id,
 
                 'name' => $role->name,
-
-                'slug' => $role->slug,
-
-                'description' => $role->description,
 
                 'created_at' => $role->created_at,
 
@@ -72,13 +69,11 @@ final class Roles
 
             'name' => $role->name,
 
-            'slug' => $role->slug,
-
-            'description' => $role->description,
-
             'created_at' => $role->created_at,
 
             'updated_at' => $role->updated_at,
+
+            'permissions' => $role->permissions
         ];
     }
 

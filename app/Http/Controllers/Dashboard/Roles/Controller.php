@@ -49,7 +49,7 @@ final class Controller extends Controllers
      *
      * @return JsonResponse
      */
-    public function index(RolesRequest $request): JsonResponse
+    public function index(RolesRequest $request)
     {
 //        if(! Gate::check('Roles')){
 //            return Json::sendJsonWith403([
@@ -58,9 +58,9 @@ final class Controller extends Controllers
 //        }
 
         return Json::sendJsonWith200([
-            'filters' => $this->service->getAllFilters($request),
+//            'filters' => $this->service->getAllFilters($request),
 
-            'roles' => $this->service->getRoles($this->repository->getRoles($this->service->getOnlyFilters($request))),
+            'roles' => $this->repository->getRoles(),
         ]);
     }
 

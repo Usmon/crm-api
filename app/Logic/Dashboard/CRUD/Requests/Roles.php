@@ -88,7 +88,7 @@ final class Roles extends FormRequest
 
                     'max:255',
 
-                    Rule::unique('roles', 'name')->ignore($this->route('roles')),
+                    Rule::unique('roles', 'name')->ignore($this->role),
                 ],
 
                 'permissions' => [

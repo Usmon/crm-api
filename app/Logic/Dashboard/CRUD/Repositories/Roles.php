@@ -4,6 +4,7 @@ namespace App\Logic\Dashboard\CRUD\Repositories;
 
 use Exception;
 
+use Illuminate\Contracts\Pagination\Paginator;
 use Spatie\Permission\Models\Role;
 
 use Illuminate\Support\Arr;
@@ -17,9 +18,9 @@ final class Roles
      *
      * @return Collection
      */
-    public function getRoles(array $filters): Collection
+    public function getRoles(): Paginator
     {
-        return Role::filter($filters)->orderBy('created_at', 'desc')->get();
+        return Role::orderBy('created_at', 'desc')->paginate(10);
     }
 
     /**
