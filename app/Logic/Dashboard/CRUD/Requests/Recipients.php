@@ -161,7 +161,15 @@ final class Recipients extends FormRequest
                     'nullable',
 
                     'string'
-                ]
+                ],
+
+                'passport' => [
+                    'required',
+
+                    'string',
+
+                    Rule::unique('customers', 'passport')
+                ],
             ],
 
             'dashboard.recipients.recipient.update' => [
@@ -200,7 +208,7 @@ final class Recipients extends FormRequest
 
                     'email',
 
-                    Rule::unique('users', 'email')->ignore($this->route('recipient')->customer->user_id)
+                    Rule::unique('users', 'email')->ignore($this->route('recipient')->customer->user_id ?? 0)
                 ],
 
                 'phones' => [
