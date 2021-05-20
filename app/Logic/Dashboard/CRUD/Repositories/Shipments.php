@@ -83,6 +83,8 @@ final class Shipments
 
         Box::query()->whereIn('id', $boxesId)->update([
             'shipment_id' => $shipmentId,
+
+            'status_id' => 5,
         ]);
     }
 
@@ -95,6 +97,8 @@ final class Shipments
 
         Box::query()->whereIn('id', $boxesId)->update([
             'shipment_id' => null,
+
+            'status_id' => 11,
         ]);
     }
 }
