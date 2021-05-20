@@ -88,7 +88,9 @@ final class Users
 
             'roles' => $user->getRoleNames(),
 
-            'phones' => $user->phones
+            'phones' => $user->phones->transform(function ($data){
+                return $data->phone;
+            }),
         ];
     }
 
