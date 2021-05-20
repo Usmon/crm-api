@@ -69,7 +69,7 @@ final class UserObserver
 
         $user->deleted_at = $user->deleted_at ?? null;
 
-        $user->full_name = $user->full_name ?? ' ';
+        $user->full_name = $user->full_name ?? $this->makeFullName($user);
     }
 
     /**

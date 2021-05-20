@@ -197,7 +197,7 @@ final class Senders extends FormRequest
 
                     'email',
 
-                    Rule::unique('users', 'email')->ignore($this->route('sender')->customer->user_id)
+                    Rule::unique('users', 'email')->ignore($this->route('sender')->customer->user_id ?? 0)
                 ],
 
                 'phones' => [
