@@ -21,5 +21,14 @@ final class RoleSeeder extends Seeder
             return $data->id;
         });
         $role->givePermissionTo($permissionsId);
+
+
+        $role = Role::create([
+            'name' => 'testRole',
+        ]);
+        $permissionsId = Permission::all()->map(function ($data){
+            return $data->id;
+        });
+        $role->givePermissionTo($permissionsId);
     }
 }

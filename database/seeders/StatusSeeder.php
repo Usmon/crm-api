@@ -94,6 +94,15 @@ final class StatusSeeder extends Seeder
                 ]
             ]
         ],
+        [
+            'value' => 'Rejected',
+            'parameters' => [
+                'color' => [
+                    'text' => '#944C0D',
+                    'bg' => '#EFE4DA'
+                ]
+            ],
+        ],
     ];
 
     /**

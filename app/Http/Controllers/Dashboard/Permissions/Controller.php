@@ -49,7 +49,7 @@ final class Controller extends Controllers
         return Json::sendJsonWith200([
             'filters' => $this->service->getAllFilters($request),
 
-            'roles' => $this->service->getPermissions($this->repository->getPermissions($this->service->getOnlyFilters($request), $this->service->getOnlyFilters($request))),
+            'permissions' => $this->service->getPermissions($this->repository->getPermissions($this->service->getOnlyFilters($request), $this->service->getOnlyFilters($request))),
         ]);
     }
 
@@ -68,7 +68,7 @@ final class Controller extends Controllers
         return Json::sendJsonWith200([
             'message' => 'The permission was successfully created.',
 
-            'role' => $this->repository->storePermission($this->service->storeCredentials($request)),
+            'permission' => $this->repository->storePermission($this->service->storeCredentials($request)),
         ]);
     }
 
