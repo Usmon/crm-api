@@ -204,7 +204,7 @@ final class Delivery extends Model
      */
     public function creatorName()
     {
-        return $this->creator->profile['first_name'] . ' ' . $this->creator->profile['last_name'] . ' ' . $this->creator->profile['middle_name'];
+        return $this->creator->full_name;
     }
 
     /**
@@ -230,9 +230,7 @@ final class Delivery extends Model
      */
     public function driverName(): string
     {
-        return $this->driver->user->profile['first_name']
-            . ' ' . $this->driver->user->profile['last_name']
-            . ' ' .$this->driver->user->profile['middle_name'];
+        return $this->driver->user->full_name;
     }
 
     /**

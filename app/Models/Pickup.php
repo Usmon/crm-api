@@ -202,9 +202,7 @@ final class Pickup extends Model
      */
     public function getSenderNameAttribute(): string
     {
-        return $this->sender->customer->user['profile']['first_name']
-            . ' ' . $this->sender->customer->user['profile']['last_name']
-            . ' ' . $this->sender->customer->user['profile']['middle_name'];
+        return $this->sender->customer->user->full_name;
     }
 
     /**
@@ -212,9 +210,7 @@ final class Pickup extends Model
      */
     public function getDriverNameAttribute(): string
     {
-        return $this->driver['user']['profile']['first_name']
-            . ' ' . $this->driver['user']['profile']['last_name']
-            . ' ' . $this->driver['user']['profile']['middle_name'];
+        return $this->driver->user->full_name;
     }
 
     /**
@@ -222,9 +218,7 @@ final class Pickup extends Model
      */
     public function getCreatorNameAttribute(): string
     {
-        return $this->creator['profile']['first_name']
-            . ' ' . $this->creator['profile']['last_name']
-            . ' ' . $this->creator['profile']['middle_name'];
+        return $this->creator->full_name;
     }
 
     /**
