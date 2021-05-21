@@ -29,6 +29,8 @@ final class Controller extends Controllers
 
                 'partner' => $request->user()->partner,
 
+                'full_name' => $request->user()->full_name,
+
                 'profile' => [
                     'first_name' => $request->user()->profile['first_name'],
 
