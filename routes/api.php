@@ -345,5 +345,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth:api','checkPermiss
 
     Route::group(['prefix' => 'export', 'as' => 'export.'], function () {
         Route::get('boxes', [\App\Http\Controllers\ExportController::class, 'boxes'])->name('boxes');
+
+        Route::get('declaration', [\App\Http\Controllers\ExportController::class, 'shipmentDeclaration'])->name('shipment-declaration');
     });
 });
