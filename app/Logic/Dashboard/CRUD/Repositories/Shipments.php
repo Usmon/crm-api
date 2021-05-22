@@ -33,7 +33,7 @@ final class Shipments
     {
         $shipment = Shipment::create($credentials);
 
-//        self::attachBoxes($credentials['boxes'], $shipment->id);
+        self::attachBoxes($credentials['boxes'], $shipment->id);
 
         return $shipment;
     }
@@ -49,9 +49,9 @@ final class Shipments
     {
         $shipment->update($credentials);
 
-//        self::removeBoxes($shipment->id);
+//        self::unAttachBoxes($shipment->id);
 
-//        self::attachBoxes($credentials['boxes'], $shipment->id);
+        self::attachBoxes($credentials['boxes'], $shipment->id);
 
         return $shipment;
     }
