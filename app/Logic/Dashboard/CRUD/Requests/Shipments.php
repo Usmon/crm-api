@@ -76,7 +76,7 @@ final class Shipments extends FormRequest
 
             'dashboard.shipments.shipment.update' => [
                 'status_id' => [
-                    'required',
+                    //'required',
 
                     'integer',
 
@@ -118,7 +118,7 @@ final class Shipments extends FormRequest
 
                     'integer',
 
-                    Rule::exists('boxes', 'id')->whereNot('shipment_id', null),
+                    Rule::exists('boxes', 'shipment_id'),
                 ],
             ],
         ];

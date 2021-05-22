@@ -89,13 +89,13 @@ final class Shipments
     }
 
     /**
-     * @param int $shipmentId
+     * @param array $boxesId
+     *
+     * @return void
      */
-    public function unAttachBoxes(array $boxesId, int $shipmentId): void
+    public function unAttachBoxes(array $boxesId): void
     {
-        $shipment = Shipment::findOrFail($shipmentId);
-
-        Box::query()->whereIn('id', $boxesId)->update([
+        Box::query()->whereIn('shipment_id', $boxesId)->update([
             'shipment_id' => null,
 
             'status_id' => 11,

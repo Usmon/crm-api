@@ -40,7 +40,10 @@ final class BoxFactory extends Factory
 
         $deliveryId = [Delivery::all()->random(), null];
 
-        $shipmentId = [Shipment::all()->random(), null];
+        $shipments = [Shipment::all()->random(), null];
+
+        $shipmentId = $shipments[random_int(0,1)];
+
 
         $users = User::all();
 
@@ -55,11 +58,11 @@ final class BoxFactory extends Factory
 
             'additional_weight' => $this->faker->randomFloat(2, 100, 1000),
 
-            'status_id' => $statuses->random(),
+            'status_id' => $shipmentId ? 5 : $statuses->random(),
 
             'delivery_id' => $deliveryId[random_int(0,1)],
 
-            'shipment_id' => $shipmentId[random_int(0,1)],
+            'shipment_id' => $shipmentId,
 
             'box_image' => $this->faker->imageUrl(100,100),
 
