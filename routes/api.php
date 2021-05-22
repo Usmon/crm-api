@@ -261,6 +261,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth:api','checkPermiss
 
     Route::group(['prefix' => 'shipments', 'as' => 'shipments.'], function(){
 
+        Route::put('shipment/unattach-boxes', [DashboardShipmentsController::class, 'unAttachBoxes'])->name('unattach-boxes');
+
         Route::apiResource('shipment', DashboardShipmentsController::class);
 
         Route::apiResource('comments', DashboardShipmentCommentsController::class);
@@ -270,8 +272,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth:api','checkPermiss
         Route::apiResource('statuses', DashboardShipmentStatusesController::class);
 
         Route::put('shipment/{id}/attach-boxes', [DashboardShipmentsController::class, 'attachBoxes'])->name('attach-boxes');
-
-        Route::put('shipment/{id}/unattach-boxes', [DashboardShipmentsController::class, 'unAttachBoxes'])->name('unattach-boxes');
     });
 
     Route::group(['prefix'=> 'boxes', 'as' => 'boxes.'], function(){

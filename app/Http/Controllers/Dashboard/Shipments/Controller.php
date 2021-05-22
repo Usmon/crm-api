@@ -167,9 +167,9 @@ final class Controller extends Controllers
         ]);
     }
 
-    public function unAttachBoxes(int $shipmentId, ShipmentsRequest $request)
+    public function unAttachBoxes(ShipmentsRequest $request)
     {
-        $this->repository->unAttachBoxes($this->service->unAttachBoxes($request), $shipmentId);
+        $this->repository->unAttachBoxes($this->service->unAttachBoxes($request));
 
         return Json::sendJsonWith200([
             'message' => 'The boxes was successfully unattached from shipment.',
