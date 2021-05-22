@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
+
 use Illuminate\Foundation\Http\FormRequest;
 
 final class Export extends FormRequest
@@ -32,6 +34,24 @@ final class Export extends FormRequest
 
                     'integer'
                 ]
+            ],
+
+            'dashboard.export.shipment-declaration' => [
+                'id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('shipments', 'id')
+                ],
+
+                'response_type' => [
+                    'nullable',
+
+                    'string',
+
+                    Rule::in(['stream', 'download'])
+                ],
             ]
         ];
 

@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Json;
+use App\Models\Box;
+
+use App\Models\BoxItem;
+
+use App\Models\Shipment;
+
 use App\Http\Requests\Export;
 
-use App\Models\Box;
-use App\Models\BoxItem;
 use Spatie\ArrayToXml\ArrayToXml;
 
 /**
@@ -15,6 +20,11 @@ use Spatie\ArrayToXml\ArrayToXml;
  */
 class ExportController extends Controller
 {
+    /**
+     * @param Export $request
+     *
+     * @return mixed
+     */
     public function boxes(Export $request)
     {
         $id = $request->get('id') ?? $request->json('id');
@@ -96,6 +106,85 @@ class ExportController extends Controller
 
         return response($result, 200, [
             'Content-Type' => 'application/xml'
+        ]);
+    }
+
+    public function shipmentDeclaration(Export $request)
+    {
+        $id = $request->json('id') ?? $request->get('id');
+
+        $shipment = Shipment::find($id);
+
+        $result = $shipment->boxes->transform(function (Box $box) {
+            $recipient_address = $box->order->recipient->customer->user->addresses()->with(['city.region.country'])->first();
+
+            $sender_address = $box->order->sender->customer->user->addresses()->with(['city.region.country'])->first();
+
+            return [
+                'agent_code' => $box->id,
+
+                'sender' => [
+                    'full_name' => $box->order->sender->customer->user->full_name,
+
+                    'address' => [
+
+                        'country' => $sender_address->city->region->country->name,
+
+                        'region' => $sender_address->city->region->name,
+
+                        'city' => $sender_address->city->name,
+
+                        'first_address' => $sender_address->first_address,
+
+                        'second_address' => $sender_address->second_address,
+                    ],
+
+                    'phone' => $box->order->sender->customer->user->phones()->first()->phone
+                ],
+
+                'recipient' => [
+                    'full_name' => $box->order->recipient->customer->user->full_name,
+
+                    'passport' => $box->order->recipient->customer->passport,
+
+                    'address' => [
+
+                        'country' => $recipient_address->city->region->country->name,
+
+                        'region' => $recipient_address->city->region->name,
+
+                        'city' => $recipient_address->city->name,
+
+                        'first_address' => $recipient_address->first_address,
+
+                        'second_address' => $recipient_address->second_address,
+                    ],
+
+                    'phone' => $box->order->recipient->customer->user->phones()->first()->phone
+                ],
+
+                'weight' => $box->weight,
+
+                'products' => $box->items->transform(function(BoxItem $boxItem) {
+                    return [
+                        'name' => $boxItem->name,
+
+                        'quantity' => $boxItem->quantity,
+
+                        'price' => $boxItem->price,
+
+                        'type_weight' => $boxItem->type_weight,
+
+                        'made_in' => $boxItem->made_in,
+                    ];
+                }),
+
+
+            ];
+        });
+
+        return Json::sendJsonWith200([
+            'pages' => $result
         ]);
     }
 }
