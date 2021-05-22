@@ -2,6 +2,7 @@
 
 namespace App\Logic\Dashboard\CRUD\Requests;
 
+use App\Models\Box;
 use Illuminate\Validation\Rule;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -71,6 +72,20 @@ final class Shipments extends FormRequest
                     'required',
 
                     'string',
+                ],
+
+                'boxes' => [
+                    'required',
+
+                    'array',
+                ],
+
+                'boxes.*' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('boxes', 'id')->whereNull('shipment_id'),
                 ],
             ],
 
