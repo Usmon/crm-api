@@ -319,6 +319,8 @@ final class Pickup extends Model
             });
         })->when($filters['index'] ?? null, function (Builder $query, string $index) {
             return $query->where('type->index', 'like', '%' . $index . '%');
+        })->when($filters['status_id'] ?? null, function (Builder $query, int $statusId) {
+            return $query->where('status_id', '=', $statusId);
         });
     }
 }
