@@ -118,6 +118,14 @@ final class Pickups extends FormRequest
 
                     'string'
                 ],
+
+                'status_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('statuses', 'id'),
+                ],
             ],
 
             'dashboard.pickups.store' => [
