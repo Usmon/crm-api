@@ -95,7 +95,7 @@ final class Shipments
      */
     public function unAttachBoxes(array $boxesId): void
     {
-        Box::query()->whereIn('shipment_id', $boxesId)->update([
+        Box::query()->whereIn('id', $boxesId)->update([
             'shipment_id' => null,
 
             'status_id' => 11,

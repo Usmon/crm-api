@@ -117,7 +117,7 @@ final class Shipments extends FormRequest
 
                     'integer',
 
-                    Rule::exists('boxes', 'id')->where('shipment_id', null),
+                    Rule::exists('boxes', 'id')->whereNull('shipment_id')
                 ],
             ],
 
@@ -133,7 +133,7 @@ final class Shipments extends FormRequest
 
                     'integer',
 
-                    Rule::exists('boxes', 'shipment_id'),
+                    Rule::exists('boxes', 'id'),
                 ],
             ],
         ];
