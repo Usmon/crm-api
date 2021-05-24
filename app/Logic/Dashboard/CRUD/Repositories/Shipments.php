@@ -51,7 +51,7 @@ final class Shipments
 
 //        self::unAttachBoxes($shipment->id);
 
-        self::attachBoxes($credentials['boxes'], $shipment->id);
+        //self::attachBoxes($credentials['boxes'], $shipment->id);
 
         return $shipment;
     }
