@@ -347,6 +347,108 @@ final class Boxes extends FormRequest
                     Rule::exists('orders', 'id')
                 ]
             ],
+
+            'dashboard.boxes.boxesFree' => [
+                'date' => [
+                    'nullable',
+
+                    'array',
+                ],
+
+                'date.from' => [
+                    'nullable',
+
+                    'date',
+
+                    'before:now',
+                ],
+
+                'date.to' => [
+                    'nullable',
+
+                    'date',
+
+                    'after:date.from'
+                ],
+
+                'pickup_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('pickups','id'),
+                ],
+
+                'order_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('orders','id'),
+                ],
+
+                'status_id' => [
+                    'nullable',
+
+                    'integer',
+
+                    Rule::exists('statuses','id'),
+                ],
+
+                'weight' => [
+                    'nullable',
+
+                    'array',
+                ],
+
+                'weight.from' => [
+                    'nullable',
+
+                    'numeric',
+                ],
+
+                'weight.to' => [
+                    'nullable',
+
+                    'numeric',
+                ],
+
+                'additional_weight' => [
+                    'nullable',
+
+                    'array',
+                ],
+
+                'additional_weight.from' => [
+                    'nullable',
+
+                    'numeric',
+                ],
+
+                'additional_weight.to' => [
+                    'nullable',
+
+                    'numeric',
+                ],
+
+                'status' => [
+                    'nullable',
+
+                    'string',
+                ],
+
+                'creator' => [
+                    'nullable',
+
+                    'string',
+                ],
+
+                'customer' => [
+                    'nullable',
+
+                    'string',
+                ],
+            ],
         ];
 
         return $rules[$this->route()->getName()];

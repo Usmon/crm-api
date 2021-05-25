@@ -209,10 +209,25 @@ final class Controller extends Controllers
         ]);
     }
 
-    public function boxesFree()
+    /**
+     * @return JsonResponse
+     */
+    public function boxesFree(BoxesRequest $request)
     {
+//        return Json::sendJsonWith200([
+//            'boxes' => $this->service->boxesFree($this->repository->boxesFree()),
+//        ]);
+
         return Json::sendJsonWith200([
-            'boxes' => $this->service->boxesFree($this->repository->boxesFree()),
+            'filters' => $this->service->getAllFilters($request),
+
+            'sorts' => $this->service->getAllSorts($request),
+
+            'boxes' => $this->service->boxesFree($this->repository->boxesFree(
+                $this->service->getOnlyFilters($request),
+
+                $this->service->getOnlySorts($request)
+            ))
         ]);
     }
 }
