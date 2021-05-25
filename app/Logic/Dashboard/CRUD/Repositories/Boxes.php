@@ -116,8 +116,8 @@ final class Boxes
     /**
      * @return mixed
      */
-    public function boxesFree()
+    public function boxesFree(array $filters, array $sorts)
     {
-        return Box::where('shipment_id', null)->pager();
+        return Box::where('shipment_id', null)->filter($filters)->sort($sorts)->pager();
     }
 }
