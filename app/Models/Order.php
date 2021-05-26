@@ -491,7 +491,7 @@ final class Order extends Model
                             ->orWhere('full_name', 'like', '%'.$search.'%');
                     });
                 });
-            });
+            })->orWhere('id', $search.'%');
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
         })->when($filters['status_id'] ?? null, function (Builder $query, int $status_id){
