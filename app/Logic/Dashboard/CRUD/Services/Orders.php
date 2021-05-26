@@ -421,7 +421,7 @@ final class Orders
 
                 'recipient_city' => $order->recipient->customer->user->addresses[0]['city']['name'],
 
-                'recipient_zip_code' => $order->recipient->customer->user->addresses[0]['city']['region']['zip_code'],
+                'recipient_zip_code' => $order->recipient->customer->user->addresses[0]['city']['codes'],
 
                 'recipient_address_line_1' => $order->recipient->customer->user->addresses[0]['first_address'],
 
