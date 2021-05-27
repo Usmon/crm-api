@@ -366,4 +366,11 @@ final class Pickups
             }),
         ];
     }
+
+//    public function updateStatus(PickupsRequest $request)
+//    {
+//        return [
+//            'status_id' => $request->json('status_id'),
+//        ];
+//    }
 }

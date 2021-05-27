@@ -193,4 +193,11 @@ final class Shipments
     {
         return $request->json('id');
     }
+
+    public function updateStatus(ShipmentsRequest $request)
+    {
+        return [
+            'status_id' => $request->json('status_id'),
+        ];
+    }
 }

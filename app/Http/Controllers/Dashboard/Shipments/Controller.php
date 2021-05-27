@@ -175,4 +175,13 @@ final class Controller extends Controllers
             'message' => 'The boxes was successfully unattached from shipment.',
         ]);
     }
+
+    public function updateStatus(int $id, ShipmentsRequest $request)
+    {
+        return Json::sendJsonWith200([
+            'message' => 'Shipment status was successfully updated.',
+
+            'delivery' => $this->repository->updateStatus($id, $this->service->updateStatus($request)),
+        ]);
+    }
 }

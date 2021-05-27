@@ -171,4 +171,13 @@ final class Controller extends Controllers
             'delivery' => $this->service->updateShow($this->repository->updateShow($id)),
         ]);
     }
+
+    public function updateStatus(int $id, DeliveriesRequest $request)
+    {
+        return Json::sendJsonWith200([
+            'message' => 'Delivery status was successfully updated.',
+
+            'delivery' => $this->repository->updateStatus($id, $this->service->updateStatus($request)),
+        ]);
+    }
 }
