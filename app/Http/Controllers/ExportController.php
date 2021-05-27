@@ -123,6 +123,8 @@ class ExportController extends Controller
             return [
                 'agent_code' => $box->id,
 
+                'office_phone' => $box->order->staff->partner->phone,
+
                 'sender' => [
                     'full_name' => $box->order->sender->customer->user->full_name,
 
