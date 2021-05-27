@@ -172,6 +172,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth:api','checkPermiss
 
     Route::apiResource('roles', DashboardRolesController::class);
 
+//    Route::put('pickups/status/{id}', [DashboardShipmentsController::class, 'updateStatus'])->name('updatePickupStatus');
+
     Route::apiResource('pickups', DashboardPickupsController::class);
 
     Route::get('pickups/update/show/{id}', [DashboardPickupsController::class, 'updateShow']);
@@ -257,6 +259,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth:api','checkPermiss
         Route::apiResource('comments', DashboardDeliveryCommentsController::class);
 
         Route::get('update/show/{id}', [DashboardDeliveriesController::class, 'updateShow']);
+
+        Route::put('{id}/status', [DashboardDeliveriesController::class, 'updateStatus'])->name('updateStatus');
     });
 
     Route::group(['prefix' => 'shipments', 'as' => 'shipments.'], function(){
@@ -272,6 +276,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth:api','checkPermiss
         Route::apiResource('statuses', DashboardShipmentStatusesController::class);
 
         Route::put('shipment/{id}/attach-boxes', [DashboardShipmentsController::class, 'attachBoxes'])->name('attach-boxes');
+
+        Route::put('{id}/status', [DashboardShipmentsController::class, 'updateStatus'])->name('updateStatus');
     });
 
     Route::group(['prefix'=> 'boxes', 'as' => 'boxes.'], function(){

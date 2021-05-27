@@ -136,6 +136,16 @@ final class Shipments extends FormRequest
                     Rule::exists('boxes', 'id'),
                 ],
             ],
+
+            'dashboard.shipments.updateStatus' => [
+                'status_id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('statuses', 'id'),
+                ],
+            ],
         ];
 
         return $rules[$this->route()->getName()];

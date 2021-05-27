@@ -101,4 +101,13 @@ final class Shipments
             'status_id' => 11,
         ]);
     }
+
+    public function updateStatus(int $id, array $credentials)
+    {
+        $shipment = Shipment::findOrFail($id);
+
+        $shipment->update($credentials);
+
+        return $shipment;
+    }
 }

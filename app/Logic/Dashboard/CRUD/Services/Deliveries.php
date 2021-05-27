@@ -345,4 +345,11 @@ final class Deliveries
             }),
         ];
     }
+
+    public function updateStatus(DeliveriesRequest $request)
+    {
+        return [
+            'status_id' => $request->json('status_id'),
+        ];
+    }
 }

@@ -291,6 +291,16 @@ final class Deliveries extends FormRequest
                     'string',
                 ],
             ],
+
+            'dashboard.deliveries.updateStatus' => [
+                'status_id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('statuses', 'id'),
+                ],
+            ],
         ];
 
         return $rules[$this->route()->getName()];

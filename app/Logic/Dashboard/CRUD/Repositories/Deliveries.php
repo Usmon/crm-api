@@ -132,4 +132,13 @@ final class Deliveries
     {
         return Delivery::findOrFail($id);
     }
+
+    public function updateStatus(int $id, array $credentials)
+    {
+        $delivery = Delivery::findOrFail($id);
+
+        $delivery->update($credentials);
+
+        return $delivery;
+    }
 }
