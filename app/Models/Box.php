@@ -272,14 +272,32 @@ final class Box extends Model
         })->when($filters['creator'] ?? null, function (Builder $query, string $creator) {
             return $query->whereHas('creator', function (Builder $query) use ($creator) {
                 return $query->where('email', 'like', '%' . $creator . '%')
-                    ->orWhere('profile', 'like', '%' . $creator . '%');
+                    ->orWhere('full_name', 'like', '%' . $creator . '%');
             });
         })->when($filters['customer'] ?? null, function (Builder $query, string $customer) {
             return $query->whereHas('order', function (Builder $query) use ($customer) {
                 return $query->whereHas('sender', function (Builder $query) use ($customer) {
                     return $query->whereHas('customer', function (Builder $query) use ($customer) {
                         return $query->whereHas('user', function (Builder $query) use ($customer) {
-                            return $query->where('profile', 'like', '%' . $customer . '%');
+                            return $query->where('full_name', 'like', '%' . $customer . '%');
+                        });
+                    });
+                });
+            });
+        })->when($filters['search'] ?? null, function (Builder $query, string $search) {
+            return $query->whereHas('status', function (Builder $query) use ($search) {
+                return $query->where('model','like','%'. $search .'%')
+                    ->orWhere('key', 'like', '%'. $search .'%')
+                    ->orWhere('value', 'like', '%'. $search .'%')
+                    ->orWhere('parameters', 'like', '%'. $search .'%');
+            })->orWhereHas('creator', function (Builder $query) use ($search) {
+                return $query->where('email', 'like', '%' . $search . '%')
+                    ->orWhere('full_name', 'like', '%' . $search . '%');
+            })->orWhereHas('order', function (Builder $query) use ($search) {
+                return $query->whereHas('sender', function (Builder $query) use ($search) {
+                    return $query->whereHas('customer', function (Builder $query) use ($search) {
+                        return $query->whereHas('user', function (Builder $query) use ($search) {
+                            return $query->where('full_name', 'like', '%' . $search . '%');
                         });
                     });
                 });
