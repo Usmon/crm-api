@@ -448,6 +448,12 @@ final class Boxes extends FormRequest
 
                     'string',
                 ],
+
+                'sort.*' => [
+                    'nullable',
+
+                    'string',
+                ],
             ],
         ];
 

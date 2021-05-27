@@ -214,10 +214,6 @@ final class Controller extends Controllers
      */
     public function boxesFree(BoxesRequest $request)
     {
-//        return Json::sendJsonWith200([
-//            'boxes' => $this->service->boxesFree($this->repository->boxesFree()),
-//        ]);
-
         return Json::sendJsonWith200([
             'filters' => $this->service->getAllFilters($request),
 
