@@ -401,7 +401,7 @@ final class Orders
 
                 'sender_city' => $order->sender->customer->user->addresses[0]['city']['name'],
 
-                'sender_zip_code' => $order->sender->customer->user->addresses[0]['city']['region']['zip_code'],
+                'sender_zip_code' => $order->sender->customer->user->addresses[0]['city']['codes'],
 
                 'sender_address_line_1' => $order->sender->customer->user->addresses[0]['first_address'],
 
