@@ -165,13 +165,13 @@ final class Controller extends Controllers
         ]);
     }
 
-//    public function updateStatus(int $id, PickupsRequest $request)
-//    {
-//        return Json::sendJsonWith200([
-//            'message' => 'Pickup status was successfully updated.',
-//
-//            'pickup' => $this->repository->updateStatus($id, $this->service->updateStatus($request)),
-//        ]);
-//    }
+    public function updateStatus(int $id, PickupsRequest $request)
+    {
+        return Json::sendJsonWith200([
+            'message' => 'Pickup status was successfully updated.',
+
+            'pickup' => $this->repository->updateStatus($id, $this->service->updateStatus($request)),
+        ]);
+    }
 
 }
