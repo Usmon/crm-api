@@ -21,6 +21,8 @@ use Spatie\ArrayToXml\ArrayToXml;
  */
 class ExportController extends Controller
 {
+    const RATE = 3.8;
+
     /**
      * @param Export $request
      *
@@ -167,9 +169,11 @@ class ExportController extends Controller
                     'phone' => $box->order->recipient->customer->user->phones()->first()->phone
                 ],
 
+                'rate' => self::RATE,
+
                 'weight' => $box->weight,
 
-                'cost' => $this->getCost($box->order),
+                'cost' => $this->getCost($box->order, $box->weight),
 
                 'products' => $box->items->transform(function(BoxItem $boxItem) {
                     return [
@@ -251,9 +255,11 @@ class ExportController extends Controller
                     'phone' => $box->order->recipient->customer->user->phones()->first()->phone
                 ],
 
+                'rate' => self::RATE,
+
                 'weight' => $box->weight,
 
-                'cost' => $this->getCost($order),
+                'cost' => $this->getCost($order, $box->weight),
 
                 'products' => $box->items->transform(function(BoxItem $boxItem) {
                     return [
@@ -268,7 +274,6 @@ class ExportController extends Controller
                         'made_in' => $boxItem->made_in,
                     ];
                 }),
-
             ];
         });
 
@@ -280,9 +285,11 @@ class ExportController extends Controller
     /**
      * @param Order $order
      *
+     * @param float $weight
+     *
      * @return array
      */
-    private function getCost(Order $order)
+    private function getCost(Order $order, float $weight)
     {
         return [
             'delivery' => $order->price_pickup,
@@ -293,7 +300,7 @@ class ExportController extends Controller
 
             'fedex' => $order->price_fedex,
 
-            'total' => $order->price
+            'total' => ($weight * self::RATE),
         ];
     }
 }
