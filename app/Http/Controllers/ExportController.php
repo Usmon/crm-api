@@ -127,6 +127,8 @@ class ExportController extends Controller
             return [
                 'agent_code' => $box->id,
 
+                'created_at' => $box->created_at,
+
                 'office_phone' => $box->order->staff->partner->phone,
 
                 'sender' => [
@@ -212,6 +214,8 @@ class ExportController extends Controller
         $boxes->getCollection()->transform(function (Box $box) use($recipient_address, $sender_address, $order) {
             return [
                 'agent_code' => $box->id,
+
+                'created_at' => $box->created_at,
 
                 'office_phone' => $box->order->staff->partner->phone,
 
