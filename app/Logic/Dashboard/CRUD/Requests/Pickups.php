@@ -298,17 +298,16 @@ final class Pickups extends FormRequest
                 ],
             ],
 
-//            'dashboard.pickups.updatePickupStatus' => [
-//                'status_id' => [
-//                    'required',
-//
-//                    'integer',
-//
-//                    Rule::exists('statuses', 'id'),
-//                ],
-//            ],
-        ];
+            'dashboard.updatePickupStatus' => [
+                'status_id' => [
+                    'required',
 
+                    'integer',
+
+                    Rule::exists('statuses', 'id'),
+                ],
+            ],
+        ];
         return $rules[$this->route()->getName()];
     }
 }

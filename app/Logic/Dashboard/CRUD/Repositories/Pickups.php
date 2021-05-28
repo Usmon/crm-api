@@ -113,13 +113,13 @@ final class Pickups
         return Pickup::findOrFail($id);
     }
 
-//    public function updateStatus(int $id, array $credentials)
-//    {
-//        $pickup = Pickup::findOrFail($id);
-//
-//        $pickup->update($credentials);
-//
-//        return $pickup;
-//    }
+    public function updateStatus(int $id, array $credentials)
+    {
+        $pickup = Pickup::findOrFail($id);
+
+        $pickup->update($credentials);
+
+        return $pickup;
+    }
 }
 

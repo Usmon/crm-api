@@ -172,7 +172,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth:api','checkPermiss
 
     Route::apiResource('roles', DashboardRolesController::class);
 
-//    Route::put('pickups/status/{id}', [DashboardShipmentsController::class, 'updateStatus'])->name('updatePickupStatus');
+    Route::put('pickups/status/{id}', [DashboardPickupsController::class, 'updateStatus'])->name('updatePickupStatus');
 
     Route::apiResource('pickups', DashboardPickupsController::class);
 
