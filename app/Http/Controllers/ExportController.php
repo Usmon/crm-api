@@ -7,6 +7,7 @@ use App\Models\Box;
 
 use App\Models\BoxItem;
 
+use App\Models\Order;
 use App\Models\Shipment;
 
 use App\Http\Requests\Export;
@@ -115,7 +116,8 @@ class ExportController extends Controller
 
         $shipment = Shipment::find($id);
 
-        $result = $shipment->boxes->transform(function (Box $box) {
+        $boxes = $shipment->boxes()->paginate(10);
+        $boxes->getCollection()->transform(function (Box $box) {
             $recipient_address = $box->order->recipient->customer->user->addresses()->with(['city.region.country'])->first();
 
             $sender_address = $box->order->sender->customer->user->addresses()->with(['city.region.country'])->first();
@@ -167,6 +169,8 @@ class ExportController extends Controller
 
                 'weight' => $box->weight,
 
+                'cost' => $this->getCost($box->order),
+
                 'products' => $box->items->transform(function(BoxItem $boxItem) {
                     return [
                         'name' => $boxItem->name,
@@ -181,12 +185,115 @@ class ExportController extends Controller
                     ];
                 }),
 
+            ];
+        });
+
+        return Json::sendJsonWith200([
+            'boxes' => $boxes
+        ]);
+    }
+
+    public function orderDeclaration(Export $request)
+    {
+        $id = $request->json('id') ?? $request->get('id');
+
+        $order = Order::find($id);
+
+        $boxes = $order->boxes()->paginate(10);
+
+        $recipient_address = $order->recipient->customer->user->addresses()->with(['city.region.country'])->first();
+
+        $sender_address = $order->sender->customer->user->addresses()->with(['city.region.country'])->first();
+
+        $boxes->getCollection()->transform(function (Box $box) use($recipient_address, $sender_address, $order) {
+            return [
+                'agent_code' => $box->id,
+
+                'office_phone' => $box->order->staff->partner->phone,
+
+                'sender' => [
+                    'full_name' => $box->order->sender->customer->user->full_name,
+
+                    'address' => [
+
+                        'country' => $sender_address->city->region->country->name,
+
+                        'region' => $sender_address->city->region->name,
+
+                        'city' => $sender_address->city->name,
+
+                        'first_address' => $sender_address->first_address,
+
+                        'second_address' => $sender_address->second_address,
+                    ],
+
+                    'phone' => $box->order->sender->customer->user->phones()->first()->phone
+                ],
+
+                'recipient' => [
+                    'full_name' => $box->order->recipient->customer->user->full_name,
+
+                    'passport' => $box->order->recipient->customer->passport,
+
+                    'address' => [
+
+                        'country' => $recipient_address->city->region->country->name,
+
+                        'region' => $recipient_address->city->region->name,
+
+                        'city' => $recipient_address->city->name,
+
+                        'first_address' => $recipient_address->first_address,
+
+                        'second_address' => $recipient_address->second_address,
+                    ],
+
+                    'phone' => $box->order->recipient->customer->user->phones()->first()->phone
+                ],
+
+                'weight' => $box->weight,
+
+                'cost' => $this->getCost($order),
+
+                'products' => $box->items->transform(function(BoxItem $boxItem) {
+                    return [
+                        'name' => $boxItem->name,
+
+                        'quantity' => $boxItem->quantity,
+
+                        'price' => $boxItem->price,
+
+                        'type_weight' => $boxItem->type_weight,
+
+                        'made_in' => $boxItem->made_in,
+                    ];
+                }),
 
             ];
         });
 
         return Json::sendJsonWith200([
-            'pages' => $result
+            'boxes' => $boxes
         ]);
+    }
+
+    /**
+     * @param Order $order
+     *
+     * @return array
+     */
+    private function getCost(Order $order)
+    {
+        return [
+            'delivery' => $order->price_pickup,
+
+            'insurance' => 0,
+
+            'others' => 0,
+
+            'fedex' => $order->price_fedex,
+
+            'total' => $order->price
+        ];
     }
 }

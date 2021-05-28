@@ -43,15 +43,17 @@ final class Export extends FormRequest
                     'integer',
 
                     Rule::exists('shipments', 'id')
-                ],
+                ]
+            ],
 
-                'response_type' => [
-                    'nullable',
+            'dashboard.export.order-declaration' => [
+                'id' => [
+                    'required',
 
-                    'string',
+                    'integer',
 
-                    Rule::in(['stream', 'download'])
-                ],
+                    Rule::exists('orders', 'id')
+                ]
             ]
         ];
 
