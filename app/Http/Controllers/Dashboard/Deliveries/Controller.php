@@ -38,6 +38,8 @@ final class Controller extends Controllers
      */
     public function __construct(DeliveriesService $service, DeliveriesRepository $repository)
     {
+        $this->checkPermission('Deliveries');
+
         $this->service = $service;
 
         $this->repository = $repository;

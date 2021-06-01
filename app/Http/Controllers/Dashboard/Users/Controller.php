@@ -39,6 +39,8 @@ final class Controller extends Controllers
      */
     public function __construct(UsersService $service, UsersRepository $repository)
     {
+        $this->checkPermission('Users');
+
         $this->service = $service;
 
         $this->repository = $repository;

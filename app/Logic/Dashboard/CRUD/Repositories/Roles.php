@@ -20,7 +20,7 @@ final class Roles
      */
     public function getRoles(): Paginator
     {
-        return Role::orderBy('created_at', 'desc')->paginate(10);
+        return Role::orderBy('id', 'desc')->paginate(10);
     }
 
     /**

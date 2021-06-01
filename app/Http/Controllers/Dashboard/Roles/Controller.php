@@ -37,11 +37,11 @@ final class Controller extends Controllers
      */
     public function __construct(RolesService $service, RolesRepository $repository)
     {
+        $this->checkPermission('Roles');
+
         $this->service = $service;
 
         $this->repository = $repository;
-
-//        $this->middleware('permission:Address111111111111111111', ['only' => ['show']]);
     }
 
     /**
@@ -51,16 +51,8 @@ final class Controller extends Controllers
      */
     public function index(RolesRequest $request)
     {
-//        if(! Gate::check('Roles')){
-//            return Json::sendJsonWith403([
-//                'message' =>  'Permission denied.'
-//            ]);
-//        }
-
         return Json::sendJsonWith200([
-//            'filters' => $this->service->getAllFilters($request),
-
-            'roles' => $this->repository->getRoles(),
+            'roles' => $this->service->getRoles($this->repository->getRoles()),
         ]);
     }
 
@@ -71,12 +63,6 @@ final class Controller extends Controllers
      */
     public function store(RolesRequest $request): JsonResponse
     {
-//        if(! Gate::check('Roles')){
-//            return Json::sendJsonWith403([
-//                'message' =>  'Permission denied.'
-//            ]);
-//        }
-
         return Json::sendJsonWith200([
             'message' => 'The role was successfully created.',
 
@@ -91,11 +77,6 @@ final class Controller extends Controllers
      */
     public function show(Role $role): JsonResponse
     {
-//        if(! Gate::check('Roles')){
-//            return Json::sendJsonWith403([
-//                'message' =>  'Permission denied.'
-//            ]);
-//        }
         return Json::sendJsonWith200([
             'role' => $this->service->showRole($role),
         ]);
@@ -110,12 +91,6 @@ final class Controller extends Controllers
      */
     public function update(RolesRequest $request, Role $role): JsonResponse
     {
-//        if(! Gate::check('Roles')){
-//            return Json::sendJsonWith403([
-//                'message' =>  'Permission denied.'
-//            ]);
-//        }
-
         return Json::sendJsonWith200([
             'message' => 'The role was successfully updated.',
 
@@ -130,12 +105,6 @@ final class Controller extends Controllers
      */
     public function destroy(Role $role): JsonResponse
     {
-//        if(! Gate::check('Roles')){
-//            return Json::sendJsonWith403([
-//                'message' =>  'Permission denied.'
-//            ]);
-//        }
-
         if (! $this->repository->deleteRole($role)) {
             return Json::sendJsonWith409([
                 'message' => 'Failed to delete role, please try again later.',

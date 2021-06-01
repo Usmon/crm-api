@@ -38,6 +38,8 @@ final class Controller extends Controllers
      */
     public function __construct(PickupsService $service, PickupsRepository $repository)
     {
+        $this->checkPermission('Pickups');
+
         $this->service = $service;
 
         $this->repository = $repository;
@@ -50,12 +52,6 @@ final class Controller extends Controllers
      */
     public function index(PickupsRequest $request): JsonResponse
     {
-        if(! Gate::check('Pickups')){
-            return Json::sendJsonWith403([
-                'message' =>  'Permission denied.'
-            ]);
-        }
-
         return Json::sendJsonWith200([
             'filters' => $this->service->getAllFilters($request),
 
@@ -76,12 +72,6 @@ final class Controller extends Controllers
      */
     public function store(PickupsRequest $request): JsonResponse
     {
-        if(! Gate::check('Pickups')){
-            return Json::sendJsonWith403([
-                'message' =>  'Permission denied.'
-            ]);
-        }
-
         return Json::sendJsonWith200([
             'message' => 'The pickup was succesfully created.',
 
@@ -96,12 +86,6 @@ final class Controller extends Controllers
      */
     public function show(Pickup $pickup): JsonResponse
     {
-        if(! Gate::check('Pickups')){
-            return Json::sendJsonWith403([
-                'message' =>  'Permission denied.'
-            ]);
-        }
-
         return Json::sendJsonWith200([
             'pickup' => $this->service->showPickup($pickup),
         ]);
@@ -116,12 +100,6 @@ final class Controller extends Controllers
      */
     public function update(PickupsRequest $request, Pickup $pickup): JsonResponse
     {
-        if(! Gate::check('Pickups')){
-            return Json::sendJsonWith403([
-                'message' =>  'Permission denied.'
-            ]);
-        }
-
         return Json::sendJsonWith200([
             'message' => 'The pickup was successfully updated.',
 
@@ -136,12 +114,6 @@ final class Controller extends Controllers
      */
     public function destroy($id): JsonResponse
     {
-        if(! Gate::check('Pickups')){
-            return Json::sendJsonWith403([
-                'message' =>  'Permission denied.'
-            ]);
-        }
-
         $id = $this->service->deletePickup($id);
 
         if(!$id)

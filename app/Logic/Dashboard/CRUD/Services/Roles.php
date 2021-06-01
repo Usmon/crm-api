@@ -44,17 +44,21 @@ final class Roles
      */
     public function getRoles(Paginator $collection)
     {
-        return $collection->getCollection()->transform(function (Role $role) {
+        $collection->getCollection()->transform(function (Role $role) {
             return [
                 'id' => $role->id,
 
                 'name' => $role->name,
+
+                'count_permissions' => $role->permissions()->count(),
 
                 'created_at' => $role->created_at,
 
                 'updated_at' => $role->updated_at,
             ];
         });
+
+        return $collection;
     }
 
     /**
