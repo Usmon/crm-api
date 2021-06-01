@@ -14,5 +14,7 @@ final class BoxSeeder extends Seeder
     public function run(): void
     {
         Box::factory()->times(100)->create();
+
+        Box::factory()->times(32)->create(['order_id' => 1]);
     }
 }
