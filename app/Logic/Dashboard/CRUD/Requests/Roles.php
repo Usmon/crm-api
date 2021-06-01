@@ -62,7 +62,7 @@ final class Roles extends FormRequest
 
                     'max:255',
 
-                    Rule::unique('roles', 'name'),
+                    Rule::unique('roles', 'name')->whereNot('id', $this->route('id')),
                 ],
 
                 'permissions' => [
