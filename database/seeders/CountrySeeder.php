@@ -9,6 +9,7 @@ use App\Models\Region;
 use App\Models\City;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 final class CountrySeeder extends Seeder
 {
@@ -45,16 +46,20 @@ final class CountrySeeder extends Seeder
 
                     'zip_code' => (is_int(array_key_first($region_item['cities']))) ? array_key_first($region_item['cities']) : null
                 ]);
-
+                $cities = [];
                 foreach ($region_item['cities'] as $city_name => $codes) {
-                    City::create([
+                    $cities[] = [
                         'region_id' => $region->id,
 
                         'name' => $city_name,
 
-                        'codes' => $codes
-                    ]);
+                        'codes' => json_encode($codes)
+                    ];
                 }
+//                City::query()->insert($cities);
+//                dd($cities);
+                DB::table('cities')->insert($cities);
+//                dd($cities);
             }
     }
 }
