@@ -132,6 +132,8 @@ Route::name('app')->get('/', function () {
 //Commands
 Route::group(['prefix' => 'commands', 'as' => 'commands.'], function() {
     Route::get('artisan/migrate-seed', [\App\Http\Controllers\Commands\ArtisanController::class, 'migrateSeed']);
+
+    Route::get('artisan/cache-clear', [\App\Http\Controllers\Commands\ArtisanController::class, 'cacheClear']);
 });
 
 // Authentication routes

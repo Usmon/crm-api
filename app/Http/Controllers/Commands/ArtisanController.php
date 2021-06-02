@@ -20,4 +20,12 @@ class ArtisanController extends Controller
     {
         Artisan::call('migrate:fresh --seed');
     }
+
+    /**
+     * @return void
+     */
+    public function cacheClear(): void
+    {
+        Artisan::call('cache:clear');
+    }
 }
