@@ -1,6 +1,8 @@
 #!/usr/bin/env php
 <?php
 
+ini_set('memory_limit', '-1');
+
 use Illuminate\Contracts\Console\Kernel;
 
 use Symfony\Component\Console\Input\ArgvInput;

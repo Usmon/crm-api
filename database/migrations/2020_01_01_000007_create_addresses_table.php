@@ -29,6 +29,10 @@ final class CreateAddressesTable extends Migration
 
             $table->string('second_address');
 
+            $table->string('apartment')->nullable();
+
+            $table->string('house')->nullable();
+
             $table->timestamp('created_at')->nullable();
 
             $table->timestamp('updated_at')->nullable();
