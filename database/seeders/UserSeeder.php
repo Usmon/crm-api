@@ -26,6 +26,8 @@ final class UserSeeder extends Seeder
 
             'email' => 'axel@silkroadexp.com',
 
+            'full_name' => 'Sukhrob Karshiev Sukhvatovich',
+
             'password' => Hash::make('secret'),
 
             'profile' => [
@@ -39,19 +41,23 @@ final class UserSeeder extends Seeder
             ],
 
             'partner_id' => Partner::all('id')->random()
-        ])->each(function (User $user) {
-            $this->phoneCreate($user);
+        ]);
 
-            $this->addressCreate($user);
+        if (config('app.env') == 'prod') {
+            $user->each(function (User $user) {
+                $this->phoneCreate($user);
 
-            $user->assignRole('Administrator');
-        });
+                $this->addressCreate($user);
 
-        User::factory()->times(200)->create()->each(function (User $user) {
-            $this->phoneCreate($user);
+                $user->assignRole('Administrator');
+            });
 
-            $this->addressCreate($user);
-        });
+            User::factory()->times(200)->create()->each(function (User $user) {
+                $this->phoneCreate($user);
+
+                $this->addressCreate($user);
+            });
+        }
     }
 
     /**

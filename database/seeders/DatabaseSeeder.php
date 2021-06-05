@@ -23,76 +23,78 @@ final class DatabaseSeeder extends Seeder
 
         $this->call(StatusSeeder::class);
 
-        $this->call(AddressSeeder::class);
-
-        $this->call(DriverSeeder::class);
-
         $this->call(CustomerSeeder::class);
-
-        $this->call(SenderSeeder::class);
-
-        $this->call(RecipientSeeder::class);
-
-        $this->call(ShipmentStatusSeeder::class);
-
-        $this->call(ShipmentSeeder::class);
-
-        $this->call(FedexOrderSeeder::class);
-
-        $this->call(PickupSeeder::class);
 
         $this->call(PaymentTypeSeeder::class);
 
-        $this->call(DeliverySeeder::class);
+        if (config('app.env') == 'prod') {
+            $this->call(AddressSeeder::class);
 
-        $this->call(OrderSeeder::class);
+            $this->call(DriverSeeder::class);
 
-        $this->call(RecipientSeeder::class);
+            $this->call(SenderSeeder::class);
 
-        $this->call(WarehouseItemSeeder::class);
+            $this->call(RecipientSeeder::class);
 
-        $this->call(BoxSeeder::class);
+            $this->call(ShipmentStatusSeeder::class);
 
-        $this->call(BoxItemSeeder::class);
+            $this->call(ShipmentSeeder::class);
 
-        $this->call(MessageSeeder::class);
+            $this->call(FedexOrderSeeder::class);
 
-        $this->call(FeedbackSeeder::class);
+            $this->call(PickupSeeder::class);
 
-        $this->call(SpendingCategorySeeder::class);
+            $this->call(DeliverySeeder::class);
 
-        $this->call(SpendingSeeder::class);
+            $this->call(OrderSeeder::class);
 
-        $this->call(ProjectSeeder::class);
+            $this->call(RecipientSeeder::class);
 
-        $this->call(TaskSeeder::class);
+            $this->call(WarehouseItemSeeder::class);
 
-        $this->call(OrderCommentSeeder::class);
+            $this->call(BoxSeeder::class);
 
-        $this->call(TaskFileSeeder::class);
+            $this->call(BoxItemSeeder::class);
 
-        $this->call(TaskUserSeeder::class);
+            $this->call(MessageSeeder::class);
 
-        $this->call(TaskStepSeeder::class);
+            $this->call(FeedbackSeeder::class);
 
-        $this->call(ShipmentCommentSeeder::class);
+            $this->call(SpendingCategorySeeder::class);
 
-        $this->call(DeliveryCommentSeeder::class);
+            $this->call(SpendingSeeder::class);
+
+            $this->call(ProjectSeeder::class);
+
+            $this->call(TaskSeeder::class);
+
+            $this->call(OrderCommentSeeder::class);
+
+            $this->call(TaskFileSeeder::class);
+
+            $this->call(TaskUserSeeder::class);
+
+            $this->call(TaskStepSeeder::class);
+
+            $this->call(ShipmentCommentSeeder::class);
+
+            $this->call(DeliveryCommentSeeder::class);
 
 //        $this->call(FedexOrderItemSeeder::class);
 
-        $this->call(ShipmentUserSeeder::class);
+            $this->call(ShipmentUserSeeder::class);
 
-        $this->call(OrderUserSeeder::class);
+            $this->call(OrderUserSeeder::class);
 
-        $this->call(DeliveryUserSeeder::class);
+            $this->call(DeliveryUserSeeder::class);
 
-        $this->call(TrackingSeeder::class);
+            $this->call(TrackingSeeder::class);
 
-        $this->call(PhoneSeeder::class);
+            $this->call(PhoneSeeder::class);
 
-        $this->call(ProductSeeder::class);
+            $this->call(ProductSeeder::class);
 
-        $this->call(OrderHistorySeeder::class);
+            $this->call(OrderHistorySeeder::class);
+        }
     }
 }
