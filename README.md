@@ -15,10 +15,10 @@ If you want to be notified for deployment, just join to our telegram group: <a h
 ```cd sr-api``` <br>
 ```composer install``` <br>
 ```cp .env.example .env``` <br>
-```nano .env``` and set up your DB connections and ```CTRL+X``` <br>
+```nano .env``` and set up your DB connections, APP_ENV = local || prod (prod - for production mode) and ```CTRL+X``` <br>
 ```php artisan key:generate``` <br>
 ```php artisan migrate``` <br>
-```php artisan db:seed``` for development mode <br>
+```php artisan db:seed``` <br>
  
  ---
  
