@@ -27,7 +27,7 @@ final class DatabaseSeeder extends Seeder
 
         $this->call(PaymentTypeSeeder::class);
 
-        if (config('app.env') == 'prod') {
+        if (!config('app.env') == 'prod') {
             $this->call(AddressSeeder::class);
 
             $this->call(DriverSeeder::class);
