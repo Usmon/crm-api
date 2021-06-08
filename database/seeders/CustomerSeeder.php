@@ -20,7 +20,6 @@ final class CustomerSeeder extends Seeder
     {
         if (config('app.env') == 'prod')
             $this->defaultCustomers();
-
         else
             Customer::factory()->times(100)->create();
     }
