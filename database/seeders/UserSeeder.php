@@ -43,16 +43,16 @@ final class UserSeeder extends Seeder
             'partner_id' => Partner::all('id')->random()
         ]);
 
-        if (config('app.env') == 'prod') {
-            $user->each(function (User $user) {
-                $this->phoneCreate($user);
+        $user->each(function (User $user) {
+            $this->phoneCreate($user);
 
-                $this->addressCreate($user);
+            $this->addressCreate($user);
 
-                $user->assignRole('Administrator');
-            });
+            $user->assignRole('Administrator');
+        });
 
-            User::factory()->times(200)->create()->each(function (User $user) {
+        if (config('app.env') != 'prod') {
+            User::factory()->times(100)->create()->each(function (User $user) {
                 $this->phoneCreate($user);
 
                 $this->addressCreate($user);

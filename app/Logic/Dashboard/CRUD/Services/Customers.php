@@ -73,6 +73,8 @@ final class Customers
 
                     'phone' => $customer->user->getPhonesWithLimit(),
 
+                    'email' => $customer->user->email,
+
                     'photo' => $customer->user->profile['photo'],
                 ],
 

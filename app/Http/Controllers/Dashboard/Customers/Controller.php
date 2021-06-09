@@ -39,6 +39,8 @@ final class Controller extends Controllers
      */
     public function __construct(CustomersService $service, CustomersRepository $repository)
     {
+        $this->checkPermission('Customers');
+
         $this->service = $service;
 
         $this->repository = $repository;
@@ -51,12 +53,6 @@ final class Controller extends Controllers
      */
     public function index(CustomersRequest $request): JsonResponse
     {
-        if(! Gate::check('Customers')){
-            return Json::sendJsonWith403([
-                'message' =>  'Permission denied.'
-            ]);
-        }
-
         return Json::sendJsonWith200([
             'filters' => $this->service->getAllFilters($request),
 
@@ -71,12 +67,6 @@ final class Controller extends Controllers
      */
     public function store(CustomersRequest $request): JsonResponse
     {
-        if(! Gate::check('Customers')){
-            return Json::sendJsonWith403([
-                'message' =>  'Permission denied.'
-            ]);
-        }
-
         return Json::sendJsonWith200([
             'message' => 'The customer was successfully created.',
 
@@ -91,12 +81,6 @@ final class Controller extends Controllers
      */
     public function show(Customer $customer): JsonResponse
     {
-        if(! Gate::check('Customers')){
-            return Json::sendJsonWith403([
-                'message' =>  'Permission denied.'
-            ]);
-        }
-
         return Json::sendJsonWith200([
             'customer' => $this->service->showCustomer($customer),
         ]);
@@ -111,12 +95,6 @@ final class Controller extends Controllers
      */
     public function update(CustomersRequest $request, Customer $customer): JsonResponse
     {
-        if(! Gate::check('Customers')){
-            return Json::sendJsonWith403([
-                'message' =>  'Permission denied.'
-            ]);
-        }
-
         return Json::sendJsonWith200([
             'message' => 'The customer was successfully updated.',
 
@@ -131,12 +109,6 @@ final class Controller extends Controllers
      */
     public function destroy($id): JsonResponse
     {
-        if(! Gate::check('Customers')){
-            return Json::sendJsonWith403([
-                'message' =>  'Permission denied.'
-            ]);
-        }
-
         $id = $this->service->deleteCustomer($id);
 
         if(!$id){

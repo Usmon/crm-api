@@ -19,15 +19,15 @@ final class DatabaseSeeder extends Seeder
 
         $this->call(PartnerSeeder::class);
 
-        $this->call(UserSeeder::class);
-
         $this->call(StatusSeeder::class);
-
-        $this->call(CustomerSeeder::class);
 
         $this->call(PaymentTypeSeeder::class);
 
-        if (!config('app.env') == 'prod') {
+        $this->call(UserSeeder::class);
+
+        $this->call(CustomerSeeder::class);
+
+        if (config('app.env') != 'prod') {
             $this->call(AddressSeeder::class);
 
             $this->call(DriverSeeder::class);
