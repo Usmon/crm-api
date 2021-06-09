@@ -362,6 +362,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth:api','checkPermiss
     });
 });
 
-Route::group(['prefix' => 'email', 'as' => 'email.'], function () {
-    Route::post('send', [EmailController::class, 'send'])->name('send');
+Route::group(['prefix' => 'notifications', 'as' => 'notifications.'], function () {
+    Route::group(['prefix' => 'email', 'as' => 'email.'], function () {
+        Route::post('send', [EmailController::class, 'send'])->name('send');
+    });
 });
