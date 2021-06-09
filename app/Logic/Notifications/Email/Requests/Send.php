@@ -27,7 +27,7 @@ final class Send extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'email.send' => [
+            'notifications.email.send' => [
                 'emails' => [
                     'array',
 
