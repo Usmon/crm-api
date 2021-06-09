@@ -112,6 +112,8 @@ use App\Http\Controllers\Dashboard\Payment\Type\Controller as PaymentTypeControl
 
 use App\Http\Controllers\Dashboard\Orders\Limit\Controller as LimitController;
 
+use \App\Http\Controllers\Notifications\Email\Controller as EmailController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -358,4 +360,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth:api','checkPermiss
 
         Route::get('declaration-order', [\App\Http\Controllers\ExportController::class, 'orderDeclaration'])->name('order-declaration');
     });
+});
+
+Route::group(['prefix' => 'email', 'as' => 'email.'], function () {
+    Route::post('send', [EmailController::class, 'send'])->name('send');
 });
