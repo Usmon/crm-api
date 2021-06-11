@@ -51,6 +51,8 @@ final class Users
             return [
                 'id' => $user->id,
 
+                'full_name' => $user->full_name,
+
                 'login' => $user->login,
 
                 'email' => $user->email,
