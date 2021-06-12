@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Traits\Sort\Sorter;
 
 use App\Traits\Pagination\Pager;
+use phpDocumentor\Reflection\Types\Boolean;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -285,12 +286,12 @@ final class User extends Auth
             return $query->where(function (Builder $query) use ($search) {
                 return $query->where('login', 'like', '%' . $search . '%')
                     ->orWhere('email', 'like', '%' . $search . '%')
-                    ->orWhere('profile->first_name', 'like', '%' . $search . '%')
-                    ->orWhere('profile->middle_name', 'like', '%' . $search . '%')
-                    ->orWhere('profile->last_name', 'like', '%' . $search . '%');
+                    ->orWhere('full_name', 'like', '%' . $search . '%');
             });
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
+        })->when($filters['only_corporate'] ?? null, function (Builder $query, bool $only_corporate) {
+            return $query->whereDoesntHave('customer');
         });
     }
 

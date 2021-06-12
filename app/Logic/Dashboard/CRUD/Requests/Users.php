@@ -60,6 +60,12 @@ final class Users extends FormRequest
 
                     Rule::exists('roles', 'id'),
                 ],
+
+                'only_corporate' => [
+                    'nullable',
+
+                    'bool'
+                ]
             ],
 
             'dashboard.users.store' => [
