@@ -6,6 +6,7 @@ use App\Models\Address;
 use App\Models\City;
 use App\Models\Customer;
 use App\Models\Phone;
+use App\Models\Recipient;
 use App\Models\Sender;
 use App\Models\User;
 use Cassandra\Custom;
@@ -47,7 +48,7 @@ final class CustomerSeeder extends Seeder
                     if ($address['is_recipient']) {
                         $recipient_user = User::factory()->create(['full_name' => $address['full_name']]);
                         $recipient_customer = Customer::create(['creator_id' => 1, 'user_id' => $recipient_user->id, 'passport' => $address['passport']]);
-                        Sender::create(['customer_id' => $recipient_customer->id]);
+                        Recipient::create(['customer_id' => $recipient_customer->id]);
                         foreach ($address['phones'] as $phone) {
                             Phone::create(['user_id' => $recipient_user->id, 'phone' => $phone]);
                         }
@@ -62,6 +63,10 @@ final class CustomerSeeder extends Seeder
                         ]);
                     }
                     else {
+                        foreach ($address['phones'] as $phone) {
+                            Phone::create(['user_id' => $user->id, 'phone' => $phone]);
+                        }
+
                         Address::create([
                             'user_id' => $user->id,
                             'first_address' => $address['first_address'],
