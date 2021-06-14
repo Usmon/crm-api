@@ -202,7 +202,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth:api','checkPermiss
 
     Route::apiResource('warehouse-items', DashboardWarehouseItemsController::class);
 
-//    Route::get('messages/user', [DashboardMessagesController::class, 'getMessagesUser'])->name('getMessages.user');
+    Route::get('messages/user', [DashboardMessagesController::class, 'getMessagesUser'])->name('getMessages.user');
 
     Route::apiResource('messages', DashboardMessagesController::class);
 

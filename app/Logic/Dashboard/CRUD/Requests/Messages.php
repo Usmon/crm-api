@@ -126,15 +126,15 @@ final class Messages extends FormRequest
                 ],
             ],
 
-//            'dashboard.getMessages.user' => [
-//                'user_id' => [
-//                    'required',
-//
-//                    'integer',
-//
-//                    Rule::exists('users', 'id'),
-//                ],
-//            ],
+            'dashboard.getMessages.user' => [
+                'user_id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('users', 'id'),
+                ],
+            ],
         ];
 
         return $rules[$this->route()->getName()];

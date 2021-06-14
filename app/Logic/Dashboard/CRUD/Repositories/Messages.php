@@ -72,13 +72,19 @@ final class Messages
 
     public function getMessagesUser(array $credentials)
     {
-//        $messages = Message::where('receiver_id', $credentials['current_user_id'])
-//                ->where('receiver_id', $credentials['user_id'])
-//                ->orWhere('sender_id', $credentials['current_user_id'])
-//                ->where('sender_id', $credentials['user_id'])
-//                ->orderBy('id', 'DESC')
-//                ->pager();
-//
-//        return $messages;
+        $messages = Message::query()
+            ->where([['receiver_id', '=', $credentials['user_id']],
+
+                ['sender_id', '=', $credentials['current_user_id']]])
+
+            ->orWhere([['sender_id', '=', $credentials['user_id']],
+
+                ['receiver_id', '=', $credentials['current_user_id']]])
+
+            ->orderBy('id', 'DESC')
+
+            ->pager();
+
+        return $messages;
     }
 }
