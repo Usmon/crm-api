@@ -67,62 +67,50 @@ final class Messages extends FormRequest
                     Rule::exists('users','id'),
                 ],
 
-                'receiver' => [
+                'receiver_id' => [
                     'nullable',
 
                     'integer',
 
                     Rule::exists('users','id')
                 ],
+
+                'sender' => [
+                    'nullable',
+
+                    'string',
+                ],
+
+                'receiver' => [
+                    'nullable',
+
+                    'string',
+                ],
             ],
 
             'dashboard.messages.store' => [
-                'sender_id' => [
+                'phones' => [
                     'required',
 
-                    'integer',
-
-                    Rule::exists('users', 'id')
+                    'array',
                 ],
 
-                'receiver_id' => [
+                'phones.*' => [
                     'required',
 
-                    'integer',
+                    'string',
 
-                    Rule::exists('users', 'id')
+                    Rule::exists('phones', 'phone')
                 ],
 
                 'body' => [
                     'required',
 
                     'string'
-                ],
-
-                'permissions' => [
-                    'required',
-
-                    'array',
-                ],
-
-                'permissions.*' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('permissions', 'id'),
                 ],
             ],
 
             'dashboard.messages.update' => [
-                'sender_id' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('users', 'id')
-                ],
-
                 'receiver_id' => [
                     'required',
 
@@ -136,21 +124,17 @@ final class Messages extends FormRequest
 
                     'string'
                 ],
-
-                'permissions' => [
-                    'required',
-
-                    'array',
-                ],
-
-                'permissions.*' => [
-                    'required',
-
-                    'integer',
-
-                    Rule::exists('permissions', 'id'),
-                ],
             ],
+
+//            'dashboard.getMessages.user' => [
+//                'user_id' => [
+//                    'required',
+//
+//                    'integer',
+//
+//                    Rule::exists('users', 'id'),
+//                ],
+//            ],
         ];
 
         return $rules[$this->route()->getName()];

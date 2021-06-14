@@ -66,6 +66,7 @@ final class Controller extends Controllers
     {
         return Json::sendJsonWith200([
             'message' => 'The message was successfully created.',
+
             'messageModel' => $this->repository->storeMessage($this->service->storeCredentials($request)),
         ]);
     }
@@ -94,7 +95,7 @@ final class Controller extends Controllers
         return Json::sendJsonWith200([
             'message' => 'The message was successfully updated.',
 
-            'messageModel' => $this->repository->updateRecipient($message, $this->service->updateCredentials($request)),
+            'messageModel' => $this->repository->updateMessage($message, $this->service->updateCredentials($request)),
         ]);
     }
 
@@ -119,4 +120,11 @@ final class Controller extends Controllers
             'message' => 'The message was successfully deleted.',
         ]);
     }
+
+//    public function getMessagesUser(MessagesRequest $request)
+//    {
+//        return [
+//            'messages' => $this->repository->getMessagesUser($this->service->getMessagesUser($request))
+//        ];
+//    }
 }

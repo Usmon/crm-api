@@ -27,6 +27,10 @@ final class Messages
             'receiver_id' => $request->json('receiver_id'),
 
             'body' => $request->json('body'),
+
+            'sender' => $request->json('sender'),
+
+            'receiver' => $request->json('receiver'),
         ];
     }
 
@@ -37,7 +41,7 @@ final class Messages
      */
     public function getOnlyFilters(MessagesRequest $request): array
     {
-        return $request->only('search', 'date', 'sender_id', 'receiver_id', 'body');
+        return $request->only('search', 'date', 'sender_id', 'receiver_id', 'body', 'sender', 'receiver',);
     }
 
     /**
@@ -50,8 +54,6 @@ final class Messages
         $paginator->getCollection()->transform(function (Message $message) {
             return [
                 'id' => $message->id,
-
-                'sender_id' => $message->sender_id,
 
                 'receiver_id' => $message->receiver_id,
 
@@ -82,8 +84,6 @@ final class Messages
         return [
             'id' => $message->id,
 
-            'sender_id' => $message->sender_id,
-
             'receiver_id' => $message->receiver_id,
 
             'body' => $message->body,
@@ -107,11 +107,8 @@ final class Messages
      */
     public function storeCredentials(MessagesRequest $request): array
     {
-
         return [
-            'sender_id' => $request->json('sender_id'),
-
-            'receiver_id' => $request->json('receiver_id'),
+            'phones' => $request->json('phones'),
 
             'body' => $request->json('body')
         ];
@@ -125,8 +122,6 @@ final class Messages
     public function updateCredentials(MessagesRequest $request): array
     {
         $credentials = [
-            'sender_id' => $request->json('sender_id'),
-
             'receiver_id' => $request->json('receiver_id'),
 
             'body' => $request->json('body')
@@ -143,6 +138,16 @@ final class Messages
     public function deleteMessage($id)
     {
         $id = json_decode($id);
+
         return (is_int($id) || array_filter($id,'is_int')===$id) ? $id : 0;
     }
+
+//    public function getMessagesUser(MessagesRequest $request)
+//    {
+//        return [
+//            'user_id' => $request->json('user_id'),
+//
+//            'current_user_id' => auth()->id(),
+//        ];
+//    }
 }
