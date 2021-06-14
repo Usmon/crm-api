@@ -18,6 +18,11 @@ final class MessageObserver
         $this->defaultProperties($message);
     }
 
+    public function insert(Message $message): void
+    {
+        $this->defaultProperties($message);
+    }
+
     /**
      * @param Message $message
      *
@@ -55,6 +60,8 @@ final class MessageObserver
      */
     protected function defaultProperties(Message $message): void
     {
+        $message->sender_id = $message->sender_id ?? auth()->id();
+
         $message->created_at = $message->created_at ?? Carbon::now();
 
         $message->updated_at = $message->updated_at ?? Carbon::now();

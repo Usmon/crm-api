@@ -16,6 +16,7 @@ use App\Models\FedexOrderItem;
 
 use App\Models\Feedback;
 
+use App\Models\Message;
 use App\Models\Order;
 
 use App\Models\OrderComment;
@@ -95,6 +96,7 @@ use App\Observers\FedexOrderItemObserver;
 
 use App\Observers\FeedbackObserver;
 
+use App\Observers\MessageObserver;
 use App\Observers\OrderCommentObserver;
 
 use App\Observers\OrderObserver;
@@ -250,5 +252,7 @@ final class ObserverServiceProvider extends ServiceProvider
         Region::observe(RegionObserver::class);
 
         Partner::observe(PartnerObserver::class);
+
+        Message::observe(MessageObserver::class);
     }
 }

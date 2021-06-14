@@ -2,6 +2,8 @@
 
 namespace App\Logic\Dashboard\CRUD\Repositories;
 
+use App\Models\Phone;
+
 use App\Models\Message;
 
 use Illuminate\Contracts\Pagination\Paginator;
@@ -20,14 +22,28 @@ final class Messages
 
     /**
      * @param array $credentials
-     *
-     * @return Message
      */
-    public function storeMessage(array $credentials): Message
+    public function storeMessage(array $credentials)
     {
-        $message = Message::create($credentials);
+        $receiver_id = [];
 
-        return $message;
+        foreach ($credentials['phones'] as $phone)
+        {
+            $receiver_id [] = Phone::query()->where('phone','=',$phone)->first()->user_id;
+        }
+
+        $messages = [];
+
+        foreach ($receiver_id as $id)
+        {
+            $messages[] = Message::query()->create([
+                'receiver_id' => $id,
+
+                'body' => $credentials['body'],
+            ]);
+        }
+
+        return $messages;
     }
 
     /**
@@ -37,7 +53,7 @@ final class Messages
      *
      * @return Message
      */
-    public function updateRecipient(Message $message, array $credentials): Message
+    public function updateMessage(Message $message, array $credentials): Message
     {
         $message->update($credentials);
 
@@ -52,5 +68,17 @@ final class Messages
     public function deleteMessage($id)
     {
         return Message::destroy($id);
+    }
+
+    public function getMessagesUser(array $credentials)
+    {
+//        $messages = Message::where('receiver_id', $credentials['current_user_id'])
+//                ->where('receiver_id', $credentials['user_id'])
+//                ->orWhere('sender_id', $credentials['current_user_id'])
+//                ->where('sender_id', $credentials['user_id'])
+//                ->orderBy('id', 'DESC')
+//                ->pager();
+//
+//        return $messages;
     }
 }
