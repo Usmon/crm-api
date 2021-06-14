@@ -121,10 +121,12 @@ final class Controller extends Controllers
         ]);
     }
 
-//    public function getMessagesUser(MessagesRequest $request)
-//    {
-//        return [
-//            'messages' => $this->repository->getMessagesUser($this->service->getMessagesUser($request))
-//        ];
-//    }
+    public function getMessagesUser(MessagesRequest $request)
+    {
+        return [
+            'messages' => $this->service->getMessages
+                ($this->repository->getMessagesUser
+                ($this->service->getMessagesUser($request)))
+        ];
+    }
 }

@@ -55,7 +55,11 @@ final class Messages
             return [
                 'id' => $message->id,
 
+                'sender_id' => $message->sender_id,
+
                 'receiver_id' => $message->receiver_id,
+
+                'is_owner' => $message->sender_id === auth()->id(),
 
                 'body' => $message->body,
 
@@ -65,9 +69,9 @@ final class Messages
 
                 'deleted_at' => $message->deleted_at,
 
-                'sender' => $message->sender,
-
-                'receiver' => $message->receiver,
+//                'sender' => $message->sender,
+//
+//                'receiver' => $message->receiver,
             ];
         });
 
@@ -84,7 +88,11 @@ final class Messages
         return [
             'id' => $message->id,
 
+            'sender_id' => $message->sender_id,
+
             'receiver_id' => $message->receiver_id,
+
+            'is_owner' => $message->sender_id === auth()->id(),
 
             'body' => $message->body,
 
@@ -94,9 +102,9 @@ final class Messages
 
             'deleted_at' => $message->deleted_at,
 
-            'sender' => $message->sender,
-
-            'receiver' => $message->receiver
+//            'sender' => $message->sender,
+//
+//            'receiver' => $message->receiver
         ];
     }
 
@@ -142,12 +150,12 @@ final class Messages
         return (is_int($id) || array_filter($id,'is_int')===$id) ? $id : 0;
     }
 
-//    public function getMessagesUser(MessagesRequest $request)
-//    {
-//        return [
-//            'user_id' => $request->json('user_id'),
-//
-//            'current_user_id' => auth()->id(),
-//        ];
-//    }
+    public function getMessagesUser(MessagesRequest $request)
+    {
+        return [
+            'user_id' => $request->json('user_id'),
+
+            'current_user_id' => auth()->id(),
+        ];
+    }
 }
