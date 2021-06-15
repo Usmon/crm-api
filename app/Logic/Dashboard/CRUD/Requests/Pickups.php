@@ -246,7 +246,7 @@ final class Pickups extends FormRequest
                 ],
 
                 'boxes.*.products.*.image' => [
-                    'required',
+                    'nullable',
 
                     'string',
                 ],
