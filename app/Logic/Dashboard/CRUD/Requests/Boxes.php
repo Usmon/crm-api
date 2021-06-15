@@ -324,7 +324,7 @@ final class Boxes extends FormRequest
                 ],
 
                 'products.*.image' => [
-                    'required',
+                    //'required',
 
                     'string',
                 ],
