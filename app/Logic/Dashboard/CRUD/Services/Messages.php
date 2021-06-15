@@ -68,10 +68,6 @@ final class Messages
                 'updated_at' => $message->updated_at,
 
                 'deleted_at' => $message->deleted_at,
-
-//                'sender' => $message->sender,
-//
-//                'receiver' => $message->receiver,
             ];
         });
 
@@ -101,10 +97,6 @@ final class Messages
             'updated_at' => $message->updated_at,
 
             'deleted_at' => $message->deleted_at,
-
-//            'sender' => $message->sender,
-//
-//            'receiver' => $message->receiver
         ];
     }
 
@@ -153,7 +145,7 @@ final class Messages
     public function getMessagesUser(MessagesRequest $request)
     {
         return [
-            'user_id' => $request->json('user_id'),
+            'user_id' => $request->json('user_id') ?? $request->get('user_id'),
 
             'current_user_id' => auth()->id(),
         ];

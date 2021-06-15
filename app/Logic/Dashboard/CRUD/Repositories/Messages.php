@@ -2,9 +2,13 @@
 
 namespace App\Logic\Dashboard\CRUD\Repositories;
 
+use App\Models\User;
+
 use App\Models\Phone;
 
 use App\Models\Message;
+
+use App\Helpers\SendToPhone;
 
 use Illuminate\Contracts\Pagination\Paginator;
 
@@ -22,6 +26,7 @@ final class Messages
 
     /**
      * @param array $credentials
+     * @return array
      */
     public function storeMessage(array $credentials)
     {
@@ -41,6 +46,10 @@ final class Messages
 
                 'body' => $credentials['body'],
             ]);
+
+            $user = User::query()->find($id)->full_name;
+
+            SendToPhone::sendToPhone($phone, $user.' : '.$credentials['body']);
         }
 
         return $messages;
@@ -74,11 +83,9 @@ final class Messages
     {
         $messages = Message::query()
             ->where([['receiver_id', '=', $credentials['user_id']],
-
                 ['sender_id', '=', $credentials['current_user_id']]])
 
             ->orWhere([['sender_id', '=', $credentials['user_id']],
-
                 ['receiver_id', '=', $credentials['current_user_id']]])
 
             ->orderBy('id', 'DESC')
