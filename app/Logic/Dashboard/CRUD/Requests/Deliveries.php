@@ -198,7 +198,7 @@ final class Deliveries extends FormRequest
                 ],
 
                 'boxes.*.products.*.image' => [
-                    'required',
+                    'nullable',
 
                     'string',
                 ],
@@ -286,7 +286,7 @@ final class Deliveries extends FormRequest
                 ],
 
                 'boxes.*.products.*.image' => [
-                    'required',
+                    'nullable',
 
                     'string',
                 ],

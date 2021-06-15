@@ -281,6 +281,8 @@ final class Orders extends FormRequest
                 ],
 
                 'boxes.*.products.*.image' => [
+                    'nullable',
+
                     'string',
                 ]
 
