@@ -217,12 +217,14 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth:api','checkPermiss
     //Get current user message with other user
     Route::get('messages/user', [DashboardMessagesController::class, 'getMessagesUser'])->name('getMessages.user');
 
+    //Send message to other user
     Route::apiResource('messages', DashboardMessagesController::class);
 
     Route::apiResource('feedbacks', DashboardFeedbacksController::class);
 
     Route::apiResource('projects', DashboardProjectsController::class);
 
+    //CRUD for customers
     Route::apiResource('customers', DashboardCustomersController::class);
 
     Route::group(['prefix' => 'fedex-orders', 'as' => 'fedex-orders.'], function () {
@@ -238,54 +240,69 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth:api','checkPermiss
     Route::apiResource('feedbacks', DashboardFeedbacksController::class);
 
     Route::group(['prefix' => 'orders', 'as'=> 'orders.'], function () {
+        //Update for order status
         Route::put('status-set', [DashboardOrdersController::class, 'statusSet'])->name('status-set');
 
+        //Update for payment status orders
         Route::put('status-payment-set', [DashboardOrdersController::class, 'statusPaymentSet'])->name('status-payment-set');
 
+        //CRUD for order
         Route::apiResource('order', DashboardOrdersController::class);
 
         Route::apiResource('users', DashboardOrderUsersController::class);
 
         Route::apiResource('comments', DashboardOrderCommentsController::class);
 
+        //Show order for update
         Route::get('update/show/{id}', [DashboardOrdersController::class, 'updateShow']);
 
+        //Show recipient limit
         Route::get('limit-recipient', [LimitController::class, 'checkSender'])->name('limit-check.recipient');
     });
 
     Route::apiResource('projects', DashboardProjectsController::class);
 
     Route::group(['prefix' => 'status', 'as' => 'status.'], function() {
+        //CRUD for statuses
         Route::apiResource('statuses', DashboardStatusesController::class);
 
+        //Get statuses deliveries
         Route::get('deliveries', [DashboardStatusesController::class, 'statusDeliveries']);
 
+        //Get statuses orders
         Route::get('orders', [DashboardStatusesController::class, 'statusOrders']);
 
+        //Get statuses of payment orders
         Route::get('orders/payment', [DashboardStatusesController::class, 'statusPaymentOrders']);
 
+        //Get statuses shipments
         Route::get('shipments', [DashboardStatusesController::class, 'statusShipments']);
 
+        //Get statuses pickups
         Route::get('pickups', [DashboardStatusesController::class, 'statusPickups']);
     });
 
     Route::group(['prefix' => 'deliveries', 'as' => 'deliveries.'], function(){
-
+        //CRUD for deliveries
         Route::apiResource('delivery', DashboardDeliveriesController::class);
 
+        //CRUD for delivery users
         Route::apiResource('users', DashboardDeliveryUsersController::class);
 
         Route::apiResource('comments', DashboardDeliveryCommentsController::class);
 
+        //Show delivery for update
         Route::get('update/show/{id}', [DashboardDeliveriesController::class, 'updateShow']);
 
+        //Update delivery status
         Route::put('{id}/status', [DashboardDeliveriesController::class, 'updateStatus'])->name('updateStatus');
     });
 
     Route::group(['prefix' => 'shipments', 'as' => 'shipments.'], function(){
-
+        //Remove boxes from shipment
         Route::put('shipment/unattach-boxes', [DashboardShipmentsController::class, 'unAttachBoxes'])->name('unattach-boxes');
 
+        //CRUD for shipment
         Route::apiResource('shipment', DashboardShipmentsController::class);
 
         Route::apiResource('comments', DashboardShipmentCommentsController::class);
@@ -294,20 +311,27 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth:api','checkPermiss
 
         Route::apiResource('statuses', DashboardShipmentStatusesController::class);
 
+        //Attach boxes to shipment
         Route::put('shipment/{id}/attach-boxes', [DashboardShipmentsController::class, 'attachBoxes'])->name('attach-boxes');
 
+        //Update shipment status
         Route::put('{id}/status', [DashboardShipmentsController::class, 'updateStatus'])->name('updateStatus');
     });
 
     Route::group(['prefix'=> 'boxes', 'as' => 'boxes.'], function(){
+        //Get boxes from orders
         Route::get('order/{id}', [DashboardBoxesController::class, 'getBoxes']);
 
+        //Update box status
         Route::put('set-status', [DashboardBoxesController::class, 'setStatus'])->name('set-status');
 
+        //CRUD for box
         Route::apiResource('box', DashboardBoxesController::class);
 
+        //Get products of box
         Route::get('products/{id}', [DashboardBoxItemsController::class, 'getProducts']);
 
+        //CRUD for products
         Route::apiResource('items', DashboardBoxItemsController::class);
 
         Route::get('shipments/{id}', [DashboardBoxesController::class, 'getShipments']);
@@ -342,30 +366,41 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth:api','checkPermiss
 
     Route::delete('images/delete/multiple', [DashboardImagesController::class, 'deleteMultiple'])->name('images.delete.multiple');
 
+    //CRUD for image
     Route::apiResource('images', DashboardImagesController::class);
 
+    //CRUD for phones
     Route::apiResource('phones', DashboardPhonesController::class);
 
+    //CRUD for addresses
     Route::apiResource('addresses', DashboardAddressesController::class);
 
     Route::apiResource('products', DashboardProductsController::class);
 
     Route::group(['prefix' => 'drivers', 'as' => 'drivers.'], function () {
+        //CRUD for driver
         Route::apiResource('driver', DashboardDriversController::class);
 
+        //Check driver phone
         Route::get('phone-check', [DashboardDriversController::class, 'driverPhoneCheck'])->name('phone.check');
 
+        //Search driver phone
         Route::get('phone-search', [DashboardDriversController::class, 'phoneSearch'])->name('phone.search');
     });
 
+    //Get counties list
     Route::get('countries', [DashboardCountryController::class, 'index']);
 
+    //CRUD cities
     Route::apiResource('cities', DashboardCitiesController::class);
 
+    //CRUD regions
     Route::apiResource('regions', DashboardRegionsController::class);
 
+    //CRUD partners
     Route::apiResource('partners', DashboardPartnersController::class);
 
+    //CRUD payment types
     Route::apiResource('payment/types', PaymentTypeController::class);
 
     Route::group(['prefix' => 'export', 'as' => 'export.'], function () {
