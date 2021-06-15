@@ -170,38 +170,51 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:api'], function () {
 
 // Dashboard routes
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth:api','checkPermission'], 'as' => 'dashboard.'], function () {
+    //CRUD for users
     Route::apiResource('users', DashboardUsersController::class);
 
+    //Get permissions list
     Route::apiResource('permissions', DashboardPermissionsController::class)->only(['index']);
 
+    //CRUD for user roles
     Route::apiResource('roles', DashboardRolesController::class);
 
+    //Update single pickup status
     Route::put('pickups/status/{id}', [DashboardPickupsController::class, 'updateStatus'])->name('updatePickupStatus');
 
+    //CRUD for
     Route::apiResource('pickups', DashboardPickupsController::class);
 
+    //Get pickups for update
     Route::get('pickups/update/show/{id}', [DashboardPickupsController::class, 'updateShow']);
 
     Route::group(['prefix' => 'senders', 'as'=> 'senders.'], function () {
 
+        //CRUD for sender
         Route::apiResource('sender', DashboardSendersController::class);
 
+        //Check sender phone number
         Route::get('phone-check', [DashboardSendersController::class, 'senderPhoneCheck'])->name('phone.check');
 
+        //Search sender phone number
         Route::get('phone-search', [DashboardSendersController::class, 'phoneSearch'])->name('phone.search');
     });
 
     Route::group(['prefix' => 'recipients', 'as' => 'recipients.'], function() {
-
+        //CRUD for recipient
         Route::apiResource('recipient', DashboardRecipientsController::class);
 
+        //Check recipient phone number
         Route::get('phone-check', [DashboardRecipientsController::class, 'recipientPhoneCheck'])->name('phone.check');
 
+        //Search recipient phone number
         Route::get('phone-search', [DashboardRecipientsController::class, 'phoneSearch'])->name('phone.search');
     });
 
+    //CRUD for warehouse
     Route::apiResource('warehouse-items', DashboardWarehouseItemsController::class);
 
+    //Get current user message with other user
     Route::get('messages/user', [DashboardMessagesController::class, 'getMessagesUser'])->name('getMessages.user');
 
     Route::apiResource('messages', DashboardMessagesController::class);
