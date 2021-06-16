@@ -4,15 +4,15 @@ namespace App\Logic\Dashboard\CRUD\Services;
 
 use App\Models\Box;
 
-use App\Logic\Dashboard\CRUD\Requests\Boxes as BoxesRequest;
-
 use App\Models\BoxItem;
 
 use App\Models\OrderHistory;
 
+use Illuminate\Support\Collection;
+
 use Illuminate\Contracts\Pagination\Paginator;
 
-use Illuminate\Support\Collection;
+use App\Logic\Dashboard\CRUD\Requests\Boxes as BoxesRequest;
 
 final class Boxes
 {
@@ -158,7 +158,9 @@ final class Boxes
 
                     'weight' => $product->weight,
 
-                    'price' => $product->price
+                    'price' => $product->price,
+
+                    'quantity' => $product->quantity,
                 ];
             }),
 
