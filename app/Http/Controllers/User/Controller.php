@@ -21,6 +21,7 @@ final class Controller extends Controllers
     {
         return Json::sendJsonWith200([
             'user' => [
+                'today' => \Carbon\Carbon::now()->startOfDay(),
                 'id' => $request->user()->id,
 
                 'login' => $request->user()->login,
@@ -31,6 +32,8 @@ final class Controller extends Controllers
 
                 'full_name' => $request->user()->full_name,
 
+                'phones' => $request->user()->getPhonesWithLimit(5),
+
                 'profile' => [
                     'first_name' => $request->user()->profile['first_name'],
 
@@ -39,6 +42,18 @@ final class Controller extends Controllers
                     'last_name' => $request->user()->profile['last_name'],
 
                     'photo' => $request->user()->profile['photo'],
+                ],
+
+                'reports' => [
+                    'counts' => [
+                        'order' => $request->user()->orders->count(),
+
+                        'delivery' => $request->user()->deliveries->count(),
+
+                        'pickups' => $request->user()->pickups->count(),
+
+                        'shipment' => $request->user()->shipments->count()
+                    ]
                 ],
 
                 'created_at' => $request->user()->created_at,
