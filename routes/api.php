@@ -159,6 +159,7 @@ Route::group(['prefix' => 'password', 'as' => 'password'], function () {
 // User routes
 Route::group(['prefix' => 'user', 'middleware' => 'auth:api'], function () {
     Route::get('/', UserController::class)->name('user');
+    Route::put('/', [UserController::class, 'update'])->name('update');
 
     // User sessions routes
     Route::group(['prefix' => 'sessions', 'as' => 'sessions.'], function () {

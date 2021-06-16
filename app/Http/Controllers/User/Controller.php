@@ -4,11 +4,16 @@ namespace App\Http\Controllers\User;
 
 use App\Helpers\Json;
 
+use App\Http\Requests\ProfileUpdate;
+
+use App\Models\Phone;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use Illuminate\Http\JsonResponse;
 
 use App\Http\Controllers\Controller as Controllers;
+use Illuminate\Support\Facades\Hash;
 
 final class Controller extends Controllers
 {
@@ -21,7 +26,6 @@ final class Controller extends Controllers
     {
         return Json::sendJsonWith200([
             'user' => [
-                'today' => \Carbon\Carbon::now()->startOfDay(),
                 'id' => $request->user()->id,
 
                 'login' => $request->user()->login,
@@ -61,5 +65,40 @@ final class Controller extends Controllers
                 'updated_at' => $request->user()->updated_at,
             ],
         ]);
+    }
+
+
+    public function update(ProfileUpdate $request)
+    {
+
+        $credentials = $request->validated();
+
+        $credentials['password'] = Hash::make($credentials['password']);
+
+        $credentials['profile'] = [
+            'first_name' => null,
+
+            'last_name' => null,
+
+            'middle_name' => null,
+
+            'photo' => $credentials['photo']
+        ];
+
+        $user = $request->user();
+
+        $user->fill($credentials)->update();
+
+        Phone::where('user_id', $user->id)->delete();
+
+        foreach ($credentials['phones'] as $phone) {
+            Phone::create([
+                'user_id' => $user->id,
+
+                'phone' => $phone
+            ]);
+        }
+
+        return $this->__invoke($request);
     }
 }
