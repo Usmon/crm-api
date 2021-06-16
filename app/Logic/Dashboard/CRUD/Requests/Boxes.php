@@ -344,7 +344,7 @@ final class Boxes extends FormRequest
 
                     'integer',
 
-                    Rule::exists('orders', 'id')
+                    Rule::exists('boxes', 'id')
                 ]
             ],
 
