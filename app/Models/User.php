@@ -186,7 +186,7 @@ final class User extends Auth
      */
     public function pickups(): HasMany
     {
-        return $this->hasMany(Pickup::class);
+        return $this->hasMany(Pickup::class, 'creator_id', 'id');
     }
 
     /**
@@ -194,7 +194,7 @@ final class User extends Auth
      */
     public function deliveries(): HasMany
     {
-        return $this->hasMany(Delivery::class);
+        return $this->hasMany(Delivery::class, 'creator_id', 'id');
     }
 
     /**
@@ -203,6 +203,22 @@ final class User extends Auth
     public function phones(): HasMany
     {
         return $this->hasMany(Phone::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class, 'staff_id', 'id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function shipments(): HasMany
+    {
+        return $this->hasMany(Shipment::class, 'creator_id', 'id');
     }
 
     /**
