@@ -187,7 +187,7 @@ final class Box extends Model
     }
 
     /**
-     * @return int
+     * @return float
      */
     public function getTotalProductsAttribute(): float
     {
@@ -199,7 +199,7 @@ final class Box extends Model
      */
     public function getTotalPriceAttribute(): float
     {
-        return $this->items()->sum('price');
+        return $this->items()->sum(\DB::raw('quantity*price'));
     }
 
     /**

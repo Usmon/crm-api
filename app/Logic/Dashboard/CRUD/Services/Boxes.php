@@ -161,6 +161,8 @@ final class Boxes
                     'price' => $product->price,
 
                     'quantity' => $product->quantity,
+
+                    'total_price' => $product->price * $product->quantity,
                 ];
             }),
 
