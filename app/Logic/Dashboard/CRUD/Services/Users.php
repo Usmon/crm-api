@@ -57,6 +57,8 @@ final class Users
 
                 'login' => $user->login,
 
+                'phones' => $user->getPhonesWithLimit(),
+
                 'email' => $user->email,
 
                 'profile' => $user->profile,
