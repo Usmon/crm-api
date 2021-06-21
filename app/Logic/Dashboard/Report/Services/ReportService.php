@@ -17,9 +17,9 @@ class ReportService
     {
         return [
             'date' => [
-                $request->json('date.from') ?? $request->get('date.from'),
+                $request->json('date.from') ?? $request->get('date')['from'],
 
-                $request->json('date.to') ?? $request->get('date.to'),
+                $request->json('date.to') ?? $request->get('date')['to'],
             ],
 
             'user_id' => auth()->user()->id
