@@ -21,7 +21,7 @@ final class Drivers extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'dashboard.drivers.index' => [
+            'dashboard.drivers.driver.index' => [
                 'search' => [
                     'nullable',
 
@@ -97,35 +97,81 @@ final class Drivers extends FormRequest
                 ],
             ],
 
-            'dashboard.drivers.store' => [
-                'user_id' => [
+            'dashboard.drivers.driver.store' => [
+                'driver' => [
+                    'required',
+
+                    'array'
+                ],
+
+                'driver.full_name' => [
+                    'required',
+
+                    'string',
+
+                    'max:128',
+                ],
+
+                'driver.email' => [
+                    'required',
+
+                    'string',
+
+                    Rule::unique('users', 'email')
+                ],
+
+                'driver.phones' => [
+                    'required',
+
+                    'array'
+                ],
+
+                'driver.phones.*' => [
+                    'required',
+
+                    'string',
+
+                    Rule::unique('phones', 'phone')
+                ],
+
+                'car' => [
+                    'required',
+
+                    'array'
+                ],
+
+                'car.partner_id' => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('users', 'id'),
+                    Rule::exists('partners', 'id')
                 ],
 
-                'car_model' => [
+                'car.car_model' => [
                     'required',
 
                     'string',
                 ],
 
-                'car_number' => [
+                'car.car_number' => [
                     'required',
 
                     'string',
+
+                    Rule::unique('drivers', 'car_number')
                 ],
 
-                'license' => [
+                'car.license' => [
                     'required',
 
                     'string',
+
+                    Rule::unique('drivers', 'license')
                 ],
             ],
 
-            'dashboard.drivers.update' => [
+            'dashboard.drivers.driver.update' => [
                 'user_id' => [
                     'required',
 

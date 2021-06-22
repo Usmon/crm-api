@@ -230,6 +230,14 @@ final class User extends Auth
     }
 
     /**
+     * @return HasOne
+     */
+    public function driver(): HasOne
+    {
+        return $this->hasOne(Driver::class);
+    }
+
+    /**
      * @param int $limit
      *
      * @return \Illuminate\Support\Collection
