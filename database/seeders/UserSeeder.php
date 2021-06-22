@@ -12,6 +12,7 @@ use App\Models\Phone;
 
 use Illuminate\Database\Seeder;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 final class UserSeeder extends Seeder
@@ -42,6 +43,8 @@ final class UserSeeder extends Seeder
 
             'partner_id' => Partner::all('id')->random()
         ]);
+
+        DB::table('partners')->update(['creator_id' => 1]);
 
         $user->each(function (User $user) {
             $this->phoneCreate($user);

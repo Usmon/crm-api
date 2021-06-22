@@ -99,69 +99,79 @@ final class Partners extends FormRequest
             ],
 
             'dashboard.partners.store' => [
-                'city_id' => [
-                    'required',
-
-                    'integer'
-                ],
-
                 'name' => [
                     'required',
 
                     'string',
                 ],
 
-                'description' => [
-                    'nullable',
-
-                    'string',
-                ],
-
-                'address' => [
+                'weight_price' => [
                     'required',
 
-                    'string',
+                    'numeric'
                 ],
 
-                'phone' => [
+                'warehouse_price' => [
                     'required',
 
-                    'string',
+                    'numeric'
+                ],
+
+                'discount_price' => [
+                    'required',
+
+                    'numeric'
+                ],
+
+                'pickup' => [
+                    'required',
+
+                    'numeric'
+                ],
+
+                'delivery' => [
+                    'required',
+
+                    'numeric'
                 ],
             ],
 
             'dashboard.partners.update' => [
-
-                'city_id' => [
-                    'required',
-
-                    'integer'
-                ],
-
                 'name' => [
                     'required',
 
                     'string',
                 ],
 
-                'description' => [
-                    'nullable',
-
-                    'string',
-                ],
-
-                'address' => [
+                'weight_price' => [
                     'required',
 
-                    'string',
+                    'numeric'
                 ],
 
-                'phone' => [
+                'warehouse_price' => [
                     'required',
 
-                    'string',
+                    'numeric'
                 ],
 
+                'discount_price' => [
+                    'required',
+
+                    'numeric'
+                ],
+
+                'pickup' => [
+                    'required',
+
+                    'numeric'
+                ],
+
+                'delivery' => [
+                    'required',
+
+                    'numeric'
+                ],
             ],
         ];
 

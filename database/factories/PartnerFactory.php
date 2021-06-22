@@ -24,7 +24,7 @@ final class PartnerFactory extends Factory
 
         return [
             'city_id' => $cities->random(),
-            
+
             'name' => $this->faker->company(),
 
             'phone' => $this->faker->tollFreePhoneNumber(),

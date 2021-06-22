@@ -44,7 +44,7 @@ final class Partners
     {
         $partner->update($credentials);
 
-        return $partner;
+        return $partner->refresh();
     }
 
     /**

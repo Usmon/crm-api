@@ -18,7 +18,7 @@ final class Partners
     public function getAllFilters(PartnersRequest $request): array
     {
         return [
-            'search' => $request->json('search'),
+            'search' => $request->json('search') ?? $request->json('search'),
 
             'date' => $request->json('date'),
 
@@ -79,21 +79,27 @@ final class Partners
             return [
                 'id' => $partner->id,
 
-                'city_id' => $partner->city_id,
-
                 'name' => $partner->name,
 
-                'description' => $partner->description,
+                'creator' => [
+                    'full_name' => $partner->user->full_name,
 
-                'address' => $partner->address,
+                    'photo' => $partner->user->profile['photo'] ?? '',
+                ],
 
-                'phone' => $partner->phone,
+                'weight_price' => $partner->weight_price,
+
+                'warehouse_price' => $partner->warehouse_price,
+
+                'pickup' => $partner->pickup,
+
+                'delivery' => $partner->delivery,
+
+                'discount_price' => $partner->discount_price,
 
                 'created_at' => $partner->created_at,
 
-                'updated_at' => $partner->updated_at,
-
-                'city' => $partner->city,
+                'updated_at' => $partner->updated_at
             ];
         });
 
@@ -110,21 +116,33 @@ final class Partners
         return [
             'id' => $partner->id,
 
-            'city_id' => $partner->city_id,
-
             'name' => $partner->name,
 
-            'description' => $partner->description,
+            'creator' => [
+                'full_name' => $partner->user->full_name,
 
-            'address' => $partner->address,
+                'login' => $partner->user->login,
 
-            'phone' => $partner->phone,
+                'email' => $partner->user->email,
+
+                'photo' => $partner->user->profile['photo'] ?? '',
+
+                'phones' => $partner->user->getPhonesWithLimit(5)
+            ],
+
+            'weight_price' => $partner->weight_price,
+
+            'warehouse_price' => $partner->warehouse_price,
+
+            'pickup' => $partner->pickup,
+
+            'delivery' => $partner->delivery,
+
+            'discount_price' => $partner->discount_price,
 
             'created_at' => $partner->created_at,
 
-            'updated_at' => $partner->updated_at,
-
-            'city' => $partner->city,
+            'updated_at' => $partner->updated_at
         ];
     }
 
@@ -136,16 +154,17 @@ final class Partners
     public function storeCredentials(PartnersRequest $request): array
     {
         return [
-            'city_id' => $request->json('city_id'),
-
             'name' => $request->json('name'),
 
-            'description' => $request->json('description'),
+            'weight_price' => $request->json('weight_price'),
 
-            'address' => $request->json('address'),
+            'warehouse_price' => $request->json('warehouse_price'),
 
-            'phone' => $request->json('phone'),
+            'pickup' => $request->json('pickup'),
 
+            'delivery' => $request->json('delivery'),
+
+            'discount_price' => $request->json('discount_price')
         ];
     }
 
@@ -156,19 +175,19 @@ final class Partners
      */
     public function updateCredentials(PartnersRequest $request): array
     {
-        $credentials = [
-            'city_id' => $request->json('city_id'),
-
+        return [
             'name' => $request->json('name'),
 
-            'description' => $request->json('description'),
+            'weight_price' => $request->json('weight_price'),
 
-            'address' => $request->json('address'),
+            'warehouse_price' => $request->json('warehouse_price'),
 
-            'phone' => $request->json('phone'),
+            'pickup' => $request->json('pickup'),
+
+            'delivery' => $request->json('delivery'),
+
+            'discount_price' => $request->json('discount_price')
         ];
-
-        return $credentials;
     }
 
     /**

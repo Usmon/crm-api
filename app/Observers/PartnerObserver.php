@@ -64,5 +64,7 @@ final class PartnerObserver
         $partner->updated_at = $partner->updated_at ?? Carbon::now();
 
         $partner->deleted_at = $partner->deleted_at ?? null;
+
+        $partner->creator_id = auth()->user()->id ?? null;
     }
 }

@@ -35,6 +35,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property string $phone
  *
+ * @property integer $creator_id
+ *
+ * @property float $weight_price
+ *
+ * @property float $warehouse_price
+ *
+ * @property float $delivery
+ *
+ * @property float $pickup
+ *
+ * @property float $discount_price
+ *
  * @property Carbon|null $created_at
  *
  * @property Carbon|null $updated_at
@@ -44,9 +56,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property int|null $deleted_by
  *
  * @property-read HasOne|null $city
- * 
+ *
  * @property-read HasOne|null $user
- * 
+ *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
  * @method static Builder|self filter(array $filters)
@@ -77,7 +89,19 @@ final class Partner extends Model
 
         'phone',
 
-        'description'
+        'description',
+
+        'creator_id',
+
+        'weight_price',
+
+        'warehouse_price',
+
+        'pickup',
+
+        'delivery',
+
+        'discount_price',
     ];
 
     /**
@@ -99,7 +123,19 @@ final class Partner extends Model
 
         'phone' => 'string',
 
-        'description' => 'string'
+        'description' => 'string',
+
+        'creator_id' => 'integer',
+
+        'weight_price' => 'float',
+
+        'warehouse_price' => 'float',
+
+        'pickup' => 'float',
+
+        'delivery' => 'float',
+
+        'discount_price' => 'float',
     ];
 
     /**
@@ -115,7 +151,7 @@ final class Partner extends Model
      */
     public function user(): HasOne
     {
-        return $this->hasOne(Partner::class);
+        return $this->hasOne(User::class, 'id', 'creator_id');
     }
 
     /**
