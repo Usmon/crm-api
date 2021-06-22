@@ -71,7 +71,7 @@ final class Controller extends Controllers
         return Json::sendJsonWith200([
             'message' => 'The partner was successfully created.',
 
-            'partner' => $this->repository->storePartner($this->service->storeCredentials($request)),
+            'partner' => $this->service->showPartner($this->repository->storePartner($this->service->storeCredentials($request))),
         ]);
     }
 
@@ -99,7 +99,7 @@ final class Controller extends Controllers
         return Json::sendJsonWith200([
             'message' => 'The partner was successfully updated.',
 
-            'partner' => $this->repository->updatePartner($partner, $this->service->updateCredentials($request)),
+            'partner' => $this->service->showPartner($this->repository->updatePartner($partner, $this->service->updateCredentials($request))),
         ]);
     }
 
