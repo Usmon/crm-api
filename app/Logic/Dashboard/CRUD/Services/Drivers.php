@@ -177,15 +177,7 @@ final class Drivers
      */
     public function updateCredentials(DriversRequest $request): array
     {
-        return [
-            'user_id' => $request->json('user_id'),
-
-            'car_model' => $request->json('car_model'),
-
-            'car_number' => $request->json('car_number'),
-
-            'license' => $request->json('license'),
-        ];
+        return $this->storeCredentials($request);
     }
 
     /**

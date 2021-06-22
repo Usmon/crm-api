@@ -50,9 +50,15 @@ final class Drivers
      */
     public function updateDriver(Driver $driver, array $credentials): Driver
     {
-        $driver->update($credentials);
+        $driver->user->update($credentials['user']);
 
-        return $driver;
+        $driver->user->phones()->delete();
+
+        $driver->user->phones()->createMany($credentials['phones']);
+
+        $driver->update($credentials['car']);
+
+        return $driver->refresh();
     }
 
     /**

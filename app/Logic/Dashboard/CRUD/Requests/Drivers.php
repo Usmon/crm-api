@@ -172,30 +172,76 @@ final class Drivers extends FormRequest
             ],
 
             'dashboard.drivers.driver.update' => [
-                'user_id' => [
+                'driver' => [
+                    'required',
+
+                    'array'
+                ],
+
+                'driver.full_name' => [
+                    'required',
+
+                    'string',
+
+                    'max:128',
+                ],
+
+                'driver.email' => [
+                    'required',
+
+                    'string',
+
+                    Rule::unique('users', 'email')->ignore($this->route('driver')->user_id ?? 0)
+                ],
+
+                'driver.phones' => [
+                    'required',
+
+                    'array'
+                ],
+
+                'driver.phones.*' => [
+                    'required',
+
+                    'string',
+
+                    Rule::unique('phones', 'phone')->ignore($this->route('driver')->user_id ?? 0, 'user_id')
+                ],
+
+                'car' => [
+                    'required',
+
+                    'array'
+                ],
+
+                'car.partner_id' => [
                     'required',
 
                     'integer',
 
-                    Rule::exists('users', 'id'),
+                    Rule::exists('partners', 'id')
                 ],
 
-                'car_model' => [
+                'car.car_model' => [
                     'required',
 
                     'string',
                 ],
 
-                'car_number' => [
+                'car.car_number' => [
                     'required',
 
                     'string',
+
+                    Rule::unique('drivers', 'car_number')->ignore($this->route('driver')->id ?? 0)
                 ],
 
-                'license' => [
+                'car.license' => [
                     'required',
 
                     'string',
+
+                    Rule::unique('drivers', 'license')->ignore($this->route('driver')->id ?? 0)
                 ],
             ],
 
