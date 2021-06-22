@@ -78,7 +78,15 @@ final class Drivers
             return [
                 'id' => $driver->id,
 
-                'user_id' => $driver->user_id,
+                'user' => [
+                    'full_name' => $driver->user->full_name,
+
+                    'login' => $driver->user->login,
+
+                    'email' => $driver->user->email,
+
+                    'photo' => $driver->user->profile['photo']
+                ],
 
                 'car_model' => $driver->car_model,
 
@@ -89,10 +97,6 @@ final class Drivers
                 'created_at' => $driver->created_at,
 
                 'updated_at' => $driver->updated_at,
-
-                'creator' => $driver->creator,
-
-                'user' => $driver->user,
             ];
         });
 
@@ -136,13 +140,25 @@ final class Drivers
     public function storeCredentials(DriversRequest $request): array
     {
         return [
-            'user_id' => $request->json('user_id'),
+            'user' => [
+                'full_name' => $request->json('driver.full_name'),
 
-            'car_model' => $request->json('car_model'),
+                'email' => $request->json('driver.email')
+            ],
 
-            'car_number' => $request->json('car_number'),
+            'phones' => collect($request->json('driver.phones'))->transform(function(string $phone) {
+                return ['phone' => $phone];
+            })->toArray(),
 
-            'license' => $request->json('license'),
+            'car' => [
+                'partner_id' => $request->json('car.partner_id'),
+
+                'car_model' => $request->json('car.car_model'),
+
+                'car_number' => $request->json('car.car_number'),
+
+                'license' => $request->json('car.license')
+            ]
         ];
     }
 

@@ -25,6 +25,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property integer $creator_id
  *
+ * @property integer $partner_id
+ *
  * @property integer $user_id
  *
  * @property string $car_model
@@ -69,6 +71,8 @@ final class Driver extends Model
 
         'user_id',
 
+        'partner_id',
+
         'car_model',
 
         'car_number',
@@ -83,6 +87,8 @@ final class Driver extends Model
         'creator_id' => 'integer',
 
         'user_id' => 'integer',
+
+        'partner_id',
 
         'car_model' => 'string',
 
@@ -114,6 +120,14 @@ final class Driver extends Model
     }
 
     /**
+     * @return HasOne
+     */
+    public function partner(): HasOne
+    {
+        return $this->hasOne(Partner::class,'id','partner_id');
+    }
+
+    /**
      * @param Builder $query
      *
      * @param string $key
@@ -141,6 +155,10 @@ final class Driver extends Model
                 return $query->orWhere('car_model', 'like', '%'. $search .'%')
                     ->orWhere('car_number', 'like', '%'. $search .'%')
                     ->orWhere('license', 'like', '%'. $search .'%');
+            })->orWhereHas('user', function(Builder $query) use ($search) {
+                return $query->where('full_name', 'like', '%'.$search.'%')
+                            ->orWhere('login', 'like', '%'.$search.'%')
+                            ->orWhere('email', 'like', '%'.$search.'%');
             });
         })->when($filters['car_model'] ?? null, function (Builder $query, string $carModel) {
             return $query->orWhere('car_model', 'like', '%' . $carModel . '%');

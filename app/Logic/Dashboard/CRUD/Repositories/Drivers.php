@@ -4,6 +4,7 @@ namespace App\Logic\Dashboard\CRUD\Repositories;
 
 use App\Models\Driver;
 
+use App\Models\User;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -28,11 +29,17 @@ final class Drivers
      */
     public function storeDriver(array $credentials): Driver
     {
-        $driver = Driver::create($credentials);
+        //Create user
+        $user = User::factory()->create($credentials['user']);
 
-        return $driver;
+        //Binding Driver
+        $user->driver()->create($credentials['car']);
+
+        //Create phone for user
+        $user->phones()->createMany($credentials['phones']);
+
+        return $user->driver;
     }
-
 
     /**
      * @param Driver $driver
