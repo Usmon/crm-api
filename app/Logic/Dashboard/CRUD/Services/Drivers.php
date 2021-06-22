@@ -115,7 +115,17 @@ final class Drivers
         return [
             'id' => $driver->id,
 
-            'user_id' => $driver->user_id,
+            'user' => [
+                'full_name' => $driver->user->full_name,
+
+                'email' => $driver->user->email
+            ],
+
+            'creator' => [
+                'full_name' => $driver->creator->full_name,
+            ],
+
+            'phones' => $driver->user->getPhonesWithLimit(5),
 
             'car_model' => $driver->car_model,
 
@@ -126,10 +136,6 @@ final class Drivers
             'created_at' => $driver->created_at,
 
             'updated_at' => $driver->updated_at,
-
-            'creator' => $driver->creator,
-
-            'user' => $driver->user,
         ];
     }
 
