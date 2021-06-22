@@ -125,6 +125,12 @@ final class Drivers
                 'full_name' => $driver->creator->full_name,
             ],
 
+            'partner' => [
+                'id' => $driver->partner_id,
+
+                'name' => $driver->partner->name,
+            ],
+
             'phones' => $driver->user->getPhonesWithLimit(5),
 
             'car_model' => $driver->car_model,
