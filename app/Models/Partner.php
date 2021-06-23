@@ -33,6 +33,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property string $address
  *
+ * @property string $photo
+ *
  * @property string $phone
  *
  * @property integer $creator_id
@@ -102,6 +104,8 @@ final class Partner extends Model
         'delivery',
 
         'discount_price',
+
+        'photo'
     ];
 
     /**
@@ -136,6 +140,8 @@ final class Partner extends Model
         'delivery' => 'float',
 
         'discount_price' => 'float',
+
+        'photo' => 'string'
     ];
 
     /**
