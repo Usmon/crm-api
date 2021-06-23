@@ -118,6 +118,8 @@ final class Partners
 
             'name' => $partner->name,
 
+            'photo' => $partner->photo,
+
             'creator' => [
                 'full_name' => $partner->user->full_name,
 
@@ -155,6 +157,8 @@ final class Partners
     {
         return [
             'name' => $request->json('name'),
+
+            'photo' => $request->json('photo'),
 
             'weight_price' => $request->json('weight_price'),
 

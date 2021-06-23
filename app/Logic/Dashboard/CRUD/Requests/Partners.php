@@ -105,6 +105,12 @@ final class Partners extends FormRequest
                     'string',
                 ],
 
+                'photo' => [
+                    'required',
+
+                    'url',
+                ],
+
                 'weight_price' => [
                     'required',
 
