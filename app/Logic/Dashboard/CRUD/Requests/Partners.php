@@ -100,7 +100,7 @@ final class Partners extends FormRequest
 
             'dashboard.partners.store' => [
                 'name' => [
-                    'required',
+                    'nullable',
 
                     'string',
                 ],
