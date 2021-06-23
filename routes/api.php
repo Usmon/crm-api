@@ -401,6 +401,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth:api','checkPermiss
     Route::apiResource('regions', DashboardRegionsController::class);
 
     //CRUD partners
+    Route::get('partners/list', [DashboardPartnersController::class, 'list']);
+
     Route::apiResource('partners', DashboardPartnersController::class);
 
     //CRUD payment types
