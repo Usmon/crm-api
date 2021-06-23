@@ -6,6 +6,8 @@ use App\Models\Partner;
 
 use Illuminate\Contracts\Pagination\Paginator;
 
+use Illuminate\Database\Eloquent\Collection;
+
 final class Partners
 {
     /**
@@ -18,6 +20,14 @@ final class Partners
     public function getPartners(array $filters, array $sorts): Paginator
     {
         return Partner::filter($filters)->sort($sorts)->pager();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getAll(): Collection
+    {
+        return Partner::all();
     }
 
     /**

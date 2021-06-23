@@ -7,6 +7,7 @@ use App\Models\Partner;
 use Illuminate\Contracts\Pagination\Paginator;
 
 use App\Logic\Dashboard\CRUD\Requests\Partners as PartnersRequest;
+use Illuminate\Database\Eloquent\Collection;
 
 final class Partners
 {
@@ -34,6 +35,24 @@ final class Partners
 
             'city' => $request->json('city'),
         ];
+    }
+
+    /**
+     * @param Collection $partners
+     *
+     * @return Collection
+     */
+    public function getList(Collection $partners): Collection
+    {
+        return $partners->transform(function(Partner $partner) {
+            return [
+                'id' => $partner->id,
+
+                'label' => $partner->name,
+
+                'value' => $partner->name
+            ];
+        });
     }
 
     /**

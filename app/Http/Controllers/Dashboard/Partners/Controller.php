@@ -43,6 +43,16 @@ final class Controller extends Controllers
     }
 
     /**
+     * @return JsonResponse
+     */
+    public function list(): JsonResponse
+    {
+        return Json::sendJsonWith200([
+            'partners' => $this->service->getList($this->repository->getAll())
+        ]);
+    }
+
+    /**
      * @param PartnersRequest $request
      *
      * @return JsonResponse
