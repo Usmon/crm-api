@@ -365,11 +365,13 @@ final class Order extends Model
     }
 
     /**
-     * @return BelongsTo
+     * @return Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection
      */
-    public function paymentType(): BelongsTo
+    public function getPaymentTypeAttribute()
     {
-        return $this->belongsTo(PaymentType::class);
+        return PaymentType::query()->whereIn('id', $this->payment_type_id)->get()->map(function (PaymentType $paymentType){
+            return $paymentType->name;
+        });
     }
 
     /**

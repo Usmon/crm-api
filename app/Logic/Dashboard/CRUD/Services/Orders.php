@@ -146,6 +146,8 @@ final class Orders
 
                 'total_boxes' => $order->total_boxes,
 
+                'payment_type' => $order->getPaymentTypeAttribute(),
+
                 'partner' => $order->staff->partner->name,
 
                 'creator' => $order->staff->short_info,
@@ -179,8 +181,6 @@ final class Orders
 
             'price_debt' => $order->price,
 
-            'payed_price' => $order->payed_price,
-
             'price_pickup' => $order->price_pickup,
 
             'price_delivery' => $order->price_delivery,
@@ -203,7 +203,7 @@ final class Orders
 
             'total_additional_weight' => $order->total_additional_weight,
 
-            'payment_type' => $order->paymentType->name ?? '',
+            'payment_type' => $order->getPaymentTypeAttribute(),
 
             'status' => $order->status->for_color,
 
@@ -212,6 +212,8 @@ final class Orders
             'sender' => $order->sender->customer->user->short_info,
 
             'recipient' => $order->recipient->customer->user->short_info,
+
+            'additional_weight' => $order->additional_weight,
 
             'creator' => [
                 'id' => $order->staff_id,
