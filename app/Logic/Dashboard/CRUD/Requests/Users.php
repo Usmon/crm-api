@@ -146,6 +146,14 @@ final class Users extends FormRequest
 
                     Rule::exists('roles', 'id'),
                 ],
+
+                'partner_id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('partners', 'id')
+                ]
             ],
 
             'dashboard.users.update' => [
@@ -226,6 +234,14 @@ final class Users extends FormRequest
 
                     Rule::exists('roles', 'id'),
                 ],
+
+                'partner_id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('partners', 'id')
+                ]
             ],
         ];
 
