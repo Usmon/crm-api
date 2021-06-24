@@ -311,6 +311,15 @@ final class Orders
 
             'price' => $request->json('price'),
 
+            'additional_weight' => $request->json('additional_weight'),
+
+            'price_additional' => $request->json('price_additional'),
+
+            'price_insurance' => $request->json('price_insurance'),
+
+            'payed_price' => $request->json('price_payed'),
+
+            'payment_type_id' => $request->json('payment_type_id'),
         ];
     }
 
