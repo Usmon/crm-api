@@ -45,7 +45,7 @@ final class Controller extends Controllers
 
                     'last_name' => $request->user()->profile['last_name'],
 
-                    'photo' => $request->user()->profile['photo'],
+                    'photo' => $request->user()->profile['photo'] ?? '',
                 ],
 
                 'reports' => [
