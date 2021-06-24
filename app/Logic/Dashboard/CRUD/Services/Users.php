@@ -141,6 +141,8 @@ final class Users
             'profile' => $request->json('profile'),
 
             'roles' => $request->json('roles'),
+
+            'partner_id' => $request->json('partner_id')
         ];
 
         if ($request->json('password')) {
