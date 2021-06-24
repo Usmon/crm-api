@@ -11,7 +11,8 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 
 define('LARAVEL_START', microtime(true));
 
-define('STDIN',fopen("php://stdin","r"));
+//Remove this if required from server side
+//define('STDIN',fopen("php://stdin","r"));
 
 /*
 |--------------------------------------------------------------------------
