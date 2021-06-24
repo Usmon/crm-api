@@ -192,21 +192,39 @@ final class Orders extends FormRequest
                     Rule::exists('recipients', 'id')
                 ],
 
-//                'status_id' => [
-//                    'required',
-//
-//                    'integer',
-//
-//                    Rule::exists('statuses', 'id')
-//                ],
-//
-//                'payment_status_id' => [
-//                    'required',
-//
-//                    'integer',
-//
-//                    Rule::exists('statuses', 'id')
-//                ],
+                'price' => [
+                    'required',
+
+                    'numeric',
+                ],
+
+                'additional_weight' => [
+                    'numeric',
+                ],
+
+                'price_additional' => [
+                    'numeric',
+                ],
+
+                'price_insurance' => [
+                    'numeric',
+                ],
+
+                'price_payed' => [
+                    'numeric',
+                ],
+
+                'payment_type_id' => [
+                    'array',
+                ],
+
+                'payment_type_id.*' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('payment_types', 'id'),
+                ],
 
                 'type' => [
                     'required'

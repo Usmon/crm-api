@@ -52,6 +52,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property integer $total_boxes
  *
+ * @property double $additional_weight
+ *
  * @property integer $total_products
  *
  * @property double $price_pickup
@@ -170,6 +172,8 @@ final class Order extends Model
         'total_weight_boxes',
 
         'total_delivered_boxes',
+
+        'additional_weight',
     ];
 
     /**
@@ -208,7 +212,7 @@ final class Order extends Model
 
         'weight_rate' => 'integer',
 
-        'payment_type_id' => 'integer',
+        'payment_type_id' => 'array',
 
         'payed_price' => 'double',
 

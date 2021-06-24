@@ -51,6 +51,24 @@ final class CreateOrdersTable extends Migration
 
             $table->integer('total_delivered_boxes')->default(0);
 
+
+            $table->decimal('price_insurance')->default(0);
+
+            $table->decimal('price_warehouse')->default(0);
+
+            $table->decimal('price_delivery')->default(0);
+
+            $table->decimal('price_total')->default(0);
+
+            $table->decimal('price_debt')->default(0);
+
+            $table->integer('weight_rate')->default(0);
+
+            $table->json('payment_type_id')->nullable();
+
+            $table->double('additional_weight')->default(0);
+
+
             $table->timestamp('created_at')->nullable();
 
             $table->timestamp('updated_at')->nullable();
