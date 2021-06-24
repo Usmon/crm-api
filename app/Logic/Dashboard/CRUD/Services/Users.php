@@ -82,6 +82,12 @@ final class Users
         return [
             'id' => $user->id,
 
+            'partner' => [
+                'id' => $user->partner_id,
+
+                'name' => $user->partner->name
+            ],
+
             'login' => $user->login,
 
             'email' => $user->email,
