@@ -25,6 +25,8 @@ class PaymentTypes
     {
         return $items->transform(function (PaymentType $item) {
             return [
+                'id' => $item->id,
+
                 'name' => $item->name,
 
                 'slug' => $item->slug,
@@ -46,6 +48,8 @@ class PaymentTypes
     public function getItem(PaymentType $item): array
     {
         return [
+            'id' => $item->id,
+
             'name' => $item->name,
 
             'slug' => $item->slug,
