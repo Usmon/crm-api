@@ -63,7 +63,7 @@ final class OrderFactory extends Factory
 
             'status_id' => $status->random(),
 
-            'payment_type_id' => json_encode($payment_types->random()),
+            'payment_type_id' => [1],
 
             'payment_status_id' => $payment_status->random(),
 

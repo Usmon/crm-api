@@ -116,6 +116,30 @@ final class Orders
      */
     public function updateOrder(Order $order, array $credentials): Order
     {
+        if(! $credentials['additional_weight'])
+        {
+            unset($credentials['additional_weight']);
+        }
+
+        if(! $credentials['price_additional'])
+        {
+            unset($credentials['price_additional']);
+        }
+
+        if(! $credentials['price_insurance'])
+        {
+            unset($credentials['price_insurance']);
+        }
+
+        if(! $credentials['payed_price'])
+        {
+            unset($credentials['payed_price']);
+        }
+
+        if(! $credentials['payment_type_id']) {
+            unset($credentials['payment_type_id']);
+        }
+
         $order->update($credentials);
 
         return $order;
