@@ -131,7 +131,7 @@ final class Drivers extends FormRequest
 
                     'string',
 
-                    Rule::unique('phones', 'phone')
+                    //Rule::unique('phones', 'phone')
                 ],
 
                 'car' => [
@@ -159,7 +159,7 @@ final class Drivers extends FormRequest
 
                     'string',
 
-                    Rule::unique('drivers', 'car_number')
+                    //Rule::unique('drivers', 'car_number')
                 ],
 
                 'car.license' => [
@@ -167,7 +167,7 @@ final class Drivers extends FormRequest
 
                     'string',
 
-                    Rule::unique('drivers', 'license')
+                    //Rule::unique('drivers', 'license')
                 ],
             ],
 
@@ -205,7 +205,7 @@ final class Drivers extends FormRequest
 
                     'string',
 
-                    Rule::unique('phones', 'phone')->ignore($this->route('driver')->user_id ?? 0, 'user_id')
+                    //Rule::unique('phones', 'phone')->ignore($this->route('driver')->user_id ?? 0, 'user_id')
                 ],
 
                 'car' => [
@@ -233,7 +233,7 @@ final class Drivers extends FormRequest
 
                     'string',
 
-                    Rule::unique('drivers', 'car_number')->ignore($this->route('driver')->id ?? 0)
+                    //Rule::unique('drivers', 'car_number')->ignore($this->route('driver')->id ?? 0)
                 ],
 
                 'car.license' => [
@@ -241,7 +241,7 @@ final class Drivers extends FormRequest
 
                     'string',
 
-                    Rule::unique('drivers', 'license')->ignore($this->route('driver')->id ?? 0)
+                    //Rule::unique('drivers', 'license')->ignore($this->route('driver')->id ?? 0)
                 ],
             ],
 
