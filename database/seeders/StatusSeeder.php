@@ -41,6 +41,15 @@ final class StatusSeeder extends Seeder
             ]
         ],
         [
+            'value' => 'Warehouse',
+            'parameters' => [
+                'color' => [
+                    'text' => '#003333',
+                    'bg' => '#DBE2E2'
+                ]
+            ]
+        ],
+        [
             'value' => 'Shipment',
             'parameters' => [
                 'color' => [
