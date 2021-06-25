@@ -43,7 +43,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property-read HasOne|null $creator
  *
- * @property-read HasOne|null $user
+ * @property-read HasOne|null
+ *
+ * @property-read mixed $address
  *
  * @method static Builder|self findBy(string $key, string $value = null)
  *
@@ -213,5 +215,13 @@ final class Driver extends Model
     public function getPhone(string $phone): string
     {
         return $this->user->phones()->where('phone', 'like', '%'.$phone.'%')->first()->phone;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAddressAttribute(): mixed
+    {
+        return $this->user->addresses()->first();
     }
 }

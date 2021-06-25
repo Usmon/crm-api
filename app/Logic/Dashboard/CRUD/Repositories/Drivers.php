@@ -35,6 +35,9 @@ final class Drivers
         //Binding Driver
         $user->driver()->create($credentials['car']);
 
+        //Binding address
+        $user->addresses()->create($credentials['address']);
+
         //Create phone for user
         $user->phones()->createMany($credentials['phones']);
 
@@ -52,9 +55,13 @@ final class Drivers
     {
         $driver->user->update($credentials['user']);
 
+        $driver->user->addresses()->delete();
+
         $driver->user->phones()->delete();
 
         $driver->user->phones()->createMany($credentials['phones']);
+
+        $driver->user->addresses()->create($credentials['address']);
 
         $driver->update($credentials['car']);
 

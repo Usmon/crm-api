@@ -131,6 +131,26 @@ final class Drivers
                 'name' => $driver->partner->name,
             ],
 
+            'address' => [
+                'region' => [
+                    'id' => $driver->address->city->region->id,
+
+                    'name' => $driver->address->city->region->name
+                ],
+
+                'city' => [
+                    'id' => $driver->address->city->id,
+
+                    'name' => $driver->address->name
+                ],
+
+                'code' => $driver->address->code,
+
+                'first_address' => $driver->address->first_address,
+
+                'second_address' => $driver->address->second_address
+            ],
+
             'phones' => $driver->user->getPhonesWithLimit(5),
 
             'car_model' => $driver->car_model,
@@ -154,6 +174,16 @@ final class Drivers
     public function storeCredentials(DriversRequest $request): array
     {
         return [
+            'address' => [
+                'code' => $request->json('address.code'),
+
+                'city_id' => $request->json('address.city_id'),
+
+                'first_address' => $request->json('address.first_address'),
+
+                'second_address' => $request->json('address.second_address')
+            ],
+
             'user' => [
                 'full_name' => $request->json('driver.full_name'),
 
