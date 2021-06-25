@@ -174,6 +174,8 @@ final class Order extends Model
         'total_delivered_boxes',
 
         'additional_weight',
+
+        'price_additional',
     ];
 
     /**

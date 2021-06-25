@@ -187,6 +187,8 @@ final class Orders
 
             'price_warehouse' => $order->price_warehouse,
 
+            'price_additional' => $order->price_additional,
+
             'price_fedex' => $order->price_fedex,
 
             'price_insurance' => $order->price_insurance,
@@ -407,6 +409,18 @@ final class Orders
     {
         return [
             'id' => $order->id,
+
+            'additional_weight' => $order->additional_weight,
+
+            'price_additional' => $order->price_additional,
+
+            'price_insurance' => $order->price_insurance,
+
+            'price_warehouse' => $order->price_warehouse,
+
+            'payment_type' => $order->getPaymentTypeAttribute(),
+
+            'payed_price' => $order->payed_price,
 
             'sender' => [
                 'id' => $order->sender->id,

@@ -53,7 +53,8 @@ final class Orders
             unset($credentials['payed_price']);
         }
 
-        if(! $credentials['payment_type_id']) {
+        if(! $credentials['payment_type_id'])
+        {
             unset($credentials['payment_type_id']);
         }
 
@@ -136,7 +137,8 @@ final class Orders
             unset($credentials['payed_price']);
         }
 
-        if(! $credentials['payment_type_id']) {
+        if(! $credentials['payment_type_id'])
+        {
             unset($credentials['payment_type_id']);
         }
 
