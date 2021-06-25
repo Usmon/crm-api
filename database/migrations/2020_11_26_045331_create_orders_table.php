@@ -68,6 +68,8 @@ final class CreateOrdersTable extends Migration
 
             $table->double('additional_weight')->default(0);
 
+            $table->double('price_additional')->default(0);
+
 
             $table->timestamp('created_at')->nullable();
 
