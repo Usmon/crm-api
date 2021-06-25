@@ -27,6 +27,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property integer $city_id
  *
+ * @property integer $code
+ *
  * @property string $first_address
  *
  * @property string $second_address
@@ -72,6 +74,8 @@ final class Address extends Model
         'first_address',
 
         'second_address',
+
+        'code'
     ];
 
     /**
@@ -81,6 +85,8 @@ final class Address extends Model
         'user_id' => 'integer',
 
         'city_id' => 'integer',
+
+        'code' => 'integer',
 
         'first_address' => 'string',
 

@@ -98,6 +98,38 @@ final class Drivers extends FormRequest
             ],
 
             'dashboard.drivers.driver.store' => [
+                'address' => [
+                    'required',
+
+                    'array'
+                ],
+
+                'address.city_id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('cities', 'id')
+                ],
+
+                'address.code' => [
+                    'required',
+
+                    'integer'
+                ],
+
+                'address.first_address' => [
+                    'required',
+
+                    'string'
+                ],
+
+                'address.second_address' => [
+                    'nullable',
+
+                    'string'
+                ],
+
                 'driver' => [
                     'required',
 
@@ -172,6 +204,38 @@ final class Drivers extends FormRequest
             ],
 
             'dashboard.drivers.driver.update' => [
+                'address' => [
+                    'required',
+
+                    'array'
+                ],
+
+                'address.city_id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('cities', 'id')
+                ],
+
+                'address.code' => [
+                    'required',
+
+                    'integer'
+                ],
+
+                'address.first_address' => [
+                    'required',
+
+                    'string'
+                ],
+
+                'address.second_address' => [
+                    'nullable',
+
+                    'string'
+                ],
+
                 'driver' => [
                     'required',
 
