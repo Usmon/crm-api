@@ -139,6 +139,26 @@ final class Partners
 
             'photo' => $partner->photo,
 
+            'address' => [
+                'region' => [
+                    'id' => $partner->city->region->id ?? null,
+
+                    'name' => $partner->city->region->name ?? null
+                ],
+
+                'city' => [
+                    'id' => $partner->city->id ?? null,
+
+                    'name' => $partner->city->name ?? null
+                ],
+
+                'code' => $partner->code,
+
+                'address' => $partner->address,
+
+                'address_additional' => $partner->address_additional
+            ],
+
             'creator' => [
                 'full_name' => $partner->user->full_name,
 
@@ -175,6 +195,14 @@ final class Partners
     public function storeCredentials(PartnersRequest $request): array
     {
         return [
+            'city_id' => $request->json('city_id'),
+
+            'code' => $request->json('code'),
+
+            'address' => $request->json('address'),
+
+            'address_additional' => $request->json('address_additional'),
+
             'name' => $request->json('name'),
 
             'photo' => $request->json('photo'),
@@ -199,6 +227,14 @@ final class Partners
     public function updateCredentials(PartnersRequest $request): array
     {
         return [
+            'city_id' => $request->json('city_id'),
+
+            'code' => $request->json('code'),
+
+            'address' => $request->json('address'),
+
+            'address_additional' => $request->json('address_additional'),
+
             'name' => $request->json('name'),
 
             'weight_price' => $request->json('weight_price'),
