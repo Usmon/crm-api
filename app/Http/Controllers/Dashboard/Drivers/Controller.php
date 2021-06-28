@@ -84,7 +84,7 @@ final class Controller extends Controllers
         return Json::sendJsonWith200([
             'message' => 'The driver was successfully created.',
 
-            'driver' => $this->repository->storeDriver($this->service->storeCredentials($request)),
+            'driver' => $this->service->showDriver($this->repository->storeDriver($this->service->storeCredentials($request))),
         ]);
     }
 
