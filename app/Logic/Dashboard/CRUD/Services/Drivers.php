@@ -131,26 +131,6 @@ final class Drivers
                 'name' => $driver->partner->name,
             ],
 
-            'address' => [
-                'region' => [
-                    'id' => $driver->address->city->region->id,
-
-                    'name' => $driver->address->city->region->name
-                ],
-
-                'city' => [
-                    'id' => $driver->address->city->id,
-
-                    'name' => $driver->address->name
-                ],
-
-                'code' => $driver->address->code,
-
-                'first_address' => $driver->address->first_address,
-
-                'second_address' => $driver->address->second_address
-            ],
-
             'phones' => $driver->user->getPhonesWithLimit(5),
 
             'car_model' => $driver->car_model,
