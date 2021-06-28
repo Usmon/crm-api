@@ -120,6 +120,8 @@ final class Shipment extends Model
         return $this->orders()->sum('total_boxes');
     }
 
+
+
     /**
      * @return float
      */
@@ -214,9 +216,20 @@ final class Shipment extends Model
         return $query->where($key, '=', $value);
     }
 
+    /**
+     * @return HasMany
+     */
     public function boxes(): HasMany
     {
         return $this->hasMany(Box::class);
+    }
+
+    /**
+     * @return int
+     */
+    public function totalCustomers(): int
+    {
+        return $this->orders()->distinct('sender_id')->count();
     }
 
     /**

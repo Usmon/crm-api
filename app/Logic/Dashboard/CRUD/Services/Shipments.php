@@ -116,7 +116,7 @@ final class Shipments
                 return $box->items()->count();
             })->sum(),
 
-            'total_customers' => 'TOTAL CUSTOMERS',
+            'total_customers' => $shipment->totalCustomers(),
 
             'total_weight' => $shipment->boxes->map(function (Box $box) {
                 return $box->items()->sum('weight');
