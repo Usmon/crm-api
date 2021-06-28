@@ -132,7 +132,7 @@ final class Partners extends FormRequest
                 ],
 
                 'photo' => [
-                    'required',
+                    'nullable',
 
                     'url',
                 ],
@@ -229,6 +229,12 @@ final class Partners extends FormRequest
                     'required',
 
                     'numeric'
+                ],
+
+                'photo' => [
+                    'nullable',
+
+                    'url',
                 ],
             ],
         ];
