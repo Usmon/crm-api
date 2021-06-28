@@ -99,6 +99,32 @@ final class Partners extends FormRequest
             ],
 
             'dashboard.partners.store' => [
+                'city_id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('cities', 'id')
+                ],
+
+                'code' => [
+                    'required',
+
+                    'integer'
+                ],
+
+                'address' => [
+                    'required',
+
+                    'string'
+                ],
+
+                'address_additional' => [
+                    'nullable',
+
+                    'string'
+                ],
+
                 'name' => [
                     'nullable',
 
@@ -143,6 +169,32 @@ final class Partners extends FormRequest
             ],
 
             'dashboard.partners.update' => [
+                'city_id' => [
+                    'required',
+
+                    'integer',
+
+                    Rule::exists('cities', 'id')
+                ],
+
+                'code' => [
+                    'required',
+
+                    'integer'
+                ],
+
+                'address' => [
+                    'required',
+
+                    'string'
+                ],
+
+                'address_additional' => [
+                    'nullable',
+
+                    'string'
+                ],
+
                 'name' => [
                     'required',
 

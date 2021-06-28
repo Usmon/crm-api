@@ -16,8 +16,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-use Illuminate\Database\Eloquent\Relations\HasMany;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -89,6 +87,10 @@ final class Partner extends Model
 
         'address',
 
+        'address_additional',
+
+        'code',
+
         'phone',
 
         'description',
@@ -124,6 +126,10 @@ final class Partner extends Model
         'name' => 'string',
 
         'address' => 'string',
+
+        'address_additional' => 'string',
+
+        'code' => 'integer',
 
         'phone' => 'string',
 
