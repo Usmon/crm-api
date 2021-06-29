@@ -73,14 +73,14 @@ final class Shipments
 
                 'name' => $shipment->name,
 
-                'total_customers' => $shipment->orders->count(),
+                'total_customers' => $shipment->totalCustomers(),
 
                 'total_orders' => $shipment->orders()->count(),
 
                 'total_boxes' => $shipment->boxes()->count(),
 
                 'total_price' => $shipment->boxes->map(function (Box $box) {
-                    return $box->items()->sum('price');
+                    return $box->items()->sum(\DB::raw('quantity*price'));
                 })->sum(),
 
                 'total_weight' => $shipment->boxes->map(function (Box $box) {
@@ -123,10 +123,10 @@ final class Shipments
             })->sum(),
 
             'price_total' => $shipment->boxes->map(function (Box $box) {
-                return $box->items()->sum('price');
+                return $box->items()->sum(\DB::raw('quantity*price'));
             })->sum(),
 
-            'payment_type' => 'PAYMENT TYPE' ,
+            //'payment_type' => 'PAYMENT TYPE' ,
 
             'created_at' => $shipment->created_at,
 
