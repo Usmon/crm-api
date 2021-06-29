@@ -199,18 +199,26 @@ final class Orders extends FormRequest
                 ],
 
                 'additional_weight' => [
+                    'nullable',
+
                     'numeric',
                 ],
 
                 'price_additional' => [
+                    'nullable',
+
                     'numeric',
                 ],
 
                 'price_insurance' => [
+                    'nullable',
+
                     'numeric',
                 ],
 
                 'price_payed' => [
+                    'nullable',
+
                     'numeric',
                 ],
 
@@ -219,7 +227,7 @@ final class Orders extends FormRequest
                 ],
 
                 'payment_type_id.*' => [
-                    'required',
+                    'nullable',
 
                     'integer',
 
