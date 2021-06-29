@@ -81,6 +81,8 @@ final class OrderObserver
 
         $order->payment_status_id = $order->payment_status_id ?? 1;
 
+        $order->payment_type_id = $order->payment_type_id ?? [];
+
         $order->deleted_at = $order->deleted_at ?? null;
     }
 
