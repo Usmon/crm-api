@@ -224,7 +224,7 @@ final class Drivers
 
             'driver_email' => $driver->user->email,
 
-            'driver_region' => $driver->city->region->name,
+            'driver_region' => $driver->partner->city->region->name,
 
             'driver_city' => $driver->partner->city->name,
 
