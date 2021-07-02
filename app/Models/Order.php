@@ -58,6 +58,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property double $price_pickup
  *
+ * @property double $price_debt
+ *
  * @property double $total_weight_boxes
  *
  * @property integer $total_delivered_boxes
@@ -393,11 +395,11 @@ final class Order extends Model
     }
 
     /**
-     * @return int
+     * @return float
      */
-    public function getTotalAdditionalWeightAttribute(): int
+    public function getTotalAdditionalWeightAttribute(): float
     {
-        return 0;
+        return $this->boxes()->sum('additional_weight');
     }
 
     /**
@@ -455,7 +457,7 @@ final class Order extends Model
      */
     public function getPriceFedexAttribute(): float
     {
-        return (float) 0;
+        return $this->fedex_order->price ?? 0;
     }
 
     /**
@@ -463,7 +465,7 @@ final class Order extends Model
      */
     public function getPriceDiscountAttribute(): float
     {
-        return (float) 0;
+        return $this->staff->partner->discount_price;
     }
 
     /**
