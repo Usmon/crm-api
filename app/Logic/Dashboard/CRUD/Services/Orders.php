@@ -179,7 +179,7 @@ final class Orders
 
             'total_products' => $order->total_products,
 
-            'price_debt' => $order->price,
+            'price_debt' => $order->price_debt,
 
             'price_pickup' => $order->price_pickup,
 
