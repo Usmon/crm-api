@@ -312,7 +312,7 @@ final class Boxes
                 'creator' => [
                     'id' => $box->creator->id,
 
-                    'image' => $box->creator['profile']['photo'],
+                    'image' => $box->creator['profile']['photo'] ?? '',
 
                     'name' => $box->creator->full_name,
                 ],
