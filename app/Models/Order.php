@@ -416,7 +416,13 @@ final class Order extends Model
      */
     public function getTotalPriceBoxesAttribute(): float
     {
-        return $this->boxes()->sum('price');
+        $sum = 0;
+        foreach ($this->boxes as $box) {
+            $sum += $box->total_price;
+
+        }
+
+        return (float) $sum;
     }
 
     /**

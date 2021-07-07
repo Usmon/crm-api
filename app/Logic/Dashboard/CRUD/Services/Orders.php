@@ -193,7 +193,7 @@ final class Orders
 
             'price_insurance' => $order->price_insurance,
 
-            'price_total' => $order->price_total,
+            'price_total' => $order->total_price_boxes,
 
             'price_payed' => $order->payed_price,
 
