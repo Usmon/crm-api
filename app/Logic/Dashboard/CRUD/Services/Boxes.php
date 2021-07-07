@@ -284,7 +284,7 @@ final class Boxes
 
                 'total_products' => $box->items()->count(),
 
-                'total_price' => $box->items()->sum('price'),
+                'total_price' => $box->total_price,
 
                 'total_weight' =>
                     $box->items()->where('type_weight', '=', 'lb')->sum('weight')
