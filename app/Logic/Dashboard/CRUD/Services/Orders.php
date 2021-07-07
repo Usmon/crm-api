@@ -231,7 +231,7 @@ final class Orders
 
                     'total_weight' => $box->weight,
 
-                    'total_price' => $box->items->sum('price'),
+                    'total_price' => $box->total_price,,
 
                     'note' => $box->note,
 
