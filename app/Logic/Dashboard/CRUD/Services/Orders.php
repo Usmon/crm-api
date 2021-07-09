@@ -197,6 +197,8 @@ final class Orders
 
             'price_payed' => $order->payed_price,
 
+            'price_after_charge_balance' => $order->price,
+
             'price_discount' => $order->price_discount,
 
             'weight_rate' => $order->weight_rate,
