@@ -90,7 +90,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property-read int $totalBoxes
  *
- * @property-read double totalWeightBoxes
+ * @property-read double $total_price_boxes
  *
  * @property-read HasOne $status
  *
@@ -464,6 +464,26 @@ final class Order extends Model
     public function getPriceFedexAttribute(): float
     {
         return $this->fedex_order->price ?? 0;
+    }
+
+    /**
+     * @return void
+     */
+    public function chargeBalance(): void
+    {
+        $diff = $this->total_price_boxes - $this->sender->customer->balance;
+
+        $this->price = $diff > 0 ? $diff : 0;
+
+        $this->update();
+
+        $charge = abs($diff);
+
+        $customer = $this->sender->customer;
+
+        $customer->balance = $charge > 0 ? $charge : 0;
+
+        $customer->update();
     }
 
     /**

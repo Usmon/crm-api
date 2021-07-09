@@ -62,7 +62,9 @@ final class Orders
 
         $this->storeBoxes($order, $credentials['boxes']);
 
-        return $order;
+        $order->chargeBalance();
+
+        return $order->refresh();
     }
 
     /**
