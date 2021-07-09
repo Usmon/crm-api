@@ -303,7 +303,9 @@ final class Orders extends FormRequest
                 ],
 
                 'boxes.*.products.*.note' => [
-                    'string',
+                    'nullable',
+
+                    'string'
                 ],
 
                 'boxes.*.products.*.image' => [
