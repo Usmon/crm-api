@@ -471,15 +471,19 @@ final class Order extends Model
      */
     public function chargeBalance(): void
     {
-        $diff = $this->total_price_boxes - $this->sender->customer->balance;
+        $customer = $this->sender->customer;
+
+        $customer->balance += $this->payed_price;
+
+        $customer->update();
+
+        $diff = $this->total_price_boxes - $customer->balance;
 
         $this->price = $diff > 0 ? $diff : 0;
 
         $this->update();
 
-        $charge = abs($diff);
-
-        $customer = $this->sender->customer;
+        $charge = $customer->balance - $this->total_price_boxes;
 
         $customer->balance = $charge > 0 ? $charge : 0;
 
