@@ -72,6 +72,6 @@ final class LimitChecker
     {
         return Order::where($attribute, $value)
                     ->whereBetween('created_at', $this->quarter)
-                    ->sum('price_total');
+                    ->sum('price');
     }
 }
