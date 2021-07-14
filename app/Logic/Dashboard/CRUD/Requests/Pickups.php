@@ -196,7 +196,7 @@ final class Pickups extends FormRequest
                 ],
 
                 'boxes.*.note' => [
-                    'required',
+                    'nullable',
 
                     'string',
                 ],
@@ -240,7 +240,7 @@ final class Pickups extends FormRequest
                 ],
 
                 'boxes.*.products.*.note' => [
-                   // 'required',
+                    'nullable',
 
                     'string',
                 ],

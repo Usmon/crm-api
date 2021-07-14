@@ -148,7 +148,7 @@ final class Deliveries extends FormRequest
                 ],
 
                 'boxes.*.note' => [
-                    'required',
+                    'nullable',
 
                     'string',
                 ],
@@ -174,7 +174,7 @@ final class Deliveries extends FormRequest
                 'boxes.*.products.*.price' => [
                     'required',
 
-                    'integer',
+                    'numeric',
                 ],
 
                 'boxes.*.products.*.weight' => [
@@ -192,7 +192,7 @@ final class Deliveries extends FormRequest
                 ],
 
                 'boxes.*.products.*.note' => [
-                    'required',
+                    'nullable',
 
                     'string',
                 ],
@@ -236,7 +236,7 @@ final class Deliveries extends FormRequest
                 ],
 
                 'boxes.*.note' => [
-                    'required',
+                    'nullable',
 
                     'string',
                 ],
@@ -262,7 +262,7 @@ final class Deliveries extends FormRequest
                 'boxes.*.products.*.price' => [
                     'required',
 
-                    'integer',
+                    'numeric',
                 ],
 
                 'boxes.*.products.*.weight' => [
@@ -280,7 +280,7 @@ final class Deliveries extends FormRequest
                 ],
 
                 'boxes.*.products.*.note' => [
-                    'required',
+                    'nullable',
 
                     'string',
                 ],
