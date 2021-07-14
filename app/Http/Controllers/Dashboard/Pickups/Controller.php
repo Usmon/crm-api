@@ -14,7 +14,9 @@ use App\Logic\Dashboard\CRUD\Services\Pickups as PickupsService;
 
 use App\Logic\Dashboard\CRUD\Repositories\Pickups as PickupsRepository;
 
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 
 final class Controller extends Controllers
@@ -146,4 +148,49 @@ final class Controller extends Controllers
         ]);
     }
 
+
+    public function getEmptyTimes(PickupsRequest $request)
+    {
+        //Sorry for bad CODES
+
+        $date = $request->json('date');
+
+        $pickups = Pickup::whereDate('type->date->from', '=', $date)->get();
+        $times = [
+            '08',
+            '09',
+            '10',
+            '11',
+            '12',
+            '13',
+            '14',
+            '15',
+            '16',
+            '17',
+            '18',
+            '19',
+        ];
+        foreach ($pickups as $pickup) {
+            $hour = Carbon::parse($pickup->type['date']['from'])->format('H');
+            $exist = array_search($hour, $times);
+            if ($exist !== false) {
+                unset($times[$exist]);
+            }
+        }
+
+        $times = collect($times)->transform(function ($time) use($date) {
+            $formatted = Carbon::parse($date.' '.$time.':00');
+            $from = clone $formatted;
+            $formatted->addHour();
+            return [
+                'value' => $from->format('H:i').' - '.$formatted->format('H:i'),
+
+                'from' => $from->format('Y-m-d H:i:s'),
+
+                'to' => $formatted->format('Y-m-d H:i:s')
+            ];
+        });
+
+        return Json::sendJsonWith200(['times' => $times->values()]);
+    }
 }

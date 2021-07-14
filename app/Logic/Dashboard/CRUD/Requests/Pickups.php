@@ -307,6 +307,14 @@ final class Pickups extends FormRequest
                     Rule::exists('statuses', 'id'),
                 ],
             ],
+
+            'dashboard.pickup.check-time' => [
+                'date' => [
+                    'required',
+
+                    'date',
+                ]
+            ]
         ];
         return $rules[$this->route()->getName()];
     }
