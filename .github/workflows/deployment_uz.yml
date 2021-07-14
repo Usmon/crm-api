@@ -1,0 +1,27 @@
+name: sr-api CI/CD
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    name: sr-api deploy
+    runs-on: ubuntu-latest        
+    steps:
+    - name: Update sr-api
+      uses: appleboy/ssh-action@master
+      with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ~/sr-api
+            git pull origin main
+            
+    - name: Finished deployed, notify
+      run: |
+          curl --data-urlencode "text=${{secrets.BOT_UZ_MESSAGE}}${{ github.event.head_commit.message }} by <b>${{ github.event.pusher.name }}</b>" \
+              --data-urlencode "parse_mode=html" \
+              --data-urlencode "chat_id=${{secrets.CHAT_ID}}" \
+              https://api.telegram.org/bot${{secrets.BOT_TOKEN}}/sendMessage
