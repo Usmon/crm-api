@@ -191,7 +191,7 @@ final class Box extends Model
      */
     public function getTotalProductsAttribute(): float
     {
-        return $this->items()->count();
+        return $this->items()->sum('quantity');
     }
 
     /**
