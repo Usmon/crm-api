@@ -222,7 +222,7 @@ final class Pickups extends FormRequest
                 'boxes.*.products.*.price' => [
                     'required',
 
-                    'integer',
+                    'numeric',
                 ],
 
                 'boxes.*.products.*.weight' => [
@@ -240,7 +240,7 @@ final class Pickups extends FormRequest
                 ],
 
                 'boxes.*.products.*.note' => [
-                    'required',
+                   // 'required',
 
                     'string',
                 ],
