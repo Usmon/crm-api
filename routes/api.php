@@ -127,7 +127,7 @@ Route::name('app')->get('/', function () {
     return Json::sendJsonWith200([
         'app' => [
             'name' => config('app.name'),
-
+            'ci/cd' => 'tested',
             'version' => config('app.version'),
         ],
     ]);
