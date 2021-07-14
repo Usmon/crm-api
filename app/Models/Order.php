@@ -453,7 +453,7 @@ final class Order extends Model
     public function getTotalProductsAttribute(): int
     {
         return $this->boxes->map(function(Box $box) {
-            return $box->items->count();
+            return $box->items->sum('quantity');
         })->sum();
     }
 
