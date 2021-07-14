@@ -185,6 +185,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth:api','checkPermiss
     //Update single pickup status
     Route::put('pickups/status/{id}', [DashboardPickupsController::class, 'updateStatus'])->name('updatePickupStatus');
 
+    Route::get('pickups/free-list', [DashboardPickupsController::class, 'getEmptyTimes'])->name('pickup.check-time');
+
     //CRUD for
     Route::apiResource('pickups', DashboardPickupsController::class);
 
