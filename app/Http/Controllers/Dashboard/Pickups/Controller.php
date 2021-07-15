@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard\Pickups;
 
+use App\Models\Order;
 use App\Models\Pickup;
 
 use App\Helpers\Json;
@@ -153,9 +154,11 @@ final class Controller extends Controllers
     {
         //Sorry for bad CODES
 
-        $date = $request->json('date');
+        $date = $request->json('date') ?? $request->get('date');
+        $type = $request->json('type') ?? $request->get('type');
 
-        $pickups = Pickup::whereDate('type->date->from', '=', $date)->get();
+        $pickups = Order::whereDate('type->date->from', '=', $date)->where('type->index', '=', $type)->get();
+
         $times = [
             '08',
             '09',
@@ -170,6 +173,7 @@ final class Controller extends Controllers
             '18',
             '19',
         ];
+
         foreach ($pickups as $pickup) {
             $hour = Carbon::parse($pickup->type['date']['from'])->format('H');
             $exist = array_search($hour, $times);
