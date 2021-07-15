@@ -313,6 +313,14 @@ final class Pickups extends FormRequest
                     'required',
 
                     'date',
+                ],
+
+                'type' => [
+                    'required',
+
+                    'string',
+
+                    Rule::in(['pickup', 'fedex'])
                 ]
             ]
         ];
