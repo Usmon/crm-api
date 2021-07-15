@@ -112,13 +112,6 @@ final class Pickup extends Model
         'deleted_by',
     ];
 
-    /**
-     * @var array
-     */
-    protected $casts = [
-        'type' => 'array'
-    ];
-
     const STATUSES = [
         'pending',
 
