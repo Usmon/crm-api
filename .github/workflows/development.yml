@@ -2,7 +2,7 @@ name: SilkroadExp development CI/CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [ dev ]
 
 jobs:
   deploy:

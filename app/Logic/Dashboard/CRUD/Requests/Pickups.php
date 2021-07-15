@@ -196,7 +196,7 @@ final class Pickups extends FormRequest
                 ],
 
                 'boxes.*.note' => [
-                    'required',
+                    'nullable',
 
                     'string',
                 ],
@@ -222,7 +222,7 @@ final class Pickups extends FormRequest
                 'boxes.*.products.*.price' => [
                     'required',
 
-                    'integer',
+                    'numeric',
                 ],
 
                 'boxes.*.products.*.weight' => [
@@ -240,7 +240,7 @@ final class Pickups extends FormRequest
                 ],
 
                 'boxes.*.products.*.note' => [
-                    'required',
+                    'nullable',
 
                     'string',
                 ],
@@ -307,6 +307,22 @@ final class Pickups extends FormRequest
                     Rule::exists('statuses', 'id'),
                 ],
             ],
+
+            'dashboard.pickup.check-time' => [
+                'date' => [
+                    'required',
+
+                    'date',
+                ],
+
+                'type' => [
+                    'required',
+
+                    'string',
+
+                    Rule::in(['pickup', 'fedex'])
+                ]
+            ]
         ];
         return $rules[$this->route()->getName()];
     }

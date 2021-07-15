@@ -179,7 +179,7 @@ final class Orders
 
             'total_products' => $order->total_products,
 
-            'price_debt' => $order->price,
+            'price_debt' => $order->price_debt,
 
             'price_pickup' => $order->price_pickup,
 
@@ -193,9 +193,11 @@ final class Orders
 
             'price_insurance' => $order->price_insurance,
 
-            'price_total' => $order->price_total,
+            'price_total' => $order->total_price_boxes,
 
             'price_payed' => $order->payed_price,
+
+            'price_after_charge_balance' => $order->price,
 
             'price_discount' => $order->price_discount,
 
@@ -231,7 +233,7 @@ final class Orders
 
                     'total_weight' => $box->weight,
 
-                    'total_price' => $box->items->sum('price'),
+                    'total_price' => $box->total_price,
 
                     'note' => $box->note,
 

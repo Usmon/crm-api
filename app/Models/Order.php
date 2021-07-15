@@ -58,6 +58,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property double $price_pickup
  *
+ * @property double $price_debt
+ *
  * @property double $total_weight_boxes
  *
  * @property integer $total_delivered_boxes
@@ -88,7 +90,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property-read int $totalBoxes
  *
- * @property-read double totalWeightBoxes
+ * @property-read double $total_price_boxes
  *
  * @property-read HasOne $status
  *
@@ -393,11 +395,11 @@ final class Order extends Model
     }
 
     /**
-     * @return int
+     * @return float
      */
-    public function getTotalAdditionalWeightAttribute(): int
+    public function getTotalAdditionalWeightAttribute(): float
     {
-        return 0;
+        return $this->boxes()->sum('additional_weight');
     }
 
     /**
@@ -414,7 +416,13 @@ final class Order extends Model
      */
     public function getTotalPriceBoxesAttribute(): float
     {
-        return $this->boxes()->sum('price');
+        $sum = 0;
+        foreach ($this->boxes as $box) {
+            $sum += $box->total_price;
+
+        }
+
+        return (float) $sum;
     }
 
     /**
@@ -445,7 +453,7 @@ final class Order extends Model
     public function getTotalProductsAttribute(): int
     {
         return $this->boxes->map(function(Box $box) {
-            return $box->items->count();
+            return $box->items->sum('quantity');
         })->sum();
     }
 
@@ -455,7 +463,31 @@ final class Order extends Model
      */
     public function getPriceFedexAttribute(): float
     {
-        return (float) 0;
+        return $this->fedex_order->price ?? 0;
+    }
+
+    /**
+     * @return void
+     */
+    public function chargeBalance(): void
+    {
+        $customer = $this->sender->customer;
+
+        $customer->balance += $this->payed_price;
+
+        $customer->update();
+
+        $diff = $this->total_price_boxes - $customer->balance;
+
+        $this->price = $diff > 0 ? $diff : 0;
+
+        $this->update();
+
+        $charge = $customer->balance - $this->total_price_boxes;
+
+        $customer->balance = $charge > 0 ? $charge : 0;
+
+        $customer->update();
     }
 
     /**
@@ -463,7 +495,7 @@ final class Order extends Model
      */
     public function getPriceDiscountAttribute(): float
     {
-        return (float) 0;
+        return $this->staff->partner->discount_price;
     }
 
     /**

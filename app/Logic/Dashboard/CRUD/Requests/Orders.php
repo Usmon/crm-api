@@ -238,24 +238,24 @@ final class Orders extends FormRequest
                     'required'
                 ],
 
-                'type.date' => [
-                    'required'
-                ],
-
-                'type.date.from' => [
-                    'required'
-                ],
-
-                'type.date.to' => [
-                    'required'
-                ],
-
                 'type.index' => [
                     'required',
 
                     'string',
 
                     'in:pickup,fedex,self_delivery',
+                ],
+
+                'type.date' => [
+                    'required_if:type.index,pickup,fedex'
+                ],
+
+                'type.date.from' => [
+                    'required_if:type.index,pickup,fedex'
+                ],
+
+                'type.date.to' => [
+                    'required_if:type.index,pickup,fedex'
                 ],
 
                 'boxes' => [
@@ -303,7 +303,9 @@ final class Orders extends FormRequest
                 ],
 
                 'boxes.*.products.*.note' => [
-                    'string',
+                    'nullable',
+
+                    'string'
                 ],
 
                 'boxes.*.products.*.image' => [
