@@ -294,19 +294,19 @@ final class Pickups
 
                 'driver_full_name' => $pickup->driver->user->full_name,
 
-                'driver_phone' => $pickup->driver->user->phones[0]['phone'],
+                'driver_phone' => $pickup->driver->user->phones[0]['phone'] ?? '',
 
                 'driver_email' => $pickup->driver->user->email,
 
-                'driver_region' => $pickup->driver->user->addresses[0]['city']['region']['name'],
+                'driver_region' => $pickup->driver->user->addresses[0]['city']['region']['name'] ?? '',
 
-                'driver_city' => $pickup->driver->user->addresses[0]['city']['name'],
+                'driver_city' => $pickup->driver->user->addresses[0]['city']['name'] ?? '',
 
-                'driver_zip_code' => $pickup->driver->user->addresses[0]['city']['region']['zip_code'],
+                'driver_zip_code' => $pickup->driver->user->addresses[0]['city']['region']['zip_code'] ?? '',
 
-                'driver_address_line_1' => $pickup->driver->user->addresses[0]['first_address'],
+                'driver_address_line_1' => $pickup->driver->user->addresses[0]['first_address'] ?? '',
 
-                'driver_address_line_2' => $pickup->driver->user->addresses[0]['second_address'],
+                'driver_address_line_2' => $pickup->driver->user->addresses[0]['second_address'] ?? '',
 
                 'car_number' => $pickup->driver->car_number,
 

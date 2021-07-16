@@ -149,7 +149,11 @@ final class Controller extends Controllers
         ]);
     }
 
-
+    /**
+     * @param PickupsRequest $request
+     *
+     * @return JsonResponse
+     */
     public function getEmptyTimes(PickupsRequest $request)
     {
         //Sorry for bad CODES
