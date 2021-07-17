@@ -156,6 +156,8 @@ final class Boxes
 
                     'name' => $product->name,
 
+                    'note' => $product->note,
+
                     'weight' => $product->weight,
 
                     'price' => $product->price,
