@@ -224,15 +224,15 @@ final class Drivers
 
             'driver_email' => $driver->user->email,
 
-            'driver_region' => $driver->partner->city->region->name,
+            'driver_region' => $driver->partner->city->region->name ?? '',
 
-            'driver_city' => $driver->partner->city->name,
+            'driver_city' => $driver->partner->city->name ?? '',
 
-            'driver_zip_code' => $driver->partner->code,
+            'driver_zip_code' => $driver->partner->code ?? '',
 
-            'driver_address_line_1' => $driver->partner->address,
+            'driver_address_line_1' => $driver->partner->address ?? '',
 
-            'driver_address_line_2' => $driver->partner->address_additional,
+            'driver_address_line_2' => $driver->partner->address_additional ?? '',
 
             'car_number' => $driver->car_number,
 
