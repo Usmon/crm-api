@@ -159,7 +159,6 @@ final class Orders
                 'payment_status' => $order->payment_status->for_color,
 
                 'created_at' => $order->created_at,
-
             ];
         });
         return $paginator;
@@ -214,6 +213,8 @@ final class Orders
             'payment_status' => $order->payment_status->for_color,
 
             'sender' => $order->sender->customer->user->short_info,
+
+            'sender_balance' => $order->sender->customer->balance,
 
             'recipient' => $order->recipient->customer->user->short_info,
 
