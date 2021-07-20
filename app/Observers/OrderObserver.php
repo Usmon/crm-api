@@ -84,6 +84,19 @@ final class OrderObserver
         $order->payment_type_id = $order->payment_type_id ?? [];
 
         $order->deleted_at = $order->deleted_at ?? null;
+
+        if($order->price_total > $order->payed_price)
+        {
+            $order->price_debt = $order->price_total - $order->payed_price;
+
+            $order->price_additional = 0;
+        }
+        else
+        {
+            $order->price_additional = $order->payed_price - $order->price_total;
+
+            $order->price_debt = 0;
+        }
     }
 
     /**
