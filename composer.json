@@ -8,6 +8,7 @@
         "ext-json": "*",
         "ext-pdo": "*",
         "doctrine/dbal": "^3.0",
+        "dyrynda/laravel-cascade-soft-deletes": "^4.1",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "grofgraf/laravel-pdf-merger": "^1.0",
