@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Dyrynda\Database\Support\CascadeSoftDeletes;
+
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -116,6 +118,7 @@ final class Order extends Model
     use Sorter;
     use HasFactory;
     use SoftDeletes;
+    use CascadeSoftDeletes;
 
     /**
      * @var string STATUS_PAYMENT
@@ -126,6 +129,11 @@ final class Order extends Model
      * @var string
      */
     protected $table = 'orders';
+
+    /**
+     * @var string[]
+     */
+    protected $cascadeDeletes = ['boxes'];
 
     /**
      * @var array
