@@ -144,9 +144,11 @@ final class Orders
             unset($credentials['payment_type_id']);
         }
 
+        $order->price = $order->total_price_boxes;
+
         $order->update($credentials);
 
-        return $order;
+        return $order->refresh();
     }
 
     /**
