@@ -104,13 +104,13 @@ final class Users extends FormRequest
                 ],
 
                 'profile' => [
-                    'required',
+                    'nullable',
 
                     'array',
                 ],
 
                 'profile.first_name' => [
-                    'required',
+                    'nullable',
 
                     'string',
 
@@ -118,7 +118,7 @@ final class Users extends FormRequest
                 ],
 
                 'profile.middle_name' => [
-                    'required',
+                    'nullable',
 
                     'string',
 
@@ -126,7 +126,7 @@ final class Users extends FormRequest
                 ],
 
                 'profile.last_name' => [
-                    'required',
+                    'nullable',
 
                     'string',
 
@@ -192,13 +192,13 @@ final class Users extends FormRequest
                 ],
 
                 'profile' => [
-                    'required',
+                    ' nullable',
 
                     'array',
                 ],
 
                 'profile.first_name' => [
-                    'required',
+                    'nullable',
 
                     'string',
 
@@ -206,7 +206,7 @@ final class Users extends FormRequest
                 ],
 
                 'profile.middle_name' => [
-                    'required',
+                    'nullable',
 
                     'string',
 
@@ -214,7 +214,7 @@ final class Users extends FormRequest
                 ],
 
                 'profile.last_name' => [
-                    'required',
+                    'nullable',
 
                     'string',
 
