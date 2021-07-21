@@ -114,6 +114,8 @@ final class Users
     public function storeCredentials(UsersRequest $request): array
     {
         return [
+            'full_name' => $request->json('full_name'),
+
             'login' => $request->json('login'),
 
             'email' => $request->json('email'),
@@ -134,6 +136,8 @@ final class Users
     public function updateCredentials(UsersRequest $request): array
     {
         $credentials = [
+            'full_name' => $request->json('full_name'),
+
             'login' => $request->json('login'),
 
             'email' => $request->json('email'),
