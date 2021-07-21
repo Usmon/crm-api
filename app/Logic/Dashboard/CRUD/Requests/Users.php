@@ -69,6 +69,14 @@ final class Users extends FormRequest
             ],
 
             'dashboard.users.store' => [
+                'full_name' => [
+                    'required',
+
+                    'string',
+
+                    'max:100'
+                ],
+
                 'login' => [
                     'required',
 
@@ -157,6 +165,14 @@ final class Users extends FormRequest
             ],
 
             'dashboard.users.update' => [
+                'full_name' => [
+                    'required',
+
+                    'string',
+
+                    'max:100'
+                ],
+
                 'login' => [
                     'required',
 
