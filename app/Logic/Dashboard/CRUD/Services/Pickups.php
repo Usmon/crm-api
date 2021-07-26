@@ -180,7 +180,7 @@ final class Pickups
 
                     'total_weight' => $box->items()->sum('weight'),
 
-                    'total_price' => $box->items()->sum('price'),
+                    'total_price' => $box->total_price,
 
                     'note' => $box->note,
 
@@ -337,7 +337,7 @@ final class Pickups
 
                     'total_products' => $box->items()->count(),
 
-                    'total_price' => $box->items()->sum('price'),
+                    'total_price' => $box->total_price,
 
                     'note' => $box->note,
 
