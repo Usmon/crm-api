@@ -250,8 +250,6 @@ final class Shipment extends Model
             return $query->whereBetween('created_at', $date);
         })->when($filters['name'] ?? null, function (Builder $query, string $name) {
             return $query->where('name', 'like', '%'. $name .'%');
-        })->when($filters['status'] ?? null, function (Builder $query, string $status) {
-            return $query->where('status', 'like', '%'. $status .'%');
         });
     }
 }
