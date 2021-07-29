@@ -219,11 +219,12 @@ final class Box extends Model
     }
 
     /**
-     * @return Sender
+     * @return Customer
      */
-    public function getSenderAttribute(): Sender
+    public function getSenderAttribute(): Customer
     {
-        return $this->order ? $this->order->sender : $this->pickup->sender;
+        return $this->order ? $this->order->sender->customer :
+                ($this->pickup ? $this->pickup->sender->customer : $this->delivery->recipient->customer);
     }
 
     /**
