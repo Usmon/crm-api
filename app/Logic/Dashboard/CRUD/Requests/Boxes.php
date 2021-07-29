@@ -274,7 +274,7 @@ final class Boxes extends FormRequest
                 ],
 
                 'note' => [
-                    'required',
+                    'nullable',
 
                     'string',
                 ],
@@ -318,7 +318,7 @@ final class Boxes extends FormRequest
                 ],
 
                 'products.*.note' => [
-                    'required',
+                    'nullable',
 
                     'string',
                 ],
