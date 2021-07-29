@@ -279,9 +279,9 @@ final class Boxes
                 'customer' => [
                     'id' => $box->sender->id,
 
-                    'image' => $box->customer->user['profile']['photo'],
+                    'image' => $box->sender->user['profile']['photo'] ?? null,
 
-                    'name' => $box->customer->user->full_name,
+                    'name' => $box->sender->user->full_name ?? null,
                 ],
 
                 'total_products' => $box->items()->count(),
