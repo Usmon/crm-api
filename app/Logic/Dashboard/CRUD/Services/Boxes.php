@@ -277,11 +277,11 @@ final class Boxes
                 ],
 
                 'customer' => [
-                    'id' => $box->order->sender->id,
+                    'id' => $box->sender->id,
 
-                    'image' => $box->order->sender->customer->user['profile']['photo'],
+                    'image' => $box->sender->customer->user['profile']['photo'],
 
-                    'name' => $box->order->sender->customer->user->full_name,
+                    'name' => $box->sender->customer->user->full_name,
                 ],
 
                 'total_products' => $box->items()->count(),
@@ -320,11 +320,11 @@ final class Boxes
                 ],
 
                 'customer' => [
-                    'id' => $box->order->sender->id,
+                    'id' => $box->sender->id ?? $box->shipment->sender->id,
 
-                    'image' => $box->order->sender->customer->user['profile']['photo'],
+                    'image' => $box->sender->customer->user['profile']['photo'],
 
-                    'name' => $box->order->sender->customer->user->full_name,
+                    'name' => $box->sender->customer->user->full_name,
                 ],
 
                 'total_products' => $box->items()->count(),
