@@ -287,15 +287,15 @@ final class Deliveries
 
                 'driver_email' => $delivery->driver->user->email,
 
-                'driver_region' => $delivery->driver->user->addresses[0]['city']['region']['name'],
+                'driver_region' => $delivery->driver->user->addresses[0]['city']['region']['name'] ?? '',
 
-                'driver_city' => $delivery->driver->user->addresses[0]['city']['name'],
+                'driver_city' => $delivery->driver->user->addresses[0]['city']['name'] ?? '',
 
-                'driver_zip_code' => $delivery->driver->user->addresses[0]['city']['region']['zip_code'],
+                'driver_zip_code' => $delivery->driver->user->addresses[0]['city']['region']['zip_code'] ?? '',
 
-                'driver_address_line_1' => $delivery->driver->user->addresses[0]['first_address'],
+                'driver_address_line_1' => $delivery->driver->user->addresses[0]['first_address'] ?? '',
 
-                'driver_address_line_2' => $delivery->driver->user->addresses[0]['second_address'],
+                'driver_address_line_2' => $delivery->driver->user->addresses[0]['second_address'] ?? '',
 
                 'car_number' => $delivery->driver->car_number,
 
