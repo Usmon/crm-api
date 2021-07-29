@@ -219,6 +219,14 @@ final class Box extends Model
     }
 
     /**
+     * @return Sender
+     */
+    public function getSenderAttribute(): Sender
+    {
+        return $this->order->sender ?? $this->pickup->sender;
+    }
+
+    /**
      * @return HasMany
      */
     public function histories(): HasMany
