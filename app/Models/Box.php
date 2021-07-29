@@ -224,7 +224,7 @@ final class Box extends Model
     public function getSenderAttribute(): Customer
     {
         return $this->order ? $this->order->sender->customer :
-                ($this->pickup ? $this->pickup->sender->customer : $this->delivery->recipient->customer);
+                ($this->pickup ? $this->pickup->sender->customer : ($this->delivery ? $this->delivery->recipient->customer : new Customer()));
     }
 
     /**
