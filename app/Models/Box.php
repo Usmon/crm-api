@@ -223,7 +223,7 @@ final class Box extends Model
      */
     public function getSenderAttribute(): Sender
     {
-        return $this->order->sender ?? $this->pickup->sender;
+        return $this->order ? $this->order->sender : $this->pickup->sender;
     }
 
     /**
