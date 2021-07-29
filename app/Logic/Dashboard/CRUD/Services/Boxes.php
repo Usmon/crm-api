@@ -320,11 +320,11 @@ final class Boxes
                 ],
 
                 'customer' => [
-                    'id' => $box->sender->id,
+                    'id' => $box->sender->id ?? null,
 
-                    'image' => $box->sender->user['profile']['photo'],
+                    'image' => $box->sender->user['profile']['photo'] ?? null,
 
-                    'name' => $box->sender->user->full_name,
+                    'name' => $box->sender->user->full_name ?? null,
                 ],
 
                 'total_products' => $box->items()->count(),
