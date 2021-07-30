@@ -77,6 +77,6 @@ class ReportService
 
                 'status' => $pickup->status->for_color
             ];
-        })->groupBy('group')->reverse();
+        });
     }
 }
