@@ -11,7 +11,9 @@ use App\Models\Delivery;
 
 use App\Models\Shipment;
 
+use App\Models\Status;
 use Illuminate\Support\Facades\DB;
+use function Composer\Autoload\includeFile;
 
 /**
  * Class ReportRepository
@@ -56,5 +58,29 @@ class ReportRepository
 
             'pickups' => $pickups
         ];
+    }
+
+    /**
+     * @param array $date
+     *
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function pickupCalendarReport(array $date)
+    {
+        return Pickup::query()
+                       ->whereRaw('DATE(json_unquote(json_extract(`type`, \'$.date.from\'))) >= ? AND DATE(json_unquote(json_extract(`type`, \'$.date.to\'))) <= ?', $date)
+                       ->get();
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return \Illuminate\Database\Eloquent\HigherOrderBuilderProxy|mixed|null
+     */
+    private function getStatusIdByKey(string $key)
+    {
+        $status = Status::query()->where('key', '=', $key)->first();
+
+        return $status ? $status->id : null;
     }
 }

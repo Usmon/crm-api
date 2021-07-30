@@ -420,6 +420,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth:api','checkPermiss
 
     Route::group(['prefix' => 'reports', 'as' => 'reports.'], function() {
         Route::get('user-profile', [ReportController::class, 'userProfile'])->name('user-profile');
+
+        Route::get('pickup-calendar', [ReportController::class, 'pickupCalendar'])->name('pickup-calendar');
     });
 });
 

@@ -33,6 +33,21 @@ final class ReportRequest extends FormRequest
 
                     'after:date.from'
                 ],
+            ],
+
+            'dashboard.reports.pickup-calendar' => [
+                'date.from' => [
+                    'required',
+
+                    'date'
+                ],
+                'date.to' => [
+                    'required',
+
+                    'date',
+
+                    'after:date.from'
+                ],
             ]
         ];
 
