@@ -120,6 +120,10 @@ final class Pickup extends Model
         'at_the_office',
     ];
 
+    protected $casts = [
+        'type' => 'array'
+    ];
+
     /**
      * @return HasOne
      */

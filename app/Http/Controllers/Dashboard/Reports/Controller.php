@@ -48,4 +48,16 @@ final class Controller extends AbstractController
             'report' => $this->repository->corporateUserReport($this->service->getUserCredentials($request))
         ]);
     }
+
+    /**
+     * @param ReportRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function pickupCalendar(ReportRequest $request): JsonResponse
+    {
+        return Json::sendJsonWith200([
+            'pickups' => $this->service->getPickupCalendarData($this->repository->pickupCalendarReport($this->service->getPickupCalendarFilter($request)))
+        ]);
+    }
 }
