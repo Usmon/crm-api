@@ -96,9 +96,9 @@ final class Pickups
                 'status' => $pickup->status->for_color,
 
                 'range' => [
-                    'from' => json_decode($pickup['type'])->date->from,
+                    'from' => $pickup->type['date']['from'],
 
-                    'to' => json_decode($pickup['type'])->date->to,
+                    'to' => $pickup->type['date']['to'],
                 ],
 
                 'sender' => [
@@ -316,12 +316,12 @@ final class Pickups
             ],
 
             'type' => [
-                'index' => json_decode($pickup->type)->index,
+                'index' => $pickup->type['index'],
 
                 'date' => [
-                    'from' =>  json_decode($pickup->type)->date->from,
+                    'from' =>  $pickup->type['date']['from'],
 
-                    'to' =>  json_decode($pickup->type)->date->to,
+                    'to' =>  $pickup->type['date']['to'],
                 ],
             ],
 
