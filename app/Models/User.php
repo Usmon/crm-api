@@ -312,6 +312,8 @@ final class User extends Auth
                     ->orWhere('email', 'like', '%' . $search . '%')
                     ->orWhere('full_name', 'like', '%' . $search . '%');
             });
+        })->when($filters['username'] ?? null, function (Builder $query, string $username) {
+            return $query->where('login', 'like', '%'.$username.'%');
         })->when($filters['date'] ?? null, function (Builder $query, array $date) {
             return $query->whereBetween('created_at', $date);
         })->when($filters['only_corporate'] ?? null, function (Builder $query, bool $only_corporate) {
