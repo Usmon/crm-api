@@ -31,6 +31,14 @@ final class Users extends FormRequest
                     'max:255',
                 ],
 
+                "username" => [
+                    'nullable',
+
+                    'string',
+
+                    'max:100'
+                ],
+
                 'date' => [
                     'nullable',
 

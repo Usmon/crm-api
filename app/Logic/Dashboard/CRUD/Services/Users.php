@@ -24,6 +24,8 @@ final class Users
         return [
             'search' => $request->json('search'),
 
+            'username' => $request->json('username'),
+
             'date' => $request->json('date'),
 
             'role' => $request->json('role'),
@@ -39,7 +41,7 @@ final class Users
      */
     public function getOnlyFilters(UsersRequest $request): array
     {
-        return $request->only('search', 'date', 'role', 'only_corporate');
+        return $request->only('search', 'date', 'role', 'only_corporate', 'username');
     }
 
     /**
